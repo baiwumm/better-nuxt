@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: 'Maple Mono CN','Public Sans', sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-sans) !important;
+}

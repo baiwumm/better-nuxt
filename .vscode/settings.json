@@ -14,5 +14,16 @@
   "eslint.validate": ["javascript", "typescript", "vue"],
 
   // 防止被其他 formatter 抢走
-  "editor.defaultFormatter": null
+  "editor.defaultFormatter": null,
+
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }

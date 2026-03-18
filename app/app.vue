@@ -1,5 +1,28 @@
+<script setup lang="ts">
+import * as locales from '@nuxt/ui/locale'
+
+const { locale } = useI18n()
+
+const localeMap = {
+  'en': 'en',
+  'zh-CN': 'zh_cn',
+} as const
+
+const uiLocale = computed(() => locales[localeMap[locale.value]])
+
+const lang = computed(() => uiLocale.value.code)
+const dir = computed(() => uiLocale.value.dir)
+
+useHead({
+  htmlAttrs: {
+    lang,
+    dir,
+  },
+})
+</script>
+
 <template>
-  <UApp>
+  <UApp :locale="uiLocale">
     <NuxtLoadingIndicator />
     <NuxtLayout>
       <NuxtPage />

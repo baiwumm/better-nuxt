@@ -1,5 +1,8 @@
 <template>
   <div>
-    <UButton>控制台</UButton>
+    <UButton>{{ $t('pages.dashboard.title') }}</UButton>
+    <ClientOnly>
+      <LocaleSelect />
+    </ClientOnly>
   </div>
 </template>

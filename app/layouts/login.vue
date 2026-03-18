@@ -22,8 +22,11 @@ const isDark = computed({
         :hover-fill-color="isDark ? '#2C2C2C' : '#B0B0B0'"
       />
     </div>
-    <div class="fixed z-1 top-5 right-5">
+    <div class="fixed z-1 top-5 right-5 flex gap-2 items-center">
       <UColorModeButton />
+      <ClientOnly>
+        <LocaleSelect />
+      </ClientOnly>
     </div>
     <slot />
   </div>

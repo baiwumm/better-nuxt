@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
+import '@bprogress/core/css'
 
 const { locale } = useI18n()
 
@@ -22,7 +23,7 @@ useHead({
 </script>
 
 <template>
-  <UApp :locale="uiLocale">
+  <UApp :locale="uiLocale" :toaster="{ position: 'top-center', duration: 2000 }">
     <NuxtLoadingIndicator />
     <NuxtLayout>
       <NuxtPage />

@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      apiBase: '/api', // 后端接口前缀
+    },
+  },
   app: {
     head: {
       link: [
@@ -13,7 +18,13 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
-  modules: ['@nuxt/ui', '@nuxtjs/i18n'],
+  modules: [
+    '@nuxt/ui',
+    '@nuxtjs/i18n',
+    'dayjs-nuxt',
+    '@bubblesortt/nuxt-es-toolkit',
+    'nuxt-resend',
+  ],
   css: ['~/assets/css/main.css'],
   ui: {
     fonts: false,

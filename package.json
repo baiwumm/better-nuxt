@@ -24,9 +24,17 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.5.5",
+    "@bprogress/core": "^1.3.4",
+    "@neondatabase/serverless": "^1.0.2",
     "@nuxt/ui": "^4.5.1",
     "@nuxtjs/i18n": "10.2.3",
+    "better-auth": "^1.5.5",
+    "dayjs-nuxt": "2.1.11",
+    "drizzle-orm": "^0.45.1",
+    "enum-plus": "^3.1.8",
     "nuxt": "^4.4.2",
+    "nuxt-resend": "0.0.2",
     "tailwindcss": "^4.2.1",
     "vue": "^3.5.30",
     "vue-router": "^5.0.3",
@@ -34,8 +42,11 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.7.3",
+    "@bubblesortt/nuxt-es-toolkit": "1.0.10",
     "@release-it/conventional-changelog": "^10.0.6",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^10.0.3",
-    "release-it": "^19.2.4"
+    "release-it": "^19.2.4",
+    "tsx": "^4.21.0"
   }
 }

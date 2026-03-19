@@ -24,10 +24,20 @@ useHead({
 
 <template>
   <UApp :locale="uiLocale" :toaster="{ position: 'top-center', duration: 2000 }">
-    <NuxtLoadingIndicator />
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <UTheme
+      :ui="{
+        button: {
+          base: 'cursor-pointer',
+        },
+      }"
+    >
+      <NuxtLoadingIndicator />
+      <UMain>
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+      </UMain>
+    </UTheme>
   </UApp>
 </template>
 

@@ -11,3 +11,12 @@ export const RESPONSE_CODE = Enum({
   NOT_FOUND: { value: 404, label: '资源不存在' },
   SERVER_ERROR: { value: 500, label: '服务器错误' },
 })
+
+/**
+ * @description: OAuth Provides
+ */
+export const OAUTH_PROVIDES = Enum({
+  WECHAT: { value: 'wechat', label: 'Wechat', icon: 'simple-icons:wechat' },
+  GITHUB: { value: 'github', label: 'Github', icon: 'simple-icons:github' },
+  GOOGLE: { value: 'google', label: 'Google', icon: 'material-icon-theme:google' },
+})

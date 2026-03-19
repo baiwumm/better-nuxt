@@ -12,7 +12,7 @@ const isDark = computed({
 </script>
 
 <template>
-  <div class="w-screen min-h-screen overflow-hidden flex justify-center items-center">
+  <div class="w-screen min-h-screen overflow-hidden flex justify-center items-center p-4">
     <div class="fixed inset-0 z-0">
       <Squares
         direction="diagonal"

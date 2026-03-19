@@ -30,6 +30,7 @@
     "@nuxt/ui": "^4.5.1",
     "@nuxtjs/i18n": "10.2.3",
     "better-auth": "^1.5.5",
+    "dayjs": "^1.11.20",
     "dayjs-nuxt": "2.1.11",
     "drizzle-orm": "^0.45.1",
     "enum-plus": "^3.1.8",

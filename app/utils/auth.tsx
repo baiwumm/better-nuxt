@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-19 15:48:31
+ * @LastEditTime: 2026-03-20 18:02:25
  * @Description: BetterAuth 实例
  */
 import { betterAuth } from 'better-auth'
@@ -32,12 +32,20 @@ export const auth = betterAuth({
         from: 'NuxtProMax <no-reply@baiwumm.com>',
         to: user.email,
         subject: '验证您的电子邮件地址',
-        react:(
-          <div>
-            <p>{`Hello ${name},`}</p>
-            <p>点击此链接以验证您的电子邮件：<a href={url}>{url}</a></p>
-          </div>
-        )
+        html: `
+            <div style="font-family: Arial;">
+              <h2>Hi ${name}</h2>
+              <p>点击按钮验证邮箱：</p>
+              <a href="${url}" style="
+                padding:10px 16px;
+                background:#000;
+                color:#fff;
+                text-decoration:none;
+              ">
+                验证邮箱
+              </a>
+            </div>
+          `
       })
     },
     sendOnSignIn: true,

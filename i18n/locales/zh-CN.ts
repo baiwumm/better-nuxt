@@ -1,29 +1,49 @@
+import { placeholder } from 'drizzle-orm'
+
 export default defineI18nLocale(async () => {
   return {
-    pages: {
+    auth: {
       login: {
         title: '用户登录',
         description: '请在下方输入您的电子邮件，以登录您的账户',
-        submit: '登录',
-        email: {
-          label: '邮箱',
-          placeholder: '请输入邮箱',
-          error: '请输入有效的电子邮件地址',
-        },
-        password: {
-          label: '密码',
-          placeholder: '请输入密码',
-          error: '密码长度不能小于 8 个字符',
-          forgot: '忘记密码？',
-        },
         rememberMe: '记住我',
-        signUp: '立即注册',
-        signUpText: '还没有账户吗？',
+        submit: '登录',
+        footer: '还没有账户吗？',
+        footerLink: '立即注册',
         error: '登录失败',
+      },
+      signUp: {
+        title: '用户注册',
+        description: '输入您的信息以创建账户',
+        submit: '创建账户',
+        footer: '已经有账号了吗？',
+        footerLink: '立即登录',
+        error: '注册失败',
+        verifyEmailSent: '验证邮件已发送',
+        verifyEmailSentDesc: '请检查收件箱（或垃圾邮箱）并完成验证。',
+      },
+      name: {
+        label: '用户名',
+        placeholder: '请输入用户名',
+      },
+      email: {
+        label: '邮箱',
+        placeholder: '请输入邮箱',
+        error: '请输入有效的电子邮件地址',
+      },
+      password: {
+        label: '密码',
+        placeholder: '请输入密码',
+        error: '密码长度不能小于 8 个字符',
+        forgot: '忘记密码？',
+      },
+      provide: {
         wechat: '微信',
         github: 'Github',
         google: '谷歌',
       },
+    },
+    pages: {
       dashboard: {
         title: '控制台',
       },

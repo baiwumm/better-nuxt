@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
 import z from 'zod'
+import EmailInput from '../components/EmailInput.vue'
 import LoginProvides from '../components/LoginProvides.vue'
+import PasswordInput from '../components/PasswordInput.vue'
+import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
   layout: 'login',
@@ -12,7 +15,6 @@ const { $authClient } = useNuxtApp()
 const toast = useToast()
 
 const loading = ref(false)
-const show = ref(false)
 
 const schema = z.object({
   email: z.email($t('auth.email.error')),
@@ -64,35 +66,16 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         }"
       >
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-          <UFormField :label="$t('auth.email.label')" name="email" required>
-            <UInput v-model="state.email" :placeholder="$t('auth.email.placeholder')" class="w-full" />
-          </UFormField>
-
-          <UFormField :label="$t('auth.password.label')" name="password" required>
-            <UInput v-model="state.password" :type="show ? 'text' : 'password'" :placeholder="$t('auth.password.placeholder')" class="w-full">
-              <template #trailing>
-                <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  :icon="show ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-                  :aria-label="show ? 'Hide password' : 'Show password'"
-                  :aria-pressed="show"
-                  aria-controls="password"
-                  @click="show = !show"
-                />
-              </template>
-            </UInput>
+          <EmailInput v-model="state.email" />
+          <PasswordInput v-model="state.password">
             <template #hint>
               <ULink as="button">
                 {{ $t('auth.password.forgot') }}
               </ULink>
             </template>
-          </UFormField>
+          </PasswordInput>
           <UCheckbox v-model="state.rememberMe" name="rememberMe" :label="$t('auth.login.rememberMe')" />
-          <UButton type="submit" icon="ri:check-fill" :loading class="w-full justify-center">
-            {{ $t('auth.login.submit') }}
-          </UButton>
+          <SubmitButton :text="$t('auth.login.submit')" :loading="loading" />
         </UForm>
         <USeparator label="or" />
         <LoginProvides />

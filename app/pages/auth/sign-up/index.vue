@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
 import z from 'zod'
+import EmailInput from '../components/EmailInput.vue'
 import LoginProvides from '../components/LoginProvides.vue'
+import PasswordInput from '../components/PasswordInput.vue'
+import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
   layout: 'login',
@@ -11,7 +14,6 @@ const toast = useToast()
 const { $authClient } = useNuxtApp()
 
 const loading = ref(false)
-const show = ref(false)
 const formRef = useTemplateRef('formRef')
 
 const schema = z.object({
@@ -85,30 +87,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
           <UFormField :label="$t('auth.name.label')" name="name" required>
             <UInput v-model="state.name" :placeholder="$t('auth.name.placeholder')" class="w-full" />
           </UFormField>
-
-          <UFormField :label="$t('auth.email.label')" name="email" required>
-            <UInput v-model="state.email" :placeholder="$t('auth.email.placeholder')" class="w-full" />
-          </UFormField>
-
-          <UFormField :label="$t('auth.password.label')" name="password" required>
-            <UInput v-model="state.password" :type="show ? 'text' : 'password'" :placeholder="$t('auth.password.placeholder')" class="w-full">
-              <template #trailing>
-                <UButton
-                  color="neutral"
-                  variant="link"
-                  size="sm"
-                  :icon="show ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-                  :aria-label="show ? 'Hide password' : 'Show password'"
-                  :aria-pressed="show"
-                  aria-controls="password"
-                  @click="show = !show"
-                />
-              </template>
-            </UInput>
-          </UFormField>
-          <UButton type="submit" icon="ri:check-fill" :loading class="w-full justify-center">
-            {{ $t('auth.signUp.submit') }}
-          </UButton>
+          <EmailInput v-model="state.email" />
+          <PasswordInput v-model="state.password" />
+          <SubmitButton :text="$t('auth.signUp.submit')" :loading="loading" />
         </UForm>
         <USeparator label="or" />
         <LoginProvides />

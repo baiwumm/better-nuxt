@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/baiwumm/nuxt-pro-max/compare/1.1.0...1.2.0) (2026-03-24)
+
+### ✨ Features | 新功能
+
+* **forgot-password:** 新增《忘记密码》页面 ([9eab50a](https://github.com/baiwumm/nuxt-pro-max/commit/9eab50ae9422a4e156e7a290b4740691d96f58dd))
+* **MagicLink:** 新增邮箱链接登录功能 ([c483f62](https://github.com/baiwumm/nuxt-pro-max/commit/c483f62ee1ae87e54e8a0f4e4eb504a84110405d))
+* **reset-password:** 新增《重置密码》页面 ([dad452b](https://github.com/baiwumm/nuxt-pro-max/commit/dad452b623922ffad284f015ac693a1633084041))
+
+### ⚡ Performance Improvements | 性能优化
+
+* **auth:** 整理文件结构 ([5f21c74](https://github.com/baiwumm/nuxt-pro-max/commit/5f21c740c875154bcec8e493fb43990d76ac92de))
+* Login 页面迁移到 Sign In ([9df064d](https://github.com/baiwumm/nuxt-pro-max/commit/9df064dbe0970b68bef9f63ca44e0e2342f6a683))
+
 ## [1.1.0](https://github.com/baiwumm/nuxt-pro-max/compare/1.0.0...1.1.0) (2026-03-23)
 
 ### ✨ Features | 新功能

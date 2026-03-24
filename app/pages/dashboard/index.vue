@@ -12,7 +12,7 @@ async function signOut() {
   await $authClient.signOut({
     fetchOptions: {
       onSuccess: () => {
-        router.push('/auth/login')
+        router.push('/auth/sign-in')
       },
     },
   }).finally(() => {

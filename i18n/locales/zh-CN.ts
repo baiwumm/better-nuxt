@@ -1,7 +1,7 @@
 export default defineI18nLocale(async () => {
   return {
     auth: {
-      login: {
+      signIn: {
         title: '用户登录',
         description: '请在下方输入您的电子邮件，以登录您的账户',
         rememberMe: '记住我',

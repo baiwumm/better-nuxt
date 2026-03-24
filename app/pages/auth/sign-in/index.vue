@@ -59,8 +59,8 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   <div>
     <ClientOnly>
       <UPageCard
-        :title="$t('auth.login.title')"
-        :description="$t('auth.login.description')"
+        :title="$t('auth.signIn.title')"
+        :description="$t('auth.signIn.description')"
         class="w-full sm:w-md"
         :ui="{
           title: 'text-xl',
@@ -76,13 +76,13 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
               </ULink>
             </template>
           </PasswordInput>
-          <UCheckbox v-model="state.rememberMe" name="rememberMe" :label="$t('auth.login.rememberMe')" />
-          <SubmitButton :text="$t('auth.login.submit')" :loading="loading" />
+          <UCheckbox v-model="state.rememberMe" name="rememberMe" :label="$t('auth.signIn.rememberMe')" />
+          <SubmitButton :text="$t('auth.signIn.submit')" :loading="loading" />
           <MagicLinkButton />
         </UForm>
         <USeparator label="or" />
         <LoginProvides />
-        <FooterLink :left-text="$t('auth.login.footer')" :right-text="$t('auth.login.footerLink')" to="/auth/sign-up" />
+        <FooterLink :left-text="$t('auth.signIn.footer')" :right-text="$t('auth.signIn.footerLink')" to="/auth/sign-up" />
       </UPageCard>
     </ClientOnly>
   </div>

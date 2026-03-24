@@ -70,7 +70,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
           <EmailInput v-model="state.email" />
           <SubmitButton :text="$t('auth.magicLink.submit')" :loading="loading" />
-          <NuxtLink to="/auth/login">
+          <NuxtLink to="/auth/sign-in">
             <UButton
               type="submit"
               icon="ri:lock-line"
@@ -84,7 +84,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         </UForm>
         <USeparator label="or" />
         <LoginProvides />
-        <FooterLink :left-text="$t('auth.login.footer')" :right-text="$t('auth.login.footerLink')" to="/auth/sign-up" />
+        <FooterLink :left-text="$t('auth.signIn.footer')" :right-text="$t('auth.signIn.footerLink')" to="/auth/sign-up" />
       </UPageCard>
     </ClientOnly>
   </div>

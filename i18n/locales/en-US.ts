@@ -1,7 +1,7 @@
 export default defineI18nLocale(async () => {
   return {
     auth: {
-      login: {
+      signIn: {
         title: 'Sign In',
         description: 'Enter your email below to login to your account',
         rememberMe: 'Remember Me',

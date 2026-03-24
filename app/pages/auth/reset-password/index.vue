@@ -51,7 +51,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       color: 'success',
     })
     Object.assign(state, { newPassword: '' })
-    navigateTo('/auth/login')
+    navigateTo('/auth/sign-in')
   }
 }
 </script>

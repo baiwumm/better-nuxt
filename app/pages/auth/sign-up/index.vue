@@ -96,7 +96,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         </UForm>
         <USeparator label="or" />
         <LoginProvides />
-        <FooterLink :left-text="$t('auth.signUp.footer')" :right-text="$t('auth.signUp.footerLink')" to="/auth/login" />
+        <FooterLink :left-text="$t('auth.signUp.footer')" :right-text="$t('auth.signUp.footerLink')" to="/auth/sign-in" />
       </UPageCard>
     </ClientOnly>
   </div>

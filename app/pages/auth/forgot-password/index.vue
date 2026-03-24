@@ -75,7 +75,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         </UForm>
         <USeparator label="or" />
         <LoginProvides />
-        <NuxtLink to="/auth/login">
+        <NuxtLink to="/auth/sign-in">
           <UButton
             type="submit"
             color="neutral"

@@ -82,6 +82,7 @@ export default defineI18nLocale(async () => {
     },
     common: {
       requestError: '请求失败，请稍后重试',
+      loading: '加载中...',
     },
   }
 })

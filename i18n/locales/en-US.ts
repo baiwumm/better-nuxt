@@ -83,6 +83,7 @@ export default defineI18nLocale(async () => {
     },
     common: {
       requestError: 'Request failed. Please try again later',
+      loading: 'Loading...',
     },
   }
 })

@@ -85,5 +85,6 @@ async function signOut() {
         <span class="text-xs text-muted">Extra Large</span>
       </div>
     </div>
+    <LoadingContent />
   </div>
 </template>

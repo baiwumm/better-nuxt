@@ -7,7 +7,7 @@ import PasswordInput from '../components/PasswordInput.vue'
 import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
-  layout: 'login',
+  layout: 'auth',
 })
 
 const { $authClient } = useNuxtApp()
@@ -69,7 +69,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
           <EmailInput v-model="state.email" />
           <PasswordInput v-model="state.password">
             <template #hint>
-              <ULink as="button">
+              <ULink as="button" to="/auth/forgot-password">
                 {{ $t('auth.password.forgot') }}
               </ULink>
             </template>

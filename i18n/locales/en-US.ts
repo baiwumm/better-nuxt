@@ -20,6 +20,12 @@ export default defineI18nLocale(async () => {
         verifyEmailSent: 'The verification email has been sent',
         verifyEmailSentDesc: 'Please check your inbox (or spam folder) and complete the verification.',
       },
+      forgotPassword: {
+        title: 'Forgot Password',
+        description: 'Enter your email to reset your password',
+        submit: 'Send reset Link',
+        success: 'If an account with this email exists, a reset link has been sent',
+      },
       name: {
         label: 'userName',
         placeholder: 'Enter your userName',
@@ -54,6 +60,9 @@ export default defineI18nLocale(async () => {
         locales: 'Locales',
         radius: 'Radius',
       },
+    },
+    common: {
+      requestError: 'Request failed. Please try again later',
     },
   }
 })

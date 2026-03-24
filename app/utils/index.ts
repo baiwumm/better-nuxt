@@ -2,6 +2,22 @@ import type { ApiResponse } from '@/types/common'
 import { RESPONSE_CODE } from '@/enums'
 
 /**
+ * @description: 统一处理 catch 错误
+ */
+export function catchError(err: unknown): string {
+  const { $i18n } = useNuxtApp()
+  let message = $i18n.t('common.requestError')
+
+  if (err instanceof Error) {
+    message = err.message
+  }
+  else if (typeof err === 'string') {
+    message = err
+  }
+  return message
+}
+
+/**
  * @description: 判断请求是否成功
  */
 export const isSuccess = (code: ApiResponse['code']) => code === RESPONSE_CODE.SUCCESS

@@ -7,7 +7,7 @@ import PasswordInput from '../components/PasswordInput.vue'
 import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
-  layout: 'login',
+  layout: 'auth',
 })
 
 const toast = useToast()

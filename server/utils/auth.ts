@@ -3,7 +3,7 @@ import { i18n } from '@better-auth/i18n'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-23 16:47:49
+ * @LastEditTime: 2026-03-23 18:14:26
  * @Description: BetterAuth 实例
  */
 import { betterAuth } from 'better-auth'
@@ -23,6 +23,28 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true, // 必须验证才能登录
+    sendResetPassword: async ({ user, url }) => {
+      const name = user.name || user.email.split('@')[0]
+      await emails.send({
+        from: 'NuxtProMax <no-reply@baiwumm.com>',
+        to: user.email,
+        subject: '重置您的密码',
+        html: `
+          <div style="font-family: Arial;">
+            <h2>Hi ${name}</h2>
+            <p>点击按钮：</p>
+            <a href="${url}" style="
+              padding:10px 16px;
+              background:#000;
+              color:#fff;
+              text-decoration:none;
+            ">
+              重置密码
+            </a>
+          </div>
+        `,
+      })
+    },
   },
   emailVerification: {
     sendOnSignUp: true, // 注册时自动发送验证邮件

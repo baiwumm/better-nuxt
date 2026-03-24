@@ -20,6 +20,12 @@ export default defineI18nLocale(async () => {
         verifyEmailSent: '验证邮件已发送',
         verifyEmailSentDesc: '请检查收件箱（或垃圾邮箱）并完成验证。',
       },
+      forgotPassword: {
+        title: '忘记密码',
+        description: '请输入您的电子邮件以重置密码',
+        submit: '发送重置链接',
+        success: '如果该邮箱已注册，我们已发送重置邮件',
+      },
       name: {
         label: '用户名',
         placeholder: '请输入用户名',
@@ -54,6 +60,9 @@ export default defineI18nLocale(async () => {
         locales: '语言',
         radius: '圆角',
       },
+    },
+    common: {
+      requestError: '请求失败，请稍后重试',
     },
   }
 })

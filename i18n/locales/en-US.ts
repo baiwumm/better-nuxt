@@ -25,13 +25,22 @@ export default defineI18nLocale(async () => {
         description: 'Enter your email to reset your password',
         submit: 'Send reset Link',
         success: 'If an account with this email exists, a reset link has been sent',
+        footer: 'Return to the Sign In page.',
       },
       resetPassword: {
         title: 'Reset Password',
         description: 'Enter your new password below',
         submit: 'Save new password',
         success: 'Password reset successful',
-        newPassword: ' New Password',
+        newPassword: 'New Password',
+      },
+      magicLink: {
+        title: 'Magic Link',
+        description: 'Enter your email to receive a magic link',
+        submit: 'Sign in with Magic Link',
+        verifyEmailSent: 'The verification email has been sent',
+        verifyEmailSentDesc: 'Please check your inbox (or spam folder) and complete the verification.',
+        signInWithPassword: 'Sign in with Password',
       },
       name: {
         label: 'userName',

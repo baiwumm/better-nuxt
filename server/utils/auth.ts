@@ -8,7 +8,7 @@ import { i18n } from '@better-auth/i18n'
  */
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { username } from 'better-auth/plugins'
+import { magicLink, username } from 'better-auth/plugins'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
 
@@ -89,6 +89,29 @@ export const auth = betterAuth({
   },
   plugins: [
     username(),
+    magicLink({
+      sendMagicLink: async ({ email, url }) => {
+        await emails.send({
+          from: 'NuxtProMax <no-reply@baiwumm.com>',
+          to: email,
+          subject: '邮箱一键登录',
+          html: `
+          <div style="font-family: Arial;">
+            <h2>邮箱一键登录</h2>
+            <p>点击下面的按钮即可安全登录：</p>
+            <a href="${url}" style="
+              padding:10px 16px;
+              background:#000;
+              color:#fff;
+              text-decoration:none;
+            ">
+              登录
+            </a>
+          </div>
+        `,
+        })
+      },
+    }),
     i18n({
       translations: {
         'zh-CN': {

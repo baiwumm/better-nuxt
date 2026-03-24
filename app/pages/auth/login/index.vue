@@ -2,7 +2,9 @@
 import type { FormSubmitEvent } from '@nuxt/ui'
 import z from 'zod'
 import EmailInput from '../components/EmailInput.vue'
+import FooterLink from '../components/FooterLink.vue'
 import LoginProvides from '../components/LoginProvides.vue'
+import MagicLinkButton from '../components/MagicLinkButton.vue'
 import PasswordInput from '../components/PasswordInput.vue'
 import SubmitButton from '../components/SubmitButton.vue'
 
@@ -76,17 +78,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
           </PasswordInput>
           <UCheckbox v-model="state.rememberMe" name="rememberMe" :label="$t('auth.login.rememberMe')" />
           <SubmitButton :text="$t('auth.login.submit')" :loading="loading" />
+          <MagicLinkButton />
         </UForm>
         <USeparator label="or" />
         <LoginProvides />
-        <div class="flex justify-center items-center text-xs">
-          <ULink as="button">
-            {{ $t('auth.login.footer') }}
-          </ULink>
-          <ULink as="button" to="/auth/sign-up" class="font-bold">
-            {{ $t('auth.login.footerLink') }}
-          </ULink>
-        </div>
+        <FooterLink :left-text="$t('auth.login.footer')" :right-text="$t('auth.login.footerLink')" to="/auth/sign-up" />
       </UPageCard>
     </ClientOnly>
   </div>

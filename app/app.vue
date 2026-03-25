@@ -33,6 +33,7 @@ useFaviconFromTheme()
         },
       }"
     >
+      <FullLoading />
       <NuxtLoadingIndicator />
       <UMain>
         <NuxtLayout>

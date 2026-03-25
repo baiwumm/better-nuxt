@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, useId } from 'vue'
+import type { ButtonProps } from '@nuxt/ui'
 
 const props = defineProps<{
   size?: 'sm' | 'md' | 'lg' | 'xl'
-  color?: 'error' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'neutral'
+  color?: ButtonProps['color']
   class?: string
 }>()
 
@@ -79,52 +79,48 @@ const classes = computed(() => {
 @reference "tailwindcss";
 /* ================= Base ================= */
 .spinner {
-  @apply pointer-events-none relative inline-flex w-6 h-6 origin-center animate-spin;
+  @apply pointer-events-none relative inline-flex size-6 origin-center animate-spin;
 }
 
 /* ================= Size ================= */
 .spinner--sm {
-  @apply w-4 h-4;
-}
-
-.spinner--md {
-  /* 默认 size-6 */
+  @apply size-4;
 }
 
 .spinner--lg {
-  @apply w-8 h-8;
+  @apply size-8;
 }
 
 .spinner--xl {
-  @apply w-10 h-10;
+  @apply size-10;
 }
 
 /* ================= Color ================= */
 .spinner--primary {
-  color: var(--ui-color-primary-500);
+  color: var(--ui-primary);
 }
 
 .spinner--secondary {
-  color: var(--ui-color-secondary-500);
+  color: var(--ui-secondary);
 }
 
 .spinner--success {
-  color: var(--ui-color-success-500);
+  color: var(--ui-success);
 }
 
 .spinner--info {
-  color: var(--ui-color-info-500);
+  color: var(--ui-info);
 }
 
 .spinner--warning {
-  color: var(--ui-color-warning-500);
+  color: var(--ui-warning);
 }
 
 .spinner--error {
-  color: var(--ui-color-error-500);
+  color: var(--ui-error);
 }
 
 .spinner--neutral {
-  color: var(--ui-color-neutral-500);
+  color: var(--ui-neutral);
 }
 </style>

@@ -86,6 +86,9 @@ export default defineI18nLocale(async () => {
         locales: 'Locales',
         radius: 'Radius',
       },
+      SidebarLogo: {
+        title: 'Technical stack',
+      },
     },
     common: {
       requestError: 'Request failed. Please try again later',

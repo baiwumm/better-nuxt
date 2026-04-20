@@ -25,9 +25,9 @@ export const OAUTH_PROVIDES = Enum({
  * @description: Color Mode
  */
 export const COLOR_MODES = Enum({
-  LIGHT: { value: 'light', label: 'light', icon: 'lucide:sun' },
-  DARK: { value: 'dark', label: 'dark', icon: 'lucide:moon' },
-  SYSTEM: { value: 'system', label: 'system', icon: 'lucide:monitor' },
+  LIGHT: { value: 'light', label: 'Light', icon: 'lucide:sun' },
+  DARK: { value: 'dark', label: 'Dark', icon: 'lucide:moon' },
+  SYSTEM: { value: 'system', label: 'System', icon: 'lucide:monitor' },
 })
 
 /**

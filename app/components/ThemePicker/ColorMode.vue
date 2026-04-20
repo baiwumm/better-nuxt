@@ -10,7 +10,7 @@ const colorMode = useColorMode()
       {{ $t('components.themePicker.colorMode') }}
     </div>
     <div class="grid grid-cols-3 gap-1.5">
-      <UButton v-for="{ value, label, raw } in COLOR_MODES.items" :key="value" color="neutral" size="sm" :variant="colorMode.preference === value ? 'subtle' : 'outline'" class="capitalize ring-default rounded-sm text-xs justify-center" :label="label" :icon="raw.icon" @click="colorMode.preference = value" />
+      <UButton v-for="{ value, label, raw } in COLOR_MODES.items" :key="value" color="neutral" size="sm" :variant="colorMode.preference === value ? 'subtle' : 'outline'" class="ring-default rounded-sm text-xs justify-center" :label="label" :icon="raw.icon" @click="colorMode.preference = value" />
     </div>
   </div>
 </template>

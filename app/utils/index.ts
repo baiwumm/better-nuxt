@@ -1,5 +1,16 @@
+import type { ClassValue } from 'clsx'
 import type { ApiResponse } from '@/types/common'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 import { RESPONSE_CODE } from '@/enums'
+
+/**
+ * @description: 合并类名
+ * @param {Array} inputs
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
 /**
  * @description: 统一处理 catch 错误

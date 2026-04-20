@@ -24,6 +24,7 @@ async function signOut() {
 <template>
   <div class="w-screen h-screen flex justify-center items-center flex-col gap-4">
     <div class="flex items-center gap-4">
+      <ThemePicker />
       <UButton>{{ $t('pages.dashboard.title') }}</UButton>
       <UAvatar
         :text="session?.data?.user?.name || session?.data?.user?.email[0]"

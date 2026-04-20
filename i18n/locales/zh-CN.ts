@@ -85,6 +85,9 @@ export default defineI18nLocale(async () => {
         locales: '语言',
         radius: '圆角',
       },
+      SidebarLogo: {
+        title: '技术栈',
+      },
     },
     common: {
       requestError: '请求失败，请稍后重试',

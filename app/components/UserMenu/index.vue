@@ -15,7 +15,7 @@ const loading = ref(false)
 const colorMode = useColorMode()
 const appConfig = useAppConfig()
 // 获取登录用户信息
-const { userName, email, avatar } = useCurrentUser()
+const { userName, email, avatar, isPending } = useCurrentUser()
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -149,7 +149,11 @@ const items = computed(() => ([
 </script>
 
 <template>
+  <div v-if="isPending" class="flex justify-center w-full">
+    <Spinner />
+  </div>
   <UDropdownMenu
+    v-else
     :items="items"
     arrow
     :content="{ align: 'center', collisionPadding: 12 }"

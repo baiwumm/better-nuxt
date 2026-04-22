@@ -12,10 +12,15 @@ export function useCurrentUser() {
   const email = computed(() => user.value?.email)
   const avatar = computed(() => user.value?.image || undefined)
 
+  const isPending = computed(() => {
+    return session.value?.isPending ?? false
+  })
+
   return {
     user,
     userName,
     email,
     avatar,
+    isPending,
   }
 }

@@ -69,6 +69,7 @@ export default defineI18nLocale(async () => {
         title: '退出登录',
       },
       waitLogin: '正在登录中...',
+      waitLogout: '正在退出登录...',
     },
     pages: {
       title: '控制台',

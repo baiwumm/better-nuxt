@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-23 13:52:05
+ * @LastEditTime: 2026-04-22 15:55:25
  * @Description: $fetch 请求封装
  */
 import type { ApiResponse } from '@/types/common'
@@ -92,21 +92,8 @@ export default defineNuxtPlugin(() => {
         return Promise.reject(res)
       }
 
-      // 其他错误
-      let message = '未知错误'
-
-      if (res?.msg) {
-        message = res.msg
-      }
-      else if (error instanceof Error) {
-        message = error.message
-      }
-      else if (typeof error === 'string') {
-        message = error
-      }
-
       toast.add({
-        title: message,
+        title: catchError(error),
         color: 'error',
       })
 

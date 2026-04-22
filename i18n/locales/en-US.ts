@@ -69,6 +69,7 @@ export default defineI18nLocale(async () => {
         title: 'Log Out',
       },
       waitLogin: 'Logging in...',
+      waitLogout: 'Logouting...',
     },
     pages: {
       title: 'Dashboard',

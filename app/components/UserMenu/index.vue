@@ -8,14 +8,18 @@ defineProps<{
   collapsed?: boolean
 }>()
 
+const toast = useToast()
 const { locale, setLocale } = useI18n()
+const loading = ref(false)
 
 const colorMode = useColorMode()
 const appConfig = useAppConfig()
 // 获取登录用户信息
 const { userName, email, avatar } = useCurrentUser()
 
+const router = useRouter()
 const appStore = useAppStore()
+const { $authClient } = useNuxtApp()
 
 const { primaryColor, blackAsPrimary, radius } = storeToRefs(appStore)
 const { setPrimaryColor, setBlackAsPrimary, setRadius } = appStore
@@ -118,6 +122,27 @@ const items = computed(() => ([
       label: $t('auth.logout.title'),
       icon: 'i-lucide-log-out',
       color: 'error',
+      onSelect: async () => {
+        loading.value = true
+        toast.add({
+          'title': $t('auth.waitLogout'),
+          'icon': 'lucide:log-out',
+          'onUpdate:open': (open: boolean) => {
+            if (open && loading.value) {
+              return false
+            }
+          },
+        })
+        await $authClient.signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              router.push('/auth/sign-in')
+            },
+          },
+        }).finally(() => {
+          loading.value = false
+        })
+      },
     },
   ],
 ]) satisfies DropdownMenuItem[])

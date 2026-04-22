@@ -15,6 +15,13 @@
       "when": 1773883917770,
       "tag": "0001_abnormal_moira_mactaggert",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776852550250,
+      "tag": "0002_complex_liz_osborn",
+      "breakpoints": true
     }
   ]
 }

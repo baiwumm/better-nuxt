@@ -171,8 +171,8 @@ const items = computed(() => ([
       :trailing-icon="collapsed ? undefined : 'i-lucide-chevrons-up-down'"
     >
       <UUser
-        :name="userName"
-        :description="email"
+        :name="collapsed ? undefined : userName"
+        :description="collapsed ? undefined : email"
         :avatar="{
           src: avatar,
           alt: userName,

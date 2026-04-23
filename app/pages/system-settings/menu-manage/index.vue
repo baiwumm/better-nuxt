@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
+import type { Column } from '@tanstack/vue-table'
+import FormModal from './components/FormModal.vue'
 
 const UBadge = resolveComponent('UBadge')
 const UIcon = resolveComponent('UIcon')
@@ -9,6 +11,8 @@ const USwitch = resolveComponent('USwitch')
 const { getMenuList } = useSystemApi()
 const keyword = ref('')
 const table = useTemplateRef('table')
+const open = ref(false)
+const editData = ref<System.UpdateMenu | null>(null)
 
 // 获取菜单列表
 const { data, pending: loading, refresh } = useAsyncData(
@@ -18,6 +22,26 @@ const { data, pending: loading, refresh } = useAsyncData(
     return res.data ?? []
   },
 )
+
+/**
+ * @description: 列固定
+ */
+function getHeader(column: Column<System.Menu>, label: string, position: 'left' | 'right') {
+  const isPinned = column.getIsPinned()
+  return h(UButton, {
+    color: 'neutral',
+    variant: 'ghost',
+    label,
+    icon: isPinned ? 'i-lucide-pin-off' : 'i-lucide-pin',
+    class: '-mx-2.5',
+    onClick() {
+      column.pin(isPinned === position ? false : position)
+    },
+    ui: {
+      label: 'font-semibold',
+    },
+  })
+}
 
 const columns = computed<TableColumn<System.Menu>[]>(() => [
   {
@@ -78,10 +102,22 @@ async function handleRefresh() {
   await refresh()
 }
 
+// 列固定
 const columnPinning = ref({
   left: ['index', 'label'],
   right: [],
 })
+
+// 编辑回调
+function handleEdit(row: System.Menu) {
+  editData.value = row
+  open.value = true
+}
+
+// 表单提交
+function handleSubmit(form: System.UpdateMenu) {
+  console.log('form', form)
+}
 
 onMounted(() => {
   handleRefresh()
@@ -96,7 +132,7 @@ onMounted(() => {
         <UButton icon="lucide:search" :loading @click="handleRefresh">
           {{ $t('common.search') }}
         </UButton>
-        <UButton icon="lucide:plus" color="neutral" variant="outline">
+        <UButton icon="lucide:plus" color="neutral" variant="outline" @click="open = true">
           {{ $t('common.add') }}
         </UButton>
       </div>
@@ -118,5 +154,6 @@ onMounted(() => {
         separator: 'h-0',
       }"
     />
+    <FormModal v-model="open" :data="editData" @submit="handleSubmit" />
   </div>
 </template>

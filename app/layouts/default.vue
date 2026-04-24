@@ -1,32 +1,44 @@
 <script setup lang="ts">
 import type { CommandPaletteGroup, CommandPaletteItem } from '@nuxt/ui'
-import { findMenuByPath, menuData, tMenu } from '@/utils/menuConfig'
+import pkg from '~~/package.json'
+import { menuData } from '@/utils/menuConfig'
 
 const open = ref(false)
 const route = useRoute()
 const { t } = useI18n()
 
-const items = computed(() => {
-  return menuData.map(menu => tMenu(menu, t))
-})
+const menuItems = computed(() => tMenu(menuData, t))
 
 // 动态标题
 const title = computed(() => {
-  if (!menuData[0]) {
+  if (!menuData) {
     return ''
   }
-  const item = findMenuByPath(menuData[0], route.path)
+  const item = findMenuByPath(menuData, route.path)
   return item?.label ? t(item.label) : ''
 })
 
 const groups = computed(() => [{
   id: 'searchMenu',
   label: $t('layout.searchMenu'),
-  items: items.value[0],
+  items: menuItems.value,
 }, {
   id: 'friendLink',
   label: $t('layout.friendLink'),
-  items: items.value[1],
+  items: [
+    {
+      label: $t('layout.github'),
+      icon: 'simple-icons:github',
+      to: pkg.git.url,
+      target: '_blank',
+    },
+    {
+      label: $t('layout.blog'),
+      icon: 'lucide:house',
+      to: 'https://baiwumm.com',
+      target: '_blank',
+    },
+  ],
 }] as CommandPaletteGroup<CommandPaletteItem>[])
 </script>
 
@@ -48,7 +60,7 @@ const groups = computed(() => [{
 
         <UNavigationMenu
           :collapsed
-          :items="items[0]"
+          :items="menuItems"
           orientation="vertical"
           tooltip
           popover
@@ -56,7 +68,7 @@ const groups = computed(() => [{
 
         <UNavigationMenu
           :collapsed
-          :items="items[1]"
+          :items="groups[1]?.items"
           orientation="vertical"
           tooltip
           class="mt-auto"

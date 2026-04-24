@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-23 15:08:30
+ * @LastEditTime: 2026-04-24 14:51:02
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -29,7 +29,7 @@ export function useSystemApi() {
   /**
    * @description: 删除菜单
    */
-  const delMenu = (id: string) =>
+  const delMenu = (id: number) =>
     del<System.Menu>(`/system-settings/menu-manage/${id}`)
 
   return {

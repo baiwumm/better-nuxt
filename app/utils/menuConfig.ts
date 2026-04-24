@@ -1,11 +1,9 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
-import type { Composer } from 'vue-i18n'
-import pkg from '~~/package.json'
 
 /**
  * @description: 菜单数据
  */
-export const menuData: NavigationMenuItem[][] = [[{
+export const menuData: NavigationMenuItem[] = [{
   label: 'pages.title',
   icon: 'lucide:monitor',
   to: '/',
@@ -78,48 +76,4 @@ export const menuData: NavigationMenuItem[][] = [[{
       to: '/system-settings/operation-log',
     },
   ],
-}], [
-  {
-    label: 'layout.github',
-    icon: 'simple-icons:github',
-    to: pkg.git.url,
-    target: '_blank',
-  },
-  {
-    label: 'layout.blog',
-    icon: 'lucide:house',
-    to: 'https://baiwumm.com',
-    target: '_blank',
-  },
-]]
-
-/**
- * @description: 处理 label
- * @param {NavigationMenuItem} items
- */
-export function tMenu(items: NavigationMenuItem[], t: Composer['t']): NavigationMenuItem[] {
-  return items.map(item => ({
-    ...item,
-    label: item.label ? t(item.label) : item.label,
-    children: item.children ? tMenu(item.children, t) : undefined,
-  }))
-}
-
-/**
- * @description: 根据路径查找菜单
- * @param {*} menu
- * @param {*} path
- */
-export function findMenuByPath(menu: NavigationMenuItem[], path: string): NavigationMenuItem | null {
-  for (const item of menu) {
-    if (item.to === path)
-      return item
-
-    if (item.children) {
-      const found = findMenuByPath(item.children, path)
-      if (found)
-        return found
-    }
-  }
-  return null
-}
+}]

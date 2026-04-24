@@ -1,4 +1,6 @@
+import type { NavigationMenuItem } from '@nuxt/ui'
 import type { ClassValue } from 'clsx'
+import type { Composer } from 'vue-i18n'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { RESPONSE_CODE } from '@/enums'
@@ -31,3 +33,34 @@ export function catchError(err: unknown): string {
  * @description: 判断请求是否成功
  */
 export const isSuccess = (code: Api.ResponseCode) => code === RESPONSE_CODE.SUCCESS
+
+/**
+ * @description: 处理 label
+ * @param {NavigationMenuItem} items
+ */
+export function tMenu(items: NavigationMenuItem[], t: Composer['t']): NavigationMenuItem[] {
+  return items.map(item => ({
+    ...item,
+    label: item.label ? t(item.label) : item.label,
+    children: item.children ? tMenu(item.children, t) : undefined,
+  }))
+}
+
+/**
+ * @description: 根据路径查找菜单
+ * @param {*} menu
+ * @param {*} path
+ */
+export function findMenuByPath(menu: NavigationMenuItem[], path: string): NavigationMenuItem | null {
+  for (const item of menu) {
+    if (item.to === path)
+      return item
+
+    if (item.children) {
+      const found = findMenuByPath(item.children, path)
+      if (found)
+        return found
+    }
+  }
+  return null
+}

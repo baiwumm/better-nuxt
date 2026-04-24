@@ -1,5 +1,3 @@
-import { Placeholder } from 'drizzle-orm'
-
 export default defineI18nLocale(async () => {
   return {
     auth: {
@@ -108,10 +106,20 @@ export default defineI18nLocale(async () => {
         menuManage: {
           title: '菜单管理',
           label: '菜单名称',
+          labelHlep: '请填写国际化 key,如: pages.title',
           to: '路由地址',
           badge: '角标',
           defaultOpen: '默认展开',
           enabled: '是否启用',
+          toReg: '必须以 / 或 http 开头',
+          target: {
+            title: '打开方式',
+            self: '当前窗口',
+            blank: '新窗口',
+          },
+          parentId: '父级菜单',
+          add: '新增菜单',
+          edit: '编辑菜单',
         },
         roleManage: {
           title: '角色管理',
@@ -151,11 +159,19 @@ export default defineI18nLocale(async () => {
       add: '新增',
       edit: '编辑',
       delete: '删除',
+      deleteSuccess: '删除成功',
       cancel: '取消',
       confirm: '确定',
       reset: '重置',
+      save: '保存',
+      saveSuccess: '保存成功',
+      inSave: '保存中...',
       columnVisibility: '列设置',
       searchKeyword: '搜索关键字...',
+      placeholder: '请输入',
+      select: '请选择',
+      required: '不能为空',
+      action: '操作',
     },
   }
 })

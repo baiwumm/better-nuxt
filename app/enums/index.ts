@@ -41,3 +41,11 @@ export const I18N_LOCALES = Enum({
   ZH_CN: { value: 'zh-CN', label: '简体中文', icon: '🇨🇳' },
   ENGLISH: { value: 'en', label: 'English', icon: '🇺🇸' },
 })
+
+/**
+ * @description: 窗口打开方式
+ */
+export const MENU_TARGET = Enum({
+  SELF: { value: '_self', label: 'pages.systemSettings.menuManage.target.self' },
+  BLANK: { value: '_blank', label: 'pages.systemSettings.menuManage.target.blank' },
+})

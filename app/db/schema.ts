@@ -1,4 +1,4 @@
-import { boolean, foreignKey, index, integer, pgEnum, pgTable, text, timestamp, unique } from 'drizzle-orm/pg-core'
+import { boolean, foreignKey, index, integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createUpdateSchema } from 'drizzle-zod'
 
 export * from '../../auth-schema'

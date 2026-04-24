@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-23 14:34:35
+ * @LastEditTime: 2026-04-24 13:53:34
  * @Description: $fetch 请求封装
  */
 import { defineNuxtPlugin, navigateTo, useCookie, useRuntimeConfig } from '#app'
@@ -66,6 +66,7 @@ export default defineNuxtPlugin(() => {
         toast.add({
           title: res.msg || RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR),
           color: 'error',
+          icon: 'lucide:x',
         })
         return Promise.reject(res)
       }

@@ -2,8 +2,10 @@
 import type { CommandPaletteGroup, CommandPaletteItem, NavigationMenuItem } from '@nuxt/ui'
 import pkg from '~~/package.json'
 import { useMenuStore } from '@/stores/useMenuStore'
+import { useTabStore } from '@/stores/useTabStore'
 
 const menuStore = useMenuStore()
+const tabStore = useTabStore()
 
 const open = ref(false)
 const route = useRoute()
@@ -45,6 +47,35 @@ const groups = computed(() => [{
     },
   ],
 }] as CommandPaletteGroup<CommandPaletteItem>[])
+
+watch(
+  () => [route.path, menuStore.menuTree],
+  () => {
+    if (!menuStore.menuTree?.length)
+      return
+
+    const path = route.path
+
+    tabStore.setActive(path)
+
+    if (path === '/')
+      return
+
+    const menu = findMenuByPath(menuStore.menuTree, path)
+
+    if (!menu)
+      return
+
+    // 🚨 关键修复点
+    if (tabStore.ignoreNextAdd) {
+      tabStore.ignoreNextAdd = false
+      return
+    }
+
+    tabStore.addTag(menu)
+  },
+  { immediate: true },
+)
 
 onMounted(async () => {
   await menuStore.init()
@@ -111,7 +142,16 @@ onMounted(async () => {
           <template #leading>
             <UDashboardSidebarCollapse />
           </template>
+          <template #right>
+            <div class="flex items-center gap-2">
+              <FullScreen />
+              <ThemePicker />
+            </div>
+          </template>
         </UDashboardNavbar>
+        <UDashboardToolbar>
+          <MultipleTabs />
+        </UDashboardToolbar>
       </template>
       <template #body>
         <slot />

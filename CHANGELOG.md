@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.1](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.0...v1.3.1) (2026-04-27)
+
+### ✨ Features | 新功能
+
+* **store:** 新增 MultipleTabs 组件和 useTabStore ([00a6aec](https://github.com/baiwumm/nuxt-pro-max/commit/00a6aecce69cdb2d1473a397684be44bf70a65ba))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 motion-v 包 ([4b60e28](https://github.com/baiwumm/nuxt-pro-max/commit/4b60e28bfade4c71fe2600fc03b8105be3740d9f))
+
 ## [1.3.0](https://github.com/baiwumm/nuxt-pro-max/compare/1.2.0...v1.3.0) (2026-04-27)
 
 ### ✨ Features | 新功能

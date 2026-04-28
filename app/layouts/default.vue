@@ -4,6 +4,7 @@ import pkg from '~~/package.json'
 import { useMenuStore } from '@/stores/useMenuStore'
 import { useTabStore } from '@/stores/useTabStore'
 
+const config = useRuntimeConfig()
 const menuStore = useMenuStore()
 const tabStore = useTabStore()
 
@@ -76,6 +77,12 @@ watch(
   },
   { immediate: true },
 )
+
+useHead({
+  titleTemplate: computed(() => {
+    return title.value ? `${title.value} - ${config.public.appName}` : config.public.appName
+  }),
+})
 
 onMounted(async () => {
   await menuStore.init()

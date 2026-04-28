@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: '/api', // 后端接口前缀
+      appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',
+      appDesc: process.env.NUXT_APP_DESC || '',
+      appDomain: process.env.NUXT_APP_DOMAIN || '',
     },
   },
   app: {

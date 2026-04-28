@@ -1,5 +1,24 @@
 <script setup lang="ts">
 const appStore = useAppStore()
+const config = useRuntimeConfig()
+const route = useRoute()
+
+const START_SLASH = /^\/+/
+const KEBAB_TO_CAMEL = /-([a-z])/g
+
+const i18nKey = computed(() => route.path
+  .replace(START_SLASH, '')
+  .split('/')
+  .map(segment =>
+    segment.replace(KEBAB_TO_CAMEL, (_, c) => c.toUpperCase()),
+  )
+  .join('.'))
+
+useHead({
+  titleTemplate: computed(() => {
+    return i18nKey.value ? `${$t(`${i18nKey.value}.title`)} - ${config.public.appName}` : config.public.appName
+  }),
+})
 </script>
 
 <template>

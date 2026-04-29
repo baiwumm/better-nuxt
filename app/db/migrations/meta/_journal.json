@@ -57,6 +57,20 @@
       "when": 1777256279495,
       "tag": "0007_mature_big_bertha",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1777425010304,
+      "tag": "0008_daffy_killmonger",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1777427209862,
+      "tag": "0009_needy_sandman",
+      "breakpoints": true
     }
   ]
 }

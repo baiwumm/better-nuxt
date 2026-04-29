@@ -3,11 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   runtimeConfig: {
+    env: process.env.NODE_ENV,
     public: {
       apiBase: '/api', // 后端接口前缀
       appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',
       appDesc: process.env.NUXT_APP_DESC || '',
       appDomain: process.env.NUXT_APP_DOMAIN || '',
+      env: process.env.NODE_ENV,
     },
   },
   app: {

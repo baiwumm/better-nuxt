@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 10:08:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-23 14:18:36
+ * @LastEditTime: 2026-04-29 14:29:58
  * @Description: 删除
  */
 import { eq } from 'drizzle-orm'
@@ -12,7 +12,12 @@ import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
   try {
-    const id = Number(event.context.params!.id)
+    const id = event.context.params!.id
+
+    if (!id) {
+      return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
+    }
+
     // 检查是否有子节点
     const children = await db
       .select()

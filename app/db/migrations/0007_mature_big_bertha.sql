@@ -1,1 +1,0 @@
-ALTER TABLE "menu" ADD COLUMN "keep_alive" boolean DEFAULT false NOT NULL;

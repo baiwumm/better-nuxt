@@ -1,2 +1,0 @@
-ALTER TABLE "menu" ADD CONSTRAINT "menu_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."menu"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "menu" ADD CONSTRAINT "menu_to_unique" UNIQUE("to");

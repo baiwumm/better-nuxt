@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import { boolean, foreignKey, index, integer, jsonb, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createUpdateSchema } from 'drizzle-zod'
 import { user } from '../../auth-schema'
@@ -16,8 +16,7 @@ export const methodEnum = pgEnum('method', ['GET', 'POST', 'PUT', 'DELETE'])
  * @description: 菜单管理
  */
 export const menu = pgTable('menu', {
-  // 自增 id
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  id: text('id').primaryKey().default(sql`gen_random_uuid()`),
   // i18n key: pages.title
   label: text('label').notNull(),
   // icon: lucide:monitor
@@ -27,7 +26,7 @@ export const menu = pgTable('menu', {
   // badge: New
   badge: text('badge'),
   // 树形结构关键字段
-  parentId: integer('parent_id'),
+  parentId: text('parent_id'),
   // 排序
   sort: integer('sort').default(0).notNull(),
   // 是否缓存
@@ -63,8 +62,7 @@ export const updateMenuSchema = createUpdateSchema(menu)
  * @description: 操作日志
  */
 export const logs = pgTable('logs', {
-  // 自增 id
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  id: text('id').primaryKey().default(sql`gen_random_uuid()`),
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),

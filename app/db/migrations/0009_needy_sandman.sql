@@ -1,1 +1,0 @@
-ALTER TABLE "logs" ADD COLUMN "device" text NOT NULL;

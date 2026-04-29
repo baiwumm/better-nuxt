@@ -70,7 +70,7 @@ watch(
     if (val) {
       resetState({
         ...val,
-        parentId: val.parentId ? String(val.parentId) : undefined,
+        parentId: val.parentId ?? undefined,
         to: val.to ?? undefined,
         badge: val.badge ?? undefined,
       })
@@ -93,7 +93,7 @@ async function onSubmit(event: FormSubmitEvent<FormSchema>) {
   const values = event.data
   emit('submit', {
     ...values,
-    parentId: values.parentId ? Number(values.parentId) : null,
+    parentId: values.parentId ?? undefined,
     to: values.to ?? null,
   })
 }
@@ -104,7 +104,7 @@ const menuMap = computed(() => {
 
   function traverse(tree: System.MenuTree[]) {
     tree.forEach((node) => {
-      map.set(String(node.id), node)
+      map.set(node.id, node)
       if (node.children)
         traverse(node.children)
     })
@@ -122,7 +122,7 @@ function flattenMenuTree(tree: System.MenuTree[], level = 0, result: SelectMenuI
   tree.forEach((node) => {
     const prefix = '　'.repeat(level) + (level > 0 ? '└ ' : '')
     result.push({
-      id: String(node.id),
+      id: node.id,
       label: prefix + $t(node.label),
       icon: node.icon,
     })

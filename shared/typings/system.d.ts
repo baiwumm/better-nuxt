@@ -12,6 +12,6 @@ declare global {
     type InsertMenu = typeof menu.$inferInsert
 
     /** @description: 更新菜单 */
-    type UpdateMenu = Partial<InsertMenu> & { id: number }
+    type UpdateMenu = Partial<InsertMenu> & { id: string }
   }
 }

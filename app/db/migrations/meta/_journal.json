@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1773826929946,
-      "tag": "0000_fast_energizer",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1773883917770,
-      "tag": "0001_abnormal_moira_mactaggert",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1776852550250,
-      "tag": "0002_complex_liz_osborn",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1776922838612,
-      "tag": "0003_glorious_ultimates",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1776923399784,
-      "tag": "0004_giant_joystick",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1776924662830,
-      "tag": "0005_breezy_hairball",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1777023992423,
-      "tag": "0006_low_enchantress",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1777256279495,
-      "tag": "0007_mature_big_bertha",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1777425010304,
-      "tag": "0008_daffy_killmonger",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1777427209862,
-      "tag": "0009_needy_sandman",
+      "when": 1777445803663,
+      "tag": "0000_nebulous_paladin",
       "breakpoints": true
     }
   ]

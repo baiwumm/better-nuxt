@@ -17,7 +17,7 @@ const table = useTemplateRef('table')
 const open = ref(false)
 const editData = ref<System.Menu | null>(null)
 const saveLoading = ref(false)
-const deleteId = ref<number | null>(null)
+const deleteId = ref<string | null>(null)
 
 // 获取菜单列表
 const { data, pending: loading, refresh } = useAsyncData(

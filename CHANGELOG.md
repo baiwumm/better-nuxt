@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.3](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.2...v1.3.3) (2026-04-29)
+
+### ✨ Features | 新功能
+
+* 新增非 GET 操作录入日志 ([56141f9](https://github.com/baiwumm/nuxt-pro-max/commit/56141f9350a9bf25453abe0094f2dedc3b9aa464))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 迁移文件，表 id 字段统一改成 string 类型 ([a821ec0](https://github.com/baiwumm/nuxt-pro-max/commit/a821ec091f1eff432b9a10c723ec56a657c405a4))
+* 新增 ua-parser-js 包 ([5740740](https://github.com/baiwumm/nuxt-pro-max/commit/5740740456076421d22c9039143020a767f66d72))
+
 ## [1.3.2](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.1...v1.3.2) (2026-04-28)
 
 ### ✨ Features | 新功能

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.3...v1.4.0) (2026-04-30)
+
+### ✨ Features | 新功能
+
+* **operation-log:** 完成《操作日志》模块的 接口开发和 CURD 逻辑 ([011d9b0](https://github.com/baiwumm/nuxt-pro-max/commit/011d9b0d1ae9d236cb02d452b1d7f28b1741e615))
+
 ## [1.3.3](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.2...v1.3.3) (2026-04-29)
 
 ### ✨ Features | 新功能

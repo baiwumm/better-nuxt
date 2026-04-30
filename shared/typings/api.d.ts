@@ -12,10 +12,10 @@ declare global {
     }
 
     /** @description: 分页列表 */
-    type PaginatingQueryList<T = unknown> = {
+    interface PaginatingQueryList<T = unknown> {
       list: T[]
       total: number // 总条数
-    } & PaginatingParams
+    }
 
     /** @description: 响应体 */
     interface IResponse<T = unknown> {

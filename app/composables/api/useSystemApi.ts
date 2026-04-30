@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-29 14:11:57
+ * @LastEditTime: 2026-04-30 12:24:03
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -32,10 +32,31 @@ export function useSystemApi() {
   const delMenu = (id: string) =>
     del<System.Menu>(`/system-settings/menu-manage/${id}`)
 
+  /**
+   * @description: 查询日志
+   */
+  const getLogsList = (params: System.LogParams & Api.PaginatingParams) =>
+    get<Api.PaginatingQueryList<System.Log>>('/system-settings/operation-log', params)
+
+  /**
+   * @description: 批量删除
+   */
+  const delLogs = (params: { ids: string[] }) =>
+    del<System.Log[]>('/system-settings/operation-log', {}, { body: params })
+
+  /**
+   * @description: 用户列表（去重）
+   */
+  const getLogsUserList = () =>
+    get<System.User[]>('/system-settings/operation-log/users')
+
   return {
     getMenuList,
     insertMenu,
     updateMenu,
     delMenu,
+    getLogsList,
+    delLogs,
+    getLogsUserList,
   }
 }

@@ -11,6 +11,7 @@ const USwitch = resolveComponent('USwitch')
 const { getMenuList, insertMenu, updateMenu, delMenu } = useSystemApi()
 
 const toast = useToast()
+const dayjs = useDayjs()
 
 const keyword = ref('')
 const table = useTemplateRef('table')
@@ -119,6 +120,11 @@ const columns = computed<TableColumn<System.MenuTree>[]>(() => [
     cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('sort')),
   },
   {
+    accessorKey: 'createdAt',
+    header: $t('common.createdAt'),
+    cell: ({ row }) => dayjs(row.original.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+  },
+  {
     accessorKey: 'action',
     header: ({ column }) => getHeader(column, $t('common.action'), 'right'),
     cell: ({ row }) => {
@@ -157,7 +163,7 @@ const columns = computed<TableColumn<System.MenuTree>[]>(() => [
 ])
 
 const columnVisibility = ref({
-  id: false,
+  createdAt: false,
 })
 
 // 刷新
@@ -246,6 +252,7 @@ onMounted(() => {
       :data
       :columns="columns"
       :get-sub-rows="(row) => row.children"
+      :get-row-id="row => row.id"
       :ui="{
         base: 'table-fixed border-separate border-spacing-0',
         thead: '[&>tr]:bg-elevated/50 [&>tr]:after:content-none',

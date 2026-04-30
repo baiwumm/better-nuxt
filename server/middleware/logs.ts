@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-29 09:55:26
+ * @LastEditTime: 2026-04-30 14:39:48
  * @Description: 记录操作日志
  */
 import { auth } from '#server/utils/auth'
@@ -11,7 +11,8 @@ import { db } from '@/db/drizzle'
 import { logs } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
-  const method = event.method as typeof logs.$inferInsert.method
+  const method = event.method as System.Methods
+  const action = event.path
 
   // 获取用户会话信息
   const session = await auth.api.getSession({
@@ -19,7 +20,7 @@ export default defineEventHandler(async (event) => {
   })
 
   // 🚫 只记录非 GET 和已登录的接口
-  if (method === 'GET' || !session?.user?.id)
+  if (method === 'GET' || !session?.user?.id || action.startsWith('/api/system-settings/operation-log'))
     return
 
   const body = await readBody(event)
@@ -39,7 +40,7 @@ export default defineEventHandler(async (event) => {
     await db.insert(logs).values({
       userId: session.user.id,
       ip,
-      action: event.path,
+      action,
       method,
       params: body ?? undefined,
       device: device.type ?? 'desktop',

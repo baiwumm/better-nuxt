@@ -17,7 +17,6 @@ const dayjs = useDayjs()
 
 const table = useTemplateRef('table')
 const deleteId = ref<string | null>(null)
-const total = ref(0)
 // 查询参数
 const pagination = ref<PaginationState>({
   pageIndex: 0,
@@ -33,10 +32,11 @@ const { data, pending: loading, refresh } = useAsyncData(
   'operation-log',
   async () => {
     const res = await getLogsList({ page: pagination.value.pageIndex + 1, pageSize: pagination.value.pageSize, ...query })
-    total.value = res?.data?.total ?? 0
-    return res?.data?.list ?? []
+    return res?.data
   },
 )
+const list = computed(() => data.value?.list ?? [])
+const total = computed(() => data.value?.total ?? 0)
 
 /**
  * @description: 列固定
@@ -217,7 +217,7 @@ onMounted(() => {
       v-model:column-pinning="columnPinning"
       v-model:pagination="pagination"
       :loading
-      :data
+      :data="list"
       :columns="columns"
       :pagination-options="{
         getPaginationRowModel: getPaginationRowModel(),
@@ -236,7 +236,9 @@ onMounted(() => {
       <template #expanded="{ row }">
         <div class="space-y-2 text-left">
           <div>{{ $t('pages.systemSettings.operationLog.action') }}: {{ row.original.action }}</div>
-          <div>{{ $t('pages.systemSettings.operationLog.params') }}: <pre>{{ row.original.params }}</pre></div>
+          <div v-if="row.original.params">
+            {{ $t('pages.systemSettings.operationLog.params') }}: <pre>{{ row.original.params }}</pre>
+          </div>
         </div>
       </template>
     </UTable>

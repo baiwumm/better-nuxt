@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:58:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-04 02:05:15
+ * @LastEditTime: 2026-05-04 02:23:51
  * @Description: 接口鉴权
  */
 import { auth } from '#server/utils/auth'
@@ -27,10 +27,10 @@ export default defineEventHandler(async (event) => {
   // 检查环境
   const isDev = config.env === 'development'
 
-  if (!isDev || session?.user?.email !== config.authEmail) {
+  if (!isDev && session?.user?.email !== config.authEmail) {
     return responseSuccess(
       null,
-      '别点了，点一百遍也是同一个回复：『已阅，但不执行』',
+      '别点了，我就知道您不按规矩办事！',
       RESPONSE_CODE.FORBIDDEN,
     )
   }

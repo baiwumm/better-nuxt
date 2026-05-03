@@ -133,6 +133,7 @@ export default defineI18nLocale(async () => {
           user: 'Operation User',
           action: 'Path',
           method: 'Method',
+          ip: 'IP',
           os: 'OS',
           browser: 'Browser',
           device: 'Device',
@@ -150,6 +151,7 @@ export default defineI18nLocale(async () => {
       },
       sidebarLogo: {
         title: 'Technical stack',
+        version: 'Version',
       },
       multipleTabs: {
         closeTag: 'Close',

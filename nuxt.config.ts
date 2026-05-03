@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     env: process.env.NODE_ENV,
+    authEmail: 'me@baiwumm.com',
     public: {
       apiBase: '/api', // 后端接口前缀
       appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',

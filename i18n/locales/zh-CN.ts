@@ -133,6 +133,7 @@ export default defineI18nLocale(async () => {
           user: '操作用户',
           action: '请求接口',
           method: '请求方式',
+          ip: 'IP地址',
           os: '操作系统',
           browser: '浏览器',
           device: '设备',
@@ -150,6 +151,7 @@ export default defineI18nLocale(async () => {
       },
       sidebarLogo: {
         title: '技术栈',
+        version: '当前版本',
       },
       multipleTabs: {
         closeTag: '关闭',

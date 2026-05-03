@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
-import type { CellContext, Column } from '@tanstack/vue-table'
+import type { Column } from '@tanstack/vue-table'
 import FormModal from './components/FormModal.vue'
 
 const UBadge = resolveComponent('UBadge')
@@ -103,10 +103,10 @@ const columns = computed<TableColumn<System.MenuTree>[]>(() => [
       return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => row.getValue('badge')) : '-'
     },
   },
-  ...['keepAlive', 'defaultOpen', 'enabled'].map(v => ({
+  ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<System.MenuTree>>(v => ({
     accessorKey: v,
     header: $t(`pages.systemSettings.menuManage.${v}`),
-    cell: ({ row }: CellContext<System.MenuTree, unknown>) => h(USwitch, {
+    cell: ({ row }) => h(USwitch, {
       disabled: true,
       uncheckedIcon: 'lucide:x',
       checkedIcon: 'lucide:check',

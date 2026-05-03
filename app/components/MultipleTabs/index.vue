@@ -76,7 +76,8 @@ function getItems(tag: System.MenuTree | null): ContextMenuItem[][] {
         v-if="homeTag"
         :icon="homeTag.icon"
         :label="$t(homeTag.label)"
-        :variant="tabStore.activePath === homeTag.to ? 'solid' : 'outline'"
+        :variant="tabStore.activePath === homeTag.to ? 'solid' : 'soft'"
+        trailing-icon="lucide:pin"
         size="sm"
         class="transition-colors"
         @click="homeTag?.to && router.push({ path: homeTag.to })"
@@ -96,7 +97,7 @@ function getItems(tag: System.MenuTree | null): ContextMenuItem[][] {
           <UButton
             :icon="tag.icon"
             :label="$t(tag.label)"
-            :variant="tabStore.activePath === tag.to ? 'solid' : 'outline'"
+            :variant="tabStore.activePath === tag.to ? 'solid' : 'soft'"
             size="sm"
             class="transition-colors"
             @click="tag?.to && router.push({ path: tag.to })"

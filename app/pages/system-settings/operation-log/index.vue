@@ -127,21 +127,11 @@ const columns = computed<TableColumn<System.Log>[]>(() => [
       return h(UBadge, { variant: 'soft', color: colorMap[val] }, () => val)
     },
   },
-  {
-    accessorKey: 'os',
-    header: $t('pages.systemSettings.operationLog.os'),
-    cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('os')),
-  },
-  {
-    accessorKey: 'browser',
-    header: $t('pages.systemSettings.operationLog.browser'),
-    cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('browser')),
-  },
-  {
-    accessorKey: 'device',
-    header: $t('pages.systemSettings.operationLog.device'),
-    cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('device')),
-  },
+  ...['ip', 'os', 'browser', 'device'].map<TableColumn<System.Log>>(key => ({
+    accessorKey: key,
+    header: $t(`pages.systemSettings.operationLog.${key}`),
+    cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue(key)),
+  })),
   {
     accessorKey: 'createdAt',
     header: $t('common.createdAt'),

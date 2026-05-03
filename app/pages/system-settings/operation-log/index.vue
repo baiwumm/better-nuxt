@@ -200,7 +200,9 @@ onMounted(() => {
 
 <template>
   <div class="space-y-4">
-    <HeaderContent v-model="query" :handle-refresh :loading :table="table?.tableApi" />
+    <ClientOnly>
+      <HeaderContent v-model="query" :handle-refresh :loading :table="table?.tableApi" />
+    </ClientOnly>
     <UTable
       ref="table"
       v-model:column-visibility="columnVisibility"

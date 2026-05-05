@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.1](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.0...v1.4.1) (2026-05-05)
+
+### ✨ Features | 新功能
+
+* 细节调整 ([354913b](https://github.com/baiwumm/nuxt-pro-max/commit/354913b3cd4060e46507a89abb1ede46a7cf4ae7))
+* **qrcode:** 配置菜单标题 ([ed5bfcc](https://github.com/baiwumm/nuxt-pro-max/commit/ed5bfcc019a6bbbd8dcccfb87a08234f76ceded9))
+* **qrcode:** 新增二维码页面 ([e6ce480](https://github.com/baiwumm/nuxt-pro-max/commit/e6ce480dd0ba48afdba86cfac9c1e3d967d4ed90))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **operation-log:** 修复水合报错的问题 ([1218070](https://github.com/baiwumm/nuxt-pro-max/commit/12180700c17f1a06466f10b35cc76babb7ef9dfd))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 调整中间件逻辑 ([ab2b817](https://github.com/baiwumm/nuxt-pro-max/commit/ab2b817bdc18ab6d010aa1d08c4ce0942e5357f4))
+* 使用 useLoadingIndicator 代替 @bprogress/core ([7cbcdbc](https://github.com/baiwumm/nuxt-pro-max/commit/7cbcdbcdf1c4efa998e2059e63be0330203fc636))
+* **operation-log:** 细节优化 ([18ce763](https://github.com/baiwumm/nuxt-pro-max/commit/18ce763444efac4f5d36c256762d7e6da3084fd5))
+
 ## [1.4.0](https://github.com/baiwumm/nuxt-pro-max/compare/v1.3.3...v1.4.0) (2026-04-30)
 
 ### ✨ Features | 新功能

@@ -97,6 +97,9 @@ export default defineI18nLocale(async () => {
           colors: '颜色',
           sizes: '尺寸',
         },
+        qrcode: {
+          title: '二维码',
+        },
       },
       systemSettings: {
         title: '系统设置',

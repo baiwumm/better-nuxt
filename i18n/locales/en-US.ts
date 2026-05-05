@@ -97,6 +97,9 @@ export default defineI18nLocale(async () => {
           colors: 'Colors',
           sizes: 'Sizes',
         },
+        qrcode: {
+          title: 'QR Code',
+        },
       },
       systemSettings: {
         title: 'System Settings',

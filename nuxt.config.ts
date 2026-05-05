@@ -31,6 +31,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@vercel/analytics',
+    'nuxt-qrcode',
+    '@nuxtjs/mdc',
   ],
   css: ['~/assets/css/main.css', '~/assets/css/transition.css'],
   ui: {

@@ -160,6 +160,7 @@ const columnVisibility = ref({
 
 // 刷新
 async function handleRefresh() {
+  pagination.value.pageIndex = 0
   await refresh()
 }
 
@@ -187,14 +188,14 @@ async function handleDelete(id: string) {
 
 watch(
   pagination,
-  () => {
-    handleRefresh()
+  async () => {
+    await refresh()
   },
   { deep: true },
 )
 
-onMounted(() => {
-  handleRefresh()
+onMounted(async () => {
+  await refresh()
 })
 </script>
 

@@ -6,6 +6,15 @@ const appStore = useAppStore()
 
 const { locale, setLocaleMessage } = useI18n()
 const { getLocales } = useSystemApi()
+const { data: localeRes } = await useAsyncData('locales', () => getLocales())
+const code = localeRes.value?.code
+
+if (code && isSuccess(code)) {
+  const data = localeRes.value?.data
+  for (const key in data) {
+    setLocaleMessage(key, data[key as Locale])
+  }
+}
 
 const localeMap = {
   'en': 'en',
@@ -16,7 +25,6 @@ const uiLocale = computed(() => locales[localeMap[locale.value]])
 
 const lang = computed(() => uiLocale.value.code)
 const dir = computed(() => uiLocale.value.dir)
-const isReady = ref(false)
 
 useHead({
   htmlAttrs: {
@@ -26,29 +34,10 @@ useHead({
 })
 
 useFaviconFromTheme()
-
-onMounted(() => {
-  // 加载必要的初始化数据（如用户信息、配置等）
-  Promise.all([
-    getLocales(),
-  ]).then(([localeRes]) => {
-    if (isSuccess(localeRes.code)) {
-      const data = localeRes?.data ?? {}
-      for (const key in data) {
-        setLocaleMessage(key, data[key as Locale])
-      }
-    }
-  }).finally(() => {
-    isReady.value = true
-  })
-})
 </script>
 
 <template>
-  <div v-if="!isReady" class="fixed inset-0 flex w-screen h-screen justify-center items-center flex-col z-999 overflow-hidden bg-default">
-    <LoadingContent />
-  </div>
-  <UApp v-else :locale="uiLocale" :toaster="{ position: 'top-center', duration: 2000 }">
+  <UApp :locale="uiLocale" :toaster="{ position: 'top-center', duration: 2000 }">
     <UTheme
       :ui="{
         button: {
@@ -57,8 +46,10 @@ onMounted(() => {
       }"
     >
       <FullLoading />
-      <NuxtLoadingIndicator color="var(--ui-primary)" />
       <UMain>
+        <ClientOnly>
+          <NuxtLoadingIndicator color="var(--ui-primary)" />
+        </ClientOnly>
         <NuxtLayout>
           <NuxtPage
             :transition="{ name: appStore.transition, mode: 'out-in' }"

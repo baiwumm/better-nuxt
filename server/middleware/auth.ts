@@ -2,22 +2,25 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:58:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 16:11:37
+ * @LastEditTime: 2026-05-06 16:47:51
  * @Description: 接口鉴权
  */
 import { auth } from '#server/utils/auth'
 import { RESPONSE_CODE } from '@/enums'
 
-// 白名单接口
-const protectApis = ['/api/system-settings/internalization/locales']
-
 export default defineEventHandler(async (event) => {
   const url = getRequestURL(event)
   const path = url.pathname
+  const method = event.method
 
   // 只处理 API
   if (!path.startsWith('/api'))
     return
+
+  // GET 请求放行
+  if (method === 'GET') {
+    return
+  }
 
   // 🚫 忽略 Nuxt 内部 API（关键）
   if (path.startsWith('/api/_'))
@@ -25,10 +28,6 @@ export default defineEventHandler(async (event) => {
 
   // 🚫 放行 auth
   if (path.startsWith('/api/auth'))
-    return
-
-  // 🚫 白名单
-  if (protectApis.includes(path))
     return
 
   const config = useRuntimeConfig()

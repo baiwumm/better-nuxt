@@ -153,6 +153,7 @@ export const zh_CN = {
     },
     sidebarLogo: {
       title: '技术栈',
+      version: '当前版本',
     },
     multipleTabs: {
       closeTag: '关闭',
@@ -365,6 +366,7 @@ export const en = {
     },
     sidebarLogo: {
       title: 'Technical stack',
+      version: 'Version',
     },
     multipleTabs: {
       closeTag: 'Close',

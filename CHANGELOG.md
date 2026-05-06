@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.2](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.1...v1.4.2) (2026-05-06)
+
+### ✨ Features | 新功能
+
+* 新增《国际化》接口，优化 shared 文件结构 ([227dd96](https://github.com/baiwumm/nuxt-pro-max/commit/227dd9682215824f66a5932a348756af8ba5186c))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 逻辑优化 ([b708b8e](https://github.com/baiwumm/nuxt-pro-max/commit/b708b8ea7dc2b4321d4ae4b34a0160d21ca0cabf))
+
 ## [1.4.1](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.0...v1.4.1) (2026-05-05)
 
 ### ✨ Features | 新功能

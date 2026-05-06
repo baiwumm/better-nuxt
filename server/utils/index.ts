@@ -7,21 +7,21 @@ export function responseSuccess(
   data: unknown,
   msg = RESPONSE_CODE.label(RESPONSE_CODE.SUCCESS),
   code: typeof RESPONSE_CODE.valueType = RESPONSE_CODE.SUCCESS,
-): Api.IResponse {
+): IResponse {
   return { data, msg, code, timestamp: Date.now() }
 }
 
 /**
  * @description: 请求失败
  */
-export function responseError(data: unknown, msg = RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR)): Api.IResponse {
+export function responseError(data: unknown, msg = RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR)): IResponse {
   return { data, msg, code: RESPONSE_CODE.SERVER_ERROR, timestamp: Date.now() }
 }
 
 /**
  * @description: 统一处理 catch 错误
  */
-export function catchError(err: unknown): Api.IResponse {
+export function catchError(err: unknown): IResponse {
   let message = '未知错误'
 
   if (err instanceof Error) {

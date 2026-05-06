@@ -16,7 +16,7 @@ const dayjs = useDayjs()
 const keyword = ref('')
 const table = useTemplateRef('table')
 const open = ref(false)
-const editData = ref<System.Menu | null>(null)
+const editData = ref<Menu | null>(null)
 const saveLoading = ref(false)
 const deleteId = ref<string | null>(null)
 
@@ -32,7 +32,7 @@ const { data, pending: loading, refresh } = useAsyncData(
 /**
  * @description: 列固定
  */
-function getHeader(column: Column<System.MenuTree>, label: string, position: 'left' | 'right') {
+function getHeader(column: Column<MenuTree>, label: string, position: 'left' | 'right') {
   const isPinned = column.getIsPinned()
   return h(UButton, {
     color: 'neutral',
@@ -49,7 +49,7 @@ function getHeader(column: Column<System.MenuTree>, label: string, position: 'le
   })
 }
 
-const columns = computed<TableColumn<System.MenuTree>[]>(() => [
+const columns = computed<TableColumn<MenuTree>[]>(() => [
   {
     accessorKey: 'label',
     header: ({ column }) => getHeader(column, $t('pages.systemSettings.menuManage.label'), 'left'),
@@ -103,7 +103,7 @@ const columns = computed<TableColumn<System.MenuTree>[]>(() => [
       return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => row.getValue('badge')) : '-'
     },
   },
-  ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<System.MenuTree>>(v => ({
+  ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<MenuTree>>(v => ({
     accessorKey: v,
     header: $t(`pages.systemSettings.menuManage.${v}`),
     cell: ({ row }) => h(USwitch, {
@@ -178,7 +178,7 @@ const columnPinning = ref({
 })
 
 // 删除回调
-async function handleDelete(row: System.MenuTree) {
+async function handleDelete(row: MenuTree) {
   deleteId.value = row.id
   await delMenu(row.id).then(({ code }) => {
     if (isSuccess(code)) {
@@ -195,7 +195,7 @@ async function handleDelete(row: System.MenuTree) {
 }
 
 // 表单提交
-async function handleSubmit(values: System.InsertMenu) {
+async function handleSubmit(values: InsertMenu) {
   saveLoading.value = true
   await (editData.value?.id ? updateMenu({ ...values, id: editData.value.id }) : insertMenu(values)).then(({ code }) => {
     if (isSuccess(code)) {

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-30 14:39:48
+ * @LastEditTime: 2026-05-06 15:49:01
  * @Description: 记录操作日志
  */
 import { auth } from '#server/utils/auth'
@@ -11,7 +11,7 @@ import { db } from '@/db/drizzle'
 import { logs } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
-  const method = event.method as System.Methods
+  const method = event.method as Methods
   const action = event.path
 
   // 获取用户会话信息

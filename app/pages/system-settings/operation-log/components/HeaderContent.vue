@@ -4,14 +4,14 @@ import { map } from 'es-toolkit/compat'
 import { METHODS } from '@/enums'
 
 const props = defineProps<{
-  table?: Table<System.Log>
+  table?: Table<Log>
   handleRefresh: VoidFunction
   loading: boolean
 }>()
 
 const toast = useToast()
 
-const query = defineModel<System.LogParams>({ required: true })
+const query = defineModel<Pick<LogQueryParams, 'userId' | 'method'>>({ required: true })
 const delLoading = ref(false)
 
 const { getLogsUserList, delLogs } = useSystemApi()

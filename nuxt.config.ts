@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'zh-CN',
     strategy: 'no_prefix',
-    baseUrl: 'https://nuxt.baiwumm.com',
+    baseUrl: process.env.NUXT_APP_DOMAIN || 'https://nuxt.baiwumm.com',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -49,8 +49,8 @@ export default defineNuxtConfig({
       alwaysRedirect: false,
     },
     locales: [
-      { code: 'en', name: 'English', file: 'en-US.ts' },
-      { code: 'zh-CN', name: '简体中文', file: 'zh-CN.ts' },
+      { code: 'en', name: 'English' },
+      { code: 'zh-CN', name: '简体中文' },
     ],
   },
   experimental: {

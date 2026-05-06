@@ -50,13 +50,58 @@ export const menu = pgTable('menu', {
     columns: [t.parentId],
     foreignColumns: [t.id],
     name: 'menu_parent_fk', // 约束名称
-  }),
+  }).onDelete('restrict'),
 ]))
 export const insertMenuSchema = createInsertSchema(menu).omit({
+  id: true,
   createdAt: true,
   updatedAt: true,
 })
-export const updateMenuSchema = createUpdateSchema(menu)
+export const updateMenuSchema = createUpdateSchema(menu).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+
+/**
+ * @description: 国际化
+ */
+export const internalization = pgTable('internalization', {
+  id: text('id').primaryKey().default(sql`gen_random_uuid()`),
+  name: text('name').notNull(),
+  // 中文
+  zh: text('zh'),
+  // 英文
+  en: text('en'),
+  // 树形结构关键字段
+  parentId: text('parent_id'),
+  // 排序
+  sort: integer('sort').default(0).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at')
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+}, t => ([
+  index('internalization_parent_idx').on(t.parentId),
+  index('internalization_sort_idx').on(t.parentId, t.sort),
+  // --- 显式定义外键约束（推荐，确保数据库层面的一致性） ---
+  foreignKey({
+    columns: [t.parentId],
+    foreignColumns: [t.id],
+    name: 'internalization_parent_fk', // 约束名称
+  }).onDelete('restrict'),
+]))
+export const insertInternalizationSchema = createInsertSchema(internalization).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+export const updateInternalizationSchema = createUpdateSchema(internalization).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
 
 /**
  * @description: 操作日志

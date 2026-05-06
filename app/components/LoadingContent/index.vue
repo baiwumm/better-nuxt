@@ -6,7 +6,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const text = computed(() => {
-  return props.text ?? $t('common.loading')
+  return props.text ?? 'Loading...'
 })
 </script>
 

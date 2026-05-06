@@ -8,6 +8,13 @@
       "when": 1777445803663,
       "tag": "0000_nebulous_paladin",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778031898723,
+      "tag": "0001_gorgeous_sentinel",
+      "breakpoints": true
     }
   ]
 }

@@ -31,13 +31,13 @@ export function catchError(err: unknown): string {
 /**
  * @description: 判断请求是否成功
  */
-export const isSuccess = (code: Api.ResponseCode) => code === RESPONSE_CODE.SUCCESS
+export const isSuccess = (code: ResponseCode) => code === RESPONSE_CODE.SUCCESS
 
 /**
  * @description: 处理 label
- * @param {System.MenuTree} items
+ * @param {MenuTree} items
  */
-export function tMenu(items: System.MenuTree[], t: Composer['t']): System.MenuTree[] {
+export function tMenu(items: MenuTree[], t: Composer['t']): MenuTree[] {
   return items.map(item => ({
     ...item,
     label: item.label ? t(item.label) : item.label,
@@ -50,7 +50,7 @@ export function tMenu(items: System.MenuTree[], t: Composer['t']): System.MenuTr
  * @param {*} menu
  * @param {*} path
  */
-export function findMenuByPath(menu: System.MenuTree[], path: string): System.MenuTree | null {
+export function findMenuByPath(menu: MenuTree[], path: string): MenuTree | null {
   for (const item of menu) {
     if (item.to === path)
       return item

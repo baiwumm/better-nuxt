@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-27 11:06:21
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-27 11:18:12
+ * @LastEditTime: 2026-05-06 15:51:24
  * @Description: 路由菜单
  */
 import { defineStore } from 'pinia'
@@ -11,7 +11,7 @@ const LEADING_SLASH_RE = /^\/+/
 const TRAILING_SLASH_RE = /\/+$/
 
 export const useMenuStore = defineStore('menu-store', () => {
-  const menuTree = ref<System.MenuTree[]>([])
+  const menuTree = ref<MenuTree[]>([])
   const loading = ref(false)
   const inited = ref(false)
 
@@ -50,10 +50,10 @@ export const useMenuStore = defineStore('menu-store', () => {
       .join('-')
   }
 
-  const getKeepAliveNames = (list: System.MenuTree[] = []) => {
+  const getKeepAliveNames = (list: MenuTree[] = []) => {
     const result = new Set<string>()
 
-    const walk = (arr: System.MenuTree[]) => {
+    const walk = (arr: MenuTree[]) => {
       for (const item of arr) {
         if (item.keepAlive && item.to) {
           result.add(normalizeRouteName(item.to))

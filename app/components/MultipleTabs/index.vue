@@ -19,7 +19,7 @@ const homeTag = computed(() => {
   return item || null
 })
 
-function getItems(tag: System.MenuTree | null): ContextMenuItem[][] {
+function getItems(tag: MenuTree | null): ContextMenuItem[][] {
   return [
     [
       {

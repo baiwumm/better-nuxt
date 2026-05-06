@@ -2,28 +2,17 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-30 09:04:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-30 09:52:21
+ * @LastEditTime: 2026-05-06 15:44:25
  * @Description:操作日志列表
  */
 import { and, desc, eq, sql } from 'drizzle-orm'
 import { map } from 'es-toolkit/compat'
-import { z } from 'zod'
 import { db } from '@/db/drizzle'
 import { logs, user } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {
-    const schema = z.object({
-      userId: z.string().optional(),
-      method: z.preprocess(
-        v => v === '' ? undefined : v,
-        z.enum(['GET', 'POST', 'PUT', 'DELETE']).optional(),
-      ),
-      page: z.coerce.number().default(1),
-      pageSize: z.coerce.number().default(10),
-    })
-
-    const { userId, method, page, pageSize } = schema.parse(getQuery(event))
+    const { userId, method, page, pageSize } = LogQuerySchema.parse(getQuery(event))
 
     const conditions = []
 

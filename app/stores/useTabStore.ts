@@ -2,18 +2,18 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-27 15:54:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-27 17:11:20
+ * @LastEditTime: 2026-05-06 15:51:30
  * @Description: 多标签页
  */
 import type { Router } from 'vue-router'
 import { defineStore } from 'pinia'
 
-type Path = System.MenuTree['to']
+type Path = MenuTree['to']
 const HOME_PATH = '/'
 
 export const useTabStore = defineStore('tab-store', () => {
   // 用 Map 做去重 + 保序，比 Set 更适合存对象
-  const tagMap = ref<Map<string, System.MenuTree>>(new Map())
+  const tagMap = ref<Map<string, MenuTree>>(new Map())
   // 👉 当前激活
   const activePath = ref<string>('')
   const tags = computed(() => Array.from(tagMap.value.values()))
@@ -25,7 +25,7 @@ export const useTabStore = defineStore('tab-store', () => {
   }
 
   // ===== 添加标签 =====
-  const addTag = (tag: System.MenuTree) => {
+  const addTag = (tag: MenuTree) => {
     if (!tag.to)
       return
 
@@ -65,7 +65,7 @@ export const useTabStore = defineStore('tab-store', () => {
   const closeOthers = (path: Path, router?: Router) => {
     if (!path)
       return
-    const newMap = new Map<string, System.MenuTree>()
+    const newMap = new Map<string, MenuTree>()
 
     tagMap.value.forEach((tag, key) => {
       if (key === path) {
@@ -92,7 +92,7 @@ export const useTabStore = defineStore('tab-store', () => {
     if (index <= 0)
       return
 
-    const newMap = new Map<string, System.MenuTree>()
+    const newMap = new Map<string, MenuTree>()
 
     keys.forEach((key, i) => {
       if (i >= index) {
@@ -117,7 +117,7 @@ export const useTabStore = defineStore('tab-store', () => {
     const keys = Array.from(tagMap.value.keys())
     const index = keys.indexOf(path)
 
-    const newMap = new Map<string, System.MenuTree>()
+    const newMap = new Map<string, MenuTree>()
 
     keys.forEach((key, i) => {
       if (i <= index) {

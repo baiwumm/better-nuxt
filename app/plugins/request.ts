@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-02 11:55:53
+ * @LastEditTime: 2026-05-06 15:58:37
  * @Description: $fetch 请求封装
  */
 import { defineNuxtPlugin, navigateTo, useCookie, useRuntimeConfig } from '#app'
@@ -14,7 +14,7 @@ export default defineNuxtPlugin(() => {
   const toast = useToast()
 
   const request = $fetch.create({
-    baseURL: config.public.apiBase as string,
+    baseURL: config.public.apiBase,
     timeout: 30 * 1000, // 超时时间，默认 30 秒
     // 请求拦截
     async onRequest({ options }) {
@@ -35,7 +35,7 @@ export default defineNuxtPlugin(() => {
       finish()
 
       // 统一响应数据
-      const res = response._data as Api.IResponse<any>
+      const res = response._data as IResponse<any>
       if (!isSuccess(res.code)) {
         toast.add({
           title: res.msg || RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR),
@@ -51,7 +51,7 @@ export default defineNuxtPlugin(() => {
     async onResponseError({ response, error }) {
       finish()
 
-      const res = response?._data as Api.IResponse | undefined
+      const res = response?._data as IResponse | undefined
 
       // 401
       if (res?.code === RESPONSE_CODE.UNAUTHORIZED) {

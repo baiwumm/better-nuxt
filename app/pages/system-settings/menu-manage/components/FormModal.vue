@@ -5,13 +5,13 @@ import z from 'zod'
 import { MENU_TARGET } from '@/enums'
 
 const props = defineProps<{
-  data: System.Menu | null
-  menuTree: System.MenuTree[]
+  data: Menu | null
+  menuTree: MenuTree[]
   loading: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'submit', v: System.InsertMenu): void
+  (e: 'submit', v: InsertMenu): void
 }>()
 
 const modelValue = defineModel<boolean>({ required: true })
@@ -100,9 +100,9 @@ async function onSubmit(event: FormSubmitEvent<FormSchema>) {
 
 // 递归查找树形结构中的节点
 const menuMap = computed(() => {
-  const map = new Map<string, System.MenuTree>()
+  const map = new Map<string, MenuTree>()
 
-  function traverse(tree: System.MenuTree[]) {
+  function traverse(tree: MenuTree[]) {
     tree.forEach((node) => {
       map.set(node.id, node)
       if (node.children)
@@ -118,7 +118,7 @@ const parentIcon = computed(() => {
   return state.parentId ? menuMap.value.get(state.parentId)?.icon : undefined
 })
 
-function flattenMenuTree(tree: System.MenuTree[], level = 0, result: SelectMenuItem[] = []) {
+function flattenMenuTree(tree: MenuTree[], level = 0, result: SelectMenuItem[] = []) {
   tree.forEach((node) => {
     const prefix = '　'.repeat(level) + (level > 0 ? '└ ' : '')
     result.push({

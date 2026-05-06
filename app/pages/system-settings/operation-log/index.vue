@@ -22,7 +22,7 @@ const pagination = ref<PaginationState>({
   pageIndex: 0,
   pageSize: 10,
 })
-const query = reactive<System.LogParams>({
+const query = reactive<Pick<LogQueryParams, 'userId' | 'method'>>({
   userId: undefined,
   method: undefined,
 })
@@ -41,7 +41,7 @@ const total = computed(() => data.value?.total ?? 0)
 /**
  * @description: 列固定
  */
-function getHeader(column: Column<System.Log>, label: string, position: 'left' | 'right') {
+function getHeader(column: Column<Log>, label: string, position: 'left' | 'right') {
   const isPinned = column.getIsPinned()
   return h(UButton, {
     color: 'neutral',
@@ -58,7 +58,7 @@ function getHeader(column: Column<System.Log>, label: string, position: 'left' |
   })
 }
 
-const columns = computed<TableColumn<System.Log>[]>(() => [
+const columns = computed<TableColumn<Log>[]>(() => [
   {
     id: 'expand',
     cell: ({ row }) =>
@@ -118,7 +118,7 @@ const columns = computed<TableColumn<System.Log>[]>(() => [
     header: $t('pages.systemSettings.operationLog.method'),
     cell: ({ row }) => {
       const val = row.original.method
-      const colorMap: Record<System.Methods, BadgeProps['color']> = {
+      const colorMap: Record<Methods, BadgeProps['color']> = {
         [METHODS.GET]: 'success',
         [METHODS.POST]: 'warning',
         [METHODS.PUT]: 'info',
@@ -127,7 +127,7 @@ const columns = computed<TableColumn<System.Log>[]>(() => [
       return h(UBadge, { variant: 'soft', color: colorMap[val] }, () => val)
     },
   },
-  ...['ip', 'os', 'browser', 'device'].map<TableColumn<System.Log>>(key => ({
+  ...['ip', 'os', 'browser', 'device'].map<TableColumn<Log>>(key => ({
     accessorKey: key,
     header: $t(`pages.systemSettings.operationLog.${key}`),
     cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue(key)),

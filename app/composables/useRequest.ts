@@ -9,7 +9,7 @@ export function useRequest() {
    * 🔥 通用请求
    */
   const request = <T = unknown>(url: string, options?: RequestOptions) => {
-    return $request<Api.IResponse<T>>(url, options)
+    return $request<IResponse<T>>(url, options)
   }
 
   /**

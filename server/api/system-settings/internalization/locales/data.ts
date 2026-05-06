@@ -129,6 +129,11 @@ export const zh_CN = {
       },
       internalization: {
         title: '国际化',
+        name: '国际化字段',
+        zh: '中文',
+        en: '英文',
+        add: '新增国际化',
+        edit: '编辑国际化',
       },
       operationLog: {
         title: '操作日志',
@@ -197,6 +202,8 @@ export const zh_CN = {
     expand: '展开',
     batchSelect: '多选',
     batchDelete: '批量删除',
+    parent: '父级',
+    addChild: '新增子级',
   },
   routeTransition: {
     default: '默认(模糊渐变)',
@@ -342,6 +349,11 @@ export const en = {
       },
       internalization: {
         title: 'Internalization',
+        name: 'Name',
+        zh: 'Chinese',
+        en: 'English',
+        add: 'Add Internalization',
+        edit: 'Edit Internalization',
       },
       operationLog: {
         title: 'Operation Log',
@@ -410,6 +422,8 @@ export const en = {
     expand: 'Expand',
     batchSelect: 'Batch Select',
     batchDelete: 'Batch Delete',
+    parent: 'Parent',
+    addChild: 'Add Child',
   },
   routeTransition: {
     default: 'Default',

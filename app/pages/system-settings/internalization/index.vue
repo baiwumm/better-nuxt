@@ -28,7 +28,7 @@ const createTime = ref({
 })
 
 // 获取国际化列表
-const { data, pending: loading, refresh } = useAsyncData(
+const { data, pending: loading, refresh } = await useAsyncData(
   'internalization',
   async () => {
     const res = await getInternalizationList({
@@ -163,11 +163,6 @@ const columns = computed<TableColumn<InternalizationTree>[]>(() => [
 const columnVisibility = ref({
 })
 
-// 刷新
-async function handleRefresh() {
-  await refresh()
-}
-
 // 列固定
 const columnPinning = ref({
   left: ['name'],
@@ -188,7 +183,7 @@ function handleReset() {
     end: undefined,
   }
 
-  handleRefresh()
+  refresh()
 }
 
 // 删除回调
@@ -201,7 +196,7 @@ async function handleDelete(row: InternalizationTree) {
         icon: 'lucide:circle-check',
         color: 'success',
       })
-      handleRefresh()
+      refresh()
     }
   }).finally(() => {
     deleteId.value = null
@@ -219,7 +214,7 @@ async function handleSubmit(values: InsertInternalization) {
         color: 'success',
       })
       open.value = false
-      handleRefresh()
+      refresh()
     }
   }).finally(() => {
     saveLoading.value = false
@@ -231,10 +226,6 @@ watch(open, (val) => {
     editData.value = null
     parentId.value = null
   }
-})
-
-onMounted(() => {
-  handleRefresh()
 })
 </script>
 
@@ -264,7 +255,7 @@ onMounted(() => {
           icon="lucide:search"
           :loading
           :label="$t('common.search')"
-          @click="handleRefresh"
+          @click="refresh"
         />
         <UButton
           icon="lucide:rotate-ccw"

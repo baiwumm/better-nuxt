@@ -28,11 +28,17 @@ const query = reactive<Pick<LogQueryParams, 'userId' | 'method'>>({
 })
 
 // 获取操作日志列表
-const { data, pending: loading, refresh } = useAsyncData(
+const { data, pending: loading, refresh } = await useAsyncData(
   'operation-log',
   async () => {
     const res = await getLogsList({ page: pagination.value.pageIndex + 1, pageSize: pagination.value.pageSize, ...query })
     return res?.data
+  },
+  {
+    watch: [
+      () => pagination.value.pageIndex,
+      () => pagination.value.pageSize,
+    ],
   },
 )
 const list = computed(() => data.value?.list ?? [])
@@ -161,7 +167,6 @@ const columnVisibility = ref({
 // 刷新
 async function handleRefresh() {
   pagination.value.pageIndex = 0
-  await refresh()
 }
 
 // 列固定
@@ -179,24 +184,12 @@ async function handleDelete(id: string) {
         icon: 'lucide:circle-check',
         color: 'success',
       })
-      handleRefresh()
+      refresh()
     }
   }).finally(() => {
     deleteId.value = null
   })
 }
-
-watch(
-  pagination,
-  async () => {
-    await refresh()
-  },
-  { deep: true },
-)
-
-onMounted(async () => {
-  await refresh()
-})
 </script>
 
 <template>

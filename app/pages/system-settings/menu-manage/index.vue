@@ -21,7 +21,7 @@ const saveLoading = ref(false)
 const deleteId = ref<string | null>(null)
 
 // 获取菜单列表
-const { data, pending: loading, refresh } = useAsyncData(
+const { data, pending: loading, refresh } = await useAsyncData(
   'menu-manage',
   async () => {
     const res = await getMenuList({ keyword: keyword.value })
@@ -166,11 +166,6 @@ const columnVisibility = ref({
   createdAt: false,
 })
 
-// 刷新
-async function handleRefresh() {
-  await refresh()
-}
-
 // 列固定
 const columnPinning = ref({
   left: ['label'],
@@ -187,7 +182,7 @@ async function handleDelete(row: MenuTree) {
         icon: 'lucide:circle-check',
         color: 'success',
       })
-      handleRefresh()
+      refresh()
     }
   }).finally(() => {
     deleteId.value = null
@@ -205,7 +200,7 @@ async function handleSubmit(values: InsertMenu) {
         color: 'success',
       })
       open.value = false
-      handleRefresh()
+      refresh()
     }
   }).finally(() => {
     saveLoading.value = false
@@ -216,10 +211,6 @@ watch(open, (val) => {
   if (!val) {
     editData.value = null
   }
-})
-
-onMounted(() => {
-  handleRefresh()
 })
 </script>
 
@@ -232,7 +223,7 @@ onMounted(() => {
           icon="lucide:search"
           :loading
           :label="$t('common.search')"
-          @click="handleRefresh"
+          @click="refresh"
         />
         <UButton
           icon="lucide:plus"

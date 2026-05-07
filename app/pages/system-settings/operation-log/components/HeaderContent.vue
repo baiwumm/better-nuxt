@@ -17,7 +17,7 @@ const delLoading = ref(false)
 const { getLogsUserList, delLogs } = useSystemApi()
 
 // 获取操作用户列表
-const { data: userList, pending: userloading, refresh: refreshUsers } = useAsyncData(
+const { data: userList, pending: userloading } = await useAsyncData(
   'operation-log-users',
   async () => {
     const res = await getLogsUserList()
@@ -47,10 +47,6 @@ async function handleBatchDelete() {
     delLoading.value = false
   })
 }
-
-onMounted(() => {
-  refreshUsers()
-})
 </script>
 
 <template>

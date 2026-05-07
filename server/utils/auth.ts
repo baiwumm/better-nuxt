@@ -2,11 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-07 14:55:09
+ * @LastEditTime: 2026-05-07 16:33:54
  * @Description: BetterAuth 实例
  */
-import { i18n } from '@better-auth/i18n'
 import { betterAuth } from 'better-auth'
+import { localization } from 'better-auth-localization'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
 import { Resend } from 'resend'
@@ -113,21 +113,13 @@ export const auth = betterAuth({
         })
       },
     }),
-    i18n({
-      translations: {
-        'zh-CN': {
-          USER_NOT_FOUND: '用户未找到',
-          INVALID_EMAIL_OR_PASSWORD: '邮箱或密码错误',
-          INVALID_PASSWORD: '密码错误',
-          CREDENTIAL_ACCOUNT_NOT_FOUND: '凭证账户未找到',
-          EMAIL_NOT_VERIFIED: '邮箱未验证',
-          INVALID_TOKEN: 'Token 令牌非法',
-        },
-      },
-    }),
     lastLoginMethod({
       storeInDatabase: true,
     }),
     multiSession(),
+    localization({
+      defaultLocale: 'zh-Hans',
+      fallbackLocale: 'default',
+    }),
   ],
 })

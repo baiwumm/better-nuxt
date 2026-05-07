@@ -35,6 +35,7 @@
     "@tanstack/vue-table": "^8.21.3",
     "@vercel/analytics": "^2.0.1",
     "better-auth": "^1.6.9",
+    "better-auth-localization": "^3.0.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.20",
     "dayjs-nuxt": "2.1.11",

@@ -38,6 +38,9 @@ importers:
       better-auth:
         specifier: ^1.6.9
         version: 1.6.9(better-sqlite3@12.9.0)(drizzle-kit@0.31.10)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(mongodb@7.1.0(socks@2.8.7))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vue@3.5.30(typescript@5.9.3))
+      better-auth-localization:
+        specifier: ^3.0.0
+        version: 3.0.0(better-auth@1.6.9(better-sqlite3@12.9.0)(drizzle-kit@0.31.10)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(mongodb@7.1.0(socks@2.8.7))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vue@3.5.30(typescript@5.9.3)))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -3574,6 +3577,18 @@ packages:
 
   before-after-hook@4.0.0:
     resolution: {integrity: sha512-q6tR3RPqIB1pMiTRMFcZwuG5T8vwp+vUvEG0vuI6B+Rikh5BfPp2fQ82c925FOs+b0lcFQ8CFrL+KbilfZFhOQ==}
+
+  better-auth-localization@3.0.0:
+    resolution: {integrity: sha512-JeKONv+GCNPYV8j5mjXbM/tDWse8kXrfIyEfDmvijFjuHInDWxp9iilAwdX3LnwRryAjmt+f9yeQ4avgXWAUAw==}
+    peerDependencies:
+      '@better-auth/api-key': ^1.5.0
+      '@better-auth/passkey': ^1.5.0
+      better-auth: ^1.5.0
+    peerDependenciesMeta:
+      '@better-auth/api-key':
+        optional: true
+      '@better-auth/passkey':
+        optional: true
 
   better-auth@1.6.9:
     resolution: {integrity: sha512-EBFURtglyiEZxbx4NJBoqUD8J65dX24yC+6I9AUbIXNgUkt76mshzGbHkxZ3n/lB7Dwq3kBC+hHt0hUQsnL7HA==}
@@ -11514,6 +11529,10 @@ snapshots:
   basic-ftp@5.2.0: {}
 
   before-after-hook@4.0.0: {}
+
+  better-auth-localization@3.0.0(better-auth@1.6.9(better-sqlite3@12.9.0)(drizzle-kit@0.31.10)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(mongodb@7.1.0(socks@2.8.7))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vue@3.5.30(typescript@5.9.3))):
+    dependencies:
+      better-auth: 1.6.9(better-sqlite3@12.9.0)(drizzle-kit@0.31.10)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(mongodb@7.1.0(socks@2.8.7))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vue@3.5.30(typescript@5.9.3))
 
   better-auth@1.6.9(better-sqlite3@12.9.0)(drizzle-kit@0.31.10)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(mongodb@7.1.0(socks@2.8.7))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vue@3.5.30(typescript@5.9.3)):
     dependencies:

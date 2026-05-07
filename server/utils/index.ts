@@ -69,3 +69,35 @@ export function convertFlatDataToTree<T extends { id: any, parentId?: any }>(fla
 
   return cleanUpEmptyChildren(roots)
 }
+
+/**
+ * @description: 将树形树形转成层级对象
+ */
+export function transformToLangTree(nodes: InternalizationTree[]) {
+  const result: Record<Locale, any> = {
+    'en': {},
+    'zh-CN': {},
+  }
+
+  function traverse(nodeList: InternalizationTree[], enTarget: any, zhTarget: any) {
+    for (const node of nodeList) {
+      if (node.children && node.children.length) {
+        // 当前节点作为对象容器
+        enTarget[node.name] = enTarget[node.name] || {}
+        zhTarget[node.name] = zhTarget[node.name] || {}
+        // 递归处理子节点
+        traverse(node.children, enTarget[node.name], zhTarget[node.name])
+      }
+      else {
+        // 叶子节点直接存值
+        if (node.en)
+          enTarget[node.name] = node.en
+        if (node.zh)
+          zhTarget[node.name] = node.zh
+      }
+    }
+  }
+
+  traverse(nodes, result.en, result['zh-CN'])
+  return result
+}

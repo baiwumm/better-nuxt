@@ -164,11 +164,6 @@ const columns = computed<TableColumn<Log>[]>(() => [
 const columnVisibility = ref({
 })
 
-// 刷新
-async function handleRefresh() {
-  pagination.value.pageIndex = 0
-}
-
 // 列固定
 const columnPinning = ref({
   right: ['action'],
@@ -195,7 +190,7 @@ async function handleDelete(id: string) {
 <template>
   <div class="space-y-4">
     <ClientOnly>
-      <HeaderContent v-model="query" :handle-refresh :loading :table="table?.tableApi" />
+      <HeaderContent v-model="query" :handle-refresh="refresh" :loading :table="table?.tableApi" />
     </ClientOnly>
     <UTable
       ref="table"

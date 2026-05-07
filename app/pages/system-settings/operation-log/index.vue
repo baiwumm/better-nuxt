@@ -106,16 +106,18 @@ const columns = computed<TableColumn<Log>[]>(() => [
     header: $t('pages.systemSettings.operationLog.user'),
     cell: ({ row }) => {
       const u = row.original.user
-      const userName = u?.username || u?.name || u?.email?.[0]
+      const userName = u?.displayUsername || u?.username || u?.name || u?.email
       return h(UUser, {
         name: userName,
-        description: u.email,
+        description: userName === u.email ? undefined : u.email,
         avatar: {
           src: u.image,
-          alt: userName,
+          alt: userName?.slice(0, 2).toUpperCase(),
           loading: 'lazy',
         },
-        class: 'justify-center',
+        ui: {
+          wrapper: 'text-left',
+        },
       })
     },
   },

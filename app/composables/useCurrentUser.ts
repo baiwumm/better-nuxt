@@ -6,7 +6,7 @@ export function useCurrentUser() {
 
   const userName = computed(() => {
     const u = user.value
-    return u?.username || u?.name || u?.email?.[0]
+    return u?.displayUsername || u?.username || u?.name || u?.email
   })
 
   const email = computed(() => user.value?.email)

@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-07 14:20:17
+ * @LastEditTime: 2026-05-07 14:55:09
  * @Description: BetterAuth 实例
  */
 import { i18n } from '@better-auth/i18n'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { lastLoginMethod, magicLink, username } from 'better-auth/plugins'
+import { lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
 import { Resend } from 'resend'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
@@ -128,5 +128,6 @@ export const auth = betterAuth({
     lastLoginMethod({
       storeInDatabase: true,
     }),
+    multiSession(),
   ],
 })

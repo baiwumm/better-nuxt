@@ -1,29 +1,23 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 import pkg from '~~/package.json'
-import { COLOR_MODES, I18N_LOCALES, ROUTE_TRANSITION } from '@/enums'
-import { getColor, getPrimaryColors } from '@/utils/constants'
+import { getColor } from '@/utils/constants'
 
 defineProps<{
   collapsed?: boolean
 }>()
 
-const toast = useToast()
-const { locale, setLocale } = useI18n()
-const loading = ref(false)
-
-const colorMode = useColorMode()
-const appConfig = useAppConfig()
 // 获取登录用户信息
 const { userName, email, avatar, isPending } = useCurrentUser()
+// 获取多会话信息
+const { sessionItems } = await useSessionMenu()
+// 用户操作
+const { logout } = useAuthActions()
 
-const router = useRouter()
-const appStore = useAppStore()
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
 
-const { primaryColor, blackAsPrimary, radius, transition } = storeToRefs(appStore)
-const { setPrimaryColor, setBlackAsPrimary, setRadius, setTransition } = appStore
+const { themeItems } = useThemeMenu()
 
 const items = computed(() => ([
   [{
@@ -35,88 +29,7 @@ const items = computed(() => ([
       loading: 'lazy',
     },
   }],
-  [{
-    label: $t('components.themePicker.primaryColor'),
-    icon: 'lucide:palette',
-    chip: appConfig.ui.colors.primary,
-    children: [
-      {
-        label: 'Black',
-        chip: 'black',
-        slot: 'primary' as const,
-        checked: blackAsPrimary.value,
-        type: 'checkbox',
-        onSelect: (e: Event) => {
-          e.preventDefault()
-          setBlackAsPrimary(true)
-        },
-      },
-      ...getPrimaryColors().map(color => ({
-        label: color,
-        chip: color,
-        slot: 'primary' as const,
-        checked: !blackAsPrimary.value && primaryColor.value === color,
-        type: 'checkbox',
-        onSelect: (e: Event) => {
-          e.preventDefault()
-          setPrimaryColor(color)
-          setBlackAsPrimary(false)
-        },
-      })) as DropdownMenuItem[],
-    ],
-  }, {
-    label: $t('components.themePicker.colorMode'),
-    icon: 'lucide:sun-moon',
-    children: COLOR_MODES.items.map(({ value, label, raw }) => ({
-      label,
-      icon: raw.icon,
-      type: 'checkbox',
-      checked: colorMode.preference === value,
-      onSelect(e: Event) {
-        e.preventDefault()
-        colorMode.preference = value
-      },
-    })),
-  }, {
-    label: $t('components.themePicker.locales'),
-    icon: 'lucide:globe',
-    children: I18N_LOCALES.items.map(({ value, label, raw }) => ({
-      label,
-      icon: raw.icon,
-      slot: 'locales' as const,
-      type: 'checkbox',
-      checked: locale.value === value,
-      onSelect(e: Event) {
-        e.preventDefault()
-        setLocale(value)
-      },
-    })),
-  }, {
-    label: $t('components.themePicker.radius'),
-    icon: 'lucide:radius',
-    children: [0, 0.125, 0.25, 0.375, 0.5].map(r => ({
-      label: String(r),
-      type: 'checkbox',
-      checked: radius.value === r,
-      onSelect(e: Event) {
-        e.preventDefault()
-        setRadius(r)
-      },
-    })),
-  }, {
-    label: $t('components.themePicker.transition'),
-    icon: 'lucide:route',
-    children: ROUTE_TRANSITION.items.map(({ value, label, raw }) => ({
-      label: $t(label),
-      icon: raw.icon,
-      type: 'checkbox',
-      checked: transition.value === value,
-      onSelect(e: Event) {
-        e.preventDefault()
-        setTransition(value)
-      },
-    })),
-  }],
+  themeItems.value,
   [
     {
       label: $t('layout.github'),
@@ -138,85 +51,72 @@ const items = computed(() => ([
       kbds: lastMethod ? [lastMethod] : undefined,
     },
     {
+      label: $t('layout.switchAccount'),
+      icon: 'lucide:users',
+      children: sessionItems.value,
+    },
+    {
       label: $t('auth.logout.title'),
       icon: 'i-lucide-log-out',
       color: 'error',
-      onSelect: async () => {
-        loading.value = true
-        toast.add({
-          'title': $t('auth.waitLogout'),
-          'icon': 'lucide:log-out',
-          'onUpdate:open': (open: boolean) => {
-            if (open && loading.value) {
-              return false
-            }
-          },
-        })
-        await $authClient.signOut({
-          fetchOptions: {
-            onSuccess: () => {
-              router.push('/auth/sign-in')
-            },
-          },
-        }).finally(() => {
-          loading.value = false
-        })
-      },
+      onSelect: logout,
     },
   ],
 ]) satisfies DropdownMenuItem[][])
 </script>
 
 <template>
-  <div v-if="isPending" class="flex justify-center w-full">
-    <Spinner />
-  </div>
-  <UDropdownMenu
-    v-else
-    :items="items"
-    arrow
-    :content="{ align: 'center', collisionPadding: 12 }"
-    :ui="{ content: collapsed ? 'w-48' : 'w-(--reka-dropdown-menu-trigger-width)' }"
-  >
-    <UButton
-      color="neutral"
-      variant="ghost"
-      block
-      :square="collapsed"
-      class="data-[state=open]:bg-elevated"
-      :ui="{
-        trailingIcon: 'text-dimmed',
-      }"
-      :trailing-icon="collapsed ? undefined : 'i-lucide-chevrons-up-down'"
+  <ClientOnly>
+    <div v-if="isPending" class="flex justify-center w-full">
+      <Spinner />
+    </div>
+    <UDropdownMenu
+      v-else
+      :items="items"
+      arrow
+      :content="{ align: 'center', collisionPadding: 12 }"
+      :ui="{ content: collapsed ? 'w-48' : 'w-(--reka-dropdown-menu-trigger-width)' }"
     >
-      <UUser
-        :name="collapsed ? undefined : userName"
-        :description="collapsed ? undefined : email"
-        :avatar="{
-          src: avatar,
-          alt: userName,
-          loading: 'lazy',
+      <UButton
+        color="neutral"
+        variant="ghost"
+        block
+        :square="collapsed"
+        class="data-[state=open]:bg-elevated"
+        :ui="{
+          trailingIcon: 'text-dimmed',
         }"
-        :chip="{
-          color: 'success',
-          position: 'bottom-right',
-        }"
-        :ui="{ wrapper: 'text-left' }"
-      />
-    </UButton>
-    <template #primary-leading="{ item }">
-      <div class="inline-flex items-center justify-center shrink-0 size-5">
-        <span
-          :class="cn('inline-block size-2 rounded-full', item.chip === 'black' ? 'bg-black dark:bg-white' : '')"
-          :style="{
-            backgroundColor: item.chip === 'black' ? undefined : getColor(item.chip, 500),
+        :trailing-icon="collapsed ? undefined : 'i-lucide-chevrons-up-down'"
+      >
+        <UUser
+          :name="collapsed ? undefined : userName"
+          :description="collapsed && userName === email ? undefined : email"
+          :avatar="{
+            src: avatar,
+            alt: userName,
+            loading: 'lazy',
           }"
+          :chip="{
+            color: 'success',
+            position: 'bottom-right',
+          }"
+          :ui="{ wrapper: 'text-left' }"
         />
-      </div>
-    </template>
+      </UButton>
+      <template #primary-leading="{ item }">
+        <div class="inline-flex items-center justify-center shrink-0 size-5">
+          <span
+            :class="cn('inline-block size-2 rounded-full', item.chip === 'black' ? 'bg-black dark:bg-white' : '')"
+            :style="{
+              backgroundColor: item.chip === 'black' ? undefined : getColor(item.chip, 500),
+            }"
+          />
+        </div>
+      </template>
 
-    <template #locales-leading="{ item }">
-      <span>{{ item.icon }}</span>
-    </template>
-  </UDropdownMenu>
+      <template #locales-leading="{ item }">
+        <span>{{ item.icon }}</span>
+      </template>
+    </UDropdownMenu>
+  </ClientOnly>
 </template>

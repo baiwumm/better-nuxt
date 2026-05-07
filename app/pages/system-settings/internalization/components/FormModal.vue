@@ -150,7 +150,7 @@ const selectMenuItems = computed(() => flattenInternalizationTree(props.internal
           </UInput>
         </UFormField>
         <UFormField name="zh" :label="$t('pages.systemSettings.internalization.zh')">
-          <UInput
+          <UTextarea
             v-model="state.zh"
             :maxlength="500"
             :aria-describedby="$t('common.placeholder')"
@@ -166,10 +166,10 @@ const selectMenuItems = computed(() => flattenInternalizationTree(props.internal
                 {{ state.zh?.length ?? 0 }}/500
               </div>
             </template>
-          </UInput>
+          </UTextarea>
         </UFormField>
         <UFormField name="en" :label="$t('pages.systemSettings.internalization.en')">
-          <UInput
+          <UTextarea
             v-model="state.en"
             :maxlength="500"
             :aria-describedby="$t('common.placeholder')"
@@ -185,7 +185,7 @@ const selectMenuItems = computed(() => flattenInternalizationTree(props.internal
                 {{ state.en?.length ?? 0 }}/500
               </div>
             </template>
-          </UInput>
+          </UTextarea>
         </UFormField>
         <UFormField name="sort" :label="$t('common.sort')">
           <UInputNumber v-model="state.sort" :min="0" :max="999" class="w-full" />

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-07 16:33:54
+ * @LastEditTime: 2026-05-07 16:48:49
  * @Description: BetterAuth 实例
  */
 import { betterAuth } from 'better-auth'
@@ -86,6 +86,10 @@ export const auth = betterAuth({
     vercel: {
       clientId: process.env.VERCEL_CLIENT_ID!,
       clientSecret: process.env.VERCEL_CLIENT_SECRET!,
+    },
+    huggingface: {
+      clientId: process.env.HUGGINGFACE_CLIENT_ID!,
+      clientSecret: process.env.HUGGINGFACE_CLIENT_SECRET!,
     },
   },
   plugins: [

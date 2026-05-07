@@ -36,7 +36,7 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-2">
+  <div class="grid grid-cols-2 gap-2">
     <UButton
       v-for="{ value, label, raw } in OAUTH_PROVIDES.items"
       :key="value"

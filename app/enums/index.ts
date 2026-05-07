@@ -23,6 +23,7 @@ export const OAUTH_PROVIDES = Enum({
   GITHUB: { value: 'github', label: 'github', icon: 'simple-icons:github' },
   GOOGLE: { value: 'google', label: 'google', icon: 'material-icon-theme:google' },
   VERCEL: { value: 'vercel', label: 'vercel', icon: 'simple-icons:vercel' },
+  HUGGINGFACE: { value: 'huggingface', label: 'huggingface', icon: 'logos:hugging-face-icon' },
 })
 
 /**

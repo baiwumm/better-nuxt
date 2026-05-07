@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.5.0](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.2...v1.5.0) (2026-05-07)
+
+### ✨ Features | 新功能
+
+* 调整表单字段最大字数限制 ([46f3fab](https://github.com/baiwumm/nuxt-pro-max/commit/46f3fab12f723bbc5a409ba9a5b400ad8b6998f9))
+* input 换成 textarea ([fcec9d1](https://github.com/baiwumm/nuxt-pro-max/commit/fcec9d149ca1d4bcef26f74043e80b06d5939e7f))
+* **internalization:** 添加子级时排序没有回显 ([6b67000](https://github.com/baiwumm/nuxt-pro-max/commit/6b6700094d128d26baf51055c61127a5732a330a))
+* **Internalization:** 新增《国际化》页面 ([be899ff](https://github.com/baiwumm/nuxt-pro-max/commit/be899ff24e95aa3a8edbf1c1be3386c080a48d24))
+* **locales:** 完成动态语言的功能 ([4bb81d7](https://github.com/baiwumm/nuxt-pro-max/commit/4bb81d7abba4ce3489707688bfbae45b06473fc6))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 修复查询分页没有重置的问题 ([c70186b](https://github.com/baiwumm/nuxt-pro-max/commit/c70186b61873a75736baa6af848408b114f3417d))
+* **operation-log:** 修复查询不请求的问题 ([6084338](https://github.com/baiwumm/nuxt-pro-max/commit/6084338b19afb39faa91800c3a2169f8edca9617))
+
+### ⚡ Performance Improvements | 性能优化
+
+* useAsyncData 函数添加 await ([adfc7aa](https://github.com/baiwumm/nuxt-pro-max/commit/adfc7aadb660a85bd310ff1e34b1f9f3fc92fc05))
+
 ## [1.4.2](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.1...v1.4.2) (2026-05-06)
 
 ### ✨ Features | 新功能

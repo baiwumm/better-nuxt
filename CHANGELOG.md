@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.1](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.0...v1.5.1) (2026-05-07)
+
+### ✨ Features | 新功能
+
+* 添加 better-auth-localization 翻译插件 ([67db188](https://github.com/baiwumm/nuxt-pro-max/commit/67db1882fe9ad3a457feb6d2650b9e55190c545f))
+* 新增 huggingface 登录 ([12b39ed](https://github.com/baiwumm/nuxt-pro-max/commit/12b39edff08ba1423d2284580e2044d6b7a1f1e0))
+* 新增 multiSession 多会话 ([8c47e7a](https://github.com/baiwumm/nuxt-pro-max/commit/8c47e7a39a44ea1ec01271e8824635a6db92d275))
+* **auth:** 新增 lastLoginMethodClient 最后一次登录方式 ([34c29a3](https://github.com/baiwumm/nuxt-pro-max/commit/34c29a3c4924e784182624e7aca53eaac412dfc9))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 删除 i18n 文件 ([8114469](https://github.com/baiwumm/nuxt-pro-max/commit/811446902fd06746bcb18b65110500e58f1ac558))
+
 ## [1.5.0](https://github.com/baiwumm/nuxt-pro-max/compare/v1.4.2...v1.5.0) (2026-05-07)
 
 ### ✨ Features | 新功能

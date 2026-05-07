@@ -20,6 +20,7 @@ const { userName, email, avatar, isPending } = useCurrentUser()
 const router = useRouter()
 const appStore = useAppStore()
 const { $authClient } = useNuxtApp()
+const lastMethod = $authClient.getLastUsedLoginMethod()
 
 const { primaryColor, blackAsPrimary, radius, transition } = storeToRefs(appStore)
 const { setPrimaryColor, setBlackAsPrimary, setRadius, setTransition } = appStore
@@ -61,7 +62,7 @@ const items = computed(() => ([
           setPrimaryColor(color)
           setBlackAsPrimary(false)
         },
-      })),
+      })) as DropdownMenuItem[],
     ],
   }, {
     label: $t('components.themePicker.colorMode'),
@@ -132,6 +133,11 @@ const items = computed(() => ([
   ],
   [
     {
+      label: $t('layout.lastMethod'),
+      icon: 'lucide:key-round',
+      kbds: lastMethod ? [lastMethod] : undefined,
+    },
+    {
       label: $t('auth.logout.title'),
       icon: 'i-lucide-log-out',
       color: 'error',
@@ -158,7 +164,7 @@ const items = computed(() => ([
       },
     },
   ],
-]) satisfies DropdownMenuItem[])
+]) satisfies DropdownMenuItem[][])
 </script>
 
 <template>

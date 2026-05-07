@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       apiBase: '/api', // 后端接口前缀
       appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',
       appDesc: process.env.NUXT_APP_DESC || '',
-      appDomain: process.env.NUXT_APP_DOMAIN || '',
+      appDomain: process.env.BETTER_AUTH_URL || '',
       env: process.env.NODE_ENV,
     },
   },
@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'zh-CN',
     strategy: 'no_prefix',
-    baseUrl: process.env.NUXT_APP_DOMAIN || 'https://nuxt.baiwumm.com',
+    baseUrl: process.env.BETTER_AUTH_URL || 'https://nuxt.baiwumm.com',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',

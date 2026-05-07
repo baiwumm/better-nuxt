@@ -1,18 +1,19 @@
-import { i18n } from '@better-auth/i18n'
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-03-23 18:14:26
+ * @LastEditTime: 2026-05-07 14:20:17
  * @Description: BetterAuth 实例
  */
+import { i18n } from '@better-auth/i18n'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { magicLink, username } from 'better-auth/plugins'
+import { lastLoginMethod, magicLink, username } from 'better-auth/plugins'
+import { Resend } from 'resend'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
 
-const { emails } = useResend()
+const resend = new Resend(process.env.NUXT_RESEND_API_KEY)
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -25,7 +26,7 @@ export const auth = betterAuth({
     requireEmailVerification: true, // 必须验证才能登录
     sendResetPassword: async ({ user, url }) => {
       const name = user.name || user.email.split('@')[0]
-      await emails.send({
+      await resend.emails.send({
         from: 'NuxtProMax <no-reply@baiwumm.com>',
         to: user.email,
         subject: '重置您的密码',
@@ -52,7 +53,7 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true, // 验证成功后自动登录
     sendVerificationEmail: async ({ user, url }) => {
       const name = user.name || user.email.split('@')[0]
-      await emails.send({
+      await resend.emails.send({
         from: 'NuxtProMax <no-reply@baiwumm.com>',
         to: user.email,
         subject: '验证您的电子邮件地址',
@@ -91,7 +92,7 @@ export const auth = betterAuth({
     username(),
     magicLink({
       sendMagicLink: async ({ email, url }) => {
-        await emails.send({
+        await resend.emails.send({
           from: 'NuxtProMax <no-reply@baiwumm.com>',
           to: email,
           subject: '邮箱一键登录',
@@ -123,6 +124,9 @@ export const auth = betterAuth({
           INVALID_TOKEN: 'Token 令牌非法',
         },
       },
+    }),
+    lastLoginMethod({
+      storeInDatabase: true,
     }),
   ],
 })

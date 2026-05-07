@@ -1,4 +1,4 @@
-import { magicLinkClient, usernameClient } from 'better-auth/client/plugins'
+import { lastLoginMethodClient, magicLinkClient, usernameClient } from 'better-auth/client/plugins'
 import { createAuthClient } from 'better-auth/vue'
 
 export default defineNuxtPlugin(() => {
@@ -6,6 +6,7 @@ export default defineNuxtPlugin(() => {
     plugins: [
       usernameClient(),
       magicLinkClient(),
+      lastLoginMethodClient(),
     ],
   })
   return {

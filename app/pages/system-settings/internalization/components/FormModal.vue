@@ -66,7 +66,7 @@ watch(
   () => props.parentId,
   (val) => {
     if (val) {
-      resetState({ parentId: val })
+      resetState({ parentId: val, sort: 0 })
     }
   },
 )

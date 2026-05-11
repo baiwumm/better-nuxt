@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.1...v1.5.2) (2026-05-11)
+
+### ✨ Features | 新功能
+
+* 设置后台操作邮箱白名单 ([806d7ce](https://github.com/baiwumm/nuxt-pro-max/commit/806d7cee9bdc748ced347b550a5758714ead51a5))
+* **about:** 新增《项目信息》页面 ([88b71c9](https://github.com/baiwumm/nuxt-pro-max/commit/88b71c914ee66f94c4de12bf05c41e7cf85ab04c))
+
 ## [1.5.1](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.0...v1.5.1) (2026-05-07)
 
 ### ✨ Features | 新功能

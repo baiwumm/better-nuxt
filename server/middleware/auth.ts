@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:58:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 16:47:51
+ * @LastEditTime: 2026-05-11 08:43:35
  * @Description: 接口鉴权
  */
 import { auth } from '#server/utils/auth'
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
   // 检查环境
   const isDev = config.env === 'development'
 
-  if (!isDev && session?.user?.email !== config.authEmail) {
+  if (!isDev && !config.adminEmail.split(',').includes(session?.user?.email)) {
     return responseSuccess(
       null,
       '别点了，我就知道您不按规矩办事！',

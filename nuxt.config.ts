@@ -5,6 +5,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     env: process.env.NODE_ENV,
     adminEmail: process.env.NUXT_ADMIN_EMAIL,
+    githubToken: process.env.GITHUB_TOKEN,
+    haloToken: process.env.HALO_TOKEN,
     public: {
       apiBase: '/api', // 后端接口前缀
       appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',

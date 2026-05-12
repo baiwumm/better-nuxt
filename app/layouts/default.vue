@@ -11,6 +11,7 @@ const tabStore = useTabStore()
 const open = ref(false)
 const route = useRoute()
 const { t } = useI18n()
+const appScrollContainer = useAppScrollContainer()
 
 const menuItems = computed(() => {
   const list = menuStore.menuTree ?? []
@@ -87,6 +88,10 @@ useHead({
 onMounted(async () => {
   await menuStore.init()
 })
+
+onMounted(() => {
+  appScrollContainer.value = document.querySelector('.app-scroll-container')
+})
 </script>
 
 <template>
@@ -128,7 +133,7 @@ onMounted(async () => {
     </UDashboardSidebar>
 
     <UDashboardSearch :groups="groups" />
-    <UDashboardPanel>
+    <UDashboardPanel id="app-container" :ui="{ body: 'app-scroll-container' }">
       <template #header>
         <UDashboardNavbar>
           <template #title>

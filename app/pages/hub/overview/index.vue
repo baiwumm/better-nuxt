@@ -35,7 +35,7 @@ const links = computed<ButtonProps[]>(() => [
     icon: 'simple-icons:github',
   },
   {
-    label: $t('pages.about.projectInfo.start'),
+    label: $t('pages.hub.overview.start'),
     to: '/',
     color: 'neutral',
     variant: 'subtle',

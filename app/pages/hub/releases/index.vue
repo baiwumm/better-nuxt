@@ -30,8 +30,8 @@ const { data: releases } = await useAsyncData(
 <template>
   <div>
     <UPageHero
-      :title="$t('pages.about.releases.title')"
-      :description="$t('pages.about.releases.desc')"
+      :title="$t('pages.hub.releases.title')"
+      :description="$t('pages.hub.releases.desc')"
       class="md:border-b border-default"
       :links="links"
       :ui="{ container: 'relative py-10 sm:py-16 lg:py-24' }"

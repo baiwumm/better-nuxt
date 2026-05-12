@@ -57,7 +57,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   })
   if (error) {
     toast.add({
-      title: $t('auth.signUp.error'),
+      title: $t('auth.signIn.error'),
       description: error.message || '',
       color: 'error',
     })

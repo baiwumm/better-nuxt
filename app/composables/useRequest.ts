@@ -1,6 +1,4 @@
-import type { FetchOptions } from 'ofetch'
-
-type RequestOptions = FetchOptions<'json'>
+type RequestOptions = Parameters<typeof $fetch>[1]
 
 export function useRequest() {
   const { $request } = useNuxtApp()
@@ -8,14 +6,21 @@ export function useRequest() {
   /**
    * 🔥 通用请求
    */
-  const request = <T = unknown>(url: string, options?: RequestOptions) => {
-    return $request<IResponse<T>>(url, options)
+  const request = async <T = unknown>(
+    url: string,
+    options?: RequestOptions,
+  ): Promise<IResponse<T>> => {
+    return await $request<IResponse<T>>(url, options)
   }
 
   /**
    * @description: GET 请求
    */
-  const get = <T = unknown>(url: string, params?: any, options?: RequestOptions) => {
+  const get = <T = unknown>(
+    url: string,
+    params?: Record<string, any>,
+    options?: RequestOptions,
+  ) => {
     return request<T>(url, {
       method: 'GET',
       params,
@@ -26,7 +31,11 @@ export function useRequest() {
   /**
    * @description: POST 请求
    */
-  const post = <T = unknown>(url: string, body?: any, options?: RequestOptions) => {
+  const post = <T = unknown, B extends Record<string, any> = Record<string, any>>(
+    url: string,
+    body?: B,
+    options?: RequestOptions,
+  ) => {
     return request<T>(url, {
       method: 'POST',
       body,
@@ -37,7 +46,11 @@ export function useRequest() {
   /**
    * @description: PUT 请求
    */
-  const put = <T = unknown>(url: string, body?: any, options?: RequestOptions) => {
+  const put = <T = unknown, B extends Record<string, any> = Record<string, any>>(
+    url: string,
+    body?: B,
+    options?: RequestOptions,
+  ) => {
     return request<T>(url, {
       method: 'PUT',
       body,
@@ -48,7 +61,11 @@ export function useRequest() {
   /**
    * @description: DELETE 请求
    */
-  const del = <T = any>(url: string, params?: any, options?: RequestOptions) => {
+  const del = <T = unknown>(
+    url: string,
+    params?: Record<string, any>,
+    options?: RequestOptions,
+  ) => {
     return request<T>(url, {
       method: 'DELETE',
       params,

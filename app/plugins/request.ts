@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 15:58:37
+ * @LastEditTime: 2026-05-12 10:01:06
  * @Description: $fetch 请求封装
  */
 import { defineNuxtPlugin, navigateTo, useCookie, useRuntimeConfig } from '#app'
 import { RESPONSE_CODE } from '@/enums'
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   const { start, finish } = useLoadingIndicator()
   const config = useRuntimeConfig()
   const toast = useToast()
@@ -35,16 +35,14 @@ export default defineNuxtPlugin(() => {
       finish()
 
       // 统一响应数据
-      const res = response._data as IResponse<any>
+      const res = response._data as IResponse
       if (!isSuccess(res.code)) {
         toast.add({
           title: res.msg || RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR),
           color: 'error',
           icon: 'lucide:x',
         })
-        return Promise.reject(res)
       }
-      return res.data
     },
 
     // 响应错误
@@ -61,17 +59,13 @@ export default defineNuxtPlugin(() => {
         })
 
         // 重定向到登录页
-        navigateTo('/login')
-
-        return Promise.reject(res)
+        await nuxtApp.runWithContext(() => navigateTo('/login'))
       }
 
       toast.add({
         title: catchError(error),
         color: 'error',
       })
-
-      return Promise.reject(res || error)
     },
   })
 

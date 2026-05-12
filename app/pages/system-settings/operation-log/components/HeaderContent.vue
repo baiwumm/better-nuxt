@@ -55,8 +55,8 @@ async function handleBatchDelete() {
       <USelectMenu
         v-model="query.userId"
         value-key="value"
-        :items="userList?.map(({ id, name, username, email, image }) => {
-          const userName = username || name || email?.[0]
+        :items="userList?.map(({ displayUsername, id, name, username, email, image }) => {
+          const userName = displayUsername || username || name || email
           return {
             value: id,
             label: userName,

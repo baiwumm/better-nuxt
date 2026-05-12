@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.3](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.2...v1.5.3) (2026-05-12)
+
+### ✨ Features | 新功能
+
+* **components:** 新增 BackTop 回到顶部组件 ([bd7437c](https://github.com/baiwumm/nuxt-pro-max/commit/bd7437c56cdca7bfe60b4cb94eb72205530b7623))
+* **components:** 新增 Particles 组件 ([b755799](https://github.com/baiwumm/nuxt-pro-max/commit/b755799eab28dcc3a82d4ffa7bf898db9ab83fca))
+* **releases:** 新增版本发布页面 ([e904e95](https://github.com/baiwumm/nuxt-pro-max/commit/e904e951b15f3bd5508c81a71096c424c6c1b492))
+* **request:** 优化请求逻辑 ([c36f54a](https://github.com/baiwumm/nuxt-pro-max/commit/c36f54a8d47a5ab582489a11137053022534726c))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 ogl 包 ([89b0c72](https://github.com/baiwumm/nuxt-pro-max/commit/89b0c729b31bb373231a2cee35af2f47fd2ed40c))
+* **release:** 修改 releaseName ([bd1153b](https://github.com/baiwumm/nuxt-pro-max/commit/bd1153b25b4f05f53f97a5075daa7126bcfab727))
+
 ## [1.5.2](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.1...v1.5.2) (2026-05-11)
 
 ### ✨ Features | 新功能

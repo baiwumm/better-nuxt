@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@vercel/analytics',
     'nuxt-qrcode',
     '@nuxtjs/mdc',
+    '@norbiros/nuxt-auto-form',
   ],
   css: ['~/assets/css/main.css', '~/assets/css/transition.css'],
   ui: {

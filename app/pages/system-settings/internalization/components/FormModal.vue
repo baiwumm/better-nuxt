@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { FormSubmitEvent, SelectMenuItem } from '@nuxt/ui'
-import { cloneDeep } from 'es-toolkit'
-import z from 'zod'
+import type { SelectMenuItem } from '@nuxt/ui'
+import type z from 'zod'
+import { pick } from 'es-toolkit'
 
 const props = defineProps<{
   data: Internalization | null
@@ -14,78 +14,33 @@ const emit = defineEmits<{
   (e: 'submit', v: InsertInternalization): void
 }>()
 
+const { i18nInternalization, i18nCommon } = useMessage()
+const { internalizationFormSchema } = useSchema()
+
 const modelValue = defineModel<boolean>({ required: true })
 
-const formSchema = z.object({
-  parentId: z.string().nullable().optional(),
-  name: z.string($t('common.placeholder')).min(1, $t('common.required')),
-  zh: z.string().optional(),
-  en: z.string().optional(),
-  sort: z.number().default(0),
-})
-type FormSchema = z.output<typeof formSchema>
+type FormSchema = z.infer<typeof internalizationFormSchema>
 
 // 初始表单状态
 const INITIAL_STATE = Object.freeze<FormSchema>({
-  parentId: undefined,
+  parentId: null,
   name: '',
-  zh: undefined,
-  en: undefined,
+  zh: null,
+  en: null,
   sort: 0,
 })
+const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof FormSchema)[]
 
-/** 表单 */
-const state = reactive<FormSchema>(cloneDeep(INITIAL_STATE))
+const initialState = computed<FormSchema>(() => ({
+  ...INITIAL_STATE,
+  ...(props.data
+    ? pick(props.data, FORM_FIELDS)
+    : {}),
+  parentId: props.data?.parentId ?? props.parentId ?? null,
+}))
 
-/** 重置函数 */
-function resetState(newData?: Partial<FormSchema> | null) {
-  const target = newData ?? INITIAL_STATE
-  Object.keys(state).forEach(key => delete state[key as keyof FormSchema])
-  Object.assign(state, cloneDeep(target))
-}
-
-/** 回填数据 */
-watch(
-  () => props.data,
-  (val) => {
-    if (val) {
-      resetState({
-        ...val,
-        parentId: val.parentId ?? undefined,
-        zh: val.zh ?? undefined,
-        en: val.en ?? undefined,
-      })
-    }
-    else {
-      resetState()
-    }
-  },
-  { immediate: true },
-)
-watch(
-  () => props.parentId,
-  (val) => {
-    if (val) {
-      resetState({ parentId: val, sort: 0 })
-    }
-  },
-)
-
-watch(modelValue, (val) => {
-  if (!val) {
-    resetState()
-  }
-})
-
-/** 提交 */
-async function onSubmit(event: FormSubmitEvent<FormSchema>) {
-  const values = event.data
-  emit('submit', {
-    ...values,
-    parentId: values.parentId ?? undefined,
-    zh: values.zh ?? null,
-    en: values.en ?? null,
-  })
+function onSubmit(data: FormSchema) {
+  emit('submit', data)
 }
 
 function flattenInternalizationTree(tree: InternalizationTree[], level = 0, result: SelectMenuItem[] = []) {
@@ -107,94 +62,36 @@ const selectMenuItems = computed(() => flattenInternalizationTree(props.internal
 </script>
 
 <template>
-  <UModal
+  <AutoFormModal
+    :key="data?.id ?? `create-${parentId}`"
     v-model:open="modelValue"
-    :title="$t(`pages.systemSettings.internalization.${data?.id ? 'edit' : 'add'}`)"
-    :dismissible="false"
-    :ui="{ footer: 'justify-end' }"
+    :title="parentId ? i18nCommon('addChild') : i18nInternalization(data?.id ? 'edit' : 'add')"
+    :schema="internalizationFormSchema"
+    :initial-state="initialState"
+    @submit="onSubmit"
   >
-    <template #body>
-      <UForm id="menu-form" :schema="formSchema" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormField name="parentId" :label="$t('common.parent')">
-          <USelectMenu
-            v-model="state.parentId"
-            value-key="id"
-            :items="selectMenuItems"
-            :placeholder="$t('common.select')"
-            icon="lucide:case-sensitive"
-            clear
-            :disabled="!!parentId"
-            class="w-full"
-            :ui="{
-              trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
-            }"
-          />
-        </UFormField>
-        <UFormField name="name" :label="$t('pages.systemSettings.internalization.name')" required>
-          <UInput
-            v-model="state.name"
-            :maxlength="200"
-            :aria-describedby="$t('common.placeholder')"
-            :placeholder="$t('common.placeholder')"
-            class="w-full"
-          >
-            <template #trailing>
-              <div
-                class="text-xs text-muted tabular-nums"
-                aria-live="polite"
-                role="status"
-              >
-                {{ state.name?.length ?? 0 }}/200
-              </div>
-            </template>
-          </UInput>
-        </UFormField>
-        <UFormField name="zh" :label="$t('pages.systemSettings.internalization.zh')">
-          <UTextarea
-            v-model="state.zh"
-            :maxlength="500"
-            :aria-describedby="$t('common.placeholder')"
-            :placeholder="$t('common.placeholder')"
-            class="w-full"
-          >
-            <template #trailing>
-              <div
-                class="text-xs text-muted tabular-nums"
-                aria-live="polite"
-                role="status"
-              >
-                {{ state.zh?.length ?? 0 }}/500
-              </div>
-            </template>
-          </UTextarea>
-        </UFormField>
-        <UFormField name="en" :label="$t('pages.systemSettings.internalization.en')">
-          <UTextarea
-            v-model="state.en"
-            :maxlength="500"
-            :aria-describedby="$t('common.placeholder')"
-            :placeholder="$t('common.placeholder')"
-            class="w-full"
-          >
-            <template #trailing>
-              <div
-                class="text-xs text-muted tabular-nums"
-                aria-live="polite"
-                role="status"
-              >
-                {{ state.en?.length ?? 0 }}/500
-              </div>
-            </template>
-          </UTextarea>
-        </UFormField>
-        <UFormField name="sort" :label="$t('common.sort')">
-          <UInputNumber v-model="state.sort" :min="0" :max="999" class="w-full" />
-        </UFormField>
-      </UForm>
+    <template #parentId="{ field, state: stateValue }">
+      <USelectMenu
+        v-model="stateValue[field]"
+        value-key="id"
+        :items="selectMenuItems"
+        :placeholder="i18nCommon('select')"
+        icon="lucide:case-sensitive"
+        clear
+        :disabled="!!parentId"
+        class="w-full"
+        :ui="{
+          trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
+        }"
+      />
     </template>
-    <template #footer="{ close }">
-      <UButton :label="$t('common.cancel')" color="neutral" variant="outline" :disabled="loading" @click="close" />
-      <UButton type="submit" :label="$t(`common.${loading ? 'inSave' : 'save'}`)" color="neutral" form="menu-form" :loading icon="lucide:save" />
+    <template #footer="{ disabled, submit, close }">
+      <AutoFormModalFooter
+        :disabled="disabled"
+        :loading="loading"
+        @submit="submit"
+        @close="close"
+      />
     </template>
-  </UModal>
+  </AutoFormModal>
 </template>

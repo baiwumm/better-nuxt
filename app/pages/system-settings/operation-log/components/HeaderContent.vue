@@ -81,12 +81,7 @@ async function handleBatchDelete() {
         class="w-48"
         :placeholder="i18nLog('method')"
       />
-      <UButton
-        icon="lucide:search"
-        :loading
-        :label="i18nCommon('search')"
-        @click="handleRefresh"
-      />
+      <AutoFormSearchButton :loading :refresh="handleRefresh" />
       <UButton
         v-if="selectedRows.length"
         :label="i18nCommon('batchDelete')"

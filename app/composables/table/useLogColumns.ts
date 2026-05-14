@@ -1,5 +1,5 @@
 import type { BadgeProps, TableColumn } from '@nuxt/ui'
-import { UBadge, UButton, UUser } from '#components'
+import { AutoFormDeleteButton, UBadge, UUser } from '#components'
 import { METHODS } from '@/enums'
 
 export function useLogColumns(options: {
@@ -59,15 +59,10 @@ export function useLogColumns(options: {
       accessorKey: 'action',
       header: ({ column }) => getHeader(column, i18nCommon('action'), 'right'),
       cell: ({ row }) => {
-        return h(UButton, {
-          label: i18nCommon('delete'),
-          color: 'error',
-          variant: 'soft',
-          size: 'xs',
-          icon: 'lucide:trash-2',
+        return h(AutoFormDeleteButton, {
           disabled: deleteId.value !== null && row.original.id !== deleteId.value,
           loading: deleteId.value !== null && row.original.id === deleteId.value,
-          onClick: () => onDelete(row.original.id),
+          onDelete: () => onDelete(row.original.id),
         })
       },
     },

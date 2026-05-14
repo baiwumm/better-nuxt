@@ -16,20 +16,9 @@ const keyword = defineModel<string>({ required: true })
 <template>
   <div class="flex items-center justify-between">
     <div class="flex items-center gap-2 ">
-      <UInput v-model:model-value="keyword" icon="lucide:search" variant="outline" :placeholder="i18nCommon('searchKeyword')" />
-      <UButton
-        icon="lucide:search"
-        :loading
-        :label="i18nCommon('search')"
-        @click="handleRefresh"
-      />
-      <UButton
-        icon="lucide:plus"
-        color="neutral"
-        variant="outline"
-        :label="i18nCommon('add')"
-        @click="open = true"
-      />
+      <UInput v-model="keyword" icon="lucide:search" variant="outline" :placeholder="i18nCommon('searchKeyword')" />
+      <AutoFormSearchButton :loading :refresh="handleRefresh" />
+      <AutoFormAddButton v-model="open" />
     </div>
     <TableColumnVisibility v-if="table" :table="table" />
   </div>

@@ -1,11 +1,11 @@
 import type { TableColumn } from '@nuxt/ui'
-import { UBadge, UButton, UIcon, USwitch } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UIcon, USwitch } from '#components'
 
 export function useMenuColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
   onEdit: (row: MenuTree) => void
-  onDelete: (row: MenuTree) => void
+  onDelete: (id: string) => void
 }) {
   const { getHeader, createSortColumn, createCreatedAtColumn, createTreeColumn } = useTableColumns()
 
@@ -61,24 +61,14 @@ export function useMenuColumns(options: {
             class: 'flex justify-center items-center gap-2',
           },
           [
-            h(UButton, {
-              label: i18nCommon('edit'),
-              color: 'neutral',
-              variant: 'outline',
-              size: 'xs',
-              icon: 'lucide:pencil-line',
+            h(AutoFormEditButton, {
               disabled: saveLoading.value,
-              onClick: () => onEdit(row.original),
+              onEdit: () => onEdit(row.original),
             }),
-            h(UButton, {
-              label: i18nCommon('delete'),
-              color: 'error',
-              variant: 'soft',
-              size: 'xs',
-              icon: 'lucide:trash-2',
+            h(AutoFormDeleteButton, {
               disabled: deleteId.value !== null && row.original.id !== deleteId.value,
               loading: deleteId.value !== null && row.original.id === deleteId.value,
-              onClick: () => onDelete(row.original),
+              onDelete: () => onDelete(row.original.id),
             }),
           ],
         )

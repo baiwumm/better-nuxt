@@ -61,9 +61,9 @@ function handleReset() {
 }
 
 // 删除回调
-async function handleDelete(row: InternalizationTree) {
-  deleteId.value = row.id
-  await delInternalization(row.id).then(({ code }) => {
+async function handleDelete(id: string) {
+  deleteId.value = id
+  await delInternalization(id).then(({ code }) => {
     if (isSuccess(code)) {
       toast.add({
         title: i18nCommon('deleteSuccess'),

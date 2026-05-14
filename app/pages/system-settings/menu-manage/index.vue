@@ -44,9 +44,9 @@ const columnPinning = ref({
 })
 
 // 删除回调
-async function handleDelete(row: MenuTree) {
-  deleteId.value = row.id
-  await delMenu(row.id).then(({ code }) => {
+async function handleDelete(id: string) {
+  deleteId.value = id
+  await delMenu(id).then(({ code }) => {
     if (isSuccess(code)) {
       toast.add({
         title: i18nCommon('deleteSuccess'),

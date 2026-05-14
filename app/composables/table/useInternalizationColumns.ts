@@ -1,12 +1,12 @@
 import type { TableColumn } from '@nuxt/ui'
-import { UBadge, UButton } from '#components'
+import { AutoFormAddChildButton, AutoFormDeleteButton, AutoFormEditButton, UBadge } from '#components'
 
 export function useInternalizationColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
   onAddChild: (row: InternalizationTree) => void
   onEdit: (row: InternalizationTree) => void
-  onDelete: (row: InternalizationTree) => void
+  onDelete: (id: string) => void
 }) {
   const { getHeader, createSortColumn, createCreatedAtColumn, createTreeColumn } = useTableColumns()
 
@@ -36,33 +36,18 @@ export function useInternalizationColumns(options: {
             class: 'flex justify-center items-center gap-2',
           },
           [
-            h(UButton, {
-              label: i18nCommon('addChild'),
-              color: 'neutral',
-              variant: 'outline',
-              size: 'xs',
-              icon: 'lucide:plus',
+            h(AutoFormAddChildButton, {
               disabled: saveLoading.value,
-              onClick: () => onAddChild(row.original),
+              onAddChild: () => onAddChild(row.original),
             }),
-            h(UButton, {
-              label: i18nCommon('edit'),
-              color: 'neutral',
-              variant: 'outline',
-              size: 'xs',
-              icon: 'lucide:pencil-line',
+            h(AutoFormEditButton, {
               disabled: saveLoading.value,
-              onClick: () => onEdit(row.original),
+              onEdit: () => onEdit(row.original),
             }),
-            h(UButton, {
-              label: i18nCommon('delete'),
-              color: 'error',
-              variant: 'soft',
-              size: 'xs',
-              icon: 'lucide:trash-2',
+            h(AutoFormDeleteButton, {
               disabled: deleteId.value !== null && row.original.id !== deleteId.value,
               loading: deleteId.value !== null && row.original.id === deleteId.value,
-              onClick: () => onDelete(row.original),
+              onDelete: () => onDelete(row.original.id),
             }),
           ],
         )

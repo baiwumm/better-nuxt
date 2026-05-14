@@ -12,6 +12,7 @@ const pathReg = /^\//
 const route = useRoute()
 const { locale, messages } = useI18n()
 const commonKeys = keys(messages.value[locale.value].common)
+const { i18nCommon } = useMessage()
 
 const columnTitle = computed(() =>
   route.path
@@ -25,7 +26,7 @@ const items = computed(() =>
   props.table.getAllColumns()
     .filter(column => column.getCanHide())
     .map(column => ({
-      label: commonKeys.includes(column.id) ? $t(`common.${column.id}`) : $t(`pages.${columnTitle.value}.${column.id}`),
+      label: commonKeys.includes(column.id) ? i18nCommon(column.id) : $t(`pages.${columnTitle.value}.${column.id}`),
       type: 'checkbox' as const,
       checked: column.getIsVisible(),
       onUpdateChecked(checked: boolean) {
@@ -41,7 +42,7 @@ const items = computed(() =>
 <template>
   <UDropdownMenu :items="items" :content="{ align: 'end' }">
     <UButton
-      :label="$t('common.columnVisibility')"
+      :label="i18nCommon('columnVisibility')"
       color="neutral"
       variant="outline"
       trailing-icon="lucide:settings-2"

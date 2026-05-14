@@ -4,12 +4,13 @@ import { map } from 'es-toolkit/compat'
 import { METHODS } from '@/enums'
 
 const props = defineProps<{
-  table?: Table<Log>
+  table: Table<Log>
   handleRefresh: VoidFunction
   loading: boolean
 }>()
 
 const toast = useToast()
+const { i18nLog, i18nCommon } = useMessage()
 
 const query = defineModel<Pick<LogQueryParams, 'userId' | 'method'>>({ required: true })
 const delLoading = ref(false)
@@ -36,7 +37,7 @@ async function handleBatchDelete() {
   await delLogs({ ids }).then(({ code }) => {
     if (isSuccess(code)) {
       toast.add({
-        title: $t('common.deleteSuccess'),
+        title: i18nCommon('deleteSuccess'),
         icon: 'lucide:circle-check',
         color: 'success',
       })
@@ -70,7 +71,7 @@ async function handleBatchDelete() {
         clear
         :loading="userloading"
         class="w-48"
-        :placeholder="$t('pages.systemSettings.operationLog.user')"
+        :placeholder="i18nLog('user')"
       />
       <USelectMenu
         v-model="query.method"
@@ -78,17 +79,17 @@ async function handleBatchDelete() {
         :items="METHODS.items.map(({ value, label, raw }) => ({ value, label, icon: raw.icon }))"
         clear
         class="w-48"
-        :placeholder="$t('pages.systemSettings.operationLog.method')"
+        :placeholder="i18nLog('method')"
       />
       <UButton
         icon="lucide:search"
         :loading
-        :label="$t('common.search')"
+        :label="i18nCommon('search')"
         @click="handleRefresh"
       />
       <UButton
         v-if="selectedRows.length"
-        :label="$t('common.batchDelete')"
+        :label="i18nCommon('batchDelete')"
         color="error"
         variant="soft"
         icon="i-lucide-trash-2"

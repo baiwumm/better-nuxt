@@ -14,26 +14,29 @@ const { i18nCommon } = useMessage()
       v-model="modelValue"
       :maxlength="maxlength"
       :placeholder="i18nCommon('placeholder')"
-      :ui="{ trailing: 'px-1' }"
+      :ui="{ trailing: 'ps-1' }"
     >
-      <template v-if="modelValue?.length" #trailing>
-        <UButton
-          color="neutral"
-          variant="link"
-          size="sm"
-          icon="i-lucide-circle-x"
-          aria-label="Clear input"
-          @click="modelValue = ''"
-        />
+      <template v-if="modelValue?.length || maxlength" #trailing>
+        <div class="flex flex-col items-center">
+          <UButton
+            v-if="modelValue?.length"
+            color="neutral"
+            variant="link"
+            size="sm"
+            icon="i-lucide-circle-x"
+            aria-label="Clear input"
+            @click="modelValue = ''"
+          />
+          <div
+            v-if="maxlength"
+            class="text-xs text-muted tabular-nums text-right"
+            aria-live="polite"
+            role="status"
+          >
+            {{ modelValue?.length ?? 0 }}/{{ maxlength }}
+          </div>
+        </div>
       </template>
     </UTextarea>
-    <div
-      v-if="maxlength"
-      class="text-xs text-muted tabular-nums text-right"
-      aria-live="polite"
-      role="status"
-    >
-      {{ modelValue?.length ?? 0 }}/{{ maxlength }}
-    </div>
   </div>
 </template>

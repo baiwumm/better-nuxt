@@ -1,6 +1,8 @@
 <script setup lang="ts">
 defineProps<{
+  placeholder?: string
   maxlength?: number
+  icon?: string
 }>()
 
 const modelValue = defineModel({ default: '' })
@@ -9,15 +11,21 @@ const { i18nCommon } = useMessage()
 </script>
 
 <template>
-  <div class="flex flex-col gap-1">
+  <UFieldGroup>
     <UInput
       v-model="modelValue"
       :maxlength="maxlength"
-      :placeholder="i18nCommon('placeholder')"
-      :ui="{ trailing: 'pe-1' }"
+      :icon
+      :placeholder="placeholder ?? i18nCommon('placeholder')"
+      :ui="{
+        root: 'flex-1',
+        base: 'pe-6',
+        trailing: 'pe-0',
+      }"
     >
       <template v-if="modelValue?.length" #trailing>
         <UButton
+          v-if="modelValue?.length"
           color="neutral"
           variant="link"
           size="sm"
@@ -27,13 +35,14 @@ const { i18nCommon } = useMessage()
         />
       </template>
     </UInput>
-    <div
-      v-if="maxlength"
-      class="text-xs text-muted tabular-nums text-right"
-      aria-live="polite"
-      role="status"
-    >
-      {{ modelValue?.length ?? 0 }}/{{ maxlength }}
-    </div>
-  </div>
+    <UBadge v-if="maxlength" color="neutral" variant="soft" size="lg">
+      <div
+        class="text-xs text-muted tabular-nums text-right"
+        aria-live="polite"
+        role="status"
+      >
+        {{ modelValue?.length ?? 0 }}/{{ maxlength }}
+      </div>
+    </UBadge>
+  </UFieldGroup>
 </template>

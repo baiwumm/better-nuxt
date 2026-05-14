@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { i18nAuth } = useMessage()
+</script>
+
 <template>
   <NuxtLink to="/auth/magic-link">
     <UButton
@@ -7,7 +11,7 @@
       variant="soft"
       class="w-full justify-center"
     >
-      {{ $t('auth.magicLink.submit') }}
+      {{ i18nAuth('magicLink.submit') }}
     </UButton>
   </NuxtLink>
 </template>

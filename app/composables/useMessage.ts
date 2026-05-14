@@ -1,6 +1,9 @@
 export function useMessage() {
   const { t } = useI18n()
 
+  // 用户鉴权
+  const i18nAuth = (field: string, isForm = false) => isForm ? `$i18n:auth.${field}` : t(`auth.${field}`)
+
   // 公共
   const i18nCommon = (field: string, isForm = false) => isForm ? `$i18n:common.${field}` : t(`common.${field}`)
 
@@ -27,5 +30,6 @@ export function useMessage() {
     i18nCommon,
     i18nLog,
     i18nMenu,
+    i18nAuth,
   }
 }

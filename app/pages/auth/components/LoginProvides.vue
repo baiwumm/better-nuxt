@@ -4,6 +4,7 @@ import { OAUTH_PROVIDES } from '@/enums'
 type Provider = typeof OAUTH_PROVIDES.valueType
 
 const { $authClient } = useNuxtApp()
+const { i18nAuth } = useMessage()
 const toast = useToast()
 const loading = ref(false)
 const oauthType = ref<Provider | null>(null)
@@ -13,7 +14,7 @@ const oauthType = ref<Provider | null>(null)
  */
 async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
   toast.add({
-    title: $t('auth.waitLogin'),
+    title: i18nAuth('waitLogin'),
     color: 'neutral',
   })
   loading.value = true
@@ -27,7 +28,7 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
   })
   if (error) {
     toast.add({
-      title: $t('auth.signUp.error'),
+      title: i18nAuth('signUp.error'),
       description: error.message || '',
       color: 'error',
     })
@@ -48,7 +49,7 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
       class="justify-center"
       @click="onOAuth(value)"
     >
-      {{ $t(`auth.provide.${label}`) }}
+      {{ i18nAuth(`provide.${label}`) }}
     </UButton>
   </div>
 </template>

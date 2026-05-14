@@ -90,7 +90,7 @@ const items = computed(() => ([
       >
         <UUser
           :name="collapsed ? undefined : userName"
-          :description="collapsed && userName === email ? undefined : email"
+          :description="collapsed || userName === email ? undefined : email"
           :avatar="{
             src: avatar,
             alt: userName,

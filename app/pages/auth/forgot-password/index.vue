@@ -1,99 +1,78 @@
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui'
-import z from 'zod'
-import EmailInput from '../components/EmailInput.vue'
 import LoginProvides from '../components/LoginProvides.vue'
 import MagicLinkButton from '../components/MagicLinkButton.vue'
-import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
   layout: 'auth',
 })
 
 const { $authClient } = useNuxtApp()
+const { emailFormSchema } = useSchema()
+const { i18nAuth } = useMessage()
 
 const toast = useToast()
 
 const loading = ref(false)
 
-const schema = z.object({
-  email: z.email($t('auth.email.error')),
-})
-
-type Schema = z.output<typeof schema>
-
-const state = reactive({
-  email: '',
-})
-
 /**
  * @description: 表单提交
- * @param {*} payload
  */
-async function onSubmit(payload: FormSubmitEvent<Schema>) {
-  const formData = payload.data
+async function onSubmit(data: EmailFormSchema) {
   loading.value = true
-  try {
-    await $authClient.requestPasswordReset({
-      ...formData,
-      redirectTo: '/auth/reset-password',
-    })
+  const { error } = await $authClient.requestPasswordReset({ ...data, redirectTo: '/auth/reset-password' }).finally(() => {
+    loading.value = false
+  })
+  if (error) {
     toast.add({
-      title: $t('auth.forgotPassword.success'),
-      color: 'success',
-    })
-    Object.assign(state, { email: '' })
-  }
-  catch (err) {
-    let message = '未知错误'
-
-    if (err instanceof Error) {
-      message = err.message
-    }
-    else if (typeof err === 'string') {
-      message = err
-    }
-    toast.add({
-      title: message,
+      title: error.message,
       color: 'error',
     })
   }
-  finally {
-    loading.value = false
+  else {
+    toast.add({
+      title: i18nAuth('forgotPassword.success'),
+      color: 'success',
+    })
   }
 }
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <UPageCard
-        :title="$t('auth.forgotPassword.title')"
-        :description="$t('auth.forgotPassword.description')"
-        class="w-full sm:w-md"
-        :ui="{
-          title: 'text-xl',
-          description: 'text-sm',
-        }"
+  <UPageCard
+    :title="i18nAuth('forgotPassword.title')"
+    :description="i18nAuth('forgotPassword.description')"
+    class="w-full sm:w-md"
+    :ui="{
+      title: 'text-xl',
+      description: 'text-sm',
+    }"
+  >
+    <AutoForm
+      :schema="emailFormSchema"
+      :config="{
+        submit: {
+          props: {
+            label: i18nAuth('forgotPassword.submit'),
+            icon: 'ri:check-fill',
+            loading,
+            class: 'w-full justify-center',
+          },
+        },
+      }"
+      @submit="onSubmit"
+    />
+    <MagicLinkButton />
+    <USeparator label="or" />
+    <LoginProvides />
+    <NuxtLink to="/auth/sign-in">
+      <UButton
+        type="submit"
+        color="neutral"
+        variant="soft"
+        class="w-full justify-center"
       >
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-          <EmailInput v-model="state.email" />
-          <SubmitButton :text="$t('auth.forgotPassword.submit')" :loading="loading" />
-          <MagicLinkButton />
-        </UForm>
-        <USeparator label="or" />
-        <LoginProvides />
-        <NuxtLink to="/auth/sign-in">
-          <UButton
-            type="submit"
-            color="neutral"
-            variant="soft"
-            class="w-full justify-center"
-          >
-            {{ $t('auth.forgotPassword.footer') }}
-          </UButton>
-        </NuxtLink>
-      </UPageCard>
-    </ClientOnly>
-  </div>
+        {{ i18nAuth('forgotPassword.footer') }}
+      </UButton>
+    </NuxtLink>
+  </UPageCard>
 </template>

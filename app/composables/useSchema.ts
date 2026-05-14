@@ -16,7 +16,7 @@ export function useSchema() {
 
   // 排序
   const zSort = z.number().default(0).meta({
-    title: '$i18n:common.sort',
+    title: i18nCommon('sort', true),
   })
 
   // 输入框 - 函数重载，根据 required 得到准确的类型
@@ -47,35 +47,75 @@ export function useSchema() {
   // 勾选框
   const zCheckbox = (title: string) => z.boolean().meta({ title, theme: { floatRight: true } })
 
+  // 电子邮箱
+  const zEmail = z.email(t('auth.email.error')).nonempty({ error: i18nCommon('required') }).meta({
+    title: i18nAuth('email.label', true),
+    required: true,
+    input: {
+      props: {
+        placeholder: i18nAuth('email.placeholder'),
+      },
+    },
+  })
+
+  // 用户密码
+  const zPassword = z.string(t('auth.password.placeholder')).min(8, t('auth.password.error')).meta({
+    title: i18nAuth('password.label', true),
+    required: true,
+    input: {
+      component: AInputPasswordToggle,
+      props: {
+        placeholder: i18nAuth('password.placeholder'),
+      },
+    },
+  })
+
   // 用户登录
   const signInFormSchema = z.object({
-    email: z.email(t('auth.email.error')).nonempty({ error: i18nCommon('required') }).meta({
-      title: i18nAuth('email.label', true),
+    email: zEmail,
+    password: zPassword,
+    rememberMe: z.boolean().optional().meta({ title: i18nAuth('signIn.rememberMe', true), theme: { floatRight: true } }),
+  })
+
+  // 用户注册
+  const signUpFormSchema = z.object({
+    name: z.string(i18nAuth('name.placeholder')).nonempty({ error: i18nAuth('name.placeholder', true) }).meta({
+      title: i18nAuth('name.label', true),
       required: true,
       input: {
         props: {
-          placeholder: i18nAuth('email.placeholder'),
+          placeholder: i18nAuth('name.placeholder'),
         },
       },
     }),
-    password: z.string(t('auth.password.placeholder')).min(8, t('auth.password.error')).meta({
-      title: i18nAuth('password.label', true),
+    email: zEmail,
+    password: zPassword,
+  })
+
+  // 邮箱一键登录/忘记密码
+  const emailFormSchema = z.object({
+    email: zEmail,
+  })
+
+  // 重置密码
+  const forgotPasswordFormSchema = z.object({
+    newPassword: z.string(t('auth.newPassword.placeholder')).min(8, t('auth.password.error')).meta({
+      title: i18nAuth('newPassword.label', true),
       required: true,
       input: {
         component: AInputPasswordToggle,
         props: {
-          placeholder: i18nAuth('password.placeholder'),
+          placeholder: i18nAuth('newPassword.placeholder'),
         },
       },
     }),
-    rememberMe: z.boolean().optional().meta({ title: i18nAuth('signIn.rememberMe', true), theme: { floatRight: true } }),
   })
 
   // 菜单管理 - 新增/编辑
   const menuFormSchema = z.object({
     parentId: z.string().nullable().meta({
       title: i18nMenu('parentId', true),
-      help: '$i18n:common.parentHelp',
+      help: i18nCommon('parentHelp', true),
     }),
     label: zInput({
       title: i18nMenu('label', true),
@@ -96,8 +136,8 @@ export function useSchema() {
   // 国际化 - 新增/编辑
   const internalizationFormSchema = z.object({
     parentId: z.string().nullable().meta({
-      title: '$i18n:common.parent',
-      help: '$i18n:common.parentHelp',
+      title: i18nCommon('parent', true),
+      help: i18nCommon('parentHelp', true),
     }),
     name: zInput({ title: i18nInternalization('name', true), required: true, maxlength: 200 }),
     zh: zInput({ title: i18nInternalization('zh', true), maxlength: 500, isTextarea: true }),
@@ -111,10 +151,16 @@ export function useSchema() {
     internalizationFormSchema,
     menuFormSchema,
     signInFormSchema,
+    signUpFormSchema,
+    emailFormSchema,
+    forgotPasswordFormSchema,
   }
 }
 
 // 导出类型
 export type SignInFormSchema = z.infer<ReturnType<typeof useSchema>['signInFormSchema']>
+export type SignUpFormSchema = z.infer<ReturnType<typeof useSchema>['signUpFormSchema']>
+export type EmailFormSchema = z.infer<ReturnType<typeof useSchema>['emailFormSchema']>
+export type ForgotPasswordFormSchema = z.infer<ReturnType<typeof useSchema>['forgotPasswordFormSchema']>
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
 export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>

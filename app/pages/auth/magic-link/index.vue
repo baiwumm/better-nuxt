@@ -1,41 +1,24 @@
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui'
-import z from 'zod'
-import EmailInput from '../components/EmailInput.vue'
 import FooterLink from '../components/FooterLink.vue'
 import LoginProvides from '../components/LoginProvides.vue'
-import SubmitButton from '../components/SubmitButton.vue'
 
 definePageMeta({
   layout: 'auth',
 })
 
 const { $authClient } = useNuxtApp()
+const { emailFormSchema } = useSchema()
+const { i18nAuth } = useMessage()
 
 const toast = useToast()
 const loading = ref(false)
 
-const schema = z.object({
-  email: z.email($t('auth.email.error')),
-})
-
-type Schema = z.output<typeof schema>
-
-const state = reactive({
-  email: '',
-})
-
 /**
  * @description: 表单提交
- * @param {*} payload
  */
-async function onSubmit(payload: FormSubmitEvent<Schema>) {
-  const formData = payload.data
+async function onSubmit(data: EmailFormSchema) {
   loading.value = true
-  const { error } = await $authClient.signIn.magicLink({
-    ...formData,
-    callbackURL: '/',
-  }).finally(() => {
+  const { error } = await $authClient.signIn.magicLink({ ...data, callbackURL: '/' }).finally(() => {
     loading.value = false
   })
   if (error) {
@@ -46,46 +29,51 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   }
   else {
     toast.add({
-      title: $t('auth.magicLink.verifyEmailSent'),
-      description: $t('auth.magicLink.verifyEmailSentDesc'),
+      title: i18nAuth('magicLink.verifyEmailSent'),
+      description: i18nAuth('magicLink.verifyEmailSentDesc'),
       color: 'success',
     })
-    Object.assign(state, { email: '' })
   }
 }
 </script>
 
 <template>
-  <div>
-    <ClientOnly>
-      <UPageCard
-        :title="$t('auth.magicLink.title')"
-        :description="$t('auth.magicLink.description')"
-        class="w-full sm:w-md"
-        :ui="{
-          title: 'text-xl',
-          description: 'text-sm',
-        }"
+  <UPageCard
+    :title="i18nAuth('magicLink.title')"
+    :description="i18nAuth('magicLink.description')"
+    class="w-full sm:w-md"
+    :ui="{
+      title: 'text-xl',
+      description: 'text-sm',
+    }"
+  >
+    <AutoForm
+      :schema="emailFormSchema"
+      :config="{
+        submit: {
+          props: {
+            label: i18nAuth('magicLink.submit'),
+            icon: 'ri:check-fill',
+            loading,
+            class: 'w-full justify-center',
+          },
+        },
+      }"
+      @submit="onSubmit"
+    />
+    <NuxtLink to="/auth/sign-in">
+      <UButton
+        type="submit"
+        icon="ri:lock-line"
+        color="neutral"
+        variant="soft"
+        class="w-full justify-center"
       >
-        <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-          <EmailInput v-model="state.email" />
-          <SubmitButton :text="$t('auth.magicLink.submit')" :loading="loading" />
-          <NuxtLink to="/auth/sign-in">
-            <UButton
-              type="submit"
-              icon="ri:lock-line"
-              color="neutral"
-              variant="soft"
-              class="w-full justify-center"
-            >
-              {{ $t('auth.magicLink.signInWithPassword') }}
-            </UButton>
-          </NuxtLink>
-        </UForm>
-        <USeparator label="or" />
-        <LoginProvides />
-        <FooterLink :left-text="$t('auth.signIn.footer')" :right-text="$t('auth.signIn.footerLink')" to="/auth/sign-up" />
-      </UPageCard>
-    </ClientOnly>
-  </div>
+        {{ i18nAuth('magicLink.signInWithPassword') }}
+      </UButton>
+    </NuxtLink>
+    <USeparator label="or" />
+    <LoginProvides />
+    <FooterLink :left-text="i18nAuth('signIn.footer')" :right-text="i18nAuth('signIn.footerLink')" to="/auth/sign-up" />
+  </UPageCard>
 </template>

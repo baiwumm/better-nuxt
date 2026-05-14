@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'submit', v: InsertInternalization): void
+  (e: 'submit', v: InternalizationFormSchema): void
 }>()
 
 const { i18nInternalization, i18nCommon } = useMessage()
@@ -19,19 +19,17 @@ const { flattenTree } = useTreeTool()
 
 const modelValue = defineModel<boolean>({ required: true })
 
-type FormSchema = z.infer<typeof internalizationFormSchema>
-
 // 初始表单状态
-const INITIAL_STATE = Object.freeze<FormSchema>({
+const INITIAL_STATE = Object.freeze<InternalizationFormSchema>({
   parentId: null,
   name: '',
   zh: null,
   en: null,
   sort: 0,
 })
-const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof FormSchema)[]
+const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof InternalizationFormSchema)[]
 
-const initialState = computed<FormSchema>(() => ({
+const initialState = computed<InternalizationFormSchema>(() => ({
   ...INITIAL_STATE,
   ...(props.data
     ? pick(props.data, FORM_FIELDS)
@@ -39,7 +37,7 @@ const initialState = computed<FormSchema>(() => ({
   parentId: props.data?.parentId ?? props.parentId ?? null,
 }))
 
-function onSubmit(data: FormSchema) {
+function onSubmit(data: InternalizationFormSchema) {
   emit('submit', data)
 }
 const selectMenuItems = computed(() => flattenTree(props.internalizationTree, 'name'))

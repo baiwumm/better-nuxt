@@ -61,7 +61,7 @@ async function handleDelete(id: string) {
 }
 
 // 表单提交
-async function handleSubmit(values: InsertMenu) {
+async function handleSubmit(values: MenuFormSchema) {
   saveLoading.value = true
   await (editData.value?.id ? updateMenu({ ...values, id: editData.value.id }) : insertMenu(values)).then(({ code }) => {
     if (isSuccess(code)) {

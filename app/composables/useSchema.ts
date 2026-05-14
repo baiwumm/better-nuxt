@@ -1,5 +1,5 @@
-import { AutoFormInput, AutoFormTextarea } from '#components'
 import z from 'zod'
+import { AInputPasswordToggle, AutoFormInput, AutoFormTextarea } from '#components'
 import { MENU_TARGET } from '@/enums'
 
 interface ZInputOpts {
@@ -11,7 +11,8 @@ interface ZInputOpts {
 }
 
 export function useSchema() {
-  const { i18nCommon, i18nInternalization, i18nMenu } = useMessage()
+  const { t } = useI18n()
+  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -45,6 +46,30 @@ export function useSchema() {
 
   // 勾选框
   const zCheckbox = (title: string) => z.boolean().meta({ title, theme: { floatRight: true } })
+
+  // 用户登录
+  const signInFormSchema = z.object({
+    email: z.email(t('auth.email.error')).nonempty({ error: i18nCommon('required') }).meta({
+      title: i18nAuth('email.label', true),
+      required: true,
+      input: {
+        props: {
+          placeholder: i18nAuth('email.placeholder'),
+        },
+      },
+    }),
+    password: z.string(t('auth.password.placeholder')).min(8, t('auth.password.error')).meta({
+      title: i18nAuth('password.label', true),
+      required: true,
+      input: {
+        component: AInputPasswordToggle,
+        props: {
+          placeholder: i18nAuth('password.placeholder'),
+        },
+      },
+    }),
+    rememberMe: z.boolean().optional().meta({ title: i18nAuth('signIn.rememberMe', true), theme: { floatRight: true } }),
+  })
 
   // 菜单管理 - 新增/编辑
   const menuFormSchema = z.object({
@@ -85,5 +110,11 @@ export function useSchema() {
     zInput,
     internalizationFormSchema,
     menuFormSchema,
+    signInFormSchema,
   }
 }
+
+// 导出类型
+export type SignInFormSchema = z.infer<ReturnType<typeof useSchema>['signInFormSchema']>
+export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
+export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>

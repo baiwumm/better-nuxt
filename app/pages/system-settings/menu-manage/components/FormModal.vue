@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'submit', v: InsertMenu): void
+  (e: 'submit', v: MenuFormSchema): void
 }>()
 
 const { i18nMenu, i18nCommon } = useMessage()
@@ -19,10 +19,8 @@ const { flattenTree } = useTreeTool()
 
 const modelValue = defineModel<boolean>({ required: true })
 
-type FormSchema = z.infer<typeof menuFormSchema>
-
 // 初始表单状态
-const INITIAL_STATE = Object.freeze<FormSchema>({
+const INITIAL_STATE = Object.freeze<MenuFormSchema>({
   parentId: null,
   label: '',
   icon: '',
@@ -34,9 +32,9 @@ const INITIAL_STATE = Object.freeze<FormSchema>({
   target: MENU_TARGET.SELF,
   sort: 0,
 })
-const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof FormSchema)[]
+const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof MenuFormSchema)[]
 
-const initialState = computed<FormSchema>(() => ({
+const initialState = computed<MenuFormSchema>(() => ({
   ...INITIAL_STATE,
   ...(props.data
     ? pick(props.data, FORM_FIELDS)
@@ -44,7 +42,7 @@ const initialState = computed<FormSchema>(() => ({
 }))
 
 /** 提交 */
-function onSubmit(data: FormSchema) {
+function onSubmit(data: MenuFormSchema) {
   emit('submit', data)
 }
 

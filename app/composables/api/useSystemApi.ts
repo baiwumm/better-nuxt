@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 15:51:05
+ * @LastEditTime: 2026-05-14 15:45:36
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -17,13 +17,13 @@ export function useSystemApi() {
   /**
    * @description: 新增菜单
    */
-  const insertMenu = (body: InsertMenu) =>
+  const insertMenu = (body: MenuFormSchema) =>
     post<Menu>('/system-settings/menu-manage', body)
 
   /**
    * @description: 更新菜单
    */
-  const updateMenu = ({ id, ...body }: UpdateMenu & { id: string }) =>
+  const updateMenu = ({ id, ...body }: Partial<MenuFormSchema> & { id: string }) =>
     put<Menu>(`/system-settings/menu-manage/${id}`, body)
 
   /**
@@ -65,13 +65,13 @@ export function useSystemApi() {
   /**
    * @description: 新增国际化
    */
-  const insertInternalization = (body: InsertInternalization) =>
+  const insertInternalization = (body: InternalizationFormSchema) =>
     post<Internalization>('/system-settings/internalization', body)
 
   /**
    * @description: 更新国际化
    */
-  const updateInternalization = ({ id, ...body }: UpdateInternalization & { id: string }) =>
+  const updateInternalization = ({ id, ...body }: Partial<InternalizationFormSchema> & { id: string }) =>
     put<Internalization>(`/system-settings/internalization/${id}`, body)
 
   /**

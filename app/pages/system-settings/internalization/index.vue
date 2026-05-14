@@ -78,7 +78,7 @@ async function handleDelete(id: string) {
 }
 
 // 表单提交
-async function handleSubmit(values: InsertInternalization) {
+async function handleSubmit(values: InternalizationFormSchema) {
   saveLoading.value = true
   await (editData.value?.id ? updateInternalization({ ...values, id: editData.value.id }) : insertInternalization(values)).then(({ code }) => {
     if (isSuccess(code)) {

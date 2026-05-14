@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui'
-import type { Column } from '@tanstack/vue-table'
 import FormModal from './components/FormModal.vue'
-
-const UBadge = resolveComponent('UBadge')
-const UIcon = resolveComponent('UIcon')
-const UButton = resolveComponent('UButton')
-const USwitch = resolveComponent('USwitch')
+import HeaderContent from './components/HeaderContent.vue'
 
 const { getMenuList, insertMenu, updateMenu, delMenu } = useSystemApi()
+const { i18nCommon } = useMessage()
 
 const toast = useToast()
-const dayjs = useDayjs()
 
 const keyword = ref('')
 const table = useTemplateRef('table')
@@ -29,138 +23,15 @@ const { data, pending: loading, refresh } = await useAsyncData(
   },
 )
 
-/**
- * @description: 列固定
- */
-function getHeader(column: Column<MenuTree>, label: string, position: 'left' | 'right') {
-  const isPinned = column.getIsPinned()
-  return h(UButton, {
-    color: 'neutral',
-    variant: 'ghost',
-    label,
-    icon: isPinned ? 'lucide:pin-off' : 'lucide:pin',
-    class: '-mx-2.5',
-    onClick() {
-      column.pin(isPinned === position ? false : position)
-    },
-    ui: {
-      label: 'font-semibold',
-    },
-  })
-}
-
-const columns = computed<TableColumn<MenuTree>[]>(() => [
-  {
-    accessorKey: 'label',
-    header: ({ column }) => getHeader(column, $t('pages.systemSettings.menuManage.label'), 'left'),
-    cell: ({ row }) => {
-      return h(
-        'div',
-        {
-          style: {
-            paddingLeft: `${row.depth * 0.5}rem`,
-          },
-          class: 'flex items-center gap-2',
-        },
-        [
-          h(UButton, {
-            color: 'neutral',
-            variant: 'outline',
-            size: 'xs',
-            icon: row.getIsExpanded() ? 'i-lucide-minus' : 'i-lucide-plus',
-            class: !row.getCanExpand() && 'invisible',
-            ui: {
-              base: 'p-0 rounded-sm',
-              leadingIcon: 'size-4',
-            },
-            onClick: row.getToggleExpandedHandler(),
-          }),
-          h(UBadge, { }, () => $t(row.getValue('label'))),
-        ],
-      )
-    },
+const { columns } = useMenuColumns({
+  saveLoading,
+  deleteId,
+  onEdit: (row) => {
+    editData.value = row
+    open.value = true
   },
-  {
-    accessorKey: 'to',
-    header: $t('pages.systemSettings.menuManage.to'),
-    cell: ({ row }) => {
-      const val = row.getValue('to')
-      return val ? h(UBadge, { variant: 'soft', color: 'secondary' }, () => row.getValue('to')) : '-'
-    },
-  },
-  {
-    accessorKey: 'icon',
-    header: $t('common.icon'),
-    cell: ({ row }) => {
-      return h(UIcon, { name: row.getValue('icon'), class: 'size-5' })
-    },
-  },
-  {
-    accessorKey: 'badge',
-    header: $t('pages.systemSettings.menuManage.badge'),
-    cell: ({ row }) => {
-      const val = row.getValue('badge')
-      return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => row.getValue('badge')) : '-'
-    },
-  },
-  ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<MenuTree>>(v => ({
-    accessorKey: v,
-    header: $t(`pages.systemSettings.menuManage.${v}`),
-    cell: ({ row }) => h(USwitch, {
-      disabled: true,
-      uncheckedIcon: 'lucide:x',
-      checkedIcon: 'lucide:check',
-      modelValue: row.getValue(v),
-      ui: { root: 'justify-center' },
-    }),
-  })),
-  {
-    accessorKey: 'sort',
-    header: $t('common.sort'),
-    cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('sort')),
-  },
-  {
-    accessorKey: 'createdAt',
-    header: $t('common.createdAt'),
-    cell: ({ row }) => dayjs(row.original.createdAt).format('YYYY-MM-DD HH:mm:ss'),
-  },
-  {
-    accessorKey: 'action',
-    header: ({ column }) => getHeader(column, $t('common.action'), 'right'),
-    cell: ({ row }) => {
-      return h(
-        'div',
-        {
-          class: 'flex justify-center items-center gap-2',
-        },
-        [
-          h(UButton, {
-            label: $t('common.edit'),
-            color: 'neutral',
-            variant: 'outline',
-            size: 'xs',
-            icon: 'lucide:pencil-line',
-            disabled: saveLoading.value,
-            onClick: () => {
-              editData.value = row.original
-              open.value = true
-            },
-          }),
-          h(UButton, {
-            label: $t('common.delete'),
-            color: 'error',
-            variant: 'soft',
-            size: 'xs',
-            icon: 'lucide:trash-2',
-            disabled: deleteId.value !== null && row.original.id !== deleteId.value,
-            loading: deleteId.value !== null && row.original.id === deleteId.value,
-            onClick: () => handleDelete(row.original),
-          }),
-        ],
-      )
-    },
-  },
-])
+  onDelete: handleDelete,
+})
 
 const columnVisibility = ref({
   createdAt: false,
@@ -178,7 +49,7 @@ async function handleDelete(row: MenuTree) {
   await delMenu(row.id).then(({ code }) => {
     if (isSuccess(code)) {
       toast.add({
-        title: $t('common.deleteSuccess'),
+        title: i18nCommon('deleteSuccess'),
         icon: 'lucide:circle-check',
         color: 'success',
       })
@@ -195,7 +66,7 @@ async function handleSubmit(values: InsertMenu) {
   await (editData.value?.id ? updateMenu({ ...values, id: editData.value.id }) : insertMenu(values)).then(({ code }) => {
     if (isSuccess(code)) {
       toast.add({
-        title: $t('common.saveSuccess'),
+        title: i18nCommon('saveSuccess'),
         icon: 'lucide:circle-check',
         color: 'success',
       })
@@ -216,25 +87,9 @@ watch(open, (val) => {
 
 <template>
   <div class="space-y-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2 ">
-        <UInput v-model:model-value="keyword" icon="lucide:search" variant="outline" :placeholder="$t('common.searchKeyword')" />
-        <UButton
-          icon="lucide:search"
-          :loading
-          :label="$t('common.search')"
-          @click="refresh"
-        />
-        <UButton
-          icon="lucide:plus"
-          color="neutral"
-          variant="outline"
-          :label="$t('common.add')"
-          @click="open = true"
-        />
-      </div>
-      <TableColumnVisibility v-if="table?.tableApi" :table="table.tableApi" />
-    </div>
+    <ClientOnly>
+      <HeaderContent v-model="keyword" v-model:open="open" :handle-refresh="refresh" :loading :table="table?.tableApi" />
+    </ClientOnly>
     <UTable
       ref="table"
       v-model:column-visibility="columnVisibility"

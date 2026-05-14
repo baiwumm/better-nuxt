@@ -8,43 +8,14 @@ export function useInternalizationColumns(options: {
   onEdit: (row: InternalizationTree) => void
   onDelete: (row: InternalizationTree) => void
 }) {
-  const { getHeader, createSortColumn, createCreatedAtColumn } = useTableColumns()
+  const { getHeader, createSortColumn, createCreatedAtColumn, createTreeColumn } = useTableColumns()
 
   const { saveLoading, deleteId, onAddChild, onEdit, onDelete } = options
 
   const { i18nCommon, i18nInternalization } = useMessage()
 
   const columns = computed<TableColumn<InternalizationTree>[]>(() => [
-    {
-      accessorKey: 'name',
-      header: ({ column }) => getHeader(column, i18nInternalization('name'), 'left'),
-      cell: ({ row }) => {
-        return h(
-          'div',
-          {
-            style: {
-              paddingLeft: `${row.depth * 0.5}rem`,
-            },
-            class: 'flex items-center gap-2',
-          },
-          [
-            h(UButton, {
-              color: 'neutral',
-              variant: 'outline',
-              size: 'xs',
-              icon: row.getIsExpanded() ? 'i-lucide-minus' : 'i-lucide-plus',
-              class: !row.getCanExpand() && 'invisible',
-              ui: {
-                base: 'p-0 rounded-sm',
-                leadingIcon: 'size-4',
-              },
-              onClick: row.getToggleExpandedHandler(),
-            }),
-            h(UBadge, { }, () => row.getValue('name')),
-          ],
-        )
-      },
-    },
+    createTreeColumn('name', i18nInternalization('name')),
     ...['zh', 'en'].map<TableColumn<InternalizationTree>>(key => ({
       accessorKey: key,
       header: i18nInternalization(key),

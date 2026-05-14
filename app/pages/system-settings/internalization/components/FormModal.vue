@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { SelectMenuItem } from '@nuxt/ui'
 import type z from 'zod'
 import { pick } from 'es-toolkit'
 
@@ -16,6 +15,7 @@ const emit = defineEmits<{
 
 const { i18nInternalization, i18nCommon } = useMessage()
 const { internalizationFormSchema } = useSchema()
+const { flattenTree } = useTreeTool()
 
 const modelValue = defineModel<boolean>({ required: true })
 
@@ -42,23 +42,7 @@ const initialState = computed<FormSchema>(() => ({
 function onSubmit(data: FormSchema) {
   emit('submit', data)
 }
-
-function flattenInternalizationTree(tree: InternalizationTree[], level = 0, result: SelectMenuItem[] = []) {
-  tree.forEach((node) => {
-    const prefix = '　'.repeat(level) + (level > 0 ? '└ ' : '')
-    result.push({
-      id: node.id,
-      label: prefix + node.name,
-      icon: 'lucide:case-sensitive',
-    })
-
-    if (node.children && node.children.length) {
-      flattenInternalizationTree(node.children, level + 1, result)
-    }
-  })
-  return result
-}
-const selectMenuItems = computed(() => flattenInternalizationTree(props.internalizationTree))
+const selectMenuItems = computed(() => flattenTree(props.internalizationTree, 'name'))
 </script>
 
 <template>

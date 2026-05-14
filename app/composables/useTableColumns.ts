@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-13 14:32:44
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-13 17:08:07
+ * @LastEditTime: 2026-05-14 09:36:31
  * @Description: 公共表格列项
  */
 import type { TableColumn } from '@nuxt/ui'
@@ -11,6 +11,7 @@ import { UBadge, UButton, UCheckbox } from '#components'
 
 export function useTableColumns() {
   const { i18nCommon } = useMessage()
+  const { t } = useI18n()
   const dayjs = useDayjs()
 
   // 头部 - 列固定
@@ -50,6 +51,40 @@ export function useTableColumns() {
           },
           'onClick': () => row.toggleExpanded(),
         }),
+    }
+  }
+
+  // 树形列项
+  function createTreeColumn<T>(key: string, title: string, isMenu = false): TableColumn<T> {
+    return {
+      accessorKey: key,
+      header: ({ column }) => getHeader(column, title, 'left'),
+      cell: ({ row }) => {
+        return h(
+          'div',
+          {
+            style: {
+              paddingLeft: `${row.depth * 0.5}rem`,
+            },
+            class: 'flex items-center gap-2',
+          },
+          [
+            h(UButton, {
+              color: 'neutral',
+              variant: 'outline',
+              size: 'xs',
+              icon: row.getIsExpanded() ? 'i-lucide-minus' : 'i-lucide-plus',
+              class: !row.getCanExpand() && 'invisible',
+              ui: {
+                base: 'p-0 rounded-sm',
+                leadingIcon: 'size-4',
+              },
+              onClick: row.getToggleExpandedHandler(),
+            }),
+            h(UBadge, { }, () => isMenu ? t(row.getValue(key)) : row.getValue(key)),
+          ],
+        )
+      },
     }
   }
 
@@ -107,5 +142,6 @@ export function useTableColumns() {
     createCreatedAtColumn,
     createExpandColumn,
     createCheckboxColumn,
+    createTreeColumn,
   }
 }

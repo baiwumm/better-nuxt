@@ -14,7 +14,7 @@ export function useTreeTool() {
    */
   function flattenTree<T extends FlattenTreeNode<T>>(tree: T[], labelKey: keyof T, isMenu = false, level = 0, result: SelectMenuItem[] = []) {
     tree.forEach((node) => {
-      const prefix = ' '.repeat(level) + (level > 0 ? '└ ' : '')
+      const prefix = '　'.repeat(level) + (level > 0 ? '└ ' : '')
       const label = isMenu ? t(node[labelKey] as string) : node[labelKey]
       result.push({
         id: node.id,

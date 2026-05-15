@@ -2,14 +2,18 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-07 16:48:49
+ * @LastEditTime: 2026-05-15 10:04:50
  * @Description: BetterAuth 实例
  */
+import { render } from '@vue-email/render'
 import { betterAuth } from 'better-auth'
 import { localization } from 'better-auth-localization'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
 import { Resend } from 'resend'
+import EmailVerificationEmail from '@/components/email/EmailVerificationEmail.vue'
+
+import MagicLinkEmail from '@/components/email/MagicLinkEmail.vue'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
 
@@ -25,25 +29,14 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true, // 必须验证才能登录
     sendResetPassword: async ({ user, url }) => {
-      const name = user.name || user.email.split('@')[0]
+      const config = useRuntimeConfig()
+      const appName = config.public.appName
+      const html = await render(EmailVerificationEmail, { url, email: user.email, appName })
       await resend.emails.send({
-        from: 'NuxtProMax <no-reply@baiwumm.com>',
+        from: `${appName} <no-reply@baiwumm.com>`,
         to: user.email,
         subject: '重置您的密码',
-        html: `
-          <div style="font-family: Arial;">
-            <h2>Hi ${name}</h2>
-            <p>点击按钮：</p>
-            <a href="${url}" style="
-              padding:10px 16px;
-              background:#000;
-              color:#fff;
-              text-decoration:none;
-            ">
-              重置密码
-            </a>
-          </div>
-        `,
+        html,
       })
     },
   },
@@ -52,25 +45,14 @@ export const auth = betterAuth({
     sendOnSignIn: true, // 登录时如果未验证，发送验证邮件
     autoSignInAfterVerification: true, // 验证成功后自动登录
     sendVerificationEmail: async ({ user, url }) => {
-      const name = user.name || user.email.split('@')[0]
+      const config = useRuntimeConfig()
+      const appName = config.public.appName
+      const html = await render(EmailVerificationEmail, { url, email: user.email, appName })
       await resend.emails.send({
-        from: 'NuxtProMax <no-reply@baiwumm.com>',
+        from: `${appName} <no-reply@baiwumm.com>`,
         to: user.email,
         subject: '验证您的电子邮件地址',
-        html: `
-          <div style="font-family: Arial;">
-            <h2>Hi ${name}</h2>
-            <p>点击按钮验证邮箱：</p>
-            <a href="${url}" style="
-              padding:10px 16px;
-              background:#000;
-              color:#fff;
-              text-decoration:none;
-            ">
-              验证邮箱
-            </a>
-          </div>
-        `,
+        html,
       })
     },
   },
@@ -96,24 +78,14 @@ export const auth = betterAuth({
     username(),
     magicLink({
       sendMagicLink: async ({ email, url }) => {
+        const config = useRuntimeConfig()
+        const appName = config.public.appName
+        const html = await render(MagicLinkEmail, { url, email, appName })
         await resend.emails.send({
-          from: 'NuxtProMax <no-reply@baiwumm.com>',
+          from: `${appName} <no-reply@baiwumm.com>`,
           to: email,
           subject: '邮箱一键登录',
-          html: `
-          <div style="font-family: Arial;">
-            <h2>邮箱一键登录</h2>
-            <p>点击下面的按钮即可安全登录：</p>
-            <a href="${url}" style="
-              padding:10px 16px;
-              background:#000;
-              color:#fff;
-              text-decoration:none;
-            ">
-              登录
-            </a>
-          </div>
-        `,
+          html,
         })
       },
     }),

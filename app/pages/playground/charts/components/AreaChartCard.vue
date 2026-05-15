@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { CurveType } from '@unovis/ts'
 import { randomInt } from 'es-toolkit/math'
+import CardTitle from './CardTitle.vue'
+
+const props = defineProps<{
+  days: number
+}>()
 
 interface AreaChartItem {
   date: string
@@ -48,30 +53,25 @@ const { data: AreaChartData, pending, refresh } = await useAsyncData(
   'area-chart-data',
   async () => {
     await new Promise(resolve => setTimeout(resolve, 2000))
-    return getAreaChartData(10)
+    return getAreaChartData(props.days)
   },
 )
 </script>
 
 <template>
-  <UCard :description="$t('pages.playground.charts.areaChart.description')" :ui="{ body: 'relative' }">
+  <UCard :description="$t('pages.playground.charts.description', { days })" :ui="{ body: 'relative' }">
     <AreaChart
       :key="colorMode.value"
-      :data="AreaChartData"
+      :data="AreaChartData || []"
       :height="height"
       :categories="categories"
       :y-grid-line="true"
-      :x-formatter="(tick:number) => AreaChartData?.[tick]?.date"
+      :x-formatter="(tick:number) => AreaChartData?.[tick]?.date ?? ''"
       :curve-type="CurveType.MonotoneX"
-      legend-position="bottomCenter"
+      :legend-position="LegendPosition.BottomCenter"
     />
     <template #title>
-      <div class="flex items-center justify-between gap-2">
-        <div class="text-highlighted font-semibold">
-          {{ $t('pages.playground.charts.areaChart.title') }}
-        </div>
-        <UButton icon="lucide:rotate-ccw" size="md" color="neutral" variant="ghost" :loading="pending" @click="() => refresh()" />
-      </div>
+      <CardTitle title-key="areaChart" :loading="pending" :refresh />
     </template>
     <ContainerLoading v-if="pending" />
   </UCard>

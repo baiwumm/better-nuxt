@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     'nuxt-qrcode',
     '@nuxtjs/mdc',
     '@norbiros/nuxt-auto-form',
+    '@vercel/speed-insights',
   ],
   css: ['~/assets/css/main.css', '~/assets/css/transition.css'],
   ui: {

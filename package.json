@@ -35,6 +35,7 @@
     "@pinia/nuxt": "^0.11.3",
     "@tanstack/vue-table": "^8.21.3",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "@vitejs/plugin-vue": "^6.0.6",
     "@vue-email/components": "^0.0.21",
     "@vue-email/render": "^0.0.9",

@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.6.0](https://github.com/baiwumm/better-nuxt/compare/v1.5.3...v1.6.0) (2026-05-15)
+
+### ✨ Features | 新功能
+
+* 项目名改成“Better Nuxt” ([6b01684](https://github.com/baiwumm/better-nuxt/commit/6b0168420441785bfc03f327834d4135613cf929))
+* 优化 better-auth 验证邮件模板 ([4f65ada](https://github.com/baiwumm/better-nuxt/commit/4f65ada3a09537fe82e9e8e1a711d1720ffbfbd0))
+* **components:** 新增 AutoForm 共用组件 ([25f58f9](https://github.com/baiwumm/better-nuxt/commit/25f58f9d7638cfaf5843bd164c8bbfa74f2f367f))
+
+### 💄 Styles | 风格
+
+* **operation-log:** 优化头像名称显示 ([4790fc2](https://github.com/baiwumm/better-nuxt/commit/4790fc2a181cc0a5dd7612009120780cc94e562a))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 抽离操作按钮组件、优化代码结构 ([78cca24](https://github.com/baiwumm/better-nuxt/commit/78cca24ebe28a31ad46facff58c22399c46ab14f))
+* 抽取公共函数，优化代码逻辑 ([09386dc](https://github.com/baiwumm/better-nuxt/commit/09386dc520a2c51274f5e62854d19bc99a5fd6e2))
+* 优化接口 TS 类型推导方式 ([d48c21a](https://github.com/baiwumm/better-nuxt/commit/d48c21a67ab23d8bf18d047a26dc013d35f97bc3))
+* **auth:** 使用 AuthForm 渲染鉴权模块表单 ([9168290](https://github.com/baiwumm/better-nuxt/commit/916829001cca1eb4bc18340b9516885fd7ad2268))
+* **AuthForm:** 调整组件 UI ([88c495a](https://github.com/baiwumm/better-nuxt/commit/88c495a5af7c46e64e0e862bd1e7265de5d2362f))
+* **hub:** 调整项目结构 ([9f32ec9](https://github.com/baiwumm/better-nuxt/commit/9f32ec9f039717e98a350413f0bb4e50d2fff6ea))
+* **internalization:** 调整文件结构，优化代码逻辑 ([b1910ac](https://github.com/baiwumm/better-nuxt/commit/b1910ac840b7c596630e843a45d8893300901ebf))
+* **menu-manage:** 调整文件结构，优化代码逻辑 ([a6ea396](https://github.com/baiwumm/better-nuxt/commit/a6ea396b927f5df02f70b85aa69a02f08ec91a1f))
+* **operation-log:** 调整文件结构，优化代码逻辑 ([64b8608](https://github.com/baiwumm/better-nuxt/commit/64b8608e59fe6f99dca84f94b28447f6f0be8670))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更新依赖版本 ([a0339c5](https://github.com/baiwumm/better-nuxt/commit/a0339c514da608897e114c413868b9f452afa250))
+* 新增 @norbiros/nuxt-auto-form 包 ([868fa39](https://github.com/baiwumm/better-nuxt/commit/868fa39d00b98079c7159536824c30e52affa554))
+
 ## [1.5.3](https://github.com/baiwumm/nuxt-pro-max/compare/v1.5.2...v1.5.3) (2026-05-12)
 
 ### ✨ Features | 新功能

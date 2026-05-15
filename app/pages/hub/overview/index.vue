@@ -55,7 +55,7 @@ const links = computed<ButtonProps[]>(() => [
         <UBadge>v{{ pkg.version }}</UBadge>
       </template>
       <template #title>
-        Nuxt <span class="text-primary">Pro Max</span>
+        Better <span class="text-primary">Nuxt</span>
       </template>
     </UPageHero>
     <UPageSection :ui="{ container: '!py-0' }">

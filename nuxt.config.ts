@@ -11,9 +11,9 @@ export default defineNuxtConfig({
     haloToken: process.env.HALO_TOKEN,
     public: {
       apiBase: '/api', // 后端接口前缀
-      appName: process.env.NUXT_APP_NAME || 'Nuxt Pro Max',
+      appName: process.env.NUXT_APP_NAME || 'Better Auth',
       appDesc: process.env.NUXT_APP_DESC || '',
-      appDomain: process.env.BETTER_AUTH_URL || '',
+      appDomain: process.env.BETTER_AUTH_URL || 'https://nuxt.baiwumm.com',
       env: process.env.NODE_ENV,
     },
   },

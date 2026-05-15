@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-pro-max",
+  "name": "better-nuxt",
   "type": "module",
   "private": true,
   "version": "1.5.3",
@@ -9,9 +9,9 @@
     "url": "https://baiwumm.com"
   },
   "git": {
-    "url": "https://github.com/baiwumm/nuxt-pro-max",
-    "repository": "https://github.com/baiwumm/nuxt-pro-max.git",
-    "bugs": "https://github.com/baiwumm/nuxt-pro-max/issues"
+    "url": "https://github.com/baiwumm/better-nuxt",
+    "repository": "https://github.com/baiwumm/better-nuxt.git",
+    "bugs": "https://github.com/baiwumm/better-nuxt/issues"
   },
   "scripts": {
     "build": "nuxt build",

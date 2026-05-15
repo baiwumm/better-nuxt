@@ -50,6 +50,7 @@
     "es-toolkit": "^1.46.1",
     "motion-v": "^2.2.1",
     "nuxt": "^4.4.5",
+    "nuxt-charts": "^2.1.4",
     "nuxt-qrcode": "^0.4.10",
     "nuxt-resend": "0.0.2",
     "ogl": "^1.0.11",

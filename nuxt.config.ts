@@ -39,8 +39,9 @@ export default defineNuxtConfig({
     '@nuxtjs/mdc',
     '@norbiros/nuxt-auto-form',
     '@vercel/speed-insights',
+    'nuxt-charts',
   ],
-  css: ['~/assets/css/main.css', '~/assets/css/transition.css'],
+  css: ['~/assets/css/main.css'],
   ui: {
     fonts: false,
   },

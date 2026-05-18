@@ -13,7 +13,7 @@ const colorMode = useColorMode()
 
 // 获取数据
 const { data: chartData, pending, refresh } = await useAsyncData(
-  'area-chart-data',
+  'line-chart-data',
   async () => {
     await new Promise(resolve => setTimeout(resolve, 2000))
     return getChartData(props.days)
@@ -23,7 +23,7 @@ const { data: chartData, pending, refresh } = await useAsyncData(
 
 <template>
   <UCard :description="$t('pages.playground.charts.description', { days })" :ui="{ body: 'relative' }">
-    <AreaChart
+    <LineChart
       :key="colorMode.value"
       :data="chartData || []"
       :height
@@ -35,7 +35,7 @@ const { data: chartData, pending, refresh } = await useAsyncData(
       :legend-style="{ marginTop: '10px' }"
     />
     <template #title>
-      <CardTitle title-key="areaChart" :loading="pending" :refresh />
+      <CardTitle title-key="lineChart" :loading="pending" :refresh />
     </template>
     <ContainerLoading v-if="pending" />
   </UCard>

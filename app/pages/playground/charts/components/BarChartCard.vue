@@ -1,59 +1,22 @@
 <script lang="ts" setup>
 import { CurveType } from '@unovis/ts'
-import { randomInt } from 'es-toolkit/math'
+import { getChartData } from '../utils'
 import CardTitle from './CardTitle.vue'
 
 const props = defineProps<{
   days: number
+  height: number
+  categories: Record<string, BulletLegendItemInterface>
 }>()
 
-interface AreaChartItem {
-  date: string
-  uv: number // 访客数 UV
-  pv: number // 浏览量 PV
-}
-
 const colorMode = useColorMode()
-const dayjs = useDayjs()
-
-const { height } = useResponsiveHeight({
-  default: 200,
-  sm: 300,
-})
-
-const categories = computed<Record<string, BulletLegendItemInterface>>(() => ({
-  uv: {
-    name: $t('pages.playground.charts.uv'),
-    color: '#3b82f6',
-  },
-  pv: {
-    name: $t('pages.playground.charts.pv'),
-    color: '#22c55e',
-  },
-}))
-
-/**
- * 生成近 N 天较真实的图表数据
- */
-function getAreaChartData(days = 10): AreaChartItem[] {
-  const data: AreaChartItem[] = []
-  for (let i = days - 1; i >= 0; i--) {
-    data.push({
-      date: dayjs().subtract(i, 'day').format('MM-DD'),
-      uv: randomInt(500, 1000),
-      pv: randomInt(1000, 2000),
-    })
-  }
-
-  return data
-}
 
 // 获取数据
-const { data: AreaChartData, pending, refresh } = await useAsyncData(
+const { data: chartData, pending, refresh } = await useAsyncData(
   'bar-chart-data',
   async () => {
     await new Promise(resolve => setTimeout(resolve, 2000))
-    return getAreaChartData(props.days)
+    return getChartData(props.days)
   },
 )
 </script>
@@ -62,15 +25,16 @@ const { data: AreaChartData, pending, refresh } = await useAsyncData(
   <UCard :description="$t('pages.playground.charts.description', { days })" :ui="{ body: 'relative' }">
     <BarChart
       :key="colorMode.value"
-      :data="AreaChartData || []"
-      :height="height"
+      :data="chartData || []"
+      :height
       :y-axis="['uv', 'pv']"
-      :categories="categories"
+      :categories
       :y-grid-line="true"
-      :x-formatter="(tick:number) => AreaChartData?.[tick]?.date ?? ''"
+      :x-formatter="(tick:number) => chartData?.[tick]?.date ?? ''"
       :curve-type="CurveType.MonotoneX"
       :legend-position="LegendPosition.BottomCenter"
       :radius="4"
+      :legend-style="{ marginTop: '10px' }"
     />
     <template #title>
       <CardTitle title-key="barChart" :loading="pending" :refresh />

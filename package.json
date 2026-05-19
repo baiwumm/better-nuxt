@@ -27,8 +27,10 @@
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.11",
     "@better-auth/i18n": "^1.6.11",
+    "@faker-js/faker": "^10.4.0",
     "@neondatabase/serverless": "^1.1.0",
     "@norbiros/nuxt-auto-form": "^0.6.2",
+    "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.7.1",
     "@nuxtjs/i18n": "10.2.3",
     "@nuxtjs/mdc": "^0.21.1",
@@ -51,6 +53,7 @@
     "motion-v": "^2.2.1",
     "nuxt": "^4.4.5",
     "nuxt-charts": "^2.1.4",
+    "nuxt-easy-lightbox": "^1.1.0",
     "nuxt-qrcode": "^0.4.10",
     "nuxt-resend": "0.0.2",
     "ogl": "^1.0.11",

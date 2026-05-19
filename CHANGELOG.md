@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.2](https://github.com/baiwumm/better-nuxt/compare/v1.6.1...v1.6.2) (2026-05-19)
+
+### ✨ Features | 新功能
+
+* **lightbox:** 新增 图片预览 页面 ([8543e9d](https://github.com/baiwumm/better-nuxt/commit/8543e9df453ec796f76807f3383b56d782886d3c))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 nuxt-easy-lightbox 包 ([9195133](https://github.com/baiwumm/better-nuxt/commit/9195133cf5dbf1aa43134daf4b9f97c46ec14c81))
+
 ## [1.6.1](https://github.com/baiwumm/better-nuxt/compare/v1.6.0...v1.6.1) (2026-05-18)
 
 ### ✨ Features | 新功能

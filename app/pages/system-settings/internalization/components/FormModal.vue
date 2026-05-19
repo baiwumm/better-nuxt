@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type z from 'zod'
 import { pick } from 'es-toolkit'
 
 const props = defineProps<{
@@ -7,6 +6,7 @@ const props = defineProps<{
   internalizationTree: InternalizationTree[]
   loading: boolean
   parentId: string | null
+  formKey: number
 }>()
 
 const emit = defineEmits<{
@@ -41,11 +41,13 @@ function onSubmit(data: InternalizationFormSchema) {
   emit('submit', data)
 }
 const selectMenuItems = computed(() => flattenTree(props.internalizationTree, 'name'))
+
+const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : props.parentId ?? props.formKey)
 </script>
 
 <template>
   <AutoFormModal
-    :key="data?.id ?? `create-${parentId}`"
+    :key="autoFormKey"
     v-model:open="modelValue"
     :title="parentId ? i18nCommon('addChild') : i18nInternalization(data?.id ? 'edit' : 'add')"
     :schema="internalizationFormSchema"

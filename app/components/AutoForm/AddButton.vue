@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const open = defineModel<boolean>({ required: true })
+const emit = defineEmits<{
+  add: []
+}>()
 
 const { i18nCommon } = useMessage()
 </script>
@@ -10,6 +12,6 @@ const { i18nCommon } = useMessage()
     color="neutral"
     variant="outline"
     :label="i18nCommon('add')"
-    @click="open = true"
+    @click="emit('add')"
   />
 </template>

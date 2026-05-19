@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type z from 'zod'
 import { pick } from 'es-toolkit'
 import { MENU_TARGET } from '@/enums'
 
@@ -7,6 +6,7 @@ const props = defineProps<{
   data: Menu | null
   menuTree: MenuTree[]
   loading: boolean
+  formKey: number
 }>()
 
 const emit = defineEmits<{
@@ -67,11 +67,13 @@ const parentIcon = computed(() => {
   return parentId ? menuMap.value.get(parentId)?.icon : undefined
 })
 const selectMenuItems = computed(() => flattenTree(props.menuTree, 'label', true))
+
+const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : props.formKey)
 </script>
 
 <template>
   <AutoFormModal
-    :key="data?.id ?? `create-menu`"
+    :key="autoFormKey"
     v-model:open="modelValue"
     :title="i18nMenu(data?.id ? 'edit' : 'add')"
     :schema="menuFormSchema"

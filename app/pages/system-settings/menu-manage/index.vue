@@ -13,6 +13,7 @@ const open = ref(false)
 const editData = ref<Menu | null>(null)
 const saveLoading = ref(false)
 const deleteId = ref<string | null>(null)
+const formKey = ref(0)
 
 // 获取菜单列表
 const { data, pending: loading, refresh } = await useAsyncData(
@@ -42,6 +43,12 @@ const columnPinning = ref({
   left: ['label'],
   right: ['action'],
 })
+
+// 新增回调
+function handleAdd() {
+  open.value = true
+  formKey.value++
+}
 
 // 删除回调
 async function handleDelete(id: string) {
@@ -88,7 +95,12 @@ watch(open, (val) => {
 <template>
   <div class="space-y-4">
     <ClientOnly>
-      <HeaderContent v-model="keyword" v-model:open="open" :handle-refresh="refresh" :loading :table="table?.tableApi" />
+      <HeaderContent
+        v-model="keyword"
+        :refresh
+        :handle-add
+        :loading :table="table?.tableApi"
+      />
     </ClientOnly>
     <UTable
       ref="table"
@@ -108,6 +120,13 @@ watch(open, (val) => {
         td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-default text-center',
       }"
     />
-    <FormModal v-model="open" :data="editData" :menu-tree="data || []" :loading="saveLoading" @submit="handleSubmit" />
+    <FormModal
+      v-model="open"
+      :data="editData"
+      :menu-tree="data || []"
+      :loading="saveLoading"
+      :form-key
+      @submit="handleSubmit"
+    />
   </div>
 </template>

@@ -21,7 +21,7 @@ export function useInternalizationColumns(options: {
       header: i18nInternalization(key),
       cell: ({ row }) => {
         const val = row.getValue(key)
-        return val ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue(key)) : '-'
+        return val ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => val) : '-'
       },
     })),
     createSortColumn(),

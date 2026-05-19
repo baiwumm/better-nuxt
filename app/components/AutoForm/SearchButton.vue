@@ -1,7 +1,10 @@
 <script setup lang="ts">
 defineProps<{
-  refresh: VoidFunction
   loading: boolean
+}>()
+
+const emit = defineEmits<{
+  refresh: []
 }>()
 
 const { i18nCommon } = useMessage()
@@ -12,6 +15,6 @@ const { i18nCommon } = useMessage()
     icon="lucide:search"
     :loading
     :label="i18nCommon('search')"
-    @click="refresh"
+    @click="emit('refresh')"
   />
 </template>

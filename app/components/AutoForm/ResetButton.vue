@@ -1,7 +1,10 @@
 <script setup lang="ts">
 defineProps<{
-  reset: VoidFunction
   loading: boolean
+}>()
+
+const emit = defineEmits<{
+  reset: []
 }>()
 
 const { i18nCommon } = useMessage()
@@ -14,6 +17,6 @@ const { i18nCommon } = useMessage()
     variant="soft"
     :label="i18nCommon('reset')"
     :disabled="loading"
-    @click="reset"
+    @click="emit('reset')"
   />
 </template>

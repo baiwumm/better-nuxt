@@ -13,6 +13,7 @@ const editData = ref<Internalization | null>(null)
 const saveLoading = ref(false)
 const deleteId = ref<string | null>(null)
 const parentId = ref<string | null>(null)
+const formKey = ref(0)
 const query = reactive<InternalizationQueryParams>({
   name: undefined,
   zh: undefined,
@@ -49,6 +50,12 @@ const columnPinning = ref({
   left: ['name'],
   right: ['action'],
 })
+
+// 新增回调
+function handleAdd() {
+  open.value = true
+  formKey.value++
+}
 
 // 重置回调
 function handleReset() {
@@ -106,7 +113,14 @@ watch(open, (val) => {
 <template>
   <div class="space-y-4">
     <ClientOnly>
-      <HeaderContent v-model="query" v-model:open="open" :handle-refresh="refresh" :handle-reset="handleReset" :loading :table="table?.tableApi" />
+      <HeaderContent
+        v-model="query"
+        :refresh
+        :handle-reset
+        :handle-add
+        :loading
+        :table="table?.tableApi"
+      />
     </ClientOnly>
     <UTable
       ref="table"
@@ -126,6 +140,14 @@ watch(open, (val) => {
         td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-default text-center',
       }"
     />
-    <FormModal v-model="open" :data="editData" :internalization-tree="data || []" :loading="saveLoading" :parent-id="parentId" @submit="handleSubmit" />
+    <FormModal
+      v-model="open"
+      :data="editData"
+      :internalization-tree="data || []"
+      :loading="saveLoading"
+      :parent-id
+      :form-key
+      @submit="handleSubmit"
+    />
   </div>
 </template>

@@ -20,7 +20,7 @@ export function useMenuColumns(options: {
       header: i18nMenu('to'),
       cell: ({ row }) => {
         const val = row.getValue('to')
-        return val ? h(UBadge, { variant: 'soft', color: 'secondary' }, () => row.getValue('to')) : '-'
+        return val ? h(UBadge, { variant: 'soft', color: 'secondary' }, () => val) : '-'
       },
     },
     {
@@ -35,7 +35,7 @@ export function useMenuColumns(options: {
       header: i18nMenu('badge'),
       cell: ({ row }) => {
         const val = row.getValue('badge')
-        return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => row.getValue('badge')) : '-'
+        return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => val) : '-'
       },
     },
     ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<MenuTree>>(v => ({

@@ -2,18 +2,15 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-15 10:04:50
+ * @LastEditTime: 2026-05-19 09:09:14
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
 import { betterAuth } from 'better-auth'
 import { localization } from 'better-auth-localization'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
+import { admin, lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
 import { Resend } from 'resend'
-import EmailVerificationEmail from '@/components/email/EmailVerificationEmail.vue'
-
-import MagicLinkEmail from '@/components/email/MagicLinkEmail.vue'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
 
@@ -31,7 +28,10 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       const config = useRuntimeConfig()
       const appName = config.public.appName
-      const html = await render(EmailVerificationEmail, { url, email: user.email, appName })
+      const ResetPasswordEmail = (
+        await import('@/components/email/ResetPasswordEmail.vue')
+      ).default
+      const html = await render(ResetPasswordEmail, { url, email: user.email, appName })
       await resend.emails.send({
         from: `${appName} <no-reply@baiwumm.com>`,
         to: user.email,
@@ -47,6 +47,9 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       const config = useRuntimeConfig()
       const appName = config.public.appName
+      const EmailVerificationEmail = (
+        await import('@/components/email/EmailVerificationEmail.vue')
+      ).default
       const html = await render(EmailVerificationEmail, { url, email: user.email, appName })
       await resend.emails.send({
         from: `${appName} <no-reply@baiwumm.com>`,
@@ -80,6 +83,9 @@ export const auth = betterAuth({
       sendMagicLink: async ({ email, url }) => {
         const config = useRuntimeConfig()
         const appName = config.public.appName
+        const MagicLinkEmail = (
+          await import('@/components/email/MagicLinkEmail.vue')
+        ).default
         const html = await render(MagicLinkEmail, { url, email, appName })
         await resend.emails.send({
           from: `${appName} <no-reply@baiwumm.com>`,
@@ -97,5 +103,6 @@ export const auth = betterAuth({
       defaultLocale: 'zh-Hans',
       fallbackLocale: 'default',
     }),
+    admin(),
   ],
 })

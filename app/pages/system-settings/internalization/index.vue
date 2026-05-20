@@ -4,8 +4,7 @@ import HeaderContent from './components/HeaderContent.vue'
 
 const { getInternalizationList, insertInternalization, updateInternalization, delInternalization } = useSystemApi()
 const { i18nCommon } = useMessage()
-
-const toast = useToast()
+const { successToast } = useAppToast()
 
 const table = useTemplateRef('table')
 const open = ref(false)
@@ -72,11 +71,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delInternalization(id).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('deleteSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('deleteSuccess'))
       refresh()
     }
   }).finally(() => {
@@ -89,11 +84,7 @@ async function handleSubmit(values: InternalizationFormSchema) {
   saveLoading.value = true
   await (editData.value?.id ? updateInternalization({ ...values, id: editData.value.id }) : insertInternalization(values)).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('saveSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('saveSuccess'))
       open.value = false
       refresh()
     }

@@ -5,6 +5,7 @@ type Provider = typeof OAUTH_PROVIDES.valueType
 
 const { $authClient } = useNuxtApp()
 const { i18nAuth } = useMessage()
+const { errorToast } = useAppToast()
 const toast = useToast()
 const loading = ref(false)
 const oauthType = ref<Provider | null>(null)
@@ -27,11 +28,7 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
     oauthType.value = null
   })
   if (error) {
-    toast.add({
-      title: i18nAuth('signIn.error'),
-      description: error.message || '',
-      color: 'error',
-    })
+    errorToast(i18nAuth('signIn.error'), error.message)
   }
 }
 </script>

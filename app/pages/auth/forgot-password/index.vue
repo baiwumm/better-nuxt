@@ -9,8 +9,7 @@ definePageMeta({
 const { $authClient } = useNuxtApp()
 const { emailFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
-
-const toast = useToast()
+const { errorToast, successToast } = useAppToast()
 
 const loading = ref(false)
 
@@ -23,16 +22,10 @@ async function onSubmit(data: EmailFormSchema) {
     loading.value = false
   })
   if (error) {
-    toast.add({
-      title: error.message,
-      color: 'error',
-    })
+    errorToast(error.message)
   }
   else {
-    toast.add({
-      title: i18nAuth('forgotPassword.success'),
-      color: 'success',
-    })
+    successToast(i18nAuth('forgotPassword.success'))
   }
 }
 </script>

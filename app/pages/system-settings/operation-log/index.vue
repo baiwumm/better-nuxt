@@ -6,8 +6,7 @@ import HeaderContent from './components/HeaderContent.vue'
 const { getLogsList, delLogs } = useSystemApi()
 const { i18nCommon, i18nLog } = useMessage()
 const { initialPagination, pageSizeOptions } = usePagination()
-
-const toast = useToast()
+const { successToast } = useAppToast()
 
 const table = useTemplateRef('table')
 const deleteId = ref<string | null>(null)
@@ -52,11 +51,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delLogs({ ids: [id] }).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('deleteSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('deleteSuccess'))
       refresh()
     }
   }).finally(() => {

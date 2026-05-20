@@ -10,8 +10,8 @@ const { $authClient } = useNuxtApp()
 const { forgotPasswordFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
 const route = useRoute()
+const { errorToast, successToast } = useAppToast()
 
-const toast = useToast()
 const token = computed(() => route.query.token as string)
 const loading = ref(false)
 
@@ -24,16 +24,10 @@ async function onSubmit(data: ForgotPasswordFormSchema) {
     loading.value = false
   })
   if (error) {
-    toast.add({
-      title: error.message,
-      color: 'error',
-    })
+    errorToast(error.message)
   }
   else {
-    toast.add({
-      title: i18nAuth('resetPassword.success'),
-      color: 'success',
-    })
+    successToast(i18nAuth('resetPassword.success'))
     navigateTo('/auth/sign-in')
   }
 }

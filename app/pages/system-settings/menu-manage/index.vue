@@ -4,8 +4,7 @@ import HeaderContent from './components/HeaderContent.vue'
 
 const { getMenuList, insertMenu, updateMenu, delMenu } = useSystemApi()
 const { i18nCommon } = useMessage()
-
-const toast = useToast()
+const { successToast } = useAppToast()
 
 const keyword = ref('')
 const table = useTemplateRef('table')
@@ -55,11 +54,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delMenu(id).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('deleteSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('deleteSuccess'))
       refresh()
     }
   }).finally(() => {
@@ -72,11 +67,7 @@ async function handleSubmit(values: MenuFormSchema) {
   saveLoading.value = true
   await (editData.value?.id ? updateMenu({ ...values, id: editData.value.id }) : insertMenu(values)).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('saveSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('saveSuccess'))
       open.value = false
       refresh()
     }

@@ -9,9 +9,9 @@ const props = defineProps<{
   loading: boolean
 }>()
 
-const toast = useToast()
 const { i18nLog, i18nCommon } = useMessage()
 const { getUserDisplayName } = useCurrentUser()
+const { successToast } = useAppToast()
 
 const query = defineModel<Pick<LogQueryParams, 'userId' | 'method'>>({ required: true })
 const delLoading = ref(false)
@@ -37,11 +37,7 @@ async function handleBatchDelete() {
   delLoading.value = true
   await delLogs({ ids }).then(({ code }) => {
     if (isSuccess(code)) {
-      toast.add({
-        title: i18nCommon('deleteSuccess'),
-        icon: 'lucide:circle-check',
-        color: 'success',
-      })
+      successToast(i18nCommon('deleteSuccess'))
       props.table?.resetRowSelection()
       props.handleRefresh()
     }

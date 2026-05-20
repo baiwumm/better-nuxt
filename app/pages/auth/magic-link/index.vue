@@ -9,8 +9,8 @@ definePageMeta({
 const { $authClient } = useNuxtApp()
 const { emailFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
+const { errorToast, successToast } = useAppToast()
 
-const toast = useToast()
 const loading = ref(false)
 
 /**
@@ -22,17 +22,10 @@ async function onSubmit(data: EmailFormSchema) {
     loading.value = false
   })
   if (error) {
-    toast.add({
-      title: error.message,
-      color: 'error',
-    })
+    errorToast(error.message)
   }
   else {
-    toast.add({
-      title: i18nAuth('magicLink.verifyEmailSent'),
-      description: i18nAuth('magicLink.verifyEmailSentDesc'),
-      color: 'success',
-    })
+    successToast(i18nAuth('magicLink.verifyEmailSent'), i18nAuth('magicLink.verifyEmailSentDesc'))
   }
 }
 </script>

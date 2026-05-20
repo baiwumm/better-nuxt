@@ -7,10 +7,10 @@ definePageMeta({
   layout: 'auth',
 })
 
-const toast = useToast()
 const { $authClient } = useNuxtApp()
 const { signUpFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
+const { errorToast, successToast } = useAppToast()
 
 const loading = ref(false)
 
@@ -23,18 +23,10 @@ async function onSubmit(data: SignUpFormSchema) {
     loading.value = false
   })
   if (error) {
-    toast.add({
-      title: i18nAuth('signIn.error'),
-      description: error.message || '',
-      color: 'error',
-    })
+    errorToast(i18nAuth('signUp.error'), error.message)
   }
   else {
-    toast.add({
-      title: i18nAuth('signUp.verifyEmailSent'),
-      description: i18nAuth('signUp.verifyEmailSentDesc'),
-      color: 'success',
-    })
+    successToast(i18nAuth('signUp.verifyEmailSent'), i18nAuth('signUp.verifyEmailSentDesc'))
   }
 }
 </script>

@@ -9,7 +9,6 @@ import HeaderContent from './components/HeaderContent.vue'
 const { initialPagination, pageSizeOptions } = usePagination()
 const { getUserList } = useSystemApi()
 const { $authClient } = useNuxtApp()
-const toast = useToast()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
 const { successToast, errorToast } = useAppToast()
@@ -98,11 +97,7 @@ async function handleDelete(id: string) {
     },
   })
   if (confirmed) {
-    toast.add({
-      title: i18nCommon('deleteSuccess'),
-      icon: 'lucide:circle-check',
-      color: 'success',
-    })
+    successToast(i18nCommon('deleteSuccess'))
     refresh()
   }
 }

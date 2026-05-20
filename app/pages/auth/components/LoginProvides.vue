@@ -28,7 +28,7 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
   })
   if (error) {
     toast.add({
-      title: i18nAuth('signUp.error'),
+      title: i18nAuth('signIn.error'),
       description: error.message || '',
       color: 'error',
     })

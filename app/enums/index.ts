@@ -133,3 +133,14 @@ export const USER_ROLE = Enum({
   ADMIN: { value: 'admin', label: 'roleAdmin' },
   USER: { value: 'user', label: 'roleUser' },
 })
+
+/**
+ * @description: 用户封禁时间
+ */
+export const BAN_DURATIONS = Enum({
+  ONE_HOUR: { value: '1', label: 'banDuration1Hour', seconds: 60 * 60 },
+  TWELVE_HOURS: { value: '2', label: 'banDuration12Hours', seconds: 60 * 60 * 12 },
+  ONE_DAY: { value: '3', label: 'banDuration1Day', seconds: 60 * 60 * 24 },
+  THREE_DAYS: { value: '4', label: 'banDuration3Days', seconds: 60 * 60 * 24 * 3 },
+  SEVEN_DAYS: { value: '5', label: 'banDuration7Days', seconds: 60 * 60 * 24 * 7 },
+})

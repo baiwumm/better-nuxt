@@ -2,6 +2,7 @@
 import type { PaginationState } from '@tanstack/vue-table'
 import type { SubmitForm } from './components/FormModal.vue'
 import { getPaginationRowModel } from '@tanstack/vue-table'
+import BanUserFormModal from './components/BanUserFormModal.vue'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
 
@@ -11,6 +12,7 @@ const { $authClient } = useNuxtApp()
 const toast = useToast()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
+const { successToast, errorToast } = useAppToast()
 
 const table = useTemplateRef('table')
 const pagination = computed<PaginationState>(() => table.value?.tableApi?.getState().pagination ?? initialPagination)
@@ -19,6 +21,7 @@ const editData = ref<User | null>(null)
 const saveLoading = ref(false)
 const deleteLoading = ref(false)
 const formKey = ref(0)
+const banUserId = ref<string | null>(null)
 
 // 查询参数
 const query = reactive<Pick<UserQueryParams, 'keyword'>>({
@@ -40,14 +43,6 @@ const { data, pending: loading, refresh } = await useAsyncData(
 const list = computed(() => data.value?.list ?? [])
 const total = computed(() => data.value?.total ?? 0)
 
-const { columns } = userUserColumns({
-  onEdit: (row) => {
-    editData.value = row
-    open.value = true
-  },
-  onDelete: handleDelete,
-})
-
 const columnVisibility = ref({
 })
 
@@ -63,6 +58,26 @@ function handleAdd() {
   formKey.value++
 }
 
+// 封禁/取消封禁
+async function handleBanUser(row: User) {
+  if (row.banned) {
+    const { error } = await $authClient.admin.unbanUser({
+      userId: row.id,
+    })
+    if (error) {
+      errorToast(error.message)
+    }
+    else {
+      successToast()
+      refresh()
+    }
+  }
+  else {
+    banUserId.value = row.id
+    formKey.value++
+  }
+}
+
 // 删除回调
 async function handleDelete(id: string) {
   deleteLoading.value = true
@@ -76,11 +91,7 @@ async function handleDelete(id: string) {
         userId: id,
       })
       if (error) {
-        toast.add({
-          title: error.message || i18nCommon('deleteFailed'),
-          color: 'error',
-          icon: 'lucide:x',
-        })
+        errorToast(error.message)
         return false
       }
       return true
@@ -96,47 +107,50 @@ async function handleDelete(id: string) {
   }
 }
 
-// toast 提示
-function handleToast(msg?: string) {
-  if (msg) {
-    toast.add({
-      title: msg,
-      color: 'error',
-      icon: 'lucide:x',
-    })
-  }
-  else {
-    toast.add({
-      title: i18nCommon('saveSuccess'),
-      icon: 'lucide:circle-check',
-      color: 'success',
-    })
-    open.value = false
-    refresh()
-  }
-}
+const { columns } = userUserColumns({
+  onEdit: (row) => {
+    editData.value = row
+    open.value = true
+  },
+  onBan: handleBanUser,
+  onDelete: handleDelete,
+})
 
 // 表单提交
 async function handleSubmit(values: SubmitForm) {
   saveLoading.value = true
-  if (editData.value?.id) {
-    const { error } = await $authClient.admin.updateUser({
-      userId: editData.value.id,
-      data: values,
-    })
-    handleToast(error?.message)
+  try {
+    if (editData.value?.id) {
+      const { error } = await $authClient.admin.updateUser({
+        userId: editData.value.id,
+        data: values,
+      })
+      if (error) {
+        return errorToast(error.message)
+      }
+    }
+    else {
+      const { displayUsername, ...formData } = values
+      const { error } = await $authClient.admin.createUser(({
+        ...formData,
+        data: {
+          displayUsername,
+        },
+      }))
+      if (error) {
+        return errorToast(error.message)
+      }
+    }
+    successToast()
+    open.value = false
+    refresh()
   }
-  else {
-    const { displayUsername, ...formData } = values
-    const { error } = await $authClient.admin.createUser(({
-      ...formData,
-      data: {
-        displayUsername,
-      },
-    }))
-    handleToast(error?.message)
+  catch (error) {
+    errorToast(error instanceof Error ? error.message : i18nCommon('actionFailed'))
   }
-  saveLoading.value = false
+  finally {
+    saveLoading.value = false
+  }
 }
 
 watch(
@@ -198,5 +212,6 @@ watch(open, (val) => {
       :form-key
       @submit="handleSubmit"
     />
+    <BanUserFormModal v-model:user-id="banUserId" :form-key :refresh />
   </div>
 </template>

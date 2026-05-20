@@ -1,6 +1,6 @@
 import z from 'zod'
 import { AInputPasswordToggle, AutoFormInput, AutoFormTextarea } from '#components'
-import { MENU_TARGET, USER_ROLE } from '@/enums'
+import { BAN_DURATIONS, MENU_TARGET, USER_ROLE } from '@/enums'
 
 interface ZInputOpts {
   title: string
@@ -126,6 +126,24 @@ export function useSchema() {
     }),
   })
 
+  // 用户管理 - 封禁用户
+  const banUserFormSchema = z.object({
+    banReason: z.string().nonempty(t('common.required')).meta({
+      title: i18nUser('banReason', true),
+      required: true,
+      input: {
+        component: AutoFormTextarea,
+        props: {
+          maxlength: 200,
+        },
+      },
+    }),
+    banExpiresIn: z.enum(BAN_DURATIONS.values).optional().meta({
+      title: i18nUser('banExpiresIn', true),
+      help: i18nUser('banExpiresInHelp', true),
+    }),
+  })
+
   // 菜单管理 - 新增/编辑
   const menuFormSchema = z.object({
     parentId: z.string().nullable().meta({
@@ -170,6 +188,7 @@ export function useSchema() {
     emailFormSchema,
     forgotPasswordFormSchema,
     userFormSchema,
+    banUserFormSchema,
   }
 }
 
@@ -179,5 +198,6 @@ export type SignUpFormSchema = z.infer<ReturnType<typeof useSchema>['signUpFormS
 export type EmailFormSchema = z.infer<ReturnType<typeof useSchema>['emailFormSchema']>
 export type ForgotPasswordFormSchema = z.infer<ReturnType<typeof useSchema>['forgotPasswordFormSchema']>
 export type UserFormSchema = z.infer<ReturnType<typeof useSchema>['userFormSchema']>
+export type BanUserFormSchema = z.infer<ReturnType<typeof useSchema>['banUserFormSchema']>
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
 export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>

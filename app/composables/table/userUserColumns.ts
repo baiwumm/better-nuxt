@@ -5,8 +5,9 @@ import { UBadge, UButton, UDropdownMenu, UUser } from '#components'
 export function userUserColumns(options: {
   onEdit: (row: User) => void
   onDelete: (id: string) => void
+  onBan: (row: User) => void
 }) {
-  const { onEdit, onDelete } = options
+  const { onEdit, onDelete, onBan } = options
   const { i18nUser, i18nCommon } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
@@ -82,6 +83,7 @@ export function userUserColumns(options: {
       accessorKey: 'action',
       header: ({ column }) => getHeader(column, i18nCommon('action'), 'right'),
       cell: ({ row }) => {
+        const banned = row.getValue('banned')
         return h(
           UDropdownMenu,
           {
@@ -92,6 +94,14 @@ export function userUserColumns(options: {
                 icon: 'lucide:pencil-line',
                 onSelect() {
                   onEdit(row.original)
+                },
+              },
+              {
+                label: i18nUser(banned ? 'unbanUser' : 'banUser'),
+                icon: banned ? 'lucide:user-check' : 'lucide:user-x',
+                color: banned ? undefined : 'error',
+                onSelect() {
+                  onBan(row.original)
                 },
               },
               {

@@ -36,7 +36,7 @@ const initialState = computed<UserFormSchema>(() => ({
   ...INITIAL_STATE,
   ...(props.data
     ? {
-        ...pick(props.data, ['name', 'email']),
+        ...pick(props.data, ['name', 'email', 'displayUsername']),
         role: props.data?.role ? props.data.role.split(',') : undefined,
       } as UserFormSchema
     : {}),

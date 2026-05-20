@@ -2,13 +2,15 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-07 15:44:08
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-20 14:58:54
+ * @LastEditTime: 2026-05-20 17:41:50
  * @Description: auth actions（核心行为层）
  */
 export function useAuthActions() {
   const { $authClient } = useNuxtApp()
-  const loading = ref(false)
 
+  /**
+   * @description: 切换账户
+   */
   const switchAccount = async (sessionToken: string, isCurrent: boolean) => {
     if (isCurrent)
       return
@@ -21,7 +23,6 @@ export function useAuthActions() {
   }
 
   return {
-    loading,
     switchAccount,
   }
 }

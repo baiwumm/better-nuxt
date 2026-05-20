@@ -11,6 +11,7 @@ const props = defineProps<{
 
 const toast = useToast()
 const { i18nLog, i18nCommon } = useMessage()
+const { getUserDisplayName } = useCurrentUser()
 
 const query = defineModel<Pick<LogQueryParams, 'userId' | 'method'>>({ required: true })
 const delLoading = ref(false)
@@ -56,13 +57,13 @@ async function handleBatchDelete() {
       <USelectMenu
         v-model="query.userId"
         value-key="value"
-        :items="userList?.map(({ displayUsername, id, name, username, email, image }) => {
-          const userName = displayUsername || username || name || email
+        :items="userList?.map(u => {
+          const userName = getUserDisplayName(u)
           return {
-            value: id,
+            value: u.id,
             label: userName,
             avatar: {
-              src: image ?? undefined,
+              src: u.image ?? undefined,
               alt: userName,
               loading: 'lazy' as const,
             },

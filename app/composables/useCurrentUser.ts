@@ -2,12 +2,21 @@ export function useCurrentUser() {
   const { $authClient } = useNuxtApp()
   const session = $authClient.useSession()
 
+  type Session = typeof $authClient.$Infer.Session
+
   const user = computed(() => session.value?.data?.user)
 
-  const userName = computed(() => {
-    const u = user.value
-    return u?.displayUsername || u?.username || u?.name || u?.email
-  })
+  // 获取用户名
+  function getUserDisplayName(user?: Session['user'] | null) {
+    return [
+      user?.displayUsername,
+      user?.username,
+      user?.name,
+      user?.email,
+    ].find(Boolean) ?? ''
+  }
+
+  const userName = computed(() => getUserDisplayName(user.value))
 
   const email = computed(() => user.value?.email)
   const avatar = computed(() => user.value?.image || undefined)
@@ -22,5 +31,6 @@ export function useCurrentUser() {
     email,
     avatar,
     isPending,
+    getUserDisplayName,
   }
 }

@@ -12,6 +12,8 @@ export function useLogColumns(options: {
 
   const { i18nCommon, i18nLog } = useMessage()
 
+  const { getUserDisplayName } = useCurrentUser()
+
   const columns = computed<TableColumn<Log>[]>(() => [
     createExpandColumn(),
     createCheckboxColumn(),
@@ -20,7 +22,7 @@ export function useLogColumns(options: {
       header: i18nLog('user'),
       cell: ({ row }) => {
         const u = row.original.user
-        const userName = u?.displayUsername || u?.username || u?.name || u?.email
+        const userName = getUserDisplayName(u)
         return h(UUser, {
           name: userName,
           description: userName === u.email ? undefined : u.email,

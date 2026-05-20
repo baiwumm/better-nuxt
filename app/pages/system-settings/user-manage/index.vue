@@ -2,7 +2,6 @@
 import type { PaginationState } from '@tanstack/vue-table'
 import type { SubmitForm } from './components/FormModal.vue'
 import { getPaginationRowModel } from '@tanstack/vue-table'
-import { pick } from 'es-toolkit/object'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
 

@@ -12,7 +12,9 @@ const { userName, email, avatar, isPending } = useCurrentUser()
 // 获取多会话信息
 const { sessionItems } = await useSessionMenu()
 // 用户操作
-const { logout } = useAuthActions()
+const confirm = useConfirmDialog()
+const { i18nAuth, i18nCommon } = useMessage()
+const router = useRouter()
 
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
@@ -59,7 +61,24 @@ const items = computed(() => ([
       label: $t('auth.logout.title'),
       icon: 'i-lucide-log-out',
       color: 'error',
-      onSelect: logout,
+      onSelect: async () => {
+        await confirm({
+          title: i18nAuth('logout.confirmTitle'),
+          description: i18nAuth('logout.confirmDescription'),
+          confirmLabel: i18nCommon('confirm'),
+          loadingLabel: i18nAuth('waitLogout'),
+          onConfirm: async () => {
+            await $authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  router.push('/auth/sign-in')
+                },
+              },
+            })
+            return true
+          },
+        })
+      },
     },
   ],
 ]) satisfies DropdownMenuItem[][])

@@ -3,6 +3,8 @@ import type { internalization, logs, menu, user } from '@/db/schema'
 
 /** @description: 用户管理列表 */
 export type User = typeof user.$inferSelect
+/** @description: 用户管理 - 查询参数 */
+export type UserQueryParams = z.infer<typeof UserQuerySchema>
 
 /** @description: 菜单树 */
 export type Menu = typeof menu.$inferSelect

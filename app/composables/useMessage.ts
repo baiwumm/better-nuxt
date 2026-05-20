@@ -7,6 +7,12 @@ export function useMessage() {
   // 公共
   const i18nCommon = (field: string, isForm = false) => isForm ? `$i18n:common.${field}` : t(`common.${field}`)
 
+  // 用户管理
+  const i18nUser = (field: string, isForm = false) => {
+    const prefix = 'pages.systemSettings.userManage'
+    return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
+  }
+
   // 菜单管理
   const i18nMenu = (field: string, isForm = false) => {
     const prefix = 'pages.systemSettings.menuManage'
@@ -31,5 +37,6 @@ export function useMessage() {
     i18nLog,
     i18nMenu,
     i18nAuth,
+    i18nUser,
   }
 }

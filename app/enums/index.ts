@@ -117,11 +117,19 @@ export const ROUTE_TRANSITION = Enum({
 })
 
 /**
- * @description: 窗口打开方式
+ * @description: 请求方式
  */
 export const METHODS = Enum({
   GET: { value: 'GET', label: 'GET', icon: 'tabler:http-get' },
   POST: { value: 'POST', label: 'POST', icon: 'tabler:http-post' },
   PUT: { value: 'PUT', label: 'PUT', icon: 'tabler:http-put' },
   DELETE: { value: 'DELETE', label: 'DELETE', icon: 'tabler:http-delete' },
+})
+
+/**
+ * @description: 用户角色
+ */
+export const USER_ROLE = Enum({
+  ADMIN: { value: 'admin', label: 'roleAdmin' },
+  USER: { value: 'user', label: 'roleUser' },
 })

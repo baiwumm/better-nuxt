@@ -1,6 +1,15 @@
 import { z } from 'zod'
 
 /**
+ * @description: 用户列表 - 查询参数
+ */
+export const UserQuerySchema = z.object({
+  keyword: z.string().optional(),
+  page: z.coerce.number().default(1),
+  pageSize: z.coerce.number().default(10),
+})
+
+/**
  * @description: 菜单管理 - 查询参数
  */
 export const MenuQuerySchema = z.object({

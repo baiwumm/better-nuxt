@@ -2,11 +2,17 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-14 15:45:36
+ * @LastEditTime: 2026-05-19 13:54:16
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
   const { get, post, put, del } = useRequest()
+
+  /**
+   * @description: 查询用户列表
+   */
+  const getUserList = (params?: UserQueryParams) =>
+    get<PaginatingQueryList<User>>('/system-settings/user-manage', params)
 
   /**
    * @description: 查询菜单
@@ -93,5 +99,6 @@ export function useSystemApi() {
     insertInternalization,
     updateInternalization,
     delInternalization,
+    getUserList,
   }
 }

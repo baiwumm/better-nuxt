@@ -1,6 +1,6 @@
 import z from 'zod'
 import { AInputPasswordToggle, AutoFormInput, AutoFormTextarea } from '#components'
-import { MENU_TARGET } from '@/enums'
+import { MENU_TARGET, USER_ROLE } from '@/enums'
 
 interface ZInputOpts {
   title: string
@@ -12,7 +12,7 @@ interface ZInputOpts {
 
 export function useSchema() {
   const { t } = useI18n()
-  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth } = useMessage()
+  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth, i18nUser } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -79,7 +79,7 @@ export function useSchema() {
 
   // 用户注册
   const signUpFormSchema = z.object({
-    name: z.string(i18nAuth('name.placeholder')).nonempty({ error: i18nAuth('name.placeholder', true) }).meta({
+    name: z.string().nonempty({ error: t('auth.name.placeholder') }).meta({
       title: i18nAuth('name.label', true),
       required: true,
       input: {
@@ -108,6 +108,21 @@ export function useSchema() {
           placeholder: i18nAuth('newPassword.placeholder'),
         },
       },
+    }),
+  })
+
+  // 用户管理 - 新增/编辑
+  const userFormSchema = signUpFormSchema.extend({
+    displayUsername: z.string().optional().meta({
+      title: i18nUser('displayUsername', true),
+      input: {
+        props: {
+          placeholder: i18nCommon('placeholder'),
+        },
+      },
+    }),
+    role: z.array(z.enum(USER_ROLE.values)).optional().meta({
+      title: i18nUser('role', true),
     }),
   })
 
@@ -154,6 +169,7 @@ export function useSchema() {
     signUpFormSchema,
     emailFormSchema,
     forgotPasswordFormSchema,
+    userFormSchema,
   }
 }
 
@@ -162,5 +178,6 @@ export type SignInFormSchema = z.infer<ReturnType<typeof useSchema>['signInFormS
 export type SignUpFormSchema = z.infer<ReturnType<typeof useSchema>['signUpFormSchema']>
 export type EmailFormSchema = z.infer<ReturnType<typeof useSchema>['emailFormSchema']>
 export type ForgotPasswordFormSchema = z.infer<ReturnType<typeof useSchema>['forgotPasswordFormSchema']>
+export type UserFormSchema = z.infer<ReturnType<typeof useSchema>['userFormSchema']>
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
 export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>

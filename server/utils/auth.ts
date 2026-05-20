@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-19 09:09:14
+ * @LastEditTime: 2026-05-19 10:07:04
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -103,6 +103,8 @@ export const auth = betterAuth({
       defaultLocale: 'zh-Hans',
       fallbackLocale: 'default',
     }),
-    admin(),
+    admin({
+      adminUserIds: process.env.BETTER_AUTH_ADMIN_USER_IDS ? process.env.BETTER_AUTH_ADMIN_USER_IDS.split(',') : [],
+    }),
   ],
 })

@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.7.0](https://github.com/baiwumm/better-nuxt/compare/v1.6.2...v1.7.0) (2026-05-21)
+
+### ✨ Features | 新功能
+
+* **auth:** 添加 admin 插件 ([b4e2224](https://github.com/baiwumm/better-nuxt/commit/b4e2224dbb3a3265ac1e630849a1c44cd76f35d4))
+* **composables:** 新增 useConfirmDialog 二次确认函数 ([16e157a](https://github.com/baiwumm/better-nuxt/commit/16e157a4e078cd60d57a8ac1623fd32816a327ba))
+* **user-manage:** 添加 封禁/解除封禁 操作 ([ce392cd](https://github.com/baiwumm/better-nuxt/commit/ce392cd82fdbfac06d44184673f689a41567644d))
+* **user-manage:** 完成《用户管理》模块页面、接口的开发和 CURD 逻辑 ([a221a99](https://github.com/baiwumm/better-nuxt/commit/a221a993492fc1f26d363abf70cf8f1d18c88757))
+* **UserMenu:** 用户退出需要二次确认 ([869d724](https://github.com/baiwumm/better-nuxt/commit/869d724add79975f2d8b8c90e688a806aca7c530))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 修复新增关闭弹窗表单没有清空的问题，优化组件事件传递 ([37f9a51](https://github.com/baiwumm/better-nuxt/commit/37f9a5117d09fe0293685b2a9fb8f9dfa28475bd))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 使用 useAppToast 统一 toast 提示 ([7a09ae0](https://github.com/baiwumm/better-nuxt/commit/7a09ae0fd8ccf2c3b5531eeac0cb54b27d5835cc))
+* 优化用户昵称显示逻辑 ([c584f05](https://github.com/baiwumm/better-nuxt/commit/c584f050b5011308ad4077dbbd421169af3af233))
+* **user-manage:** 添加"查看会话"和“撤销会话”操作 ([5382741](https://github.com/baiwumm/better-nuxt/commit/538274105906c854ce0de651d196b8ed6dbec49a))
+* **user-manage:** 添加"解除封禁时间"列项 ([42e4b73](https://github.com/baiwumm/better-nuxt/commit/42e4b7328acf3ee739db42089ed9c534fbdb641b))
+* **user-manage:** 添加"重置密码"操作 ([ede161c](https://github.com/baiwumm/better-nuxt/commit/ede161cf694d311cd1d20644247c669051b39559))
+* **user-manage:** 细节优化 ([8563098](https://github.com/baiwumm/better-nuxt/commit/8563098bf9fd411139396681fc9397268e8abc52))
+* **user-manage:** 优化"封禁用户"的逻辑 ([6bf817e](https://github.com/baiwumm/better-nuxt/commit/6bf817e14fccc1eb511ad48f02dbe0d395192014))
+
 ## [1.6.2](https://github.com/baiwumm/better-nuxt/compare/v1.6.1...v1.6.2) (2026-05-19)
 
 ### ✨ Features | 新功能

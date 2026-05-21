@@ -37,6 +37,8 @@ export const menu = pgTable('menu', {
   defaultOpen: boolean('default_open').default(false).notNull(),
   // 是否新窗口打开
   target: targetEnum('target').default('_self').notNull(),
+  // 按钮权限位
+  permissions: integer('permissions').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .defaultNow()

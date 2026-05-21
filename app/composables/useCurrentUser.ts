@@ -5,6 +5,7 @@ export function useCurrentUser() {
   type Session = typeof $authClient.$Infer.Session
 
   const user = computed(() => session.value?.data?.user)
+  const currentSession = computed(() => session.value?.data?.session)
 
   // 获取用户名
   function getUserDisplayName(user?: Session['user'] | null) {
@@ -26,6 +27,7 @@ export function useCurrentUser() {
   })
 
   return {
+    session: currentSession,
     user,
     userName,
     email,

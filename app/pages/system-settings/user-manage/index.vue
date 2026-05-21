@@ -6,6 +6,7 @@ import BanUserFormModal from './components/BanUserFormModal.vue'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
 import ResetPasswordModal from './components/ResetPasswordModal.vue'
+import SessionsModal from './components/SessionsModal.vue'
 
 const { initialPagination, pageSizeOptions } = usePagination()
 const { getUserList } = useSystemApi()
@@ -24,6 +25,7 @@ const deleteLoading = ref(false)
 const formKey = ref(0)
 const banUserId = ref<string | null>(null)
 const resetPasswordUserId = ref<string | null>(null)
+const viewSessionsUserId = ref<string | null>(null)
 
 // 查询参数
 const query = reactive<Pick<UserQueryParams, 'keyword'>>({
@@ -97,6 +99,9 @@ async function handleDelete(id: string) {
 }
 
 const { columns } = userUserColumns({
+  onViewSessions: (id) => {
+    viewSessionsUserId.value = id
+  },
   onEdit: (row) => {
     editData.value = row
     open.value = true
@@ -207,5 +212,6 @@ watch(open, (val) => {
     />
     <BanUserFormModal v-model:user-id="banUserId" :form-key :refresh />
     <ResetPasswordModal v-model:user-id="resetPasswordUserId" :form-key :refresh />
+    <SessionsModal v-model:user-id="viewSessionsUserId" :refresh />
   </div>
 </template>

@@ -3,12 +3,13 @@ import { upperFirst } from 'es-toolkit/string'
 import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
 
 export function userUserColumns(options: {
+  onViewSessions: (id: string) => void
   onEdit: (row: User) => void
   onDelete: (id: string) => void
   onBan: (row: User) => void
   onResetPassword: (id: string) => void
 }) {
-  const { onEdit, onDelete, onBan, onResetPassword } = options
+  const { onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
   const { i18nUser, i18nCommon } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
@@ -147,6 +148,13 @@ export function userUserColumns(options: {
           {
             'arrow': true,
             'items': [
+              {
+                label: i18nUser('viewSessions'),
+                icon: 'lucide:messages-square',
+                onSelect() {
+                  onViewSessions(row.original.id)
+                },
+              },
               {
                 label: i18nCommon('edit'),
                 icon: 'lucide:pencil-line',

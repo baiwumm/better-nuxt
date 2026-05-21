@@ -45,7 +45,6 @@ watch(open, (value) => {
 
 <template>
   <UModal v-model:open="open" :title="i18nUser('sessionsList')" :ui="{ body: 'relative' }">
-    <UButton label="Open" color="neutral" variant="subtle" />
     <template #body>
       <div v-if="sessionsList?.length" class="space-y-4">
         <SessionCard v-for="session in sessionsList" :key="session.id" :session :refresh="getSessionsList" />

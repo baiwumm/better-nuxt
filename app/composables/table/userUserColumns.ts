@@ -91,7 +91,7 @@ export function userUserColumns(options: {
 
         // 未封禁
         if (!banned) {
-          return h(UBadge, { variant: 'soft', color: 'neutral' }, () => '-')
+          return '-'
         }
 
         // 永久封禁

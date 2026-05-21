@@ -1,6 +1,6 @@
 import type { TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
-import { UBadge, UButton, UDropdownMenu, UUser } from '#components'
+import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
 
 export function userUserColumns(options: {
   onEdit: (row: User) => void
@@ -12,6 +12,8 @@ export function userUserColumns(options: {
   const { i18nUser, i18nCommon } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
+  const dayjs = useDayjs()
+  const { locale } = useI18n()
 
   const columns = computed<TableColumn<User>[]>(() => [
     {
@@ -79,6 +81,61 @@ export function userUserColumns(options: {
       header: i18nUser('banReason'),
       cell: ({ row }) => row.getValue('banReason') ?? '-',
     },
+    {
+      accessorKey: 'unbanTime',
+      header: i18nUser('unbanTime'),
+      cell: ({ row }) => {
+        const val = row.original.banExpires
+        const banned = row.original.banned
+
+        // 未封禁
+        if (!banned) {
+          return h(UBadge, { variant: 'soft', color: 'neutral' }, () => '-')
+        }
+
+        // 永久封禁
+        if (!val) {
+          return h(
+            UBadge,
+            { variant: 'soft', color: 'error' },
+            () => i18nUser('permanentBan'),
+          )
+        }
+
+        const now = dayjs()
+        const expires = dayjs(val)
+        const isActiveBan = expires.isAfter(now)
+
+        const abs = expires.format('YYYY-MM-DD HH:mm')
+
+        // 已过期（已解除封禁）
+        if (!isActiveBan) {
+          return h(
+            UBadge,
+            { variant: 'soft', color: 'success' },
+            () => i18nUser('unbanned'),
+          )
+        }
+
+        // 正在封禁中
+        return h(
+          UTooltip,
+          {
+            arrow: true,
+            text: abs,
+          },
+          () =>
+            h('span', { class: 'text-xs' }, [
+              h(NuxtTime, {
+                datetime: val,
+                relative: true,
+                locale: locale.value,
+                class: 'text-warning font-medium',
+              }),
+            ]),
+        )
+      },
+    },
     createCreatedAtColumn(),
     {
       accessorKey: 'action',
@@ -100,7 +157,7 @@ export function userUserColumns(options: {
               {
                 label: i18nUser(banned ? 'unbanUser' : 'banUser'),
                 icon: banned ? 'lucide:user-check' : 'lucide:user-x',
-                color: banned ? undefined : 'error',
+                color: banned ? 'success' : 'error',
                 onSelect() {
                   onBan(row.original)
                 },

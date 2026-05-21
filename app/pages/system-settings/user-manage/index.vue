@@ -12,6 +12,7 @@ const { $authClient } = useNuxtApp()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
 const { successToast, errorToast } = useAppToast()
+const { unbanUser } = useAuthActions()
 
 const table = useTemplateRef('table')
 const pagination = computed<PaginationState>(() => table.value?.tableApi?.getState().pagination ?? initialPagination)
@@ -60,16 +61,7 @@ function handleAdd() {
 // 封禁/取消封禁
 async function handleBanUser(row: User) {
   if (row.banned) {
-    const { error } = await $authClient.admin.unbanUser({
-      userId: row.id,
-    })
-    if (error) {
-      errorToast(error.message)
-    }
-    else {
-      successToast()
-      refresh()
-    }
+    await unbanUser(row.id, refresh)
   }
   else {
     banUserId.value = row.id

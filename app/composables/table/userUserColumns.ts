@@ -6,8 +6,9 @@ export function userUserColumns(options: {
   onEdit: (row: User) => void
   onDelete: (id: string) => void
   onBan: (row: User) => void
+  onResetPassword: (id: string) => void
 }) {
-  const { onEdit, onDelete, onBan } = options
+  const { onEdit, onDelete, onBan, onResetPassword } = options
   const { i18nUser, i18nCommon } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
@@ -102,6 +103,13 @@ export function userUserColumns(options: {
                 color: banned ? undefined : 'error',
                 onSelect() {
                   onBan(row.original)
+                },
+              },
+              {
+                label: i18nUser('resetPassword'),
+                icon: 'lucide:key-round',
+                onSelect() {
+                  onResetPassword(row.original.id)
                 },
               },
               {

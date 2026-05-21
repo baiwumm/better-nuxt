@@ -5,6 +5,7 @@ import { getPaginationRowModel } from '@tanstack/vue-table'
 import BanUserFormModal from './components/BanUserFormModal.vue'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
+import ResetPasswordModal from './components/ResetPasswordModal.vue'
 
 const { initialPagination, pageSizeOptions } = usePagination()
 const { getUserList } = useSystemApi()
@@ -22,6 +23,7 @@ const saveLoading = ref(false)
 const deleteLoading = ref(false)
 const formKey = ref(0)
 const banUserId = ref<string | null>(null)
+const resetPasswordUserId = ref<string | null>(null)
 
 // 查询参数
 const query = reactive<Pick<UserQueryParams, 'keyword'>>({
@@ -101,6 +103,10 @@ const { columns } = userUserColumns({
   },
   onBan: handleBanUser,
   onDelete: handleDelete,
+  onResetPassword: (id) => {
+    resetPasswordUserId.value = id
+    formKey.value++
+  },
 })
 
 // 表单提交
@@ -200,5 +206,6 @@ watch(open, (val) => {
       @submit="handleSubmit"
     />
     <BanUserFormModal v-model:user-id="banUserId" :form-key :refresh />
+    <ResetPasswordModal v-model:user-id="resetPasswordUserId" :form-key :refresh />
   </div>
 </template>

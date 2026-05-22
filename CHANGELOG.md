@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/baiwumm/better-nuxt/compare/v1.7.0...v1.7.1) (2026-05-22)
+
+### ✨ Features | 新功能
+
+* 新增 Permission 按钮枚举 ([d0c2f67](https://github.com/baiwumm/better-nuxt/commit/d0c2f6732a8961d5b59ea9208ad35844c4b69dff))
+* **menu-manage:** 新增“按钮权限”表单和列项 ([56fdf51](https://github.com/baiwumm/better-nuxt/commit/56fdf51882f8f3bac7e4197c5401de1e2f81c306))
+* **schema:** menu 表新增 permissions 字段 ([4e8cff4](https://github.com/baiwumm/better-nuxt/commit/4e8cff47736234d306b9a938077724a53212324a))
+
 ## [1.7.0](https://github.com/baiwumm/better-nuxt/compare/v1.6.2...v1.7.0) (2026-05-21)
 
 ### ✨ Features | 新功能

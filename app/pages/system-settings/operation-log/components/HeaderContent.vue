@@ -5,7 +5,7 @@ import { METHODS, PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   table: Table<Log>
-  handleRefresh: VoidFunction
+  refresh: VoidFunction
   loading: boolean
 }>()
 
@@ -39,7 +39,7 @@ async function handleBatchDelete() {
     if (isSuccess(code)) {
       successToast(i18nCommon('deleteSuccess'))
       props.table?.resetRowSelection()
-      props.handleRefresh()
+      props.refresh()
     }
   }).finally(() => {
     delLoading.value = false
@@ -80,7 +80,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
         class="w-48"
         :placeholder="i18nLog('method')"
       />
-      <AutoFormSearchButton :loading :refresh="handleRefresh" />
+      <AutoFormSearchButton :loading @refresh="refresh" />
       <UButton
         v-if="selectedRows.length"
         :label="i18nCommon(raw.label)"

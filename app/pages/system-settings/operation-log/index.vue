@@ -71,7 +71,7 @@ watch(
 <template>
   <div class="space-y-4">
     <ClientOnly>
-      <HeaderContent v-if="table?.tableApi" v-model="query" :handle-refresh="refresh" :loading :table="table?.tableApi" />
+      <HeaderContent v-if="table?.tableApi" v-model="query" :refresh :loading :table="table?.tableApi" />
     </ClientOnly>
     <UTable
       ref="table"

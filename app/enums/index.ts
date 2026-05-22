@@ -144,3 +144,16 @@ export const BAN_DURATIONS = Enum({
   THREE_DAYS: { value: '4', label: 'banDuration3Days', seconds: 60 * 60 * 24 * 3 },
   SEVEN_DAYS: { value: '5', label: 'banDuration7Days', seconds: 60 * 60 * 24 * 7 },
 })
+
+/**
+ * @description: 操作权限（全量）
+ */
+export const PERMISSIONS = Enum({
+  SEARCH: { value: 'SEARCH', label: 'search', bits: 1 << 0, icon: 'lucide:search' }, // 查询
+  ADD: { value: 'ADD', label: 'add', bits: 1 << 1, icon: 'lucide:plus' }, // 新增
+  EDIT: { value: 'EDIT', label: 'edit', bits: 1 << 2, icon: 'lucide:pencil-line' }, // 编辑
+  DELETE: { value: 'DELETE', label: 'delete', bits: 1 << 3, icon: 'lucide:trash-2' }, // 删除
+  BATCH_DELETE: { value: 'BATCH_DELETE', label: 'batchDelete', bits: 1 << 4, icon: 'i-lucide-list-x' }, // 批量删除
+  ADD_CHILD: { value: 'ADD_CHILD', label: 'addChild', bits: 1 << 5, icon: 'lucide:git-branch-plus' }, // 新增子级
+  RESET: { value: 'RESET', label: 'reset', bits: 1 << 6, icon: 'lucide:rotate-ccw' }, // 重置
+})

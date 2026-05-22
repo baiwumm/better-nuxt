@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { PERMISSIONS } from '@/enums'
+
 defineProps<{
   disabled: boolean
 }>()
@@ -8,15 +10,17 @@ const emit = defineEmits<{
 }>()
 
 const { i18nCommon } = useMessage()
+
+const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.ADD_CHILD))
 </script>
 
 <template>
   <UButton
-    :label="i18nCommon('addChild')"
+    :label="i18nCommon(raw.label)"
     color="neutral"
     variant="outline"
     size="xs"
-    icon="lucide:plus"
+    :icon="raw.icon"
     :disabled
     @click="emit('addChild')"
   />

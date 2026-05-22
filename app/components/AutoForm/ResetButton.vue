@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { PERMISSIONS } from '@/enums'
+
 defineProps<{
   loading: boolean
 }>()
@@ -8,14 +10,16 @@ const emit = defineEmits<{
 }>()
 
 const { i18nCommon } = useMessage()
+
+const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.RESET))
 </script>
 
 <template>
   <UButton
-    icon="lucide:rotate-ccw"
+    :icon="raw.icon"
     color="neutral"
     variant="soft"
-    :label="i18nCommon('reset')"
+    :label="i18nCommon(raw.label)"
     :disabled="loading"
     @click="emit('reset')"
   />

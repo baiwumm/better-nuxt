@@ -93,7 +93,7 @@ const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : pr
     <template #parentId="{ field, state: stateValue }">
       <USelectMenu
         v-model="stateValue[field]"
-        value-key="value"
+        value-key="id"
         :items="selectMenuItems"
         :placeholder="i18nCommon('select')"
         :icon="parentIcon"

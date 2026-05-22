@@ -73,8 +73,8 @@ export const role = pgTable('role', {
   name: text('name').notNull().unique(),
   code: text('code').notNull().unique(),
   description: text('description'),
-  // 状态
-  status: boolean('status').default(true).notNull(),
+  // 是否启用
+  enabled: boolean('enabled').default(true).notNull(),
   // 排序
   sort: integer('sort').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),

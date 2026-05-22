@@ -36,6 +36,13 @@
       "when": 1779431977241,
       "tag": "0004_goofy_sunspot",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1779440653262,
+      "tag": "0005_nosy_viper",
+      "breakpoints": true
     }
   ]
 }

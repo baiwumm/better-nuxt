@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-22 09:59:12
+ * @LastEditTime: 2026-05-22 17:36:42
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -37,6 +37,30 @@ export function useSystemApi() {
    */
   const delMenu = (id: string) =>
     del<Menu>(`/system-settings/menu-manage/${id}`)
+
+  /**
+   * @description: 查询角色列表
+   */
+  const getRoleList = (params: RoleQueryParams) =>
+    get<PaginatingQueryList<Role>>('/system-settings/role-manage', params)
+
+  /**
+   * @description: 新增角色
+   */
+  const insertRole = (body: InsertRole) =>
+    post<Role>('/system-settings/role-manage', body)
+
+  /**
+   * @description: 更新菜单
+   */
+  const updateRole = ({ id, ...body }: Partial<InsertRole> & { id: string }) =>
+    put<Role>(`/system-settings/role-manage/${id}`, body)
+
+  /**
+   * @description: 删除角色
+   */
+  const delRole = (id: string) =>
+    del<Role>(`/system-settings/role-manage/${id}`)
 
   /**
    * @description: 查询日志
@@ -100,5 +124,9 @@ export function useSystemApi() {
     updateInternalization,
     delInternalization,
     getUserList,
+    getRoleList,
+    insertRole,
+    updateRole,
+    delRole,
   }
 }

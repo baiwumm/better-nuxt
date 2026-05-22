@@ -19,6 +19,12 @@ export function useMessage() {
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
+  // 角色管理
+  const i18nRole = (field: string, isForm = false) => {
+    const prefix = 'pages.systemSettings.roleManage'
+    return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
+  }
+
   // 国际化
   const i18nInternalization = (field: string, isForm = false) => {
     const prefix = 'pages.systemSettings.internalization'
@@ -38,5 +44,6 @@ export function useMessage() {
     i18nMenu,
     i18nAuth,
     i18nUser,
+    i18nRole,
   }
 }

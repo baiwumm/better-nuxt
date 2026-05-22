@@ -76,7 +76,7 @@ export function useMenuColumns(options: {
     },
     ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<MenuTree>>(v => ({
       accessorKey: v,
-      header: i18nMenu(v),
+      header: v === 'enabled' ? i18nCommon(v) : i18nMenu(v),
       cell: ({ row }) => h(USwitch, {
         disabled: true,
         uncheckedIcon: 'lucide:x',

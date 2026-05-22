@@ -12,7 +12,7 @@ interface ZInputOpts {
 
 export function useSchema() {
   const { t } = useI18n()
-  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth, i18nUser } = useMessage()
+  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth, i18nUser, i18nRole } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -163,9 +163,18 @@ export function useSchema() {
     to: zInput({ title: i18nMenu('to', true), maxlength: 200 }),
     badge: zInput({ title: i18nMenu('badge', true), maxlength: 10 }),
     keepAlive: zCheckbox(i18nMenu('keepAlive', true)),
-    enabled: zCheckbox(i18nMenu('enabled', true)),
+    enabled: zCheckbox(i18nCommon('enabled', true)),
     defaultOpen: zCheckbox(i18nMenu('defaultOpen', true)),
     target: z.enum(MENU_TARGET.values).meta({ title: i18nMenu('target.title', true) }),
+    sort: zSort,
+  })
+
+  // 角色管理 - 新增/编辑
+  const roleFormSchema = z.object({
+    name: zInput({ title: i18nRole('name', true), maxlength: 20, required: true }),
+    code: zInput({ title: i18nRole('code', true), maxlength: 50, required: true }),
+    description: zInput({ title: i18nRole('description', true), maxlength: 200, isTextarea: true }),
+    enabled: zCheckbox(i18nCommon('enabled', true)),
     sort: zSort,
   })
 
@@ -192,6 +201,7 @@ export function useSchema() {
     forgotPasswordFormSchema,
     userFormSchema,
     banUserFormSchema,
+    roleFormSchema,
   }
 }
 
@@ -204,3 +214,4 @@ export type UserFormSchema = z.infer<ReturnType<typeof useSchema>['userFormSchem
 export type BanUserFormSchema = z.infer<ReturnType<typeof useSchema>['banUserFormSchema']>
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
 export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>
+export type RoleFormSchema = z.infer<ReturnType<typeof useSchema>['roleFormSchema']>

@@ -22,6 +22,21 @@ export const MenuQuerySchema = z.object({
 })
 
 /**
+ * @description: 角色管理 - 查询参数
+ */
+export const RoleQuerySchema = z.object({
+  name: z.string().optional(),
+  code: z.string().optional(),
+  enabled: z
+    .enum(['true', 'false'])
+    .transform(val => val === 'true')
+    .optional()
+    .catch(undefined),
+  page: z.coerce.number().default(1),
+  pageSize: z.coerce.number().default(10),
+})
+
+/**
  * @description: 国际化 - 查询参数
  */
 export const InternalizationQuerySchema = z.object({

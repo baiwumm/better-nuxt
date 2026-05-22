@@ -1,6 +1,6 @@
 import z from 'zod'
 import { AInputPasswordToggle, AutoFormInput, AutoFormTextarea } from '#components'
-import { BAN_DURATIONS, MENU_TARGET, USER_ROLE } from '@/enums'
+import { BAN_DURATIONS, MENU_TARGET, PERMISSIONS, USER_ROLE } from '@/enums'
 
 interface ZInputOpts {
   title: string
@@ -155,6 +155,9 @@ export function useSchema() {
       help: i18nMenu('labelHlep', true),
       required: true,
       maxlength: 200,
+    }),
+    permissions: z.array(z.enum(PERMISSIONS.values)).optional().meta({
+      title: i18nMenu('permissions', true),
     }),
     icon: zInput({ title: i18nCommon('icon', true), required: true, maxlength: 50 }),
     to: zInput({ title: i18nMenu('to', true), maxlength: 200 }),

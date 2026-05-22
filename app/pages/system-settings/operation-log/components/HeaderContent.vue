@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import { map } from 'es-toolkit/compat'
-import { METHODS } from '@/enums'
+import { METHODS, PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   table: Table<Log>
@@ -45,6 +45,8 @@ async function handleBatchDelete() {
     delLoading.value = false
   })
 }
+
+const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
 </script>
 
 <template>
@@ -81,10 +83,10 @@ async function handleBatchDelete() {
       <AutoFormSearchButton :loading :refresh="handleRefresh" />
       <UButton
         v-if="selectedRows.length"
-        :label="i18nCommon('batchDelete')"
+        :label="i18nCommon(raw.label)"
         color="error"
         variant="soft"
-        icon="i-lucide-trash-2"
+        :icon="raw.icon"
         :loading="delLoading"
         @click="handleBatchDelete"
       >

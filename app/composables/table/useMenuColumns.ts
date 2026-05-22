@@ -1,5 +1,6 @@
 import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UIcon, USwitch } from '#components'
+import { PERMISSIONS } from '@/enums'
 
 export function useMenuColumns(options: {
   saveLoading: Ref<boolean>
@@ -12,6 +13,7 @@ export function useMenuColumns(options: {
   const { saveLoading, deleteId, onEdit, onDelete } = options
 
   const { i18nCommon, i18nMenu } = useMessage()
+  const { getPermissionValues } = usePermissions()
 
   const columns = computed<TableColumn<MenuTree>[]>(() => [
     createTreeColumn('label', i18nMenu('label'), true),
@@ -36,6 +38,40 @@ export function useMenuColumns(options: {
       cell: ({ row }) => {
         const val = row.getValue('badge')
         return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => val) : '-'
+      },
+    },
+    {
+      accessorKey: 'permissions',
+      header: i18nMenu('permissions'),
+      cell: ({ row }) => {
+        const val = row.original.permissions
+
+        if (!val) {
+          return '-'
+        }
+
+        const permissions = getPermissionValues(val)
+
+        return h(
+          'div',
+          {
+            class: 'flex flex-wrap items-center justify-center jus gap-1',
+          },
+          permissions.map((item) => {
+            const raw = PERMISSIONS.raw(item)
+            return h(
+              UBadge,
+              {
+                key: item,
+                variant: 'soft',
+                color: 'neutral',
+                icon: raw.icon,
+              },
+              () => i18nCommon(PERMISSIONS.label(item)),
+            )
+          },
+          ),
+        )
       },
     },
     ...['keepAlive', 'defaultOpen', 'enabled'].map<TableColumn<MenuTree>>(v => ({

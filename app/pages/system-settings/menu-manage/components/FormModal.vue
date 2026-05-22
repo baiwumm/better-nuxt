@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { pick } from 'es-toolkit'
-import { MENU_TARGET } from '@/enums'
+import { MENU_TARGET, PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   data: Menu | null
@@ -10,12 +10,13 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'submit', v: MenuFormSchema): void
+  (e: 'submit', v: InsertMenu): void
 }>()
 
 const { i18nMenu, i18nCommon } = useMessage()
 const { menuFormSchema } = useSchema()
 const { flattenTree } = useTreeTool()
+const { getPermissionValues, getPermissionBits } = usePermissions()
 
 const modelValue = defineModel<boolean>({ required: true })
 
@@ -23,6 +24,7 @@ const modelValue = defineModel<boolean>({ required: true })
 const INITIAL_STATE = Object.freeze<MenuFormSchema>({
   parentId: null,
   label: '',
+  permissions: [],
   icon: '',
   to: null,
   badge: null,
@@ -37,13 +39,19 @@ const FORM_FIELDS = Object.keys(INITIAL_STATE) as (keyof MenuFormSchema)[]
 const initialState = computed<MenuFormSchema>(() => ({
   ...INITIAL_STATE,
   ...(props.data
-    ? pick(props.data, FORM_FIELDS)
+    ? {
+        ...pick(props.data, FORM_FIELDS),
+        permissions: getPermissionValues(props.data?.permissions),
+      }
     : {}),
 }))
 
 /** 提交 */
 function onSubmit(data: MenuFormSchema) {
-  emit('submit', data)
+  emit('submit', {
+    ...data,
+    permissions: getPermissionBits(data.permissions || []),
+  })
 }
 
 // 递归查找树形结构中的节点
@@ -68,6 +76,8 @@ const parentIcon = computed(() => {
 })
 const selectMenuItems = computed(() => flattenTree(props.menuTree, 'label', true))
 
+const permissionItems = computed(() => PERMISSIONS.items.map(({ value, label, raw }) => ({ label: i18nCommon(label), value, icon: raw.icon })))
+
 const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : props.formKey)
 </script>
 
@@ -83,7 +93,7 @@ const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : pr
     <template #parentId="{ field, state: stateValue }">
       <USelectMenu
         v-model="stateValue[field]"
-        value-key="id"
+        value-key="value"
         :items="selectMenuItems"
         :placeholder="i18nCommon('select')"
         :icon="parentIcon"
@@ -92,6 +102,19 @@ const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : pr
         :ui="{
           trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
         }"
+      />
+    </template>
+    <template #permissions="{ state: stateValue }">
+      <USelectMenu
+        v-model="stateValue.permissions"
+        :placeholder="i18nCommon('select')"
+        value-key="value"
+        multiple
+        :items="permissionItems"
+        :ui="{
+          trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
+        }"
+        class="w-full"
       />
     </template>
     <template #footer="{ disabled, submit, close }">

@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { internalization, logs, menu, user } from '@/db/schema'
+import type { insertMenuSchema, internalization, logs, menu, user } from '@/db/schema'
 
 /** @description: 用户管理列表 */
 export type User = typeof user.$inferSelect
@@ -11,6 +11,7 @@ export type Menu = typeof menu.$inferSelect
 export type MenuTree = Menu & {
   children: MenuTree[]
 }
+export type InsertMenu = z.infer<typeof insertMenuSchema>
 
 /** @description: 国际化 - 查询参数 */
 export type MenuQueryParams = z.infer<typeof MenuQuerySchema>

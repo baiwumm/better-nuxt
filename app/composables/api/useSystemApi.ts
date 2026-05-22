@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-19 13:54:16
+ * @LastEditTime: 2026-05-22 09:59:12
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -23,13 +23,13 @@ export function useSystemApi() {
   /**
    * @description: 新增菜单
    */
-  const insertMenu = (body: MenuFormSchema) =>
+  const insertMenu = (body: InsertMenu) =>
     post<Menu>('/system-settings/menu-manage', body)
 
   /**
    * @description: 更新菜单
    */
-  const updateMenu = ({ id, ...body }: Partial<MenuFormSchema> & { id: string }) =>
+  const updateMenu = ({ id, ...body }: Partial<InsertMenu> & { id: string }) =>
     put<Menu>(`/system-settings/menu-manage/${id}`, body)
 
   /**

@@ -9,7 +9,7 @@ const props = defineProps<{
 const { $authClient } = useNuxtApp()
 const { successToast, errorToast } = useAppToast()
 
-const { i18nUser, i18nCommon } = useMessage()
+const { i18nUser, i18nCommon, i18nPermissions } = useMessage()
 const { banUserFormSchema } = useSchema()
 const loading = ref(false)
 
@@ -51,7 +51,7 @@ const items = computed(() => BAN_DURATIONS.items.map(({ value, label }) => ({ la
   <AutoFormModal
     :key="formKey"
     v-model:open="open"
-    :title="i18nUser('banUser')"
+    :title="i18nPermissions('banUser')"
     :schema="banUserFormSchema"
     @submit="onSubmit"
   >

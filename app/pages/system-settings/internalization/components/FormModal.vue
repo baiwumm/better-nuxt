@@ -13,7 +13,7 @@ const emit = defineEmits<{
   (e: 'submit', v: InternalizationFormSchema): void
 }>()
 
-const { i18nInternalization, i18nCommon } = useMessage()
+const { i18nInternalization, i18nCommon, i18nPermissions } = useMessage()
 const { internalizationFormSchema } = useSchema()
 const { flattenTree } = useTreeTool()
 
@@ -49,7 +49,7 @@ const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : pr
   <AutoFormModal
     :key="autoFormKey"
     v-model:open="modelValue"
-    :title="parentId ? i18nCommon('addChild') : i18nInternalization(data?.id ? 'edit' : 'add')"
+    :title="parentId ? i18nPermissions('addChild') : i18nInternalization(data?.id ? 'edit' : 'add')"
     :schema="internalizationFormSchema"
     :initial-state="initialState"
     @submit="onSubmit"

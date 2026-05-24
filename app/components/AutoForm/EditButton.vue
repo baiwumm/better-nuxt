@@ -9,14 +9,14 @@ const emit = defineEmits<{
   edit: []
 }>()
 
-const { i18nCommon } = useMessage()
+const { i18nPermissions } = useMessage()
 
 const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.EDIT))
 </script>
 
 <template>
   <UButton
-    :label="i18nCommon(raw.label)"
+    :label="i18nPermissions(raw.label)"
     color="neutral"
     variant="outline"
     size="xs"

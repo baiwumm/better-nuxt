@@ -5,7 +5,7 @@ const emit = defineEmits<{
   add: []
 }>()
 
-const { i18nCommon } = useMessage()
+const { i18nPermissions } = useMessage()
 
 const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.ADD))
 </script>
@@ -15,7 +15,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.ADD))
     :icon="raw.icon"
     color="neutral"
     variant="outline"
-    :label="i18nCommon(raw.label)"
+    :label="i18nPermissions(raw.label)"
     @click="emit('add')"
   />
 </template>

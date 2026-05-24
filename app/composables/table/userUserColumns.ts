@@ -10,7 +10,7 @@ export function userUserColumns(options: {
   onResetPassword: (id: string) => void
 }) {
   const { onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
-  const { i18nUser, i18nCommon } = useMessage()
+  const { i18nUser, i18nCommon, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
@@ -149,21 +149,21 @@ export function userUserColumns(options: {
             'arrow': true,
             'items': [
               {
-                label: i18nUser('viewSessions'),
+                label: i18nPermissions('viewSessions'),
                 icon: 'lucide:messages-square',
                 onSelect() {
                   onViewSessions(row.original.id)
                 },
               },
               {
-                label: i18nCommon('edit'),
+                label: i18nPermissions('edit'),
                 icon: 'lucide:pencil-line',
                 onSelect() {
                   onEdit(row.original)
                 },
               },
               {
-                label: i18nUser(banned ? 'unbanUser' : 'banUser'),
+                label: i18nPermissions(banned ? 'unbanUser' : 'banUser'),
                 icon: banned ? 'lucide:user-check' : 'lucide:user-x',
                 color: banned ? 'success' : 'error',
                 onSelect() {
@@ -171,14 +171,14 @@ export function userUserColumns(options: {
                 },
               },
               {
-                label: i18nUser('resetPassword'),
+                label: i18nPermissions('resetPassword'),
                 icon: 'lucide:key-round',
                 onSelect() {
                   onResetPassword(row.original.id)
                 },
               },
               {
-                label: i18nCommon('delete'),
+                label: i18nPermissions('delete'),
                 icon: 'lucide:trash-2',
                 color: 'error',
                 onSelect() {

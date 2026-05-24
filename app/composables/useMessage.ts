@@ -37,6 +37,9 @@ export function useMessage() {
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
+  // 权限
+  const i18nPermissions = (field: string) => t(`permissions.${field}`)
+
   return {
     i18nInternalization,
     i18nCommon,
@@ -45,5 +48,6 @@ export function useMessage() {
     i18nAuth,
     i18nUser,
     i18nRole,
+    i18nPermissions,
   }
 }

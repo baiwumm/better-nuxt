@@ -9,7 +9,7 @@ const emit = defineEmits<{
   refresh: []
 }>()
 
-const { i18nCommon } = useMessage()
+const { i18nPermissions } = useMessage()
 
 const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.SEARCH))
 </script>
@@ -18,7 +18,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.SEARCH))
   <UButton
     :icon="raw.icon"
     :loading
-    :label="i18nCommon(raw.label)"
+    :label="i18nPermissions(raw.label)"
     @click="emit('refresh')"
   />
 </template>

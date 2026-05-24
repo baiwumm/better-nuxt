@@ -9,7 +9,7 @@ const emit = defineEmits<{
   reset: []
 }>()
 
-const { i18nCommon } = useMessage()
+const { i18nPermissions } = useMessage()
 
 const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.RESET))
 </script>
@@ -19,7 +19,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.RESET))
     :icon="raw.icon"
     color="neutral"
     variant="soft"
-    :label="i18nCommon(raw.label)"
+    :label="i18nPermissions(raw.label)"
     :disabled="loading"
     @click="emit('reset')"
   />

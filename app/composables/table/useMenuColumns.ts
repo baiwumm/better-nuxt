@@ -12,7 +12,7 @@ export function useMenuColumns(options: {
 
   const { saveLoading, deleteId, onEdit, onDelete } = options
 
-  const { i18nCommon, i18nMenu } = useMessage()
+  const { i18nCommon, i18nMenu, i18nPermissions } = useMessage()
   const { getPermissionValues } = usePermissions()
 
   const columns = computed<TableColumn<MenuTree>[]>(() => [
@@ -67,7 +67,7 @@ export function useMenuColumns(options: {
                 color: 'neutral',
                 icon: raw.icon,
               },
-              () => i18nCommon(PERMISSIONS.label(item)),
+              () => i18nPermissions(PERMISSIONS.label(item)),
             )
           },
           ),

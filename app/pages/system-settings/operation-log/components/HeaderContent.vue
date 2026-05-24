@@ -9,7 +9,7 @@ const props = defineProps<{
   loading: boolean
 }>()
 
-const { i18nLog, i18nCommon } = useMessage()
+const { i18nLog, i18nCommon, i18nPermissions } = useMessage()
 const { getUserDisplayName } = useCurrentUser()
 const { successToast } = useAppToast()
 
@@ -83,7 +83,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
       <AutoFormSearchButton :loading @refresh="refresh" />
       <UButton
         v-if="selectedRows.length"
-        :label="i18nCommon(raw.label)"
+        :label="i18nPermissions(raw.label)"
         color="error"
         variant="soft"
         :icon="raw.icon"

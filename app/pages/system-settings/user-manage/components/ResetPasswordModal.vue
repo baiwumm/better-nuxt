@@ -7,7 +7,7 @@ const props = defineProps<{
 const { $authClient } = useNuxtApp()
 const { successToast, errorToast } = useAppToast()
 
-const { i18nUser } = useMessage()
+const { i18nPermissions } = useMessage()
 const { forgotPasswordFormSchema } = useSchema()
 const loading = ref(false)
 
@@ -45,7 +45,7 @@ async function onSubmit(data: ForgotPasswordFormSchema) {
   <AutoFormModal
     :key="formKey"
     v-model:open="open"
-    :title="i18nUser('resetPassword')"
+    :title="i18nPermissions('resetPassword')"
     :schema="forgotPasswordFormSchema"
     @submit="onSubmit"
   >

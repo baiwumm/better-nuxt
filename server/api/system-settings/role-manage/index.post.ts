@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:28:59
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-22 17:59:50
+ * @LastEditTime: 2026-05-24 11:12:44
  * @Description: 新增角色
  */
 import { db } from '@/db/drizzle'
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     const dbError = (error as unknown as any)?.cause
 
     // PostgreSQL 唯一约束冲突
-    if (dbError?.code === '23505') {
+    if (dbError?.code === RESPONSE_CODE.UNIQUE_VIOLATION) {
       const constraint = dbError?.constraint
 
       switch (constraint) {

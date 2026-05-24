@@ -13,7 +13,7 @@ const emit = defineEmits<{
   (e: 'submit', v: InsertMenu): void
 }>()
 
-const { i18nMenu, i18nCommon } = useMessage()
+const { i18nMenu, i18nCommon, i18nPermissions } = useMessage()
 const { menuFormSchema } = useSchema()
 const { flattenTree } = useTreeTool()
 const { getPermissionValues, getPermissionBits } = usePermissions()
@@ -76,7 +76,9 @@ const parentIcon = computed(() => {
 })
 const selectMenuItems = computed(() => flattenTree(props.menuTree, 'label', true))
 
-const permissionItems = computed(() => PERMISSIONS.items.map(({ value, label, raw }) => ({ label: i18nCommon(label), value, icon: raw.icon })))
+const targetItems = computed(() => MENU_TARGET.items.map(({ value, label }) => ({ label: i18nMenu(label), value })))
+
+const permissionItems = computed(() => PERMISSIONS.items.map(({ value, label, raw }) => ({ label: i18nPermissions(label), value, icon: raw.icon })))
 
 const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : props.formKey)
 </script>
@@ -111,6 +113,18 @@ const autoFormKey = computed(() => props.data?.id ? `edit-${props.data.id}` : pr
         value-key="value"
         multiple
         :items="permissionItems"
+        :ui="{
+          trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
+        }"
+        class="w-full"
+      />
+    </template>
+    <template #target="{ state: stateValue }">
+      <USelect
+        v-model="stateValue.target"
+        :placeholder="i18nCommon('select')"
+        value-key="value"
+        :items="targetItems"
         :ui="{
           trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
         }"

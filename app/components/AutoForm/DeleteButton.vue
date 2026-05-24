@@ -10,14 +10,14 @@ const emit = defineEmits<{
   delete: []
 }>()
 
-const { i18nCommon } = useMessage()
+const { i18nPermissions } = useMessage()
 
 const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.DELETE))
 </script>
 
 <template>
   <UButton
-    :label="i18nCommon(raw.label)"
+    :label="i18nPermissions(raw.label)"
     color="error"
     variant="soft"
     size="xs"

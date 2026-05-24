@@ -47,8 +47,8 @@ export const I18N_LOCALES = Enum({
  * @description: 窗口打开方式
  */
 export const MENU_TARGET = Enum({
-  SELF: { value: '_self', label: 'pages.systemSettings.menuManage.target.self' },
-  BLANK: { value: '_blank', label: 'pages.systemSettings.menuManage.target.blank' },
+  SELF: { value: '_self', label: 'target.self' },
+  BLANK: { value: '_blank', label: 'target.blank' },
 })
 
 /**
@@ -156,4 +156,8 @@ export const PERMISSIONS = Enum({
   BATCH_DELETE: { value: 'BATCH_DELETE', label: 'batchDelete', bits: 1 << 4, icon: 'i-lucide-list-x' }, // 批量删除
   ADD_CHILD: { value: 'ADD_CHILD', label: 'addChild', bits: 1 << 5, icon: 'lucide:git-branch-plus' }, // 新增子级
   RESET: { value: 'RESET', label: 'reset', bits: 1 << 6, icon: 'lucide:rotate-ccw' }, // 重置
+  VIEW_SESSIONS: { value: 'VIEW_SESSIONS', label: 'viewSessions', bits: 1 << 7, icon: 'lucide:messages-square' }, // 查看会话
+  BAN_USER: { value: 'BAN_USER', label: 'banUser', bits: 1 << 8, icon: 'lucide:user-x' }, // 封禁用户
+  UNBAN_USER: { value: 'UNBAN_USER', label: 'unbanUser', bits: 1 << 9, icon: 'lucide:user-check' }, // 解除封禁
+  RESET_PASSWORD: { value: 'RESET_PASSWORD', label: 'resetPassword', bits: 1 << 10, icon: 'lucide:key-round' }, // 重置密码
 })

@@ -3,11 +3,13 @@ import type { PaginationState } from '@tanstack/vue-table'
 import { getPaginationRowModel } from '@tanstack/vue-table'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
+import PermissionsModal from './components/PermissionsModal.vue'
 
-const { getRoleList, insertRole, updateRole, delRole } = useSystemApi()
-const { i18nCommon } = useMessage()
+const { getRoleList, insertRole, updateRole, delRole, getMenuList } = useSystemApi()
+const { i18nCommon, i18nPermissions } = useMessage()
 const { successToast } = useAppToast()
 const { initialPagination, pageSizeOptions } = usePagination()
+const { getPermissionRaw } = usePermissions()
 
 const table = useTemplateRef('table')
 const open = ref(false)
@@ -15,6 +17,7 @@ const editData = ref<Role | null>(null)
 const saveLoading = ref(false)
 const deleteId = ref<string | null>(null)
 const formKey = ref(0)
+const authRoleId = ref<string | null>(null)
 // 查询参数
 const query = reactive<Pick<RoleQueryParams, 'name' | 'code'>>({
   name: undefined,
@@ -22,6 +25,18 @@ const query = reactive<Pick<RoleQueryParams, 'name' | 'code'>>({
 })
 
 const pagination = computed<PaginationState>(() => table.value?.tableApi?.getState().pagination ?? initialPagination)
+
+// 获取菜单列表
+const { data: menuTree } = await useAsyncData(
+  'role-menu',
+  async () => {
+    const res = await getMenuList()
+    return res.data ?? []
+  },
+  {
+    default: () => [],
+  },
+)
 
 // 获取角色列表
 const { data, pending: loading, refresh } = await useAsyncData(
@@ -38,6 +53,7 @@ const total = computed(() => data.value?.total ?? 0)
 const { columns } = useRoleColumns({
   saveLoading,
   deleteId,
+  onAuthorization: row => authRoleId.value = row.id,
   onEdit: (row) => {
     editData.value = row
     open.value = true
@@ -124,7 +140,34 @@ watch(open, (val) => {
         tr: 'group',
         td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-default text-center',
       }"
-    />
+    >
+      <template #expanded="{ row }">
+        <div v-if="row.original.menus.length" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div v-for="item in row.original.menus" :key="item.menuId" class="flex items-center gap-2 flex-wrap">
+            <span class="font-medium min-w-24">
+              {{ $t(item.menu.label) }}：
+            </span>
+
+            <template v-if="item.permissions === 0">
+              <span>-</span>
+            </template>
+
+            <template v-else>
+              <UBadge
+                v-for="v in getPermissionRaw(item.permissions)"
+                :key="v.value"
+                :icon="v.raw.icon"
+                variant="soft"
+                color="success"
+              >
+                {{ i18nPermissions(v.label) }}
+              </UBadge>
+            </template>
+          </div>
+        </div>
+        <EmptyContainer v-else />
+      </template>
+    </UTable>
     <ClientOnly>
       <TablePagination v-if="table?.tableApi" :table="table?.tableApi" :total="total" :page-size-options="pageSizeOptions" />
     </ClientOnly>
@@ -136,5 +179,6 @@ watch(open, (val) => {
       :form-key
       @submit="handleSubmit"
     />
+    <PermissionsModal v-model:role-id="authRoleId" :menu-tree :refresh />
   </div>
 </template>

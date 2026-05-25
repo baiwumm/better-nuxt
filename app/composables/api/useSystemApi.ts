@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-22 17:36:42
+ * @LastEditTime: 2026-05-25 15:36:06
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -110,6 +110,18 @@ export function useSystemApi() {
   const delInternalization = (id: string) =>
     del<Internalization>(`/system-settings/internalization/${id}`)
 
+  /**
+   * @description: 获取角色权限
+   */
+  const getRolePermissions = (roleId: string) =>
+    get<RoleMenu[]>(`/system-settings/role-manage/${roleId}/permissions`)
+
+  /**
+   * @description: 保存角色权限
+   */
+  const insertRolePermissions = (body: InsertRolePermission & { roleId: string }) =>
+    post<RoleMenu[]>(`/system-settings/role-manage/${body.roleId}/permissions`, body)
+
   return {
     getMenuList,
     insertMenu,
@@ -128,5 +140,7 @@ export function useSystemApi() {
     insertRole,
     updateRole,
     delRole,
+    insertRolePermissions,
+    getRolePermissions,
   }
 }

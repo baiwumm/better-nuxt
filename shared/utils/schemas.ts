@@ -58,3 +58,15 @@ export const LogQuerySchema = z.object({
   page: z.coerce.number().default(1),
   pageSize: z.coerce.number().default(10),
 })
+
+/**
+ * @description: 插入角色权限
+ */
+export const RolePermissionSchema = z.object({
+  permissions: z.array(
+    z.object({
+      menuId: z.string().min(1),
+      permissions: z.number().int(),
+    }),
+  ),
+})

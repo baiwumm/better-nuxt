@@ -3,6 +3,15 @@ import { PERMISSIONS } from '@/enums'
 
 export function usePermissions() {
   /**
+   * @description: 反推权限原值
+   */
+  function getPermissionRaw(bits: number) {
+    if (!bits)
+      return []
+    return PERMISSIONS.items.filter(({ raw }) => (bits & raw.bits) === raw.bits)
+  }
+
+  /**
    * @description: 反推权限值
    */
   function getPermissionValues(bits: number) {
@@ -23,5 +32,6 @@ export function usePermissions() {
   return {
     getPermissionValues,
     getPermissionBits,
+    getPermissionRaw,
   }
 }

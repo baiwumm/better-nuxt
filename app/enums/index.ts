@@ -160,4 +160,5 @@ export const PERMISSIONS = Enum({
   BAN_USER: { value: 'BAN_USER', label: 'banUser', bits: 1 << 8, icon: 'lucide:user-x' }, // 封禁用户
   UNBAN_USER: { value: 'UNBAN_USER', label: 'unbanUser', bits: 1 << 9, icon: 'lucide:user-check' }, // 解除封禁
   RESET_PASSWORD: { value: 'RESET_PASSWORD', label: 'resetPassword', bits: 1 << 10, icon: 'lucide:key-round' }, // 重置密码
+  ROLE_AUTH: { value: 'ROLE_AUTH', label: 'roleAuth', bits: 1 << 11, icon: 'lucide:shield-check' }, // 角色授权
 })

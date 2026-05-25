@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { insertMenuSchema, insertRoleSchema, internalization, logs, menu, role, user } from '@/db/schema'
+import type { insertMenuSchema, insertRoleSchema, internalization, logs, menu, role, roleMenu, user } from '@/db/schema'
 
 /** @description: 用户管理列表 */
 export type User = typeof user.$inferSelect
@@ -14,10 +14,17 @@ export type MenuTree = Menu & {
 export type InsertMenu = z.infer<typeof insertMenuSchema>
 
 /** @description: 角色管理列表 */
-export type Role = typeof role.$inferSelect
+export type Role = typeof role.$inferSelect & {
+  menus: (RoleMenu & {
+    menu: Menu
+  })[]
+}
 /** @description: 角色管理 - 查询参数 */
 export type RoleQueryParams = z.infer<typeof RoleQuerySchema>
 export type InsertRole = z.infer<typeof insertRoleSchema>
+/** @description: 角色管理 - 角色授权 */
+export type RoleMenu = typeof roleMenu.$inferSelect
+export type InsertRolePermission = z.infer<typeof RolePermissionSchema>
 
 /** @description: 国际化 - 查询参数 */
 export type MenuQueryParams = z.infer<typeof MenuQuerySchema>

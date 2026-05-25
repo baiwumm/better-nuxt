@@ -83,33 +83,35 @@ function getItems(tag: MenuTree | null): ContextMenuItem[][] {
         @click="homeTag?.to && router.push({ path: homeTag.to })"
       />
     </UContextMenu>
-    <template v-if="tabStore.tags.length">
-      <motion.div
-        v-for="tag in tabStore.tags"
-        :key="tag.id"
-        layout
-        :initial="{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }"
-        :animate="{ opacity: 1, scale: 1, filter: 'blur(0px)' }"
-        :exit="{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }"
-        :transition="{ type: 'spring', stiffness: 500, damping: 30, duration: 0.75 }"
-      >
-        <UContextMenu :items="getItems(tag)">
-          <UButton
-            :icon="tag.icon"
-            :label="$t(tag.label)"
-            :variant="tabStore.activePath === tag.to ? 'solid' : 'soft'"
-            size="sm"
-            class="transition-colors"
-            @click="tag?.to && router.push({ path: tag.to })"
-          >
-            <template #trailing>
-              <div class="flex justify-center items-center rounded-full size-4 hover:bg-primary hover:text-inverted hover:cursor-auto transition-colors" @click.stop.prevent="tabStore.closeTag(tag.to, router)">
-                <UIcon name="lucide:x" />
-              </div>
-            </template>
-          </UButton>
-        </UContextMenu>
-      </motion.div>
-    </template>
+    <ClientOnly>
+      <template v-if="tabStore.tags.length">
+        <motion.div
+          v-for="tag in tabStore.tags"
+          :key="tag.id"
+          layout
+          :initial="{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }"
+          :animate="{ opacity: 1, scale: 1, filter: 'blur(0px)' }"
+          :exit="{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }"
+          :transition="{ type: 'spring', stiffness: 500, damping: 30, duration: 0.75 }"
+        >
+          <UContextMenu :items="getItems(tag)">
+            <UButton
+              :icon="tag.icon"
+              :label="$t(tag.label)"
+              :variant="tabStore.activePath === tag.to ? 'solid' : 'soft'"
+              size="sm"
+              class="transition-colors"
+              @click="tag?.to && router.push({ path: tag.to })"
+            >
+              <template #trailing>
+                <div class="flex justify-center items-center rounded-full size-4 hover:bg-primary hover:text-inverted hover:cursor-auto transition-colors" @click.stop.prevent="tabStore.closeTag(tag.to, router)">
+                  <UIcon name="lucide:x" />
+                </div>
+              </template>
+            </UButton>
+          </UContextMenu>
+        </motion.div>
+      </template>
+    </ClientOnly>
   </div>
 </template>

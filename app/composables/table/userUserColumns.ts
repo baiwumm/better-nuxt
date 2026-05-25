@@ -1,6 +1,7 @@
 import type { TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
 import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
+import { PERMISSIONS } from '@/enums'
 
 export function userUserColumns(options: {
   onViewSessions: (id: string) => void
@@ -149,37 +150,37 @@ export function userUserColumns(options: {
             'arrow': true,
             'items': [
               {
-                label: i18nPermissions('viewSessions'),
-                icon: 'lucide:messages-square',
+                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.VIEW_SESSIONS)),
+                icon: PERMISSIONS.raw(PERMISSIONS.VIEW_SESSIONS).icon,
                 onSelect() {
                   onViewSessions(row.original.id)
                 },
               },
               {
-                label: i18nPermissions('edit'),
-                icon: 'lucide:pencil-line',
+                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.EDIT)),
+                icon: PERMISSIONS.raw(PERMISSIONS.EDIT).icon,
                 onSelect() {
                   onEdit(row.original)
                 },
               },
               {
-                label: i18nPermissions(banned ? 'unbanUser' : 'banUser'),
-                icon: banned ? 'lucide:user-check' : 'lucide:user-x',
+                label: i18nPermissions(banned ? PERMISSIONS.label(PERMISSIONS.UNBAN_USER) : PERMISSIONS.label(PERMISSIONS.BAN_USER)),
+                icon: banned ? PERMISSIONS.raw(PERMISSIONS.UNBAN_USER).icon : PERMISSIONS.raw(PERMISSIONS.BAN_USER).icon,
                 color: banned ? 'success' : 'error',
                 onSelect() {
                   onBan(row.original)
                 },
               },
               {
-                label: i18nPermissions('resetPassword'),
-                icon: 'lucide:key-round',
+                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.RESET_PASSWORD)),
+                icon: PERMISSIONS.raw(PERMISSIONS.RESET_PASSWORD).icon,
                 onSelect() {
                   onResetPassword(row.original.id)
                 },
               },
               {
-                label: i18nPermissions('delete'),
-                icon: 'lucide:trash-2',
+                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.DELETE)),
+                icon: PERMISSIONS.raw(PERMISSIONS.DELETE).icon,
                 color: 'error',
                 onSelect() {
                   onDelete(row.original.id)

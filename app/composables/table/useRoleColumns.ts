@@ -1,21 +1,24 @@
 import type { TableColumn } from '@nuxt/ui'
-import { AutoFormDeleteButton, AutoFormEditButton, UBadge } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UButton } from '#components'
+import { PERMISSIONS } from '@/enums'
 
 export function useRoleColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
+  onAuthorization: (row: Role) => void
   onEdit: (row: Role) => void
   onDelete: (id: string) => void
 }) {
-  const { saveLoading, deleteId, onEdit, onDelete } = options
-  const { i18nCommon, i18nRole } = useMessage()
-  const { createCreatedAtColumn, getHeader, createSortColumn } = useTableColumns()
+  const { saveLoading, deleteId, onEdit, onDelete, onAuthorization } = options
+  const { i18nCommon, i18nRole, i18nPermissions } = useMessage()
+  const { createCreatedAtColumn, getHeader, createSortColumn, createExpandColumn } = useTableColumns()
 
   const columns = computed<TableColumn<Role>[]>(() => [
+    createExpandColumn(),
     {
       accessorKey: 'name',
       header: i18nRole('name'),
-      cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'info' }, () => row.getValue('name')),
+      cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'info', icon: 'lucide:shield-user' }, () => row.getValue('name')),
     },
     {
       accessorKey: 'code',
@@ -26,6 +29,14 @@ export function useRoleColumns(options: {
       accessorKey: 'description',
       header: i18nRole('description'),
       cell: ({ row }) => row.getValue('description') ?? '-',
+    },
+    {
+      accessorKey: 'enabled',
+      header: i18nCommon('enabled'),
+      cell: ({ row }) => {
+        const val = row.getValue('enabled')
+        return h(UBadge, { variant: 'soft', color: val ? 'success' : 'error' }, () => val ? i18nCommon('yes') : i18nCommon('no'))
+      },
     },
     createSortColumn(),
     createCreatedAtColumn(),
@@ -39,6 +50,14 @@ export function useRoleColumns(options: {
             class: 'flex justify-center items-center gap-2',
           },
           [
+            h(UButton, {
+              label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.ROLE_AUTH)),
+              icon: PERMISSIONS.raw(PERMISSIONS.ROLE_AUTH).icon,
+              size: 'xs',
+              variant: 'outline',
+              color: 'neutral',
+              onClick: () => onAuthorization(row.original),
+            }),
             h(AutoFormEditButton, {
               disabled: saveLoading.value,
               onEdit: () => onEdit(row.original),

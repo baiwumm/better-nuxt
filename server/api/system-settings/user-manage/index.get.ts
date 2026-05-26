@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-30 09:04:43
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-19 13:47:29
+ * @LastEditTime: 2026-05-26 15:33:55
  * @Description: 用户管理列表
  */
 import { and, desc, ilike, or, sql } from 'drizzle-orm'
@@ -28,13 +28,19 @@ export default defineEventHandler(async (event) => {
     const where = conditions.length ? and(...conditions) : undefined
 
     const [list, totalResult] = await Promise.all([
-      db
-        .select()
-        .from(user)
-        .where(where)
-        .orderBy(desc(user.createdAt))
-        .limit(pageSize)
-        .offset((page - 1) * pageSize),
+      db.query.user.findMany({
+        where,
+        orderBy: (user, { desc }) => [desc(user.createdAt)],
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+        with: {
+          roles: {
+            with: {
+              role: true,
+            },
+          },
+        },
+      }),
 
       db
         .select({ count: sql<number>`count(*)` })

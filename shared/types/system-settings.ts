@@ -1,10 +1,16 @@
 import type { z } from 'zod'
-import type { insertMenuSchema, insertRoleSchema, internalization, logs, menu, role, roleMenu, user } from '@/db/schema'
+import type { insertMenuSchema, insertRoleSchema, internalization, logs, menu, role, roleMenu, user, userRole } from '@/db/schema'
 
 /** @description: 用户管理列表 */
-export type User = typeof user.$inferSelect
+export type User = typeof user.$inferSelect & {
+  roles: (UserRole & {
+    role: Role
+  })[]
+}
 /** @description: 用户管理 - 查询参数 */
 export type UserQueryParams = z.infer<typeof UserQuerySchema>
+export type UpdateUserRoles = z.infer<typeof UpdateUserRolesSchema>
+export type UserRole = typeof userRole.$inferSelect
 
 /** @description: 菜单树 */
 export type Menu = typeof menu.$inferSelect
@@ -17,6 +23,9 @@ export type InsertMenu = z.infer<typeof insertMenuSchema>
 export type Role = typeof role.$inferSelect & {
   menus: (RoleMenu & {
     menu: Menu
+  })[]
+  users: (UserRole & {
+    user: User
   })[]
 }
 /** @description: 角色管理 - 查询参数 */

@@ -122,7 +122,7 @@ export function useSchema() {
       },
     }),
     role: z.array(z.enum(USER_ROLE.values)).optional().meta({
-      title: i18nUser('role', true),
+      title: i18nUser('systemRole', true),
     }),
   })
 

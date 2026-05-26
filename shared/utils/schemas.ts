@@ -70,3 +70,10 @@ export const RolePermissionSchema = z.object({
     }),
   ),
 })
+
+/**
+ * @description: 更新用户角色
+ */
+export const UpdateUserRolesSchema = z.object({
+  roleIds: z.array(z.string()).default([]),
+})

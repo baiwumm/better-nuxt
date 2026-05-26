@@ -4,13 +4,14 @@ import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#comp
 import { PERMISSIONS } from '@/enums'
 
 export function userUserColumns(options: {
+  onAssignRoles: (id: string) => void
   onViewSessions: (id: string) => void
   onEdit: (row: User) => void
   onDelete: (id: string) => void
   onBan: (row: User) => void
   onResetPassword: (id: string) => void
 }) {
-  const { onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
+  const { onAssignRoles, onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
   const { i18nUser, i18nCommon, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
@@ -39,8 +40,8 @@ export function userUserColumns(options: {
       },
     },
     {
-      accessorKey: 'role',
-      header: i18nUser('role'),
+      accessorKey: 'systemRole',
+      header: i18nUser('systemRole'),
       cell: ({ row }) => {
         const val = row.original.role
         return val
@@ -49,9 +50,30 @@ export function userUserColumns(options: {
               {
                 class: 'flex justify-center items-center gap-2',
               },
-              val.split(',').map((v: string) => h(UBadge, { variant: 'soft', color: 'info' }, () => i18nUser(`role${upperFirst(v)}`))),
+              val.split(',').map((v: string) => h(UBadge, { variant: 'soft', color: 'info' }, () => i18nUser(`systemRole${upperFirst(v)}`))),
             )
           : '-'
+      },
+    },
+    {
+      accessorKey: 'permissionsRole',
+      header: i18nUser('permissionsRole'),
+      cell: ({ row }) => {
+        const roles = row.original.roles ?? []
+        if (!roles?.length) {
+          return '-'
+        }
+        const extra = roles.length - 1
+        return h(
+          'div',
+          {
+            class: 'flex justify-center items-center gap-1',
+          },
+          [
+            h(UBadge, { variant: 'soft', color: 'info' }, () => roles[0]?.role.name),
+            extra > 0 ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => `+${extra}`) : null,
+          ],
+        )
       },
     },
     {
@@ -149,6 +171,13 @@ export function userUserColumns(options: {
           {
             'arrow': true,
             'items': [
+              {
+                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.ASSIGN_ROLES)),
+                icon: PERMISSIONS.raw(PERMISSIONS.ASSIGN_ROLES).icon,
+                onSelect() {
+                  onAssignRoles(row.original.id)
+                },
+              },
               {
                 label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.VIEW_SESSIONS)),
                 icon: PERMISSIONS.raw(PERMISSIONS.VIEW_SESSIONS).icon,

@@ -2,6 +2,7 @@
 import type { PaginationState } from '@tanstack/vue-table'
 import type { SubmitForm } from './components/FormModal.vue'
 import { getPaginationRowModel } from '@tanstack/vue-table'
+import AssignRolesModal from './components/AssignRolesModal.vue'
 import BanUserFormModal from './components/BanUserFormModal.vue'
 import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
@@ -9,7 +10,7 @@ import ResetPasswordModal from './components/ResetPasswordModal.vue'
 import SessionsModal from './components/SessionsModal.vue'
 
 const { initialPagination, pageSizeOptions } = usePagination()
-const { getUserList } = useSystemApi()
+const { getUserList, getRoleList } = useSystemApi()
 const { $authClient } = useNuxtApp()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
@@ -26,11 +27,24 @@ const formKey = ref(0)
 const banUserId = ref<string | null>(null)
 const resetPasswordUserId = ref<string | null>(null)
 const viewSessionsUserId = ref<string | null>(null)
+const assignRolesUserId = ref<string | null>(null)
 
 // 查询参数
 const query = reactive<Pick<UserQueryParams, 'keyword'>>({
   keyword: undefined,
 })
+
+// 获取角色列表
+const { data: roleList } = await useAsyncData(
+  'user-roleList',
+  async () => {
+    const res = await getRoleList({ page: 1, pageSize: 9999 })
+    return res?.data?.list
+  },
+  {
+    default: () => [],
+  },
+)
 
 // 获取用户列表
 const { data, pending: loading, refresh } = await useAsyncData(
@@ -99,6 +113,9 @@ async function handleDelete(id: string) {
 }
 
 const { columns } = userUserColumns({
+  onAssignRoles: (id) => {
+    assignRolesUserId.value = id
+  },
   onViewSessions: (id) => {
     viewSessionsUserId.value = id
   },
@@ -213,5 +230,6 @@ watch(open, (val) => {
     <BanUserFormModal v-model:user-id="banUserId" :form-key :refresh />
     <ResetPasswordModal v-model:user-id="resetPasswordUserId" :form-key :refresh />
     <SessionsModal v-model:user-id="viewSessionsUserId" :refresh />
+    <AssignRolesModal v-model:user-id="assignRolesUserId" :role-list :refresh />
   </div>
 </template>

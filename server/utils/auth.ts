@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-19 10:07:04
+ * @LastEditTime: 2026-05-26 16:01:36
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -107,4 +107,18 @@ export const auth = betterAuth({
       adminUserIds: process.env.BETTER_AUTH_ADMIN_USER_IDS ? process.env.BETTER_AUTH_ADMIN_USER_IDS.split(',') : [],
     }),
   ],
+  // 数据库钩子
+  databaseHooks: {
+    user: {
+      create: {
+        // 创建用户成功后，自动分配管理员角色
+        after: async (user) => {
+          const roleId = process.env.BETTER_AUTH_DEFAULT_ROLE_ID
+          if (roleId) {
+            await db.insert(schema.userRole).values({ userId: user.id, roleId })
+          }
+        },
+      },
+    },
+  },
 })

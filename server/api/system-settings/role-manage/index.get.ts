@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:21:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-25 14:29:33
+ * @LastEditTime: 2026-05-26 14:34:34
  * @Description: 查询角色列表
  */
 import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
@@ -39,6 +39,11 @@ export default defineEventHandler(async (event) => {
           menus: {
             with: {
               menu: true,
+            },
+          },
+          users: {
+            with: {
+              user: true,
             },
           },
         },

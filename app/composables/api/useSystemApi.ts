@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 14:45:58
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-25 15:36:06
+ * @LastEditTime: 2026-05-26 14:53:49
  * @Description: 系统设置模块
  */
 export function useSystemApi() {
@@ -122,6 +122,18 @@ export function useSystemApi() {
   const insertRolePermissions = (body: InsertRolePermission & { roleId: string }) =>
     post<RoleMenu[]>(`/system-settings/role-manage/${body.roleId}/permissions`, body)
 
+  /**
+   * @description: 获取用户角色
+   */
+  const getUserRoles = (userId: string) =>
+    get<Role[]>(`/system-settings/user-manage/${userId}/roles`)
+
+  /**
+   * @description: 更新用户角色
+   */
+  const updateUserRoles = (body: { userId: string } & UpdateUserRoles) =>
+    put<UserRole[]>(`/system-settings/user-manage/${body.userId}/roles`, body)
+
   return {
     getMenuList,
     insertMenu,
@@ -142,5 +154,7 @@ export function useSystemApi() {
     delRole,
     insertRolePermissions,
     getRolePermissions,
+    getUserRoles,
+    updateUserRoles,
   }
 }

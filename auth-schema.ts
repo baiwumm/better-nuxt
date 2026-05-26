@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm'
 import { boolean, index, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { userRole } from './app/db/schema'
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -84,6 +85,8 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  // 说明：用户与角色的关系，在重新生成授权模式时不得进行覆盖。
+  roles: many(userRole),
 }))
 
 export const sessionRelations = relations(session, ({ one }) => ({

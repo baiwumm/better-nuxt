@@ -1,5 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
-import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UButton } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton } from '#components'
 import { PERMISSIONS } from '@/enums'
 
 export function useRoleColumns(options: {
@@ -12,6 +12,7 @@ export function useRoleColumns(options: {
   const { saveLoading, deleteId, onEdit, onDelete, onAuthorization } = options
   const { i18nCommon, i18nRole, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader, createSortColumn, createExpandColumn } = useTableColumns()
+  const { getUserDisplayName } = useCurrentUser()
 
   const columns = computed<TableColumn<Role>[]>(() => [
     createExpandColumn(),
@@ -24,6 +25,20 @@ export function useRoleColumns(options: {
       accessorKey: 'code',
       header: i18nRole('code'),
       cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('code')),
+    },
+    {
+      accessorKey: 'users',
+      header: i18nRole('users'),
+      cell: ({ row }) => {
+        const users = row.original.users
+        if (!users?.length) {
+          return '-'
+        }
+        return h(UAvatarGroup, { max: 3 }, () => users.map((v) => {
+          const user = v.user
+          return h(UAvatar, { src: user.image ?? undefined, alt: getUserDisplayName(user), loading: 'lazy' })
+        }))
+      },
     },
     {
       accessorKey: 'description',

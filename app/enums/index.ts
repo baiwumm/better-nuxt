@@ -131,11 +131,13 @@ export const METHODS = Enum({
 })
 
 /**
- * @description: 用户角色
+ * @description: 系统角色
  */
 export const USER_ROLE = Enum({
-  ADMIN: { value: 'admin', label: 'roleAdmin' },
-  USER: { value: 'user', label: 'roleUser' },
+  ADMIN: { value: 'admin', label: 'Admin' },
+  USER: { value: 'user', label: 'User' },
+}, {
+  labelPrefix: 'systemRole',
 })
 
 /**
@@ -167,4 +169,5 @@ export const PERMISSIONS = Enum({
   UNBAN_USER: { value: 'UNBAN_USER', label: 'unbanUser', bits: 1 << 9, icon: 'lucide:user-check' }, // 解除封禁
   RESET_PASSWORD: { value: 'RESET_PASSWORD', label: 'resetPassword', bits: 1 << 10, icon: 'lucide:key-round' }, // 重置密码
   ROLE_AUTH: { value: 'ROLE_AUTH', label: 'roleAuth', bits: 1 << 11, icon: 'lucide:shield-check' }, // 角色授权
+  ASSIGN_ROLES: { value: 'ASSIGN_ROLES', label: 'assignRoles', bits: 1 << 12, icon: 'lucide:shield-user' }, // 分配角色
 })

@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.8.0](https://github.com/baiwumm/better-nuxt/compare/v1.7.1...v1.8.0) (2026-05-26)
+
+### ✨ Features | 新功能
+
+* **CHANGELOG:** 修改仓库地址 ([45ff83c](https://github.com/baiwumm/better-nuxt/commit/45ff83ce4b82dea2e2d182c2d216f8ed652550a0))
+* **menu-manage:** 修复调试错误 ([7c03eb9](https://github.com/baiwumm/better-nuxt/commit/7c03eb907329e073c565af3aa3dbf4c987907718))
+* **permissions:** 完成角色和用户的关联关系 ([27533d3](https://github.com/baiwumm/better-nuxt/commit/27533d3ac56659f6d1a97487fc64ae92da85dc00))
+* **role-manage:** 完成《角色管理》模块的开发 ([3c39861](https://github.com/baiwumm/better-nuxt/commit/3c3986154342d2499f67f2a68313f86ff0cf0df1))
+* **role-manage:** 完成《角色授权》的基本交互逻辑 ([918090c](https://github.com/baiwumm/better-nuxt/commit/918090c2a403d3cf0a6ee6146d112fc274bcb671))
+* **role-manage:** 优化角色授权的权限回显问题 ([f2370cd](https://github.com/baiwumm/better-nuxt/commit/f2370cd727fe169383f7bb3c95ad4eddef3ac8a6))
+* **schema:** 新增 role、roleMenu、userRole 等角色关联的表模型 ([a264866](https://github.com/baiwumm/better-nuxt/commit/a264866d399fa3b3c42b3355c53dba87b698de9e))
+* **schema:** role 表 status 改成 enabled ([6cd0ba8](https://github.com/baiwumm/better-nuxt/commit/6cd0ba81bbc528157bedd94acb4aa3dfea6487ee))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **operation-log:** 解决点击搜索没响应的问题 ([fb9d673](https://github.com/baiwumm/better-nuxt/commit/fb9d673c6e44e6c79298f658415d71a09071c715))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节调整 ([8593075](https://github.com/baiwumm/better-nuxt/commit/8593075084ff0410f22a6275b849a528409f579a))
+* **enum:** 枚举优化前缀写法 ([62454ce](https://github.com/baiwumm/better-nuxt/commit/62454ce3f812c2581dfcc927959276ee3676382b))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更新 package 包版本 ([8b14717](https://github.com/baiwumm/better-nuxt/commit/8b14717cdda28f2eeabf6fd5ad086afe2efbb408))
+
 ## [1.7.1](https://github.com/baiwumm/better-nuxt/compare/v1.7.0...v1.7.1) (2026-05-22)
 
 ### ✨ Features | 新功能

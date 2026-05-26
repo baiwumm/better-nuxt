@@ -145,7 +145,7 @@ watch(open, (val) => {
         <div v-if="row.original.menus.length" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div v-for="item in row.original.menus" :key="item.menuId" class="flex items-center gap-2 flex-wrap">
             <span class="font-medium min-w-24">
-              {{ $t(item.menu.label) }}：
+              {{ $t(item.menu.label) }}:
             </span>
 
             <template v-if="item.permissions === 0">
@@ -158,7 +158,7 @@ watch(open, (val) => {
                 :key="v.value"
                 :icon="v.raw.icon"
                 variant="soft"
-                color="success"
+                color="neutral"
               >
                 {{ i18nPermissions(v.label) }}
               </UBadge>

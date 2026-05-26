@@ -44,7 +44,7 @@ async function onSubmit(data: BanUserFormSchema) {
   }
 }
 
-const items = computed(() => BAN_DURATIONS.items.map(({ value, label }) => ({ label: i18nUser(`banExpiresOpts.${label}`), value })))
+const items = computed(() => BAN_DURATIONS.items.map(({ value, label }) => ({ label: i18nUser(label), value })))
 </script>
 
 <template>

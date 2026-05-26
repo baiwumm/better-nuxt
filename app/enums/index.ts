@@ -47,8 +47,10 @@ export const I18N_LOCALES = Enum({
  * @description: 窗口打开方式
  */
 export const MENU_TARGET = Enum({
-  SELF: { value: '_self', label: 'target.self' },
-  BLANK: { value: '_blank', label: 'target.blank' },
+  SELF: { value: '_self', label: 'self' },
+  BLANK: { value: '_blank', label: 'blank' },
+}, {
+  labelPrefix: 'target.',
 })
 
 /**
@@ -57,63 +59,65 @@ export const MENU_TARGET = Enum({
 export const ROUTE_TRANSITION = Enum({
   DEFAULT: {
     value: 'default',
-    label: 'routeTransition.default',
+    label: 'default',
     icon: 'lucide:activity', // 默认状态 / 通用动画
   },
 
   BLUR_SLIDE: {
     value: 'blur-slide',
-    label: 'routeTransition.blurSlide',
+    label: 'blurSlide',
     icon: 'lucide:move-right', // 有移动 + 流动感（带模糊滑动）
   },
 
   FADE: {
     value: 'fade',
-    label: 'routeTransition.fade',
+    label: 'fade',
     icon: 'lucide:circle', // 渐变、淡入淡出
   },
 
   BLUR_FADE: {
     value: 'blur-fade',
-    label: 'routeTransition.blurFade',
+    label: 'blurFade',
     icon: 'lucide:focus', // 聚焦（从模糊到清晰）
   },
 
   SLIDE_FADE: {
     value: 'slide-fade',
-    label: 'routeTransition.slideFade',
+    label: 'slideFade',
     icon: 'lucide:arrow-right-left', // 左右切换（滑动）
   },
 
   ZOOM: {
     value: 'zoom',
-    label: 'routeTransition.zoom',
+    label: 'zoom',
     icon: 'lucide:maximize', // 放大（缩放动画）
   },
 
   SWING: {
     value: 'swing',
-    label: 'routeTransition.swing',
+    label: 'swing',
     icon: 'lucide:rotate-ccw', // 摆动 / 旋转感
   },
 
   FLIP: {
     value: 'flip',
-    label: 'routeTransition.flip',
+    label: 'flip',
     icon: 'lucide:flip-horizontal', // 翻转（很贴）
   },
 
   SLIDE_UP: {
     value: 'slide-up',
-    label: 'routeTransition.slideUp',
+    label: 'slideUp',
     icon: 'lucide:arrow-up', // 向上滑
   },
 
   DIAGONAL: {
     value: 'diagonal',
-    label: 'routeTransition.diagonal',
+    label: 'diagonal',
     icon: 'lucide:arrow-up-right', // 对角线移动
   },
+}, {
+  labelPrefix: 'routeTransition.',
 })
 
 /**
@@ -138,11 +142,13 @@ export const USER_ROLE = Enum({
  * @description: 用户封禁时间
  */
 export const BAN_DURATIONS = Enum({
-  ONE_HOUR: { value: '1', label: 'banDuration1Hour', seconds: 60 * 60 },
-  TWELVE_HOURS: { value: '2', label: 'banDuration12Hours', seconds: 60 * 60 * 12 },
-  ONE_DAY: { value: '3', label: 'banDuration1Day', seconds: 60 * 60 * 24 },
-  THREE_DAYS: { value: '4', label: 'banDuration3Days', seconds: 60 * 60 * 24 * 3 },
-  SEVEN_DAYS: { value: '5', label: 'banDuration7Days', seconds: 60 * 60 * 24 * 7 },
+  ONE_HOUR: { value: '1', label: '1Hour', seconds: 60 * 60 },
+  TWELVE_HOURS: { value: '2', label: '12Hours', seconds: 60 * 60 * 12 },
+  ONE_DAY: { value: '3', label: '1Day', seconds: 60 * 60 * 24 },
+  THREE_DAYS: { value: '4', label: '3Days', seconds: 60 * 60 * 24 * 3 },
+  SEVEN_DAYS: { value: '5', label: '7Days', seconds: 60 * 60 * 24 * 7 },
+}, {
+  labelPrefix: 'banExpiresOpts.banDuration',
 })
 
 /**

@@ -9,9 +9,11 @@ const props = defineProps<{
   loading: boolean
 }>()
 
+const route = useRoute()
 const { i18nLog, i18nCommon, i18nPermissions } = useMessage()
 const { getUserDisplayName } = useCurrentUser()
 const { successToast } = useAppToast()
+const { hasPermission } = usePermissions()
 
 const query = defineModel<Pick<LogQueryParams, 'userId' | 'method'>>({ required: true })
 const delLoading = ref(false)
@@ -82,7 +84,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
       />
       <AutoFormSearchButton :loading @refresh="refresh" />
       <UButton
-        v-if="selectedRows.length"
+        v-if="selectedRows.length && hasPermission(route.path, raw.bits)"
         :label="i18nPermissions(raw.label)"
         color="error"
         variant="soft"

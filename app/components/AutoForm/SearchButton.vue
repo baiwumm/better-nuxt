@@ -9,13 +9,17 @@ const emit = defineEmits<{
   refresh: []
 }>()
 
-const { i18nPermissions } = useMessage()
+const route = useRoute()
 
-const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.SEARCH))
+const { i18nPermissions } = useMessage()
+const { hasPermission } = usePermissions()
+
+const raw = PERMISSIONS.raw(PERMISSIONS.SEARCH)
 </script>
 
 <template>
   <UButton
+    v-if="hasPermission(route.path, raw.bits)"
     :icon="raw.icon"
     :loading
     :label="i18nPermissions(raw.label)"

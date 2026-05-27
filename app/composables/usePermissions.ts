@@ -5,6 +5,7 @@ import { PERMISSIONS } from '@/enums'
 export function usePermissions() {
   const { i18nPermissions } = useMessage()
   const { t } = useI18n()
+  const menuStore = useMenuStore()
   /**
    * @description: 反推权限原值
    */
@@ -160,6 +161,17 @@ export function usePermissions() {
     })
   }
 
+  // 是否拥有权限
+  function hasPermission(
+    path: string,
+    permission: number,
+  ) {
+    const current
+      = menuStore.permissionsMap.get(path) ?? 0
+
+    return (current & permission) === permission
+  }
+
   return {
     getPermissionValues,
     getPermissionBits,
@@ -168,5 +180,6 @@ export function usePermissions() {
     generatePermissonsTree,
     buildRolePermissions,
     getAllPermissionKeys,
+    hasPermission,
   }
 }

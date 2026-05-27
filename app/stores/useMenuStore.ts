@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-27 11:06:21
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-18 10:29:12
+ * @LastEditTime: 2026-05-27 09:48:54
  * @Description: 路由菜单
  */
 import { defineStore } from 'pinia'
@@ -15,12 +15,12 @@ export const useMenuStore = defineStore('menu-store', () => {
   const loading = ref(false)
   const inited = ref(false)
 
-  const { getMenuList } = useSystemApi()
+  const { getMenus } = useMeApi()
 
   const fetchMenuTree = async () => {
     loading.value = true
     try {
-      const res = await getMenuList({ enabled: true })
+      const res = await getMenus()
       menuTree.value = res.data ?? []
     }
     finally {
@@ -50,6 +50,30 @@ export const useMenuStore = defineStore('menu-store', () => {
     }
 
     travel(menuTree.value)
+
+    return map
+  })
+
+  // 按钮权限 Map
+  const permissionsMap = computed(() => {
+    const map = new Map<string, number>()
+
+    function walk(list: MenuTree[]) {
+      for (const item of list) {
+        if (item.to) {
+          map.set(
+            item.to,
+            item.permissions ?? 0,
+          )
+        }
+
+        if (item.children?.length) {
+          walk(item.children)
+        }
+      }
+    }
+
+    walk(menuTree.value)
 
     return map
   })
@@ -106,5 +130,6 @@ export const useMenuStore = defineStore('menu-store', () => {
     keepAliveNames,
     keepAliveList,
     menuPathMap,
+    permissionsMap,
   }
 })

@@ -91,7 +91,6 @@ watch(
     :ui="{ body: 'relative', footer: 'justify-end' }"
   >
     <template #body>
-      <!-- <UCheckboxGroup v-model="value" orientation="horizontal" value-key="id" :items :ui="{ fieldset: 'flex-wrap' }" /> -->
       <USelectMenu v-model="value" multiple value-key="id" :items="items" class="w-full" :placeholder="i18nCommon('select')" />
       <ContainerLoading v-if="pending" />
     </template>

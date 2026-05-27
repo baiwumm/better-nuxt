@@ -1,4 +1,4 @@
-import type { TableColumn } from '@nuxt/ui'
+import type { DropdownMenuItem, DropdownMenuProps, TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
 import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
 import { PERMISSIONS } from '@/enums'
@@ -17,6 +17,36 @@ export function userUserColumns(options: {
   const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
   const { locale } = useI18n()
+  const route = useRoute()
+
+  // 当前页面权限（一次性取出，避免重复 Map lookup）
+  const currentPermissions = computed(() => {
+    return (
+      useMenuStore().permissionsMap.get(route.path) ?? 0
+    )
+  })
+
+  // 👉 安全权限判断（基于当前页权限位）
+  const can = (bit: number | undefined) => {
+    if (!bit)
+      return true
+    return (currentPermissions.value & bit) === bit
+  }
+
+  // 👉 工具函数：创建 action
+  const createItem = (
+    enabled: boolean | null,
+    raw: ReturnType<typeof PERMISSIONS.raw>,
+    item: DropdownMenuItem,
+  ) => {
+    const allowed = enabled && can(raw ? raw.bits : 0)
+    return {
+      label: raw ? i18nPermissions(raw.label) : '',
+      icon: raw?.icon,
+      disabled: !allowed,
+      ...item,
+    }
+  }
 
   const columns = computed<TableColumn<User>[]>(() => [
     {
@@ -165,57 +195,43 @@ export function userUserColumns(options: {
       accessorKey: 'action',
       header: ({ column }) => getHeader(column, i18nCommon('action'), 'right'),
       cell: ({ row }) => {
-        const banned = row.getValue('banned')
+        const userId = row.original.id
+        const banned = row.original.banned
+        const items = [
+          createItem(true, PERMISSIONS.raw(PERMISSIONS.ASSIGN_ROLES), {
+            onSelect: () => onAssignRoles(userId),
+          }),
+          createItem(true, PERMISSIONS.raw(PERMISSIONS.VIEW_SESSIONS), {
+            onSelect: () => onViewSessions(userId),
+          }),
+          createItem(true, PERMISSIONS.raw(PERMISSIONS.EDIT), {
+            onSelect: () => onEdit(row.original),
+          }),
+
+          createItem(!banned, PERMISSIONS.raw(PERMISSIONS.BAN_USER), {
+            color: 'error',
+            onSelect: () => onBan(row.original),
+          }),
+
+          createItem(banned ?? true, PERMISSIONS.raw(PERMISSIONS.UNBAN_USER), {
+            color: 'success',
+            onSelect: () => onBan(row.original),
+          }),
+
+          createItem(true, PERMISSIONS.raw(PERMISSIONS.RESET_PASSWORD), {
+            onSelect: () => onResetPassword(userId),
+          }),
+
+          createItem(true, PERMISSIONS.raw(PERMISSIONS.DELETE), {
+            color: 'error',
+            onSelect: () => onDelete(userId),
+          }),
+        ].filter(i => !i.disabled) as DropdownMenuProps['items']
         return h(
           UDropdownMenu,
           {
             'arrow': true,
-            'items': [
-              {
-                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.ASSIGN_ROLES)),
-                icon: PERMISSIONS.raw(PERMISSIONS.ASSIGN_ROLES).icon,
-                onSelect() {
-                  onAssignRoles(row.original.id)
-                },
-              },
-              {
-                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.VIEW_SESSIONS)),
-                icon: PERMISSIONS.raw(PERMISSIONS.VIEW_SESSIONS).icon,
-                onSelect() {
-                  onViewSessions(row.original.id)
-                },
-              },
-              {
-                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.EDIT)),
-                icon: PERMISSIONS.raw(PERMISSIONS.EDIT).icon,
-                onSelect() {
-                  onEdit(row.original)
-                },
-              },
-              {
-                label: i18nPermissions(banned ? PERMISSIONS.label(PERMISSIONS.UNBAN_USER) : PERMISSIONS.label(PERMISSIONS.BAN_USER)),
-                icon: banned ? PERMISSIONS.raw(PERMISSIONS.UNBAN_USER).icon : PERMISSIONS.raw(PERMISSIONS.BAN_USER).icon,
-                color: banned ? 'success' : 'error',
-                onSelect() {
-                  onBan(row.original)
-                },
-              },
-              {
-                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.RESET_PASSWORD)),
-                icon: PERMISSIONS.raw(PERMISSIONS.RESET_PASSWORD).icon,
-                onSelect() {
-                  onResetPassword(row.original.id)
-                },
-              },
-              {
-                label: i18nPermissions(PERMISSIONS.label(PERMISSIONS.DELETE)),
-                icon: PERMISSIONS.raw(PERMISSIONS.DELETE).icon,
-                color: 'error',
-                onSelect() {
-                  onDelete(row.original.id)
-                },
-              },
-            ],
+            items,
             'aria-label': 'Actions dropdown',
           },
           () =>

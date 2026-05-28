@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { CommandPaletteGroup, CommandPaletteItem, NavigationMenuItem } from '@nuxt/ui'
 import pkg from '~~/package.json'
-import { useMenuStore } from '@/stores/useMenuStore'
-import { useTabStore } from '@/stores/useTabStore'
 
 const config = useRuntimeConfig()
 const menuStore = useMenuStore()

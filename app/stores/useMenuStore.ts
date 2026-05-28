@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-27 11:06:21
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-27 09:48:54
+ * @LastEditTime: 2026-05-28 10:04:30
  * @Description: 路由菜单
  */
 import { defineStore } from 'pinia'
@@ -25,6 +25,7 @@ export const useMenuStore = defineStore('menu-store', () => {
     }
     finally {
       loading.value = false
+      inited.value = true
     }
   }
 

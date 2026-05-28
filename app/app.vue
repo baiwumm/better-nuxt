@@ -4,17 +4,9 @@ import * as locales from '@nuxt/ui/locale'
 const menuStore = useMenuStore()
 const appStore = useAppStore()
 
-const { locale, setLocaleMessage } = useI18n()
-const { getLocales } = useSystemApi()
-const { data: localeRes } = await useAsyncData('locales', () => getLocales())
-const code = localeRes.value?.code
+const { locale } = useI18n()
 
-if (code && isSuccess(code)) {
-  const data = localeRes.value?.data
-  for (const key in data) {
-    setLocaleMessage(key, data[key as Locale])
-  }
-}
+await useInitLocales()
 
 const localeMap = {
   'en': 'en',

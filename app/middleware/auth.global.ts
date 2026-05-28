@@ -2,11 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:28:20
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-22 13:52:20
+ * @LastEditTime: 2026-05-28 10:11:48
  * @Description: 认证鉴权
  */
 export default defineNuxtRouteMiddleware(async (to) => {
   const { $authClient } = useNuxtApp()
+  const menuStore = useMenuStore()
+
   const relativeFetch = ((url: string, opts?: any) => {
     try {
       if (url.startsWith('http'))
@@ -26,5 +28,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // 未登录访问私有页面
   if (!isLoggedIn && !isAuth) {
     return navigateTo('/auth/sign-in')
+  }
+
+  const menu = menuStore.menuPathMap.get(to.path)
+
+  if (!menu && menuStore.inited) {
+    throw createError({
+      statusCode: 403,
+    })
   }
 })

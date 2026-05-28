@@ -73,6 +73,7 @@
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
     "@release-it/conventional-changelog": "^10.0.6",
+    "@types/geoip-lite": "^1.4.4",
     "@types/node": "^25.9.1",
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",

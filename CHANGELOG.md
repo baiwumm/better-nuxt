@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.8.2](https://github.com/baiwumm/better-nuxt/compare/v1.8.1...v1.8.2) (2026-05-28)
+
+### ✨ Features | 新功能
+
+* ip 地区获取兜底 ([0e59142](https://github.com/baiwumm/better-nuxt/commit/0e59142f5eeb62482abb781171e3cfcd4759855d))
+* **logs:** 新增“IP 归属地”字段，优化 sql 联表查询 ([04fea3c](https://github.com/baiwumm/better-nuxt/commit/04fea3c2646e236ff2605e91e4c97a65183c75cb))
+* **logs:** 优化日志写入逻辑 ([c7bb91d](https://github.com/baiwumm/better-nuxt/commit/c7bb91d4909fc4c76a069b36557a519e7b0a8dba))
+* **schema:** 新增 ipGeo 表 ([ef034c2](https://github.com/baiwumm/better-nuxt/commit/ef034c2d5ab042558a2e232d40e0e6ed081dc7ee))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 移除 geoip-lite，使用 ip-api 兜底，过滤本地 ip ([18733ea](https://github.com/baiwumm/better-nuxt/commit/18733eadf49ff86d39c86945ceb8a71f48778615))
+
+### 👷‍ Build System | 构建
+
+* 修改部署报错问题 ([a637ce9](https://github.com/baiwumm/better-nuxt/commit/a637ce9e0f5de979b186079dde563f4aa22b64d7))
+* 修改部署报错问题 ([10a9637](https://github.com/baiwumm/better-nuxt/commit/10a96372afd71b8f1987ab5dcfd23ae87683c4f1))
+* ts-ip2region2 换成 geoip-lite ([9312c3f](https://github.com/baiwumm/better-nuxt/commit/9312c3f935f1d44689a0d91bea8c0e39afe0d327))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 ts-ip2region2 包 ([d3fc1b8](https://github.com/baiwumm/better-nuxt/commit/d3fc1b89609807edd11cf0bd603ba18ed887ddbf))
+
 ## [1.8.1](https://github.com/baiwumm/better-nuxt/compare/v1.8.0...v1.8.1) (2026-05-28)
 
 ### ✨ Features | 新功能

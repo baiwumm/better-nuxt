@@ -1,11 +1,11 @@
-import { eq } from 'drizzle-orm'
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-28 14:51:35
+ * @LastEditTime: 2026-05-28 14:58:28
  * @Description: 记录操作日志
  */
+import { eq } from 'drizzle-orm'
 import { UAParser } from 'ua-parser-js'
 import { auth } from '#server/utils/auth'
 import { getGeoByIP } from '#server/utils/ip-geo'
@@ -114,5 +114,3 @@ export default defineEventHandler(async (event) => {
     }
   })()
 })
-
-export const runtime = 'nodejs'

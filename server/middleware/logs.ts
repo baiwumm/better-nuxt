@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-28 14:58:28
+ * @LastEditTime: 2026-05-28 16:38:07
  * @Description: 记录操作日志
  */
 import { eq } from 'drizzle-orm'
@@ -58,59 +58,45 @@ export default defineEventHandler(async (event) => {
 
   const { device, os, browser } = uaResult
 
+  if (!ip || ip === '::1' || ip === '127.0.0.1')
+    return
+
   /**
-   * ⭐ 异步处理（不阻塞接口）
+   * 写入日志
    */
+  await db.insert(logs).values({
+    userId: session.user.id,
+
+    ip,
+
+    action: path,
+
+    method,
+
+    params: body ?? undefined,
+
+    device: device.type ?? 'desktop',
+
+    os: os.name
+      ? `${os.name} ${os.version || ''}`.trim()
+      : '未知',
+
+    browser: browser.name
+      ? `${browser.name} ${browser.version || ''}`.trim()
+      : '未知',
+  })
+
+  // 异步做 geo（不阻塞）
   void (async () => {
-    try {
-      /**
-       * 检查 ip_geo 是否存在
-       */
-      const exists = await db.query.ipGeo.findFirst({
-        where: eq(ipGeo.ip, ip),
-      })
+    const exists = await db.query.ipGeo.findFirst({
+      where: eq(ipGeo.ip, ip),
+    })
 
-      /**
-       * 不存在则写入
-       */
-      if (!exists && ip && ip !== '::1' && ip !== '127.0.0.1') {
-        const geo = getGeoByIP(ip)
-
-        if (geo) {
-          await db.insert(ipGeo).values({
-            ip,
-            ...geo,
-          })
-        }
+    if (!exists) {
+      const geo = await getGeoByIP(ip)
+      if (geo) {
+        await db.insert(ipGeo).values({ ip, ...geo })
       }
-
-      /**
-       * 写入日志
-       */
-      await db.insert(logs).values({
-        userId: session.user.id,
-
-        ip,
-
-        action: path,
-
-        method,
-
-        params: body ?? undefined,
-
-        device: device.type ?? 'desktop',
-
-        os: os.name
-          ? `${os.name} ${os.version || ''}`.trim()
-          : '未知',
-
-        browser: browser.name
-          ? `${browser.name} ${browser.version || ''}`.trim()
-          : '未知',
-      })
-    }
-    catch (err) {
-      console.error('log insert failed:', err)
     }
   })()
 })

@@ -1,12 +1,20 @@
 import { Ip2Region } from 'ts-ip2region2'
 
-const searcher = new Ip2Region({
-  cachePolicy: 'content',
-})
+let searcher: Ip2Region | null = null
+
+function getSearcher() {
+  if (!searcher) {
+    searcher = new Ip2Region({
+      cachePolicy: 'content',
+    })
+  }
+
+  return searcher
+}
 
 export function getGeoByIP(ip: string) {
   try {
-    const result = searcher.search(ip)
+    const result = getSearcher().search(ip)
 
     if (!result?.region)
       return null

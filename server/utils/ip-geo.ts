@@ -1,35 +1,22 @@
-import { Ip2Region } from 'ts-ip2region2'
-
-let searcher: Ip2Region | null = null
-
-function getSearcher() {
-  if (!searcher) {
-    searcher = new Ip2Region({
-      cachePolicy: 'content',
-    })
-  }
-
-  return searcher
-}
+import geoip from 'geoip-lite'
 
 export function getGeoByIP(ip: string) {
   try {
-    const result = getSearcher().search(ip)
+    const result = geoip.lookup(ip)
 
-    if (!result?.region)
+    if (!result)
       return null
 
-    const [country, province, city, isp] = result.region.split('|')
-
     return {
-      country,
-      province,
-      city,
-      isp,
+      country: result.country,
+
+      province: result.region,
+
+      city: result.city,
     }
   }
   catch (err) {
-    console.error('ip2region error:', err)
+    console.error('geoip-lite error:', err)
 
     return null
   }

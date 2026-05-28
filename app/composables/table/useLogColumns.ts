@@ -1,4 +1,5 @@
 import type { BadgeProps, TableColumn } from '@nuxt/ui'
+import { compact, uniq } from 'es-toolkit/array'
 import { AutoFormDeleteButton, UBadge, UUser } from '#components'
 import { METHODS } from '@/enums'
 
@@ -56,6 +57,18 @@ export function useLogColumns(options: {
       header: i18nLog(key),
       cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue(key)),
     })),
+    {
+      accessorKey: 'geo',
+      header: i18nLog('geo'),
+      cell: ({ row }) => {
+        const geo = row.original.geo
+        if (!geo) {
+          return '-'
+        }
+        const result = compact(uniq([geo.country, geo.province, geo.city]))
+        return result.join('·')
+      },
+    },
     createCreatedAtColumn(),
     {
       accessorKey: 'action',

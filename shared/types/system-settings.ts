@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { insertMenuSchema, insertRoleSchema, internalization, logs, menu, role, roleMenu, user, userRole } from '@/db/schema'
+import type { insertMenuSchema, insertRoleSchema, internalization, ipGeo, logs, menu, role, roleMenu, user, userRole } from '@/db/schema'
 
 /** @description: 用户管理列表 */
 export type User = typeof user.$inferSelect & {
@@ -48,8 +48,10 @@ export type InternalizationTree = Internalization & {
 export type InternalizationQueryParams = z.infer<typeof InternalizationQuerySchema>
 
 /** @description: 操作日志 */
+export type IpGeo = typeof ipGeo.$inferSelect
 export type Log = typeof logs.$inferSelect & {
   user: User
+  geo: IpGeo | null
 }
 
 /** @description: 操作日志 - 查询参数 */

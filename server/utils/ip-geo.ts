@@ -10,8 +10,6 @@ export async function getGeoByIP(ip: string) {
         country: local.country,
         province: local.region,
         city: local.city,
-        isp: null, // geoip-lite 没有 isp
-        source: 'local',
       }
     }
 
@@ -28,7 +26,6 @@ export async function getGeoByIP(ip: string) {
         province: data.regionName,
         city: data.city,
         isp: data.isp || data.org,
-        source: 'api',
       }
     }
 

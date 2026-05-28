@@ -43,6 +43,13 @@
       "when": 1779440653262,
       "tag": "0005_nosy_viper",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779950795695,
+      "tag": "0006_soft_prima",
+      "breakpoints": true
     }
   ]
 }

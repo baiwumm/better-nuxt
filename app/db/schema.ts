@@ -193,6 +193,25 @@ export const logs = pgTable('logs', {
   os: text('os').notNull(),
   browser: text('browser').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+}, t => [
+  index('logs_ip_idx').on(t.ip),
+])
+
+/**
+ * @description: IP 地址映射表
+ */
+export const ipGeo = pgTable('ip_geo', {
+  ip: text('ip').primaryKey(),
+
+  country: text('country'),
+  province: text('province'),
+  city: text('city'),
+
+  isp: text('isp'),
+
+  createdAt: timestamp('created_at')
+    .defaultNow()
+    .notNull(),
 })
 
 export const roleRelations = relations(role, ({ many }) => ({
@@ -227,4 +246,12 @@ export const logsRelations = relations(logs, ({ one }) => ({
     fields: [logs.userId],
     references: [user.id],
   }),
+  geo: one(ipGeo, {
+    fields: [logs.ip],
+    references: [ipGeo.ip],
+  }),
+}))
+
+export const ipGeoRelations = relations(ipGeo, ({ many }) => ({
+  logs: many(logs),
 }))

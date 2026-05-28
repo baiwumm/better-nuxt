@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/baiwumm/better-nuxt/compare/v1.8.0...v1.8.1) (2026-05-28)
+
+### ✨ Features | 新功能
+
+* 根据角色设置用户按钮可见权限 ([d6b55c9](https://github.com/baiwumm/better-nuxt/commit/d6b55c9c5027dc5d9e2bd467ce1f9a42b8a42942))
+* **error:** 添加 404、500等错误页面 ([fab513a](https://github.com/baiwumm/better-nuxt/commit/fab513aed78a636983072d39cbdf24aa4f5c05d4))
+
 ## [1.8.0](https://github.com/baiwumm/better-nuxt/compare/v1.7.1...v1.8.0) (2026-05-26)
 
 ### ✨ Features | 新功能

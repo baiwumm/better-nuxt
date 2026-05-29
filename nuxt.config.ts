@@ -9,13 +9,6 @@ export default defineNuxtConfig({
     adminEmail: process.env.NUXT_ADMIN_EMAIL,
     githubToken: process.env.GITHUB_TOKEN,
     haloToken: process.env.HALO_TOKEN,
-    public: {
-      apiBase: '/api', // 后端接口前缀
-      appName: process.env.NUXT_APP_NAME || 'Better Auth',
-      appDesc: process.env.NUXT_APP_DESC || '',
-      appDomain: process.env.BETTER_AUTH_URL || 'https://nuxt.baiwumm.com',
-      env: process.env.NODE_ENV,
-    },
   },
   app: {
     head: {
@@ -42,6 +35,7 @@ export default defineNuxtConfig({
     'nuxt-charts',
     'nuxt-easy-lightbox',
     '@nuxt/image',
+    'nuxt-site-config',
   ],
   css: ['~/assets/css/main.css'],
   ui: {
@@ -50,7 +44,7 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'zh-CN',
     strategy: 'no_prefix',
-    baseUrl: process.env.BETTER_AUTH_URL || 'https://nuxt.baiwumm.com',
+    baseUrl: process.env.NUXT_SITE_URL || 'https://nuxt.baiwumm.com',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',

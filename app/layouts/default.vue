@@ -2,9 +2,9 @@
 import type { CommandPaletteGroup, CommandPaletteItem, NavigationMenuItem } from '@nuxt/ui'
 import pkg from '~~/package.json'
 
-const config = useRuntimeConfig()
 const menuStore = useMenuStore()
 const tabStore = useTabStore()
+const siteConfig = useSiteConfig()
 
 const open = ref(false)
 const route = useRoute()
@@ -81,7 +81,7 @@ watch(
 
 useHead({
   titleTemplate: computed(() => {
-    return title.value ? `${title.value} - ${config.public.appName}` : config.public.appName
+    return title.value ? `${title.value} - ${siteConfig.name}` : siteConfig.name
   }),
 })
 

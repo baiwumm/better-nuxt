@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const appStore = useAppStore()
-const config = useRuntimeConfig()
 const route = useRoute()
+const siteConfig = useSiteConfig()
 
 const START_SLASH = /^\/+/
 const KEBAB_TO_CAMEL = /-([a-z])/g
@@ -16,7 +16,7 @@ const i18nKey = computed(() => route.path
 
 useHead({
   titleTemplate: computed(() => {
-    return i18nKey.value ? `${$t(`${i18nKey.value}.title`)} - ${config.public.appName}` : config.public.appName
+    return i18nKey.value ? `${$t(`${i18nKey.value}.title`)} - ${siteConfig.name}` : siteConfig.name
   }),
 })
 </script>

@@ -2,7 +2,7 @@
 import type { ButtonProps, PageCardProps } from '@nuxt/ui'
 import pkg from '@@/package.json'
 
-const config = useRuntimeConfig()
+const siteConfig = useSiteConfig()
 
 const features = ref<PageCardProps[]>([
   {
@@ -47,7 +47,7 @@ const links = computed<ButtonProps[]>(() => [
 <template>
   <div class="space-y-6">
     <UPageHero
-      :description="config.public.appDesc"
+      :description="siteConfig.description"
       :links="links"
       :ui="{ container: '!py-0' }"
     >

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-26 16:01:36
+ * @LastEditTime: 2026-05-29 09:47:28
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -26,8 +26,7 @@ export const auth = betterAuth({
     enabled: true,
     requireEmailVerification: true, // 必须验证才能登录
     sendResetPassword: async ({ user, url }) => {
-      const config = useRuntimeConfig()
-      const appName = config.public.appName
+      const appName = process.env.NUXT_SITE_NAME
       const ResetPasswordEmail = (
         await import('@/components/email/ResetPasswordEmail.vue')
       ).default
@@ -45,8 +44,7 @@ export const auth = betterAuth({
     sendOnSignIn: true, // 登录时如果未验证，发送验证邮件
     autoSignInAfterVerification: true, // 验证成功后自动登录
     sendVerificationEmail: async ({ user, url }) => {
-      const config = useRuntimeConfig()
-      const appName = config.public.appName
+      const appName = process.env.NUXT_SITE_NAME
       const EmailVerificationEmail = (
         await import('@/components/email/EmailVerificationEmail.vue')
       ).default
@@ -81,8 +79,7 @@ export const auth = betterAuth({
     username(),
     magicLink({
       sendMagicLink: async ({ email, url }) => {
-        const config = useRuntimeConfig()
-        const appName = config.public.appName
+        const appName = process.env.NUXT_SITE_NAME
         const MagicLinkEmail = (
           await import('@/components/email/MagicLinkEmail.vue')
         ).default

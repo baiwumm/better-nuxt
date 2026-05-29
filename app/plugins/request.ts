@@ -2,19 +2,18 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-20 18:10:08
+ * @LastEditTime: 2026-05-29 09:46:47
  * @Description: $fetch 请求封装
  */
-import { defineNuxtPlugin, navigateTo, useCookie, useRuntimeConfig } from '#app'
+import { defineNuxtPlugin, navigateTo, useCookie } from '#app'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { start, finish } = useLoadingIndicator()
-  const config = useRuntimeConfig()
   const toast = useToast()
 
   const request = $fetch.create({
-    baseURL: config.public.apiBase,
+    baseURL: '/api',
     timeout: 30 * 1000, // 超时时间，默认 30 秒
     // 请求拦截
     async onRequest({ options }) {

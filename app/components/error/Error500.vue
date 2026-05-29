@@ -4,7 +4,7 @@ const router = useRouter()
 const { t } = useI18n()
 
 const { i18nCommon } = useMessage()
-const config = useRuntimeConfig()
+const siteConfig = useSiteConfig()
 
 function goHome() {
   router.push('/')
@@ -13,7 +13,7 @@ function goHome() {
 const title = computed(() => t('pages.500.title'))
 
 useHead({
-  titleTemplate: computed(() => `${title.value} - ${config.public.appName}`),
+  titleTemplate: computed(() => `${title.value} - ${siteConfig.name}`),
 })
 </script>
 

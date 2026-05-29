@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { SVGVariant } from 'nuxt-qrcode'
 
-const config = useRuntimeConfig()
+const siteConfig = useSiteConfig()
 
-const value = ref(config.public.appDomain)
+const value = ref(siteConfig.url)
 const variant = ref<SVGVariant>('default')
 
 const variants = ref<string[]>([

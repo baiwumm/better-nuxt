@@ -30,6 +30,8 @@
     "@faker-js/faker": "^10.4.0",
     "@neondatabase/serverless": "^1.1.0",
     "@norbiros/nuxt-auto-form": "^0.6.2",
+    "@nuxt/a11y": "1.0.0-alpha.1",
+    "@nuxt/hints": "^1.1.2",
     "@nuxt/image": "^2.0.0",
     "@nuxt/scripts": "^1.1.1",
     "@nuxt/ui": "^4.8.1",

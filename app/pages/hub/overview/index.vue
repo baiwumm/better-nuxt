@@ -25,6 +25,16 @@ const features = ref<PageCardProps[]>([
     description: '菜单管理、角色权限、多语言（中/英）一键切换，灵活适配企业级后台与多地域业务场景。',
     icon: 'i-heroicons-language',
   },
+  {
+    title: '细粒度权限与动态菜单系统',
+    description: '集成角色权限（RBAC）、动态菜单生成、按钮级权限控制，前后端统一鉴权，精准管控每个操作节点。',
+    icon: 'i-heroicons-shield-check',
+  },
+  {
+    title: '智能版本更新提示',
+    description: '内置版本检测机制，自动提示用户刷新获取最新版本，避免旧版本缓存导致功能不一致问题。',
+    icon: 'i-heroicons-arrow-path',
+  },
 ])
 
 const links = computed<ButtonProps[]>(() => [

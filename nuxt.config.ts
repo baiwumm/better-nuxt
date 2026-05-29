@@ -37,6 +37,8 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxtjs/seo',
     'nuxt-skew-protection',
+    '@nuxt/hints',
+    '@nuxt/a11y',
   ],
   css: ['~/assets/css/main.css'],
   ui: {

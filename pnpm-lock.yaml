@@ -35,6 +35,9 @@ importers:
       '@nuxtjs/mdc':
         specifier: ^0.21.1
         version: 0.21.1(magicast@0.5.3)
+      '@nuxtjs/robots':
+        specifier: ^6.0.9
+        version: 6.0.9(023d0b5514e868c229319db12532b486)
       '@pinia/nuxt':
         specifier: ^0.11.3
         version: 0.11.3(magicast@0.5.3)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))
@@ -104,6 +107,9 @@ importers:
       nuxt-site-config:
         specifier: ^4.0.8
         version: 4.0.8(023d0b5514e868c229319db12532b486)
+      nuxt-skew-protection:
+        specifier: ^1.1.1
+        version: 1.1.1(7b6e01b736c18fb8c3a0e4b4cbbc902d)
       ogl:
         specifier: ^1.0.11
         version: 1.0.11
@@ -1349,6 +1355,9 @@ packages:
   '@fastify/accept-negotiator@2.0.1':
     resolution: {integrity: sha512-/c/TW2bO/v9JeEgoD/g1G5GxGeCF1Hafdf79WPmUlgYiBXummY0oX3VVq4yFkKKVBKDNlaDUYoab7g38RpPqCQ==}
 
+  '@fingerprintjs/botd@2.0.0':
+    resolution: {integrity: sha512-yhuz23NKEcBDTHmGz/ULrXlGnbHenO+xZmVwuBkuqHUkqvaZ5TAA0kAgcRy4Wyo5dIBdkIf57UXX8/c9UlMLJg==}
+
   '@floating-ui/core@1.7.5':
     resolution: {integrity: sha512-1Ih4WTWyw0+lKyFMcBHGbb5U5FtuHJuujoyyr5zTaWS5EYMeT6Jb2AuDeftsCsEuchO+mM2ij5+q9crhydzLhQ==}
 
@@ -2054,6 +2063,14 @@ packages:
 
   '@nuxtjs/mdc@0.21.1':
     resolution: {integrity: sha512-DIeUD7IahWVUSoZExysxH9dX51Io6hcQYgGJODq0cMTGqaoDD32lRfHBJxYUmy+sUCV1+1hfa2ixspgJgEd2GA==}
+
+  '@nuxtjs/robots@6.0.9':
+    resolution: {integrity: sha512-dYvv33zl0WEgua/kIrRPh55B6A2iSS6mzNOSZ4E6EX0USXCQic774jE7aEovCssiWFYa2HD/XTHZIvtrxKyNvQ==}
+    peerDependencies:
+      zod: '>=3'
+    peerDependenciesMeta:
+      zod:
+        optional: true
 
   '@octokit/auth-token@6.0.0':
     resolution: {integrity: sha512-P4YJBPdPSpWTQ1NU4XYdvHvXJJDxM6YwpS0FZHRgP7YFkdVxsWcpWGy/NVqlAA7PcPCnMacXlRm1y2PFZRWL/w==}
@@ -7210,6 +7227,19 @@ packages:
   nuxt-site-config@4.0.8:
     resolution: {integrity: sha512-H7wHoOJ5Z6ZnTqD5vUugaKkWZbejZ9kGmzpr2dheOaC6RdT8JafCfMrmJG7W+cyJiJJ3YmzL+bzPBW2bW6MExA==}
 
+  nuxt-skew-protection@1.1.1:
+    resolution: {integrity: sha512-OzWskEU5cbHgixcdWPwPByZozYSKNwmMA1V7bQGF9aCKW48vQah1eiUTMCOWgetuEF/wdxSEcQBPyxXmhZEVpg==}
+    hasBin: true
+    peerDependencies:
+      '@nuxtjs/robots': '>=5.6.7'
+      ably: '>=2'
+      pusher-js: '>=8'
+    peerDependenciesMeta:
+      ably:
+        optional: true
+      pusher-js:
+        optional: true
+
   nuxt@4.4.6:
     resolution: {integrity: sha512-QAApJpAx3yGf3pYudALkInuBfv0WkHCiol6ntTvh/lwKwYrcU/MRI1nLNGt0QNyUCgBWdOQukd3z67VJ2xGd0Q==}
     engines: {node: ^22.12.0 || ^24.11.0 || >=26.0.0}
@@ -10224,6 +10254,8 @@ snapshots:
   '@fastify/accept-negotiator@2.0.1':
     optional: true
 
+  '@fingerprintjs/botd@2.0.0': {}
+
   '@floating-ui/core@1.7.5':
     dependencies:
       '@floating-ui/utils': 0.2.11
@@ -11417,6 +11449,27 @@ snapshots:
     transitivePeerDependencies:
       - magicast
       - supports-color
+
+  '@nuxtjs/robots@6.0.9(023d0b5514e868c229319db12532b486)':
+    dependencies:
+      '@fingerprintjs/botd': 2.0.0
+      '@nuxt/kit': 4.4.6(magicast@0.5.3)
+      consola: 3.4.2
+      defu: 6.1.7
+      h3: 1.15.11
+      nuxt-site-config: 4.0.8(023d0b5514e868c229319db12532b486)
+      nuxtseo-shared: 5.1.3(7060ba49f55b2fe477a9c798b2ed967f)
+      pathe: 2.0.3
+      pkg-types: 2.3.1
+      ufo: 1.6.4
+    optionalDependencies:
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@nuxt/schema'
+      - magicast
+      - nuxt
+      - vite
+      - vue
 
   '@octokit/auth-token@6.0.0': {}
 
@@ -16839,6 +16892,46 @@ snapshots:
       - vite
       - vue
       - zod
+
+  nuxt-skew-protection@1.1.1(7b6e01b736c18fb8c3a0e4b4cbbc902d):
+    dependencies:
+      '@nuxt/kit': 4.4.6(magicast@0.5.3)
+      '@nuxtjs/robots': 6.0.9(023d0b5514e868c229319db12532b486)
+      '@vueuse/core': 14.3.0(vue@3.5.34(typescript@5.9.3))
+      consola: 3.4.2
+      cookie-es: 3.1.1
+      nuxt-site-config: 4.0.8(023d0b5514e868c229319db12532b486)
+      nuxtseo-shared: 5.1.3(7060ba49f55b2fe477a9c798b2ed967f)
+      pathe: 2.0.3
+      pkg-types: 2.3.1
+      tinyexec: 1.2.2
+      unstorage: 1.17.5(db0@0.3.4(better-sqlite3@12.9.0)(drizzle-orm@0.45.2(@neondatabase/serverless@1.1.0)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17)))(ioredis@5.10.1)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@netlify/blobs'
+      - '@nuxt/schema'
+      - '@planetscale/database'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/functions'
+      - '@vercel/kv'
+      - aws4fetch
+      - db0
+      - idb-keyval
+      - ioredis
+      - magicast
+      - nuxt
+      - uploadthing
+      - vite
+      - vue
 
   nuxt@4.4.6(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@25.9.1)(@vue/compiler-sfc@3.5.34)(better-sqlite3@12.9.0)(cac@6.7.14)(db0@0.3.4(better-sqlite3@12.9.0)(drizzle-orm@0.45.2(@neondatabase/serverless@1.1.0)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17)))(drizzle-orm@0.45.2(@neondatabase/serverless@1.1.0)(@types/pg@8.18.0)(better-sqlite3@12.9.0)(kysely@0.28.17))(eslint@10.4.0(jiti@2.7.0))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.3)(meow@13.2.0)(optionator@0.9.4)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))(rollup-plugin-visualizer@7.0.1(rollup@4.60.4))(rollup@4.60.4)(srvx@0.11.16)(terser@5.48.0)(tsx@4.22.3)(typescript@5.9.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.3)(yaml@2.9.0))(yaml@2.9.0):
     dependencies:

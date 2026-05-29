@@ -66,6 +66,11 @@ export default defineNuxtConfig({
       plugins: [vue()],
     },
   },
+  scripts: {
+    assets: {
+      fallbackOnSrcOnBundleFail: true,
+    },
+  },
   $production: {
     scripts: {
       registry: {

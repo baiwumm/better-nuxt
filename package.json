@@ -56,6 +56,7 @@
     "nuxt-easy-lightbox": "^1.1.0",
     "nuxt-qrcode": "^0.4.10",
     "nuxt-resend": "0.0.2",
+    "nuxt-site-config": "^4.0.8",
     "ogl": "^1.0.11",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",

@@ -35,9 +35,8 @@ export default defineNuxtConfig({
     'nuxt-charts',
     'nuxt-easy-lightbox',
     '@nuxt/image',
-    'nuxt-site-config',
+    '@nuxtjs/seo',
     'nuxt-skew-protection',
-    '@nuxtjs/robots',
   ],
   css: ['~/assets/css/main.css'],
   ui: {

@@ -27,7 +27,6 @@ export default defineNuxtConfig({
     'nuxt-resend',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    '@vercel/analytics',
     'nuxt-qrcode',
     '@nuxtjs/mdc',
     '@norbiros/nuxt-auto-form',
@@ -35,6 +34,7 @@ export default defineNuxtConfig({
     'nuxt-charts',
     'nuxt-easy-lightbox',
     '@nuxt/image',
+    '@nuxt/scripts',
     '@nuxtjs/seo',
     'nuxt-skew-protection',
   ],
@@ -64,6 +64,20 @@ export default defineNuxtConfig({
   nitro: {
     rollupConfig: {
       plugins: [vue()],
+    },
+  },
+  $production: {
+    scripts: {
+      registry: {
+        vercelAnalytics: {
+          trigger: 'onNuxtReady',
+        },
+        clarity: {
+          trigger: 'onNuxtReady',
+        },
+        googleAnalytics: { trigger: 'onNuxtReady' },
+        cloudflareWebAnalytics: { trigger: 'onNuxtReady' },
+      },
     },
   },
 })

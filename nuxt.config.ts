@@ -36,6 +36,8 @@ export default defineNuxtConfig({
     'nuxt-easy-lightbox',
     '@nuxt/image',
     'nuxt-site-config',
+    'nuxt-skew-protection',
+    '@nuxtjs/robots',
   ],
   css: ['~/assets/css/main.css'],
   ui: {
@@ -58,6 +60,7 @@ export default defineNuxtConfig({
   },
   experimental: {
     normalizePageNames: true,
+    checkOutdatedBuildInterval: 5 * 60 * 1000, // 5 minutes
   },
   nitro: {
     rollupConfig: {

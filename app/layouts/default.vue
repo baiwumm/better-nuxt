@@ -5,11 +5,14 @@ import pkg from '~~/package.json'
 const menuStore = useMenuStore()
 const tabStore = useTabStore()
 const siteConfig = useSiteConfig()
+const toast = useToast()
+const { i18nCommon } = useMessage()
 
 const open = ref(false)
 const route = useRoute()
 const { menuItems } = useMenu()
 const appScrollContainer = useAppScrollContainer()
+const shown = ref(false)
 
 const skeletonWidths = computed(() => {
   return Array.from({ length: 6 }, () => {
@@ -91,6 +94,40 @@ onMounted(async () => {
 
 onMounted(() => {
   appScrollContainer.value = document.querySelector('.app-scroll-container')
+
+  const cookie = useCookie<'accepted' | 'rejected' | undefined>('cookie-consent', {
+    maxAge: 60 * 60 * 24 * 365, // 过期时间一年
+    sameSite: 'lax',
+  })
+
+  if (cookie.value || shown.value)
+    return
+
+  shown.value = true
+
+  toast.add({
+    title: i18nCommon('cookieTitle'),
+    duration: 0,
+    close: false,
+    actions: [
+      {
+        label: i18nCommon('agree'),
+        color: 'neutral',
+        variant: 'outline',
+        onClick: () => {
+          cookie.value = 'accepted'
+        },
+      },
+      {
+        label: i18nCommon('noThanks'),
+        color: 'neutral',
+        variant: 'ghost',
+        onClick: () => {
+          cookie.value = 'rejected'
+        },
+      },
+    ],
+  })
 })
 </script>
 

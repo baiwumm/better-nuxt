@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.8.4](https://github.com/baiwumm/better-nuxt/compare/v1.8.3...v1.8.4) (2026-05-29)
+
+### ✨ Features | 新功能
+
+* 添加 scripts Analytics 统计代码 ([2cdbec9](https://github.com/baiwumm/better-nuxt/commit/2cdbec976221e2813370b98889614e0a79c78e3d))
+* **log:** 去除 script 第三方接口 ([5cacc23](https://github.com/baiwumm/better-nuxt/commit/5cacc234d64b28a1f388af7cdc501708a24c9364))
+
+### 💄 Styles | 风格
+
+* 表头样式调整 ([539c9ec](https://github.com/baiwumm/better-nuxt/commit/539c9ec547d85c37ea4c6cbde726afdffe0ae98c))
+
+### 👷‍ Build System | 构建
+
+* 修复部署报错的问题 ([e47f602](https://github.com/baiwumm/better-nuxt/commit/e47f6029e22669908aec90d63a2735aa6e15e25f))
+* 修复部署报错的问题 ([a4bf276](https://github.com/baiwumm/better-nuxt/commit/a4bf2766439d4f98d27400e3cf73580192611b9f))
+* 修复因 h3 版本冲突导致的问题 ([392b368](https://github.com/baiwumm/better-nuxt/commit/392b3680c6f8f81adc196cda8577ca4ee14be1ae))
+
 ## [1.8.3](https://github.com/baiwumm/better-nuxt/compare/v1.8.2...v1.8.3) (2026-05-29)
 
 ### ✨ Features | 新功能

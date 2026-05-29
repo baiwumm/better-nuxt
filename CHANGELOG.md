@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.8.3](https://github.com/baiwumm/better-nuxt/compare/v1.8.2...v1.8.3) (2026-05-29)
+
+### ✨ Features | 新功能
+
+* 配置新版本更新通知 ([56cc077](https://github.com/baiwumm/better-nuxt/commit/56cc0770024dbbf494b5ca8da72d01f19964a7ab))
+* 新增 @nuxtjs/seo 及 SEO 配置 ([e4c58e1](https://github.com/baiwumm/better-nuxt/commit/e4c58e1112e83570460cc4623001332aaca0a73f))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 去掉 SkewNotification 的 force-open ([cf7f01b](https://github.com/baiwumm/better-nuxt/commit/cf7f01b84a9e4a95f6821d24f1e898c048e05112))
+* 优化站点配置管理 ，使用 useSiteConfig 获取站点配置 ([e124f19](https://github.com/baiwumm/better-nuxt/commit/e124f19f207145071446aa54ebadf5f5a3d4d70e))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 @nuxtjs/robots、nuxt-skew-protection 包 ([9df8aeb](https://github.com/baiwumm/better-nuxt/commit/9df8aeba2d8692df56921013976d986afbf0eab0))
+* 新增 nuxt-site-config 包 ([8045abd](https://github.com/baiwumm/better-nuxt/commit/8045abd4084acc9cf48dd728c105756f644c6060))
+
 ## [1.8.2](https://github.com/baiwumm/better-nuxt/compare/v1.8.1...v1.8.2) (2026-05-28)
 
 ### ✨ Features | 新功能

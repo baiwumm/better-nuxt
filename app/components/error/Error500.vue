@@ -10,7 +10,7 @@ function goHome() {
   router.push('/')
 }
 
-const title = computed(() => t('pages.500.title'))
+const title = computed(() => t('components.error.500.title'))
 
 useHead({
   titleTemplate: computed(() => `${title.value} - ${siteConfig.name}`),
@@ -21,7 +21,7 @@ useHead({
   <div class="w-full h-screen flex items-center justify-center font-30">
     <UEmpty
       :title
-      :description="$t('pages.500.description')"
+      :description="$t('components.error.500.description')"
       size="lg"
       variant="naked"
       :actions="[

@@ -16,11 +16,11 @@ const open = ref(false)
     </template>
     <template #content>
       <div class="flex flex-col gap-4">
-        <ThemePickerPrimaryColor />
-        <ThemePickerColorMode />
-        <ThemePickerLocales />
-        <ThemePickerRadius />
-        <ThemePickerRouteTransition />
+        <LazyThemePickerPrimaryColor />
+        <LazyThemePickerColorMode />
+        <LazyThemePickerLocales />
+        <LazyThemePickerRadius />
+        <LazyThemePickerRouteTransition />
       </div>
     </template>
   </UPopover>

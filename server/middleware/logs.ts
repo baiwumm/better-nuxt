@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-29 17:42:09
+ * @LastEditTime: 2026-06-01 09:16:51
  * @Description: 记录操作日志
  */
 import { eq } from 'drizzle-orm'
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
     method === 'GET'
     || !session?.user?.id
     || path.startsWith('/api/system-settings/operation-log')
-    || path.startsWith('/_scripts')
+    || !path.startsWith('/api')
   ) {
     return
   }

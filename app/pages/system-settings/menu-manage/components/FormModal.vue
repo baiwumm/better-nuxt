@@ -30,6 +30,7 @@ const INITIAL_STATE = Object.freeze<MenuFormSchema>({
   badge: null,
   keepAlive: false,
   enabled: true,
+  hideInMenu: false,
   defaultOpen: false,
   target: MENU_TARGET.SELF,
   sort: 0,

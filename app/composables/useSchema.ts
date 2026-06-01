@@ -164,6 +164,7 @@ export function useSchema() {
     badge: zInput({ title: i18nMenu('badge', true), maxlength: 10 }),
     keepAlive: zCheckbox(i18nMenu('keepAlive', true)),
     enabled: zCheckbox(i18nCommon('enabled', true)),
+    hideInMenu: zCheckbox(i18nMenu('hideInMenu', true)),
     defaultOpen: zCheckbox(i18nMenu('defaultOpen', true)),
     target: z.enum(MENU_TARGET.values).meta({ title: i18nMenu('target.title', true) }),
     sort: zSort,

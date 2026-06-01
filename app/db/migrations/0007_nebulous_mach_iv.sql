@@ -1,0 +1,1 @@
+ALTER TABLE "menu" ADD COLUMN "hide_in_menu" boolean DEFAULT false NOT NULL;

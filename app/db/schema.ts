@@ -31,6 +31,8 @@ export const menu = pgTable('menu', {
   sort: integer('sort').default(0).notNull(),
   // 是否缓存
   keepAlive: boolean('keep_alive').default(false).notNull(),
+  // 是否在菜单中隐藏
+  hideInMenu: boolean('hide_in_menu').default(false).notNull(),
   // 是否启用
   enabled: boolean('enabled').default(true).notNull(),
   // 是否默认打开

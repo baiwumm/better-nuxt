@@ -40,6 +40,9 @@ export function useMessage() {
   // 权限
   const i18nPermissions = (field: string) => t(`permissions.${field}`)
 
+  // 我的账户
+  const i18nAccount = (field: string) => t(`pages.account.${field}`)
+
   return {
     i18nInternalization,
     i18nCommon,
@@ -49,5 +52,6 @@ export function useMessage() {
     i18nUser,
     i18nRole,
     i18nPermissions,
+    i18nAccount,
   }
 }

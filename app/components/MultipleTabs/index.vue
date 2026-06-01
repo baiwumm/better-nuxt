@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { ContextMenuItem } from '@nuxt/ui'
 import { motion } from 'motion-v'
-import { useMenuStore } from '@/stores/useMenuStore'
-import { useTabStore } from '@/stores/useTabStore'
 
 const HOME_PATH = '/'
 

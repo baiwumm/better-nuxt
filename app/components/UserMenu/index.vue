@@ -15,73 +15,88 @@ const { sessionItems } = await useSessionMenu()
 const confirm = useConfirmDialog()
 const { i18nAuth, i18nCommon } = useMessage()
 const router = useRouter()
+const menuStore = useMenuStore()
+const profileMenu = computed(() => menuStore.menuPathMap.get('/account'))
 
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
 
-const { themeItems } = useThemeMenu()
+const { themeItems: baseThemeItems } = useThemeMenu()
 
-const items = computed(() => ([
-  [{
-    type: 'label',
-    label: userName.value,
-    avatar: {
-      src: avatar.value,
-      alt: userName.value,
-      loading: 'lazy',
-    },
-  }],
-  themeItems.value,
-  [
-    {
-      label: $t('layout.github'),
-      icon: 'simple-icons:github',
-      to: pkg.git.url,
-      target: '_blank',
-    },
-    {
-      label: $t('layout.blog'),
-      icon: 'i-lucide-house',
-      to: 'https://baiwumm.com',
-      target: '_blank',
-    },
-  ],
-  [
-    {
-      label: $t('layout.lastMethod'),
-      icon: 'lucide:key-round',
-      kbds: lastMethod ? [lastMethod] : undefined,
-    },
-    {
-      label: $t('layout.switchAccount'),
-      icon: 'lucide:users',
-      children: sessionItems.value,
-    },
-    {
-      label: $t('auth.logout.title'),
-      icon: 'i-lucide-log-out',
-      color: 'error',
-      onSelect: async () => {
-        await confirm({
-          title: i18nAuth('logout.confirmTitle'),
-          description: i18nAuth('logout.confirmDescription'),
-          confirmLabel: i18nCommon('confirm'),
-          loadingLabel: i18nAuth('waitLogout'),
-          onConfirm: async () => {
-            await $authClient.signOut({
-              fetchOptions: {
-                onSuccess: () => {
-                  router.push('/auth/sign-in')
-                },
-              },
-            })
-            return true
-          },
-        })
+const items = computed(() => {
+  const result: DropdownMenuItem[][] = [
+    [{
+      type: 'label',
+      label: userName.value,
+      avatar: {
+        src: avatar.value,
+        alt: userName.value,
+        loading: 'lazy',
       },
-    },
-  ],
-]) satisfies DropdownMenuItem[][])
+    }],
+    baseThemeItems.value,
+    [
+      {
+        label: $t('layout.github'),
+        icon: 'simple-icons:github',
+        to: pkg.git.url,
+        target: '_blank',
+      },
+      {
+        label: $t('layout.blog'),
+        icon: 'i-lucide-house',
+        to: 'https://baiwumm.com',
+        target: '_blank',
+      },
+    ],
+    [
+      {
+        label: $t('layout.lastMethod'),
+        icon: 'lucide:key-round',
+        kbds: lastMethod ? [lastMethod] : undefined,
+      },
+      {
+        label: $t('layout.switchAccount'),
+        icon: 'lucide:users',
+        children: sessionItems.value,
+      },
+      {
+        label: $t('auth.logout.title'),
+        icon: 'i-lucide-log-out',
+        color: 'error',
+        onSelect: async () => {
+          await confirm({
+            title: i18nAuth('logout.confirmTitle'),
+            description: i18nAuth('logout.confirmDescription'),
+            confirmLabel: i18nCommon('confirm'),
+            loadingLabel: i18nAuth('waitLogout'),
+            onConfirm: async () => {
+              await $authClient.signOut({
+                fetchOptions: {
+                  onSuccess: () => {
+                    router.push('/auth/sign-in')
+                  },
+                },
+              })
+              return true
+            },
+          })
+        },
+      },
+    ],
+  ]
+
+  if (profileMenu.value) {
+    result.splice(1, 0, [
+      {
+        label: $t(profileMenu.value.label),
+        icon: profileMenu.value.icon,
+        to: profileMenu.value.to!,
+      },
+    ])
+  }
+  return result as DropdownMenuItem[][]
+})
 </script>
 
 <template>
@@ -125,16 +140,16 @@ const items = computed(() => ([
       <template #primary-leading="{ item }">
         <div class="inline-flex items-center justify-center shrink-0 size-5">
           <span
-            :class="cn('inline-block size-2 rounded-full', item.chip === 'black' ? 'bg-black dark:bg-white' : '')"
+            :class="cn('inline-block size-2 rounded-full', (item as DropdownMenuItem).chip === 'black' ? 'bg-black dark:bg-white' : '')"
             :style="{
-              backgroundColor: item.chip === 'black' ? undefined : getColor(item.chip, 500),
+              backgroundColor: (item as DropdownMenuItem).chip === 'black' ? undefined : getColor((item as DropdownMenuItem).chip, 500),
             }"
           />
         </div>
       </template>
 
       <template #locales-leading="{ item }">
-        <span>{{ item.icon }}</span>
+        <span>{{ (item as DropdownMenuItem).icon }}</span>
       </template>
     </UDropdownMenu>
   </ClientOnly>

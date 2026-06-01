@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     'nuxt-skew-protection',
     '@nuxt/hints',
     '@nuxt/a11y',
+    '@nuxthub/core',
   ],
   css: ['~/assets/css/main.css'],
   ui: {
@@ -86,5 +87,8 @@ export default defineNuxtConfig({
         cloudflareWebAnalytics: { trigger: 'onNuxtReady' },
       },
     },
+  },
+  hub: {
+    blob: true,
   },
 })

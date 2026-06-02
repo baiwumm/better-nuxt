@@ -23,7 +23,7 @@ const items = ref<TabsItem[]>([
   <UTabs
     :items="items"
     :ui="{
-      content: 'w-full lg:max-w-3xl mx-auto sm:px-6 lg:py-12',
+      content: 'w-full lg:max-w-3xl mx-auto sm:px-6 lg:py-10',
     }"
   >
     <template #accountSettings>

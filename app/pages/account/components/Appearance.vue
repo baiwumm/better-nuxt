@@ -15,7 +15,7 @@ const colorMode = useColorMode()
     :ui="{
       item: 'relative has-data-[state=checked]:bg-primary/15',
       legend: 'text-base font-semibold text-highlighted mb-4',
-      fieldset: 'grid grid-cols-3 gap-3',
+      fieldset: 'grid grid-cols-1 sm:grid-cols-3 gap-3',
       container: 'absolute top-3.5 right-3.5',
       wrapper: 'me-0',
       label: 'flex gap-2 items-center',

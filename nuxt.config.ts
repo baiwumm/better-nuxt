@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxthub/core',
   ],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', 'vue-advanced-cropper/dist/style.css'],
   ui: {
     fonts: false,
   },

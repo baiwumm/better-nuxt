@@ -71,6 +71,7 @@
     "tailwindcss": "^4.3.0",
     "ua-parser-js": "^2.0.10",
     "vue": "^3.5.35",
+    "vue-advanced-cropper": "^2.8.9",
     "vue-router": "^5.1.0",
     "zod": "^4.4.3"
   },

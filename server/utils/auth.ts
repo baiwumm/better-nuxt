@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-29 09:47:28
+ * @LastEditTime: 2026-06-02 09:36:55
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -21,6 +21,24 @@ export const auth = betterAuth({
     provider: 'pg',
     schema,
   }),
+  user: {
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
+        const appName = process.env.NUXT_SITE_NAME
+        const EmailChangedEmail = (
+          await import('@/components/email/EmailChangedEmail.vue')
+        ).default
+        const html = await render(EmailChangedEmail, { url, oldEmail: user.email, newEmail, appName })
+        await resend.emails.send({
+          from: `${appName} <no-reply@baiwumm.com>`,
+          to: newEmail,
+          subject: '更改您的电子邮件地址',
+          html,
+        })
+      },
+    },
+  },
   // 启用电子邮件和密码认证
   emailAndPassword: {
     enabled: true,

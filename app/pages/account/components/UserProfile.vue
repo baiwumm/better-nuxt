@@ -9,7 +9,7 @@ const { errorToast, successToast } = useAppToast()
 const upload = useUpload('/api/account/avatar')
 
 // 头像大小
-const FILE_SIZE = 8
+const FILE_SIZE = 1
 
 const fileRef = useTemplateRef('fileRef')
 const avatarFile = ref<File | null>(null) // 选择的头像文件
@@ -43,7 +43,7 @@ function onFileChange(e: Event) {
 
   // 验证文件
   const isValidType = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(file.type)
-  const isValidSize = file.size <= FILE_SIZE * 1024 * 1024 // 8MB
+  const isValidSize = file.size <= FILE_SIZE * 1024 * 1024 // 1MB
 
   if (!isValidType) {
     return errorToast(i18nAccount('accountSettings.userProfile.validAvatarType'))
@@ -141,7 +141,7 @@ onUnmounted(() => {
 
 <template>
   <UForm
-    id="accountSettings"
+    id="UserProfile"
     :schema
     :state
     @submit="onSubmit"
@@ -154,12 +154,12 @@ onUnmounted(() => {
       class="mb-4"
     >
       <UButton
-        form="accountSettings"
+        form="UserProfile"
         :label="i18nCommon('saveChanges')"
         type="submit"
         icon="lucide:save"
         :loading
-        :disabled="!user"
+        :disabled="!user || (state.name === user?.name && state.image === user?.image)"
         class="w-fit lg:ms-auto"
       />
     </UPageCard>

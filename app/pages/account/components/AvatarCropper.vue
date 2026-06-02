@@ -29,12 +29,7 @@ function selectFile() {
 
 function onChange(event: Event) {
   const input = event.target as HTMLInputElement
-
-  if (!input.files?.length) {
-    return
-  }
-
-  const selectedFile = input.files[0]
+  const selectedFile = input.files?.[0]
 
   if (!selectedFile) {
     return
@@ -62,6 +57,8 @@ function onChange(event: Event) {
   source.value = URL.createObjectURL(selectedFile)
 
   open.value = true
+
+  input.value = ''
 }
 
 async function confirmCrop() {
@@ -94,6 +91,10 @@ async function confirmCrop() {
   )
 
   open.value = false
+
+  if (inputRef.value) {
+    inputRef.value.value = ''
+  }
 }
 
 onUnmounted(() => {

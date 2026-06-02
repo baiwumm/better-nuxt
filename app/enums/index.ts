@@ -1,4 +1,7 @@
 import { Enum } from 'enum-plus'
+import ThemePreviewDark from '@/components/theme/ThemePreviewDark.vue'
+import ThemePreviewLight from '@/components/theme/ThemePreviewLight.vue'
+import ThemePreviewSystem from '@/components/theme/ThemePreviewSystem.vue'
 
 /**
  * @description: HTTP 状态码（可根据实际需求添加业务状态码）
@@ -30,9 +33,9 @@ export const OAUTH_PROVIDES = Enum({
  * @description: Color Mode
  */
 export const COLOR_MODES = Enum({
-  LIGHT: { value: 'light', label: 'Light', icon: 'lucide:sun' },
-  DARK: { value: 'dark', label: 'Dark', icon: 'lucide:moon' },
-  SYSTEM: { value: 'system', label: 'System', icon: 'lucide:monitor' },
+  SYSTEM: { value: 'system', label: 'System', icon: 'lucide:monitor', component: ThemePreviewSystem },
+  LIGHT: { value: 'light', label: 'Light', icon: 'lucide:sun', component: ThemePreviewLight },
+  DARK: { value: 'dark', label: 'Dark', icon: 'lucide:moon', component: ThemePreviewDark },
 })
 
 /**

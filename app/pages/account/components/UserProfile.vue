@@ -4,7 +4,7 @@ import z from 'zod'
 import AvatarCropper from './AvatarCropper.vue'
 
 const { $authClient } = useNuxtApp()
-const { i18nAccount, i18nCommon, i18nPermissions } = useMessage()
+const { i18nAccount, i18nCommon } = useMessage()
 const { user, userName } = useCurrentUser()
 const { errorToast, successToast } = useAppToast()
 
@@ -118,12 +118,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UForm
-    id="UserProfile"
-    :schema="schema"
-    :state="state"
-    @submit="onSubmit"
-  >
+  <UForm id="UserProfile" :schema="schema" :state="state" @submit="onSubmit">
     <UPageCard
       :title="i18nAccount('accountSettings.userProfile.title')"
       :description="i18nAccount('accountSettings.userProfile.description')"
@@ -150,11 +145,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         required
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
-        <UInput
-          v-model="state.name"
-          autocomplete="off"
-          :placeholder="i18nCommon('placeholder')"
-        />
+        <UInput v-model="state.name" autocomplete="off" :placeholder="i18nCommon('placeholder')" />
       </UFormField>
 
       <USeparator />
@@ -172,44 +163,29 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         <div class="flex flex-wrap items-center gap-3">
           <AvatarCropper v-model:file="avatarFile">
             <template #trigger="{ selectFile }">
-              <div
-                class="group relative cursor-pointer"
-                @click="selectFile"
-              >
-                <UAvatar
-                  :src="avatarPreview"
-                  :alt="userName"
-                  size="3xl"
-                />
-
-                <div
-                  class="
-                    absolute inset-0
-                    flex items-center justify-center
-                    rounded-full
-                    bg-black/50
-                    opacity-0
-                    transition
-                    group-hover:opacity-100
-                  "
-                >
-                  <UIcon
-                    name="lucide:camera"
-                    class="size-5 text-white"
-                  />
+              <div class="relative w-fit">
+                <div class="group relative cursor-pointer" @click="selectFile">
+                  <UAvatar :src="avatarPreview" :alt="userName" size="3xl" />
+                  <div class=" absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 transition group-hover:opacity-100">
+                    <UIcon name="lucide:camera" class="size-5 text-white" />
+                  </div>
                 </div>
+                <!-- 右上角删除 X -->
+                <UButton
+                  v-if="avatarFile"
+                  icon="lucide:x"
+                  color="error"
+                  variant="outline"
+                  size="xs"
+                  :ui="{
+                    base: 'absolute -top-1 -right-1 rounded-full cursor-pointer',
+                    leadingIcon: 'size-3',
+                  }"
+                  @click.stop="resetAvatar"
+                />
               </div>
             </template>
           </AvatarCropper>
-
-          <UButton
-            v-if="avatarFile"
-            color="error"
-            variant="outline"
-            icon="lucide:trash-2"
-            :label="i18nPermissions('delete')"
-            @click="resetAvatar"
-          />
         </div>
       </UFormField>
     </UPageCard>

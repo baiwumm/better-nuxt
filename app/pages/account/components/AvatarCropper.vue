@@ -43,11 +43,11 @@ function onChange(event: Event) {
   ]
 
   if (!validTypes.includes(selectedFile.type)) {
-    return errorToast('Please upload JPG, PNG, GIF or WEBP image.')
+    return errorToast({ title: i18nAccount('accountSettings.userProfile.validAvatarType') })
   }
 
   if (selectedFile.size > props.maxSize * 1024 * 1024) {
-    return errorToast(`Image size cannot exceed ${props.maxSize}MB.`)
+    return errorToast({ title: $t('pages.account.accountSettings.userProfile.validAvatarType', { size: props.maxSize }) })
   }
 
   if (source.value) {

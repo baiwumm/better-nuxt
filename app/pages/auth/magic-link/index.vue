@@ -22,10 +22,13 @@ async function onSubmit(data: EmailFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(error.message)
+    errorToast({ title: error.message })
   }
   else {
-    successToast(i18nAuth('magicLink.verifyEmailSent'), i18nAuth('magicLink.verifyEmailSentDesc'))
+    successToast({
+      title: i18nAuth('magicLink.verifyEmailSent'),
+      description: i18nAuth('magicLink.verifyEmailSentDesc'),
+    })
   }
 }
 </script>

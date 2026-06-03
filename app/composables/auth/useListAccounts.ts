@@ -13,7 +13,7 @@ export function useListAccounts() {
     async () => {
       const { data, error } = await $authClient.listAccounts()
       if (error) {
-        errorToast(error.message)
+        errorToast({ title: error.message })
       }
       return data ?? []
     },

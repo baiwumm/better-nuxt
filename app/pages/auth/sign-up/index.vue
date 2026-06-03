@@ -23,10 +23,16 @@ async function onSubmit(data: SignUpFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(i18nAuth('signUp.error'), error.message)
+    errorToast({
+      title: i18nAuth('signUp.error'),
+      description: error.message,
+    })
   }
   else {
-    successToast(i18nAuth('signUp.verifyEmailSent'), i18nAuth('signUp.verifyEmailSentDesc'))
+    successToast({
+      title: i18nAuth('signUp.verifyEmailSent'),
+      description: i18nAuth('signUp.verifyEmailSentDesc'),
+    })
   }
 }
 </script>

@@ -80,7 +80,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delRole(id).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('deleteSuccess'))
+      successToast({ title: i18nCommon('deleteSuccess') })
       refresh()
     }
   }).finally(() => {
@@ -93,7 +93,7 @@ async function handleSubmit(values: InsertRole) {
   saveLoading.value = true
   await (editData.value?.id ? updateRole({ ...values, id: editData.value.id }) : insertRole(values)).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('saveSuccess'))
+      successToast({ title: i18nCommon('saveSuccess') })
       open.value = false
       refresh()
     }

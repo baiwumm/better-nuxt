@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-03 11:08:28
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-03 14:03:46
+ * @LastEditTime: 2026-06-03 14:40:12
  * @Description: 关联账户
  */
 export function useLinkSocial() {
@@ -25,7 +25,7 @@ export function useLinkSocial() {
       }
     }
     catch (error) {
-      errorToast(catchError(error))
+      errorToast({ title: catchError(error) })
     }
     finally {
       isPending.value = false

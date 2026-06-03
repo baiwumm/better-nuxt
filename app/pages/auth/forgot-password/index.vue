@@ -22,10 +22,10 @@ async function onSubmit(data: EmailFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(error.message)
+    errorToast({ title: error.message })
   }
   else {
-    successToast(i18nAuth('forgotPassword.success'))
+    successToast({ title: i18nAuth('forgotPassword.success') })
   }
 }
 </script>

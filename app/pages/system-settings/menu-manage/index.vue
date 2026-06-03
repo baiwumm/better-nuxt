@@ -54,7 +54,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delMenu(id).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('deleteSuccess'))
+      successToast({ title: i18nCommon('deleteSuccess') })
       refresh()
     }
   }).finally(() => {
@@ -67,7 +67,7 @@ async function handleSubmit(values: InsertMenu) {
   saveLoading.value = true
   await (editData.value?.id ? updateMenu({ ...values, id: editData.value.id }) : insertMenu(values)).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('saveSuccess'))
+      successToast({ title: i18nCommon('saveSuccess') })
       open.value = false
       refresh()
     }

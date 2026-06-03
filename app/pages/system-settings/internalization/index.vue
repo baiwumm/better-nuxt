@@ -71,7 +71,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delInternalization(id).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('deleteSuccess'))
+      successToast({ title: i18nCommon('deleteSuccess') })
       refresh()
     }
   }).finally(() => {
@@ -84,7 +84,7 @@ async function handleSubmit(values: InternalizationFormSchema) {
   saveLoading.value = true
   await (editData.value?.id ? updateInternalization({ ...values, id: editData.value.id }) : insertInternalization(values)).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('saveSuccess'))
+      successToast({ title: i18nCommon('saveSuccess') })
       open.value = false
       refresh()
     }

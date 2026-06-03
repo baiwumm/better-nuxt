@@ -83,7 +83,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       const uploadResult = await upload(avatarFile.value)
 
       if (!uploadResult) {
-        return errorToast(i18nCommon('updateFailed'))
+        return errorToast({ title: i18nCommon('updateFailed') })
       }
 
       imageUrl = uploadResult.url ?? null
@@ -95,20 +95,19 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     })
 
     if (error) {
-      return errorToast(error.message)
+      return errorToast({ title: error.message })
     }
 
-    successToast(i18nCommon('updateSuccess'))
+    successToast({ title: i18nCommon('updateSuccess') })
 
     avatarFile.value = null
 
     await refreshNuxtData()
   }
   catch (error) {
-    errorToast(
-      error instanceof Error
-        ? error.message
-        : i18nCommon('updateFailed'),
+    errorToast({ title: error instanceof Error
+      ? error.message
+      : i18nCommon('updateFailed') },
     )
   }
   finally {

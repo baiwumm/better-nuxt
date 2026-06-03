@@ -6,11 +6,11 @@ import SecuritySettings from './components/SecuritySettings.vue'
 const { i18nAccount } = useMessage()
 
 const items = ref<TabsItem[]>([
-  {
-    label: i18nAccount('accountSettings.title'),
-    icon: 'i-lucide-user-round-cog',
-    slot: 'accountSettings',
-  },
+  // {
+  //   label: i18nAccount('accountSettings.title'),
+  //   icon: 'i-lucide-user-round-cog',
+  //   slot: 'accountSettings',
+  // },
   {
     label: i18nAccount('securitySettings.title'),
     icon: 'i-lucide-shield',

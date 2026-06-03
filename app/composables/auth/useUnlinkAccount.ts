@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-03 11:12:35
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-03 14:15:14
+ * @LastEditTime: 2026-06-03 14:40:45
  * @Description: 取消关联
  */
 export function useUnlinkAccount(options?: {
@@ -26,12 +26,12 @@ export function useUnlinkAccount(options?: {
       if (error) {
         throw new Error(error.message)
       }
-      successToast(i18nAccount('securitySettings.linkAccounts.unlinkSuccess'))
+      successToast({ title: i18nAccount('securitySettings.linkAccounts.unlinkSuccess') })
       options?.onSuccess?.()
       return true
     }
     catch (error) {
-      errorToast(catchError(error))
+      errorToast({ title: catchError(error) })
       options?.onError?.()
       return false
     }

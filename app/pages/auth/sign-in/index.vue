@@ -23,7 +23,10 @@ async function onSubmit(data: SignInFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(i18nAuth('signIn.error'), error.message)
+    errorToast({
+      title: i18nAuth('signIn.error'),
+      description: error.message,
+    })
   }
 }
 </script>

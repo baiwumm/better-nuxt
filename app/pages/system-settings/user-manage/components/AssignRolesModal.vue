@@ -58,7 +58,7 @@ async function onSubmit() {
     })
 
     if (isSuccess(code)) {
-      successToast(i18nCommon('saveSuccess'))
+      successToast({ title: i18nCommon('saveSuccess') })
       userId.value = null
       props.refresh()
     }

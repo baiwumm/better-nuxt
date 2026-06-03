@@ -28,7 +28,10 @@ async function onOAuth(provider: typeof OAUTH_PROVIDES.valueType) {
     oauthType.value = null
   })
   if (error) {
-    errorToast(i18nAuth('signIn.error'), error.message)
+    errorToast({
+      title: i18nAuth('signIn.error'),
+      description: error.message,
+    })
   }
 }
 </script>

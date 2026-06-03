@@ -51,7 +51,7 @@ async function handleDelete(id: string) {
   deleteId.value = id
   await delLogs({ ids: [id] }).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('deleteSuccess'))
+      successToast({ title: i18nCommon('deleteSuccess') })
       refresh()
     }
   }).finally(() => {

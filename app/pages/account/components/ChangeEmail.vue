@@ -35,12 +35,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       callbackURL: '/',
     })
     if (error) {
-      return errorToast(error.message)
+      return errorToast({ title: error.message })
     }
-    successToast(i18nAuth('signUp.verifyEmailSent'), i18nAuth('signUp.verifyEmailSentDesc'))
+    successToast({
+      title: i18nAuth('signUp.verifyEmailSent'),
+      description: i18nAuth('signUp.verifyEmailSentDesc'),
+    })
   }
   catch (err) {
-    errorToast(err instanceof Error ? err.message : i18nCommon('updateFailed'))
+    errorToast({ title: err instanceof Error ? err.message : i18nCommon('updateFailed') })
   }
   finally {
     loading.value = false

@@ -19,7 +19,7 @@ async function getSessionsList() {
     userId: userId.value,
   }).finally(() => loading.value = false)
   if (error) {
-    errorToast(error.message)
+    errorToast({ title: error.message })
   }
   else {
     sessionsList.value = data?.sessions ?? []

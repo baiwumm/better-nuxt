@@ -24,10 +24,10 @@ async function onSubmit(data: ForgotPasswordFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(error.message)
+    errorToast({ title: error.message })
   }
   else {
-    successToast(i18nAuth('resetPassword.success'))
+    successToast({ title: i18nAuth('resetPassword.success') })
     navigateTo('/auth/sign-in')
   }
 }

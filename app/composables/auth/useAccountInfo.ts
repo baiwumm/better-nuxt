@@ -2,12 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-03 09:50:53
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-03 10:43:26
+ * @LastEditTime: 2026-06-03 14:35:17
  * @Description: 获取由提供商提供的账户信息
  */
-export function useAccountInfo(
-  accountId: MaybeRefOrGetter<string | undefined>,
-) {
+export function useAccountInfo(accountId: MaybeRefOrGetter<string | undefined>) {
   const { $authClient } = useNuxtApp()
   const { errorToast } = useAppToast()
   return useAsyncData(
@@ -25,7 +23,7 @@ export function useAccountInfo(
         },
       })
       if (error) {
-        errorToast(error.message)
+        errorToast({ title: error.message })
       }
 
       return data

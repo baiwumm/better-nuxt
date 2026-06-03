@@ -35,7 +35,7 @@ async function onSubmit(data: BanUserFormSchema) {
     loading.value = false
   })
   if (error) {
-    errorToast(error.message)
+    errorToast({ title: error.message })
   }
   else {
     successToast()

@@ -39,7 +39,7 @@ async function handleBatchDelete() {
   delLoading.value = true
   await delLogs({ ids }).then(({ code }) => {
     if (isSuccess(code)) {
-      successToast(i18nCommon('deleteSuccess'))
+      successToast({ title: i18nCommon('deleteSuccess') })
       props.table?.resetRowSelection()
       props.refresh()
     }

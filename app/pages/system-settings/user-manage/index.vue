@@ -100,14 +100,14 @@ async function handleDelete(id: string) {
         userId: id,
       })
       if (error) {
-        errorToast(error.message)
+        errorToast({ title: error.message })
         return false
       }
       return true
     },
   })
   if (confirmed) {
-    successToast(i18nCommon('deleteSuccess'))
+    successToast({ title: i18nCommon('deleteSuccess') })
     refresh()
   }
 }
@@ -141,7 +141,7 @@ async function handleSubmit(values: SubmitForm) {
         data: values,
       })
       if (error) {
-        return errorToast(error.message)
+        return errorToast({ title: error.message })
       }
     }
     else {
@@ -153,7 +153,7 @@ async function handleSubmit(values: SubmitForm) {
         },
       }))
       if (error) {
-        return errorToast(error.message)
+        return errorToast({ title: error.message })
       }
     }
     successToast()
@@ -161,7 +161,7 @@ async function handleSubmit(values: SubmitForm) {
     refresh()
   }
   catch (error) {
-    errorToast(error instanceof Error ? error.message : i18nCommon('actionFailed'))
+    errorToast({ title: error instanceof Error ? error.message : i18nCommon('actionFailed') })
   }
   finally {
     saveLoading.value = false

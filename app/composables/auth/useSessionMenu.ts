@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-07 15:45:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-07 15:46:47
+ * @LastEditTime: 2026-06-04 10:05:41
  * @Description: 多会话
  */
 import type { DropdownMenuItem } from '@nuxt/ui'
@@ -10,7 +10,7 @@ import type { DropdownMenuItem } from '@nuxt/ui'
 export async function useSessionMenu() {
   const { $authClient } = useNuxtApp()
   const { user: currentUser } = useCurrentUser()
-  const { switchAccount } = useAuthActions()
+  const { errorToast } = useAppToast()
 
   const { data: sessions } = await $authClient.multiSession.listDeviceSessions()
 
@@ -26,7 +26,22 @@ export async function useSessionMenu() {
           type: 'checkbox',
           checked: isCurrent,
           async onSelect() {
-            await switchAccount(session.token, isCurrent)
+            if (isCurrent)
+              return
+
+            try {
+              const { error } = await $authClient.multiSession.setActive({
+                sessionToken: session.token,
+              })
+
+              if (error) {
+                throw new Error(error.message)
+              }
+              await refreshNuxtData()
+            }
+            catch (error) {
+              errorToast({ title: catchError(error) })
+            }
           },
         }
       }) ?? []

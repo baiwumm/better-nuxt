@@ -2,13 +2,10 @@
 import type { FormSubmitEvent } from '@nuxt/ui'
 import z from 'zod'
 
-const { $authClient } = useNuxtApp()
-const { i18nAccount, i18nCommon, i18nAuth } = useMessage()
+const { i18nAccount, i18nCommon } = useMessage()
 const { user } = useCurrentUser()
-const { errorToast, successToast } = useAppToast()
 const { t } = useI18n()
-
-const loading = ref(false)
+const { mutate: changeEmail, isPending } = useChangeEmail()
 
 const schema = z.object({
   newEmail: z.email(t('auth.email.error')).nonempty({ error: i18nCommon('required') }),
@@ -28,26 +25,10 @@ watch(user, (newUser) => {
 }, { immediate: true })
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  loading.value = true
-  try {
-    const { error } = await $authClient.changeEmail({
-      newEmail: event.data.newEmail,
-      callbackURL: '/',
-    })
-    if (error) {
-      return errorToast({ title: error.message })
-    }
-    successToast({
-      title: i18nAuth('signUp.verifyEmailSent'),
-      description: i18nAuth('signUp.verifyEmailSentDesc'),
-    })
-  }
-  catch (err) {
-    errorToast({ title: err instanceof Error ? err.message : i18nCommon('updateFailed') })
-  }
-  finally {
-    loading.value = false
-  }
+  changeEmail({
+    newEmail: event.data.newEmail,
+    callbackURL: '/',
+  })
 }
 </script>
 
@@ -70,7 +51,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         :label="i18nAccount('accountSettings.changeEmail.submit')"
         type="submit"
         icon="lucide:mail"
-        :loading
+        :loading="isPending"
         :disabled="!user || state.newEmail === user?.email"
         class="w-fit lg:ms-auto"
       />

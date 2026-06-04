@@ -6,30 +6,15 @@ definePageMeta({
   layout: 'auth',
 })
 
-const { $authClient } = useNuxtApp()
 const { emailFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
-const { errorToast, successToast } = useAppToast()
-
-const loading = ref(false)
+const { mutate, isPending } = useSignInMagicLink()
 
 /**
  * @description: 表单提交
  */
 async function onSubmit(data: EmailFormSchema) {
-  loading.value = true
-  const { error } = await $authClient.signIn.magicLink({ ...data, callbackURL: '/' }).finally(() => {
-    loading.value = false
-  })
-  if (error) {
-    errorToast({ title: error.message })
-  }
-  else {
-    successToast({
-      title: i18nAuth('magicLink.verifyEmailSent'),
-      description: i18nAuth('magicLink.verifyEmailSentDesc'),
-    })
-  }
+  mutate({ ...data, callbackURL: '/' })
 }
 </script>
 
@@ -50,7 +35,7 @@ async function onSubmit(data: EmailFormSchema) {
           props: {
             label: i18nAuth('magicLink.submit'),
             icon: 'ri:check-fill',
-            loading,
+            loading: isPending,
             class: 'w-full justify-center',
           },
         },

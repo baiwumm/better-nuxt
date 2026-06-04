@@ -113,7 +113,7 @@ export function useSchema() {
 
   // 用户管理 - 新增/编辑
   const userFormSchema = signUpFormSchema.extend({
-    displayUsername: z.string().optional().meta({
+    displayUsername: z.string().nullable().meta({
       title: i18nUser('displayUsername', true),
       input: {
         props: {

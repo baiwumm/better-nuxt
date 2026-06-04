@@ -6,14 +6,17 @@ const props = defineProps<{
   refresh: VoidFunction
 }>()
 
-const { $authClient } = useNuxtApp()
-const { successToast, errorToast } = useAppToast()
-
 const { i18nUser, i18nCommon, i18nPermissions } = useMessage()
 const { banUserFormSchema } = useSchema()
-const loading = ref(false)
 
 const userId = defineModel<string | null>('userId', { required: true })
+
+const { mutate: banUser, isPending } = useBanUser({
+  onSuccess: () => {
+    userId.value = null
+    props.refresh()
+  },
+})
 
 const open = computed({
   get: () => !!userId.value,
@@ -30,18 +33,7 @@ async function onSubmit(data: BanUserFormSchema) {
     banReason: data.banReason,
     banExpiresIn: data.banExpiresIn ? BAN_DURATIONS.raw(data.banExpiresIn).seconds : undefined,
   }
-  loading.value = true
-  const { error } = await $authClient.admin.banUser(params).finally(() => {
-    loading.value = false
-  })
-  if (error) {
-    errorToast({ title: error.message })
-  }
-  else {
-    successToast()
-    userId.value = null
-    props.refresh()
-  }
+  await banUser(params)
 }
 
 const items = computed(() => BAN_DURATIONS.items.map(({ value, label }) => ({ label: i18nUser(label), value })))
@@ -70,7 +62,7 @@ const items = computed(() => BAN_DURATIONS.items.map(({ value, label }) => ({ la
     <template #footer="{ disabled, submit, close }">
       <AutoFormModalFooter
         :disabled="disabled"
-        :loading="loading"
+        :loading="isPending"
         @submit="submit"
         @close="close"
       />

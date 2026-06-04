@@ -1,39 +1,36 @@
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
- * @Date: 2026-06-03 11:12:35
+ * @Date: 2026-06-04 10:25:55
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-04 10:36:39
- * @Description: 取消关联
+ * @LastEditTime: 2026-06-04 14:56:25
+ * @Description: 更改用户信息
  */
-export function useUnlinkAccount(options?: {
+export function useUpdateUser(options?: {
   onSuccess?: () => void
   onError?: () => void
 }) {
   const isPending = ref(false)
   const { $authClient } = useNuxtApp()
-  const { successToast, errorToast } = useAppToast()
-  const { i18nAccount } = useMessage()
+  const { errorToast, successToast } = useAppToast()
+  const { i18nCommon } = useMessage()
 
-  async function mutate(params: Parameters<typeof $authClient.unlinkAccount>[0]) {
+  async function mutate(params: Parameters<typeof $authClient.updateUser>[0]) {
     if (isPending.value) {
-      return false
+      return
     }
     try {
       isPending.value = true
-
-      const { error } = await $authClient.unlinkAccount(params)
-
+      const { error } = await $authClient.updateUser(params)
       if (error) {
         throw new Error(error.message)
       }
-      successToast({ title: i18nAccount('securitySettings.linkAccounts.unlinkSuccess') })
+
+      successToast({ title: i18nCommon('updateSuccess') })
       options?.onSuccess?.()
-      return true
     }
     catch (error) {
       errorToast({ title: catchError(error) })
       options?.onError?.()
-      return false
     }
     finally {
       isPending.value = false

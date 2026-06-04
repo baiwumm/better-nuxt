@@ -4,14 +4,17 @@ const props = defineProps<{
   refresh: VoidFunction
 }>()
 
-const { $authClient } = useNuxtApp()
-const { successToast, errorToast } = useAppToast()
-
 const { i18nPermissions } = useMessage()
 const { forgotPasswordFormSchema } = useSchema()
-const loading = ref(false)
 
 const userId = defineModel<string | null>('userId', { required: true })
+
+const { mutate: setUserPassword, isPending } = useSetUserPassword({
+  onSuccess: () => {
+    userId.value = null
+    props.refresh()
+  },
+})
 
 const open = computed({
   get: () => !!userId.value,
@@ -23,21 +26,10 @@ const open = computed({
 })
 
 async function onSubmit(data: ForgotPasswordFormSchema) {
-  loading.value = true
-  const { error } = await $authClient.admin.setUserPassword({
+  setUserPassword({
     newPassword: data.newPassword,
     userId: userId.value,
-  }).finally(() => {
-    loading.value = false
   })
-  if (error) {
-    errorToast({ title: error.message })
-  }
-  else {
-    successToast()
-    userId.value = null
-    props.refresh()
-  }
 }
 </script>
 
@@ -52,7 +44,7 @@ async function onSubmit(data: ForgotPasswordFormSchema) {
     <template #footer="{ disabled, submit, close }">
       <AutoFormModalFooter
         :disabled="disabled"
-        :loading="loading"
+        :loading="isPending"
         @submit="submit"
         @close="close"
       />

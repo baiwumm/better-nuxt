@@ -7,27 +7,15 @@ definePageMeta({
   layout: 'auth',
 })
 
-const { $authClient } = useNuxtApp()
 const { signInFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
-const { errorToast } = useAppToast()
-
-const loading = ref(false)
+const { mutate, isPending } = useSignInEmail()
 
 /**
  * @description: 登录提交
  */
 async function onSubmit(data: SignInFormSchema) {
-  loading.value = true
-  const { error } = await $authClient.signIn.email({ ...data, callbackURL: '/' }).finally(() => {
-    loading.value = false
-  })
-  if (error) {
-    errorToast({
-      title: i18nAuth('signIn.error'),
-      description: error.message,
-    })
-  }
+  mutate({ ...data, callbackURL: '/' })
 }
 </script>
 
@@ -48,7 +36,7 @@ async function onSubmit(data: SignInFormSchema) {
           props: {
             label: i18nAuth('signIn.submit'),
             icon: 'ri:check-fill',
-            loading,
+            loading: isPending,
             class: 'w-full justify-center',
           },
         },

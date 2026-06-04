@@ -29,6 +29,7 @@ const INITIAL_STATE = Object.freeze<UserFormSchema>({
   name: '',
   email: '',
   password: '',
+  displayUsername: null,
   role: undefined,
 })
 

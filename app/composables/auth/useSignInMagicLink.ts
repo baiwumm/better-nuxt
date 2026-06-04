@@ -1,42 +1,41 @@
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
- * @Date: 2026-06-03 11:12:35
+ * @Date: 2026-06-04 14:52:45
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-04 10:36:39
- * @Description: 取消关联
+ * @LastEditTime: 2026-06-04 15:03:25
+ * @Description: 邮箱一键登录
  */
-export function useUnlinkAccount(options?: {
+export function useSignInMagicLink(options?: {
   onSuccess?: () => void
   onError?: () => void
 }) {
   const isPending = ref(false)
   const { $authClient } = useNuxtApp()
   const { successToast, errorToast } = useAppToast()
-  const { i18nAccount } = useMessage()
+  const { i18nAuth } = useMessage()
 
-  async function mutate(params: Parameters<typeof $authClient.unlinkAccount>[0]) {
+  async function mutate(params: Parameters<typeof $authClient.signIn.magicLink>[0]) {
     if (isPending.value) {
-      return false
+      return
     }
+
     try {
       isPending.value = true
-
-      const { error } = await $authClient.unlinkAccount(params)
+      const { error } = await $authClient.signIn.magicLink(params)
 
       if (error) {
         throw new Error(error.message)
       }
-      successToast({ title: i18nAccount('securitySettings.linkAccounts.unlinkSuccess') })
       options?.onSuccess?.()
-      return true
+      successToast({
+        title: i18nAuth('magicLink.verifyEmailSent'),
+        description: i18nAuth('magicLink.verifyEmailSentDesc'),
+      })
     }
     catch (error) {
+      isPending.value = false
       errorToast({ title: catchError(error) })
       options?.onError?.()
-      return false
-    }
-    finally {
-      isPending.value = false
     }
   }
 

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:28:20
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-28 10:11:48
+ * @LastEditTime: 2026-06-04 14:49:26
  * @Description: 认证鉴权
  */
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -28,6 +28,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
   // 未登录访问私有页面
   if (!isLoggedIn && !isAuth) {
     return navigateTo('/auth/sign-in')
+  }
+
+  if (isAuth) {
+    return
   }
 
   const menu = menuStore.menuPathMap.get(to.path)

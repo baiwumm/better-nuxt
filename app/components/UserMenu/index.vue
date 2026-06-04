@@ -14,9 +14,9 @@ const { sessionItems } = await useSessionMenu()
 // 用户操作
 const confirm = useConfirmDialog()
 const { i18nAuth, i18nCommon } = useMessage()
-const router = useRouter()
 const menuStore = useMenuStore()
 const profileMenu = computed(() => menuStore.menuPathMap.get('/account'))
+const { errorToast } = useAppToast()
 
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
@@ -65,22 +65,22 @@ const items = computed(() => {
         icon: 'i-lucide-log-out',
         color: 'error',
         onSelect: async () => {
-          await confirm({
+          const confirmed = await confirm({
             title: i18nAuth('logout.confirmTitle'),
             description: i18nAuth('logout.confirmDescription'),
             confirmLabel: i18nCommon('confirm'),
             loadingLabel: i18nAuth('waitLogout'),
             onConfirm: async () => {
-              await $authClient.signOut({
-                fetchOptions: {
-                  onSuccess: () => {
-                    router.push('/auth/sign-in')
-                  },
-                },
-              })
-              return true
+              const { error } = await $authClient.signOut()
+              if (error) {
+                errorToast({ title: error.message })
+              }
+              return !error
             },
           })
+          if (confirmed) {
+            await navigateTo('/auth/sign-in')
+          }
         },
       },
     ],

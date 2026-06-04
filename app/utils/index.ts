@@ -15,8 +15,7 @@ export function cn(...inputs: ClassValue[]) {
  * @description: 统一处理 catch 错误
  */
 export function catchError(err: unknown): string {
-  const { $i18n } = useNuxtApp()
-  let message = $i18n.t('common.requestError')
+  let message = 'Request failed, please try again later'
 
   if (err instanceof Error) {
     message = err.message

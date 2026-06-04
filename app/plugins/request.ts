@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-29 09:46:47
+ * @LastEditTime: 2026-06-04 13:40:29
  * @Description: $fetch 请求封装
  */
 import { defineNuxtPlugin, navigateTo, useCookie } from '#app'
@@ -37,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const res = response._data as IResponse
       if (!isSuccess(res.code)) {
         toast.add({
-          title: res.msg || '操作失败',
+          title: res.msg || 'Request failed, please try again later',
           color: 'error',
           icon: 'lucide:x',
         })
@@ -53,7 +53,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       // 401
       if (res?.code === RESPONSE_CODE.UNAUTHORIZED) {
         toast.add({
-          title: '登录已过期，请重新登录！',
+          title: 'Your login has expired. Please log in again!',
           color: 'error',
         })
 

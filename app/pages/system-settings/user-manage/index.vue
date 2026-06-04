@@ -15,7 +15,8 @@ const { $authClient } = useNuxtApp()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
 const { successToast, errorToast } = useAppToast()
-const { unbanUser } = useAuthActions()
+const { mutate: updateUser } = useAdminUpdateUser()
+const { mutate: createUser } = useAdminCreateUser()
 
 const table = useTemplateRef('table')
 const pagination = computed<PaginationState>(() => table.value?.tableApi?.getState().pagination ?? initialPagination)
@@ -61,6 +62,10 @@ const { data, pending: loading, refresh } = await useAsyncData(
 const list = computed(() => data.value?.list ?? [])
 const total = computed(() => data.value?.total ?? 0)
 
+const { mutate: unbanUser } = useUnbanUser({
+  onSuccess: refresh,
+})
+
 const columnVisibility = ref({
 })
 
@@ -79,7 +84,7 @@ function handleAdd() {
 // 封禁/取消封禁
 async function handleBanUser(row: User) {
   if (row.banned) {
-    await unbanUser(row.id, refresh)
+    await unbanUser({ userId: row.id })
   }
   else {
     banUserId.value = row.id
@@ -133,35 +138,26 @@ const { columns } = userUserColumns({
 
 // 表单提交
 async function handleSubmit(values: SubmitForm) {
-  saveLoading.value = true
   try {
+    saveLoading.value = true
     if (editData.value?.id) {
-      const { error } = await $authClient.admin.updateUser({
-        userId: editData.value.id,
-        data: values,
-      })
-      if (error) {
-        return errorToast({ title: error.message })
-      }
+      await updateUser({ userId: editData.value.id, data: values })
     }
     else {
       const { displayUsername, ...formData } = values
-      const { error } = await $authClient.admin.createUser(({
+      await createUser({
         ...formData,
         data: {
           displayUsername,
         },
-      }))
-      if (error) {
-        return errorToast({ title: error.message })
-      }
+      })
     }
     successToast()
     open.value = false
     refresh()
   }
   catch (error) {
-    errorToast({ title: error instanceof Error ? error.message : i18nCommon('actionFailed') })
+    errorToast({ title: catchError(error) })
   }
   finally {
     saveLoading.value = false

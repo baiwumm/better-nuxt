@@ -7,12 +7,12 @@ const props = defineProps<{
   refresh: VoidFunction
 }>()
 
-const { $authClient } = useNuxtApp()
-const { successToast, errorToast } = useAppToast()
 const { session: activeSession } = useCurrentUser()
+const { mutate: revokeUserSession, isPending } = useRevokeUserSession({
+  onSuccess: props.refresh,
+})
 const { i18nUser } = useMessage()
 const { locale } = useI18n()
-const loading = ref(false)
 
 const parser = new UAParser(props.session.userAgent || '')
 
@@ -20,23 +20,6 @@ const uaResult = parser.getResult()
 const { device, os, browser } = uaResult
 const isMobile = device.type === 'mobile'
 const isCurrentSession = activeSession.value?.token === props.session.token
-
-// 撤销会话
-async function revokeSession() {
-  loading.value = true
-  const { error } = await $authClient.admin.revokeUserSession({
-    sessionToken: props.session.token,
-  }).finally(() => {
-    loading.value = false
-  })
-  if (error) {
-    errorToast({ title: error.message })
-  }
-  else {
-    successToast()
-    props.refresh()
-  }
-}
 </script>
 
 <template>
@@ -59,9 +42,16 @@ async function revokeSession() {
           <NuxtTime v-else :datetime="session.createdAt" :locale relative class="text-xs" />
         </div>
       </div>
-      <UButton icon="lucide:x" variant="outline" :loading color="error" :disabled="isCurrentSession" size="sm" @click="revokeSession">
-        {{ i18nUser('revokeSession') }}
-      </UButton>
+      <UButton
+        :label="i18nUser('revokeSession')"
+        icon="lucide:x"
+        variant="outline"
+        :loading="isPending"
+        color="error"
+        :disabled="isCurrentSession"
+        size="sm"
+        @click="revokeUserSession({ sessionToken: session.token })"
+      />
     </div>
   </UCard>
 </template>

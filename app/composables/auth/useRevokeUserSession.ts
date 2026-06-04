@@ -1,39 +1,36 @@
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
- * @Date: 2026-06-03 11:12:35
+ * @Date: 2026-06-04 10:08:15
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-04 10:36:39
- * @Description: 取消关联
+ * @LastEditTime: 2026-06-04 14:55:30
+ * @Description: 撤销 session 会话
  */
-export function useUnlinkAccount(options?: {
+export function useRevokeUserSession(options?: {
   onSuccess?: () => void
   onError?: () => void
 }) {
   const isPending = ref(false)
   const { $authClient } = useNuxtApp()
   const { successToast, errorToast } = useAppToast()
-  const { i18nAccount } = useMessage()
 
-  async function mutate(params: Parameters<typeof $authClient.unlinkAccount>[0]) {
+  async function mutate(params: Parameters<typeof $authClient.admin.revokeUserSession>[0]) {
     if (isPending.value) {
       return false
     }
     try {
       isPending.value = true
 
-      const { error } = await $authClient.unlinkAccount(params)
+      const { error } = await $authClient.admin.revokeUserSession(params)
 
       if (error) {
         throw new Error(error.message)
       }
-      successToast({ title: i18nAccount('securitySettings.linkAccounts.unlinkSuccess') })
+      successToast()
       options?.onSuccess?.()
-      return true
     }
     catch (error) {
       errorToast({ title: catchError(error) })
       options?.onError?.()
-      return false
     }
     finally {
       isPending.value = false

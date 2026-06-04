@@ -3,16 +3,20 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import z from 'zod'
 import AvatarCropper from './AvatarCropper.vue'
 
-const { $authClient } = useNuxtApp()
 const { i18nAccount, i18nCommon } = useMessage()
 const { user, userName } = useCurrentUser()
-const { errorToast, successToast } = useAppToast()
+const { errorToast } = useAppToast()
 
 const upload = useUpload('/api/account/avatar')
 
-const loading = ref(false)
 const avatarFile = ref<File | null>(null)
 const avatarPreview = ref<string>()
+const { mutate: updateUser, isPending } = useUpdateUser({
+  onSuccess: async () => {
+    avatarFile.value = null
+    await refreshNuxtData()
+  },
+})
 
 const schema = z.object({
   name: z.string().nonempty({
@@ -74,45 +78,22 @@ function resetAvatar() {
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  loading.value = true
+  let imageUrl = null
 
-  try {
-    let imageUrl = user.value?.image ?? null
+  if (avatarFile.value) {
+    const uploadResult = await upload(avatarFile.value)
 
-    if (avatarFile.value) {
-      const uploadResult = await upload(avatarFile.value)
-
-      if (!uploadResult) {
-        return errorToast({ title: i18nCommon('updateFailed') })
-      }
-
-      imageUrl = uploadResult.url ?? null
+    if (!uploadResult) {
+      return errorToast({ title: i18nCommon('updateFailed') })
     }
 
-    const { error } = await $authClient.updateUser({
-      name: event.data.name,
-      image: imageUrl,
-    })
-
-    if (error) {
-      return errorToast({ title: error.message })
-    }
-
-    successToast({ title: i18nCommon('updateSuccess') })
-
-    avatarFile.value = null
-
-    await refreshNuxtData()
+    imageUrl = uploadResult.url ?? null
   }
-  catch (error) {
-    errorToast({ title: error instanceof Error
-      ? error.message
-      : i18nCommon('updateFailed') },
-    )
-  }
-  finally {
-    loading.value = false
-  }
+
+  await updateUser({
+    name: event.data.name,
+    image: imageUrl ?? undefined,
+  })
 }
 </script>
 
@@ -130,7 +111,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         type="submit"
         icon="lucide:save"
         :label="i18nCommon('saveChanges')"
-        :loading="loading"
+        :loading="isPending"
         :disabled="!hasChanged"
         class="w-fit lg:ms-auto"
       />

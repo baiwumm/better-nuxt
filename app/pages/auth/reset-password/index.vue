@@ -6,30 +6,23 @@ definePageMeta({
   middleware: 'reset-password',
 })
 
-const { $authClient } = useNuxtApp()
 const { forgotPasswordFormSchema } = useSchema()
 const { i18nAuth } = useMessage()
 const route = useRoute()
-const { errorToast, successToast } = useAppToast()
+
+const { mutate: resetPassword, isPending } = useResetPassword({
+  onSuccess: () => {
+    navigateTo('/auth/sign-in')
+  },
+})
 
 const token = computed(() => route.query.token as string)
-const loading = ref(false)
 
 /**
  * @description: 表单提交
  */
 async function onSubmit(data: ForgotPasswordFormSchema) {
-  loading.value = true
-  const { error } = await $authClient.resetPassword({ ...data, token: token.value }).finally(() => {
-    loading.value = false
-  })
-  if (error) {
-    errorToast({ title: error.message })
-  }
-  else {
-    successToast({ title: i18nAuth('resetPassword.success') })
-    navigateTo('/auth/sign-in')
-  }
+  resetPassword({ ...data, token: token.value })
 }
 </script>
 
@@ -50,7 +43,7 @@ async function onSubmit(data: ForgotPasswordFormSchema) {
           props: {
             label: i18nAuth('forgotPassword.submit'),
             icon: 'ri:check-fill',
-            loading,
+            loading: isPending,
             class: 'w-full justify-center',
           },
         },

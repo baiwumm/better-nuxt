@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SessionCard from './SessionCard.vue'
+
 defineProps<{
   refresh: VoidFunction
 }>()

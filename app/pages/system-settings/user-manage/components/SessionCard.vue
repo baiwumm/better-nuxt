@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { SessionWithImpersonatedBy } from 'better-auth/plugins/admin'
-import { UAParser } from 'ua-parser-js'
 
 const props = defineProps<{
   session: SessionWithImpersonatedBy
@@ -11,14 +10,10 @@ const { session: activeSession } = useCurrentUser()
 const { mutate: revokeUserSession, isPending } = useRevokeUserSession({
   onSuccess: props.refresh,
 })
+const { os, browser, isMobile } = useDeviceInfo(props.session.userAgent ?? '')
 const { i18nUser } = useMessage()
 const { locale } = useI18n()
 
-const parser = new UAParser(props.session.userAgent || '')
-
-const uaResult = parser.getResult()
-const { device, os, browser } = uaResult
-const isMobile = device.type === 'mobile'
 const isCurrentSession = activeSession.value?.token === props.session.token
 </script>
 

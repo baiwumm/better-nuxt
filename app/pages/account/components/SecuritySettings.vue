@@ -6,8 +6,8 @@ import LinkAccounts from './LinkAccounts.vue'
 
 <template>
   <div class="space-y-6">
+    <ChangePassword />
     <LinkAccounts />
     <ActiveSessions />
-    <ChangePassword />
   </div>
 </template>

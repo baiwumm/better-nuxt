@@ -11,12 +11,9 @@ defineProps<{
 const { userName, email, avatar, isPending } = useCurrentUser()
 // 获取多会话信息
 const { sessionItems } = await useSessionMenu()
-// 用户操作
-const confirm = useConfirmDialog()
-const { i18nAuth, i18nCommon } = useMessage()
 const menuStore = useMenuStore()
 const profileMenu = computed(() => menuStore.menuPathMap.get('/account'))
-const { errorToast } = useAppToast()
+const signOut = useSignOut()
 
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
@@ -64,24 +61,7 @@ const items = computed(() => {
         label: $t('auth.logout.title'),
         icon: 'i-lucide-log-out',
         color: 'error',
-        onSelect: async () => {
-          const confirmed = await confirm({
-            title: i18nAuth('logout.confirmTitle'),
-            description: i18nAuth('logout.confirmDescription'),
-            confirmLabel: i18nCommon('confirm'),
-            loadingLabel: i18nAuth('waitLogout'),
-            onConfirm: async () => {
-              const { error } = await $authClient.signOut()
-              if (error) {
-                errorToast({ title: error.message })
-              }
-              return !error
-            },
-          })
-          if (confirmed) {
-            await navigateTo('/auth/sign-in')
-          }
-        },
+        onSelect: () => signOut(),
       },
     ],
   ]

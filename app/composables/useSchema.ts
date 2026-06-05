@@ -191,6 +191,23 @@ export function useSchema() {
     sort: zSort,
   })
 
+  // 我的账户 - 更改密码
+  const zChangePasswordInput = (field: string) => z.string(t(`auth.${field}.placeholder`)).min(8, t('auth.password.error')).meta({
+    title: i18nAuth(`${field}.label`, true),
+    required: true,
+    input: {
+      component: AInputPasswordToggle,
+      props: {
+        placeholder: i18nAuth(`${field}.placeholder`),
+      },
+    },
+  })
+  const changePasswordFormSchema = z.object({
+    currentPassword: zChangePasswordInput('currentPassword'),
+    ...forgotPasswordFormSchema.shape,
+    confirmPassword: zChangePasswordInput('confirmPassword'),
+  })
+
   return {
     zSort,
     zInput,
@@ -203,6 +220,7 @@ export function useSchema() {
     userFormSchema,
     banUserFormSchema,
     roleFormSchema,
+    changePasswordFormSchema,
   }
 }
 
@@ -216,3 +234,4 @@ export type BanUserFormSchema = z.infer<ReturnType<typeof useSchema>['banUserFor
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
 export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>
 export type RoleFormSchema = z.infer<ReturnType<typeof useSchema>['roleFormSchema']>
+export type ChangePasswordFormSchema = z.infer<ReturnType<typeof useSchema>['changePasswordFormSchema']>

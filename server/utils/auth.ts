@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-02 09:36:55
+ * @LastEditTime: 2026-06-05 14:19:36
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -134,6 +134,13 @@ export const auth = betterAuth({
           }
         },
       },
+    },
+  },
+  // 开启会话缓存
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5, // 5 分钟
     },
   },
 })

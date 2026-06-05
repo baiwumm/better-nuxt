@@ -31,7 +31,5 @@ export function useSignOut() {
     if (confirmed && redirectTo) {
       await navigateTo(redirectTo)
     }
-
-    return confirmed
   }
 }

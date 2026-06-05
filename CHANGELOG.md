@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.9.0](https://github.com/baiwumm/better-nuxt/compare/v1.8.4...v1.9.0) (2026-06-05)
+
+### ✨ Features | 新功能
+
+* 新增 @nuxt/hints 、@nuxt/a11y 包 ([c9ea269](https://github.com/baiwumm/better-nuxt/commit/c9ea269eea5de7db6c7b0d03274de84e4fbb8708))
+* **account:** 添加 AtiveSessions 组件 ([93877db](https://github.com/baiwumm/better-nuxt/commit/93877dbca249a49e8c27ad2303590cd8a4a78ee4))
+* **account:** 添加 ChangePassword 组件 ([74d15ff](https://github.com/baiwumm/better-nuxt/commit/74d15ff181b3e7c84655cbdf69f2400a4fadb16e))
+* **account:** 完成《更改电子邮件》功能 ([fc8cce3](https://github.com/baiwumm/better-nuxt/commit/fc8cce3ccfe38213eaed9367e8ce734398d4f011))
+* **account:** 完成《用户资料》的 更改和头像上传功能 ([61379d5](https://github.com/baiwumm/better-nuxt/commit/61379d5f816bf3a3365b13f86205c51acd0954a0))
+* **account:** 新增《关联账户》功能 ([4f5617d](https://github.com/baiwumm/better-nuxt/commit/4f5617d4456dbc36ac1f8970c8f2bac24ac6812c))
+* **account:** 新增《头像裁剪》功能，保证每个用户存储一张头像，节省 Blob 空间 ([db0b707](https://github.com/baiwumm/better-nuxt/commit/db0b707605ff14db5e09349d0c3e57e7abc8b7fb))
+* **account:** 新增《主题模式》功能 ([475f1de](https://github.com/baiwumm/better-nuxt/commit/475f1de6a0ee6b397bee62ffca7370f59740e6d7))
+* **composables:** 新增 useListSessions 和 useSignOut 函数 ([54ba7ed](https://github.com/baiwumm/better-nuxt/commit/54ba7ed0a3ce330ccd734900d76c1b504f791867))
+* **composables:** 新增 useListSessions 和 useSignOut 函数 ([12cd163](https://github.com/baiwumm/better-nuxt/commit/12cd163e1e655404e990b4010aa7b43e54eea987))
+* **schema:** menu 表新增 hideInMenu 字段 ([8eeda39](https://github.com/baiwumm/better-nuxt/commit/8eeda39319e89218562339591d4bea821ab436f8))
+
+### 💄 Styles | 风格
+
+* 样式调整 ([a2e0677](https://github.com/baiwumm/better-nuxt/commit/a2e0677f59da7bb15020cfdf513c3d38905d7aba))
+* **account:** 调整组件顺序 ([bed5e3d](https://github.com/baiwumm/better-nuxt/commit/bed5e3d016409f4e301322f915a0c9271425c34d))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 封装 $authClient 函数，优化调用方式 ([455835b](https://github.com/baiwumm/better-nuxt/commit/455835b93969995086e5a06ba736e545db16d0fd))
+* 封装 useDeviceInfo 函数获取代理信息 ([a985616](https://github.com/baiwumm/better-nuxt/commit/a985616888e89987bd4de43ce21ed4681ae85333))
+* 细节优化 ([0b89ab8](https://github.com/baiwumm/better-nuxt/commit/0b89ab8901648ff37e1c116ae9b60b84f34bb025))
+* 细节优化 ([f722a5e](https://github.com/baiwumm/better-nuxt/commit/f722a5e8063eb787f5d23ebe9ce75b75ff84a4b0))
+* **composables:** 优化 useAppToast 函数 ([7e0eb02](https://github.com/baiwumm/better-nuxt/commit/7e0eb02072666a750a6c1dd035a41b3d2456d4f3))
+* **ListAccounts:** 优化 Oauth 交互体验 ([02d4980](https://github.com/baiwumm/better-nuxt/commit/02d4980d0b9434029008c2f93cf47c09d00215bb))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 @nuxthub/core、@vercel/blob 包 ([990418d](https://github.com/baiwumm/better-nuxt/commit/990418d0fcc705d2f7a583eebefe9068bd5e146e))
+* 新增 vue-advanced-cropper 包 ([7edc37b](https://github.com/baiwumm/better-nuxt/commit/7edc37b185fd8882357e4bdc40f8da6c60659330))
+
 ## [1.8.4](https://github.com/baiwumm/better-nuxt/compare/v1.8.3...v1.8.4) (2026-05-29)
 
 ### ✨ Features | 新功能

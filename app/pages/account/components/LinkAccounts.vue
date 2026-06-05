@@ -4,7 +4,7 @@ import LinkAccount from './LinkAccount.vue'
 
 const { i18nAccount } = useMessage()
 
-const { data: accounts, refresh } = await useListAccounts()
+const { data: accounts, refresh, pending } = useListAccounts()
 
 const linkedAccounts = computed(() => accounts.value?.filter(
   account => account.providerId !== 'credential',
@@ -36,7 +36,7 @@ const allLinkedAccounts = computed(() => {
       :description="i18nAccount('securitySettings.linkAccounts.description')"
       variant="naked"
     />
-    <UCard :ui="{ body: 'py-0!' }">
+    <UCard :ui="{ body: 'relative py-0!' }">
       <UPageList divide>
         <UPageCard
           v-for="account in allLinkedAccounts"
@@ -47,9 +47,15 @@ const allLinkedAccounts = computed(() => {
           }"
         >
           <template #body>
-            <ClientOnly>
-              <LinkAccount :provider="account.provider" :account-id="account.accountId" :refresh />
-            </ClientOnly>
+            <div v-if="pending" class="flex items-center gap-4 py-4">
+              <USkeleton class="size-12 rounded-full" />
+
+              <div class="grid gap-2">
+                <USkeleton class="h-4 w-60" />
+                <USkeleton class="h-4 w-50" />
+              </div>
+            </div>
+            <LinkAccount v-else :provider="account.provider" :account-id="account.accountId" :refresh />
           </template>
         </UPageCard>
       </UPageList>

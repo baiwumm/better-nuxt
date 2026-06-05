@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-03 11:34:59
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-03 13:59:54
+ * @LastEditTime: 2026-06-05 11:35:45
  * @Description: 获取用户账户列表
  */
 export function useListAccounts() {
@@ -18,7 +18,6 @@ export function useListAccounts() {
       return data ?? []
     },
     {
-      lazy: false,
       server: false,
       default: () => [],
     },

@@ -72,6 +72,7 @@ async function handleUnlink() {
       icon="lucide:link-2-off"
       :label="i18nAccount('securitySettings.linkAccounts.unlink')"
       :loading="isUnlinking"
+      :disabled="pending"
       @click="handleUnlink"
     />
     <UButton
@@ -81,6 +82,7 @@ async function handleUnlink() {
       icon="lucide:link-2"
       :label="i18nAccount('securitySettings.linkAccounts.link')"
       :loading="isLinking"
+      :disabled="pending"
       @click="linkSocial({ provider, callbackURL: `${siteConfig.url}/${route.path}` })"
     />
   </div>

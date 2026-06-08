@@ -3,7 +3,7 @@ import { dash } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 11:21:14
+ * @LastEditTime: 2026-06-08 13:48:12
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -97,6 +97,7 @@ export const auth = betterAuth({
   plugins: [
     username(),
     magicLink({
+      storeToken: 'hashed',
       sendMagicLink: async ({ email, url }) => {
         const appName = process.env.NUXT_SITE_NAME
         const MagicLinkEmail = (
@@ -144,7 +145,19 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 60 * 5, // 5 分钟
+      strategy: 'jwe',
+    },
+  },
+  advanced: {
+    ipAddress: {
+      // For Cloudflare
+      // ipAddressHeaders: ["cf-connecting-ip", "x-forwarded-for"],
+
+      // For Vercel
+      ipAddressHeaders: ['x-vercel-forwarded-for', 'x-forwarded-for'],
+
+      // For AWS/Generic
+      // ipAddressHeaders: ["x-forwarded-for"],
     },
   },
 })

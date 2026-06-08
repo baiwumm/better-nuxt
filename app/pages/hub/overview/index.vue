@@ -68,15 +68,22 @@ const links = computed<ButtonProps[]>(() => [
         Better <span class="text-primary">Nuxt</span>
       </template>
     </UPageHero>
-    <UPageSection :ui="{ container: '!py-0' }">
-      <UContainer class="max-w-5xl">
-        <UPageGrid :ui="{ base: 'lg:grid-cols-2' }">
+    <UPageSection :ui="{ container: '!py-6' }">
+      <UContainer>
+        <UPageGrid :ui="{ base: 'gap-4' }">
           <UPageCard
             v-for="(feature, index) in features"
             :key="index"
-            variant="soft"
+            variant="outline"
             v-bind="feature"
-          />
+            spotlight
+          >
+            <template #leading>
+              <div class="size-10 rounded-full bg-primary/15 text-primary flex justify-center items-center">
+                <UIcon :name="feature.icon" class="size-5" />
+              </div>
+            </template>
+          </UPageCard>
         </UPageGrid>
       </UContainer>
     </UPageSection>

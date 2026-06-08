@@ -2,11 +2,16 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:58:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-11 08:43:35
+ * @LastEditTime: 2026-06-08 13:52:02
  * @Description: 接口鉴权
  */
 import { auth } from '#server/utils/auth'
 import { RESPONSE_CODE } from '@/enums'
+
+// 白名单
+const whiteList = [
+  '/api/account/avatar',
+]
 
 export default defineEventHandler(async (event) => {
   const url = getRequestURL(event)
@@ -28,6 +33,10 @@ export default defineEventHandler(async (event) => {
 
   // 🚫 放行 auth
   if (path.startsWith('/api/auth'))
+    return
+
+  // 🚫 放行 白名单
+  if (whiteList.includes(path))
     return
 
   const config = useRuntimeConfig()

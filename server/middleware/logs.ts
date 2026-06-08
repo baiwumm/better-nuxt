@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-01 09:16:51
+ * @LastEditTime: 2026-06-08 13:51:31
  * @Description: 记录操作日志
  */
 import { eq } from 'drizzle-orm'
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
   const method = event.method as Methods
   const url = getRequestURL(event)
   const path = url.pathname
+  const contentType = getRequestHeader(event, 'content-type')
 
   // 获取用户会话信息
   const session = await auth.api.getSession({
@@ -37,7 +38,11 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  const body = await readBody(event).catch(() => null)
+  const body = contentType?.includes('multipart/form-data')
+    ? {
+        type: 'file-upload',
+      }
+    : await readBody(event).catch(() => undefined)
 
   /**
    * 获取真实 IP

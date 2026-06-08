@@ -11,6 +11,7 @@ const upload = useUpload('/api/account/avatar')
 
 const avatarFile = ref<File | null>(null)
 const avatarPreview = ref<string>()
+const loading = ref(false)
 const { mutate: updateUser, isPending } = useUpdateUser({
   onSuccess: async () => {
     avatarFile.value = null
@@ -78,22 +79,31 @@ function resetAvatar() {
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  let imageUrl = null
+  try {
+    loading.value = true
+    let imageUrl = null
 
-  if (avatarFile.value) {
-    const uploadResult = await upload(avatarFile.value)
+    if (avatarFile.value) {
+      const uploadResult = await upload(avatarFile.value)
 
-    if (!uploadResult) {
-      return errorToast({ title: i18nCommon('updateFailed') })
+      if (!uploadResult) {
+        return errorToast({ title: i18nCommon('updateFailed') })
+      }
+
+      imageUrl = uploadResult.url ?? null
     }
 
-    imageUrl = uploadResult.url ?? null
+    await updateUser({
+      name: event.data.name,
+      image: imageUrl ?? undefined,
+    })
   }
-
-  await updateUser({
-    name: event.data.name,
-    image: imageUrl ?? undefined,
-  })
+  catch (error) {
+    errorToast({ title: catchError(error) })
+  }
+  finally {
+    loading.value = false
+  }
 }
 </script>
 

@@ -138,7 +138,7 @@
 
 ### 🐛 Bug Fixes | Bug 修复
 
-* **operation-log:** 解决点击搜索没响应的问题 ([fb9d673](https://github.com/baiwumm/better-nuxt/commit/fb9d673c6e44e6c79298f658415d71a09071c715))
+* **logs:** 解决点击搜索没响应的问题 ([fb9d673](https://github.com/baiwumm/better-nuxt/commit/fb9d673c6e44e6c79298f658415d71a09071c715))
 
 ### ⚡ Performance Improvements | 性能优化
 
@@ -222,7 +222,7 @@
 
 ### 💄 Styles | 风格
 
-* **operation-log:** 优化头像名称显示 ([4790fc2](https://github.com/baiwumm/better-nuxt/commit/4790fc2a181cc0a5dd7612009120780cc94e562a))
+* **logs:** 优化头像名称显示 ([4790fc2](https://github.com/baiwumm/better-nuxt/commit/4790fc2a181cc0a5dd7612009120780cc94e562a))
 
 ### ⚡ Performance Improvements | 性能优化
 
@@ -234,7 +234,7 @@
 * **hub:** 调整项目结构 ([9f32ec9](https://github.com/baiwumm/better-nuxt/commit/9f32ec9f039717e98a350413f0bb4e50d2fff6ea))
 * **internalization:** 调整文件结构，优化代码逻辑 ([b1910ac](https://github.com/baiwumm/better-nuxt/commit/b1910ac840b7c596630e843a45d8893300901ebf))
 * **menu-manage:** 调整文件结构，优化代码逻辑 ([a6ea396](https://github.com/baiwumm/better-nuxt/commit/a6ea396b927f5df02f70b85aa69a02f08ec91a1f))
-* **operation-log:** 调整文件结构，优化代码逻辑 ([64b8608](https://github.com/baiwumm/better-nuxt/commit/64b8608e59fe6f99dca84f94b28447f6f0be8670))
+* **logs:** 调整文件结构，优化代码逻辑 ([64b8608](https://github.com/baiwumm/better-nuxt/commit/64b8608e59fe6f99dca84f94b28447f6f0be8670))
 
 ### 🔧 Continuous Integration | CI 配置
 
@@ -288,7 +288,7 @@
 ### 🐛 Bug Fixes | Bug 修复
 
 * 修复查询分页没有重置的问题 ([c70186b](https://github.com/baiwumm/better-nuxt/commit/c70186b61873a75736baa6af848408b114f3417d))
-* **operation-log:** 修复查询不请求的问题 ([6084338](https://github.com/baiwumm/better-nuxt/commit/6084338b19afb39faa91800c3a2169f8edca9617))
+* **logs:** 修复查询不请求的问题 ([6084338](https://github.com/baiwumm/better-nuxt/commit/6084338b19afb39faa91800c3a2169f8edca9617))
 
 ### ⚡ Performance Improvements | 性能优化
 
@@ -314,19 +314,19 @@
 
 ### 🐛 Bug Fixes | Bug 修复
 
-* **operation-log:** 修复水合报错的问题 ([1218070](https://github.com/baiwumm/better-nuxt/commit/12180700c17f1a06466f10b35cc76babb7ef9dfd))
+* **logs:** 修复水合报错的问题 ([1218070](https://github.com/baiwumm/better-nuxt/commit/12180700c17f1a06466f10b35cc76babb7ef9dfd))
 
 ### ⚡ Performance Improvements | 性能优化
 
 * 调整中间件逻辑 ([ab2b817](https://github.com/baiwumm/better-nuxt/commit/ab2b817bdc18ab6d010aa1d08c4ce0942e5357f4))
 * 使用 useLoadingIndicator 代替 @bprogress/core ([7cbcdbc](https://github.com/baiwumm/better-nuxt/commit/7cbcdbcdf1c4efa998e2059e63be0330203fc636))
-* **operation-log:** 细节优化 ([18ce763](https://github.com/baiwumm/better-nuxt/commit/18ce763444efac4f5d36c256762d7e6da3084fd5))
+* **logs:** 细节优化 ([18ce763](https://github.com/baiwumm/better-nuxt/commit/18ce763444efac4f5d36c256762d7e6da3084fd5))
 
 ## [1.4.0](https://github.com/baiwumm/better-nuxt/compare/v1.3.3...v1.4.0) (2026-04-30)
 
 ### ✨ Features | 新功能
 
-* **operation-log:** 完成《操作日志》模块的 接口开发和 CURD 逻辑 ([011d9b0](https://github.com/baiwumm/better-nuxt/commit/011d9b0d1ae9d236cb02d452b1d7f28b1741e615))
+* **logs:** 完成《操作日志》模块的 接口开发和 CURD 逻辑 ([011d9b0](https://github.com/baiwumm/better-nuxt/commit/011d9b0d1ae9d236cb02d452b1d7f28b1741e615))
 
 ## [1.3.3](https://github.com/baiwumm/better-nuxt/compare/v1.3.2...v1.3.3) (2026-04-29)
 

@@ -3,7 +3,7 @@ import { dash, sentinel } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 14:21:02
+ * @LastEditTime: 2026-06-08 16:29:28
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -22,6 +22,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema,
+    usePlural: true, // 使用复数形式
   }),
   user: {
     changeEmail: {
@@ -193,7 +194,7 @@ export const auth = betterAuth({
         after: async (user) => {
           const roleId = process.env.BETTER_AUTH_DEFAULT_ROLE_ID
           if (roleId) {
-            await db.insert(schema.userRole).values({ userId: user.id, roleId })
+            await db.insert(schema.userRoles).values({ userId: user.id, roleId })
           }
         },
       },

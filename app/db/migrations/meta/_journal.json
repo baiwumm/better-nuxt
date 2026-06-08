@@ -64,6 +64,34 @@
       "when": 1780899092452,
       "tag": "0008_sour_human_cannonball",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1780904858613,
+      "tag": "0009_big_madelyne_pryor",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1780905139523,
+      "tag": "0010_youthful_shinko_yamashiro",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1780906868433,
+      "tag": "0011_new_human_fly",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1780907765538,
+      "tag": "0012_open_power_pack",
+      "breakpoints": true
     }
   ]
 }

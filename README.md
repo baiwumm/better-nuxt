@@ -12,12 +12,24 @@ npx drizzle-kit push
 
 # 5. 注意 auth-schema 文件覆盖
 ```ts
-import { userRole } from './app/db/schema'
+import { departments, logs, noticeReads, notices, userRoles } from './app/db/schema'
 
-export const userRelations = relations(user, ({ many }) => ({
-  sessions: many(session),
-  accounts: many(account),
-  // 说明：用户与角色的关系，在重新生成授权模式时不得进行覆盖。
-+  roles: many(userRole),
+export const usersRelations = relations(users, ({ many }) => ({
+  // auth
+  sessions: many(sessions),
+  accounts: many(accounts),
+
+  // RBAC
+  roles: many(userRoles),
+
+  // system logs
+  logs: many(logs),
+
+  // content
+  notices: many(notices),
+  noticeReads: many(noticeReads),
+
+  // org structure
+  leadingDepartments: many(departments),
 }))
 ```

@@ -2,13 +2,13 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-27 09:21:07
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-27 09:32:20
+ * @LastEditTime: 2026-06-08 17:06:08
  * @Description: 获取用户角色菜单
  */
 import { and, eq } from 'drizzle-orm'
 import { auth } from '#server/utils/auth'
 import { db } from '@/db/drizzle'
-import { menu, role, roleMenu, userRole } from '@/db/schema'
+import { menus, roleMenus, roles, userRoles } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -27,36 +27,36 @@ export default defineEventHandler(async (event) => {
     /**
      * 1. 查询用户角色菜单
      * 过滤：
-     * - role.enabled = true
-     * - menu.enabled = true
+     * - roles.enabled = true
+     * - menus.enabled = true
      */
-    const roleMenus = await db
+    const permissions = await db
       .select({
-        menuId: roleMenu.menuId,
-        permissions: roleMenu.permissions,
+        menuId: roleMenus.menuId,
+        permissions: roleMenus.permissions,
 
-        menu,
+        menus,
       })
-      .from(userRole)
+      .from(userRoles)
       .innerJoin(
-        role,
+        roles,
         and(
-          eq(userRole.roleId, role.id),
-          eq(role.enabled, true),
+          eq(userRoles.roleId, roles.id),
+          eq(roles.enabled, true),
         ),
       )
       .innerJoin(
-        roleMenu,
-        eq(role.id, roleMenu.roleId),
+        roleMenus,
+        eq(roles.id, roleMenus.roleId),
       )
       .innerJoin(
-        menu,
+        menus,
         and(
-          eq(roleMenu.menuId, menu.id),
-          eq(menu.enabled, true),
+          eq(roleMenus.menuId, menus.id),
+          eq(menus.enabled, true),
         ),
       )
-      .where(eq(userRole.userId, userId))
+      .where(eq(userRoles.userId, userId))
 
     /**
      * 2. 合并重复 menuId 权限
@@ -64,10 +64,10 @@ export default defineEventHandler(async (event) => {
      */
     const permissionMap = new Map<
       string,
-      typeof roleMenus[number]
+      typeof permissions[number]
     >()
 
-    for (const item of roleMenus) {
+    for (const item of permissions) {
       const existing = permissionMap.get(item.menuId)
 
       if (existing) {
@@ -87,8 +87,8 @@ export default defineEventHandler(async (event) => {
      */
     const allMenus = await db
       .select()
-      .from(menu)
-      .where(eq(menu.enabled, true))
+      .from(menus)
+      .where(eq(menus.enabled, true))
 
     /**
      * 转 map
@@ -109,8 +109,8 @@ export default defineEventHandler(async (event) => {
      * 先放入已有权限菜单
      */
     for (const item of Array.from(permissionMap.values())) {
-      finalMenuMap.set(item.menu.id, {
-        ...item.menu,
+      finalMenuMap.set(item.menus.id, {
+        ...item.menus,
         permissions: item.permissions,
       })
     }
@@ -154,7 +154,7 @@ export default defineEventHandler(async (event) => {
       appendParentMenus(item.parentId)
     }
 
-    const menus = Array.from(finalMenuMap.values())
+    const result = Array.from(finalMenuMap.values())
       .sort((a, b) => {
         const createdAtCompare
           = new Date(a.createdAt).getTime()
@@ -171,7 +171,7 @@ export default defineEventHandler(async (event) => {
      * 4. 转树结构
      */
     return responseSuccess(
-      convertFlatDataToTree(menus),
+      convertFlatDataToTree(result),
     )
   }
   catch (err) {

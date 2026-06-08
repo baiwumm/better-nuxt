@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 10:06:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-29 14:30:11
+ * @LastEditTime: 2026-06-08 16:57:38
  * @Description: 更新
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { menu, updateMenuSchema } from '@/db/schema'
+import { menus, updateMenusSchema } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     const id = event.context.params!.id
     const body = await readBody(event)
 
-    const parsed = updateMenuSchema.parse(body)
+    const parsed = updateMenusSchema.parse(body)
 
     if (!id) {
       return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
@@ -26,9 +26,9 @@ export default defineEventHandler(async (event) => {
     }
 
     const [res] = await db
-      .update(menu)
+      .update(menus)
       .set(parsed)
-      .where(eq(menu.id, id))
+      .where(eq(menus.id, id))
       .returning()
 
     return responseSuccess(res)

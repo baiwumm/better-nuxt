@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 10:06:01
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 09:54:52
+ * @LastEditTime: 2026-06-08 16:52:54
  * @Description: 更新
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { internalization, updateInternalizationSchema } from '@/db/schema'
+import { i18n, updateI18nSchema } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     const id = event.context.params!.id
     const body = await readBody(event)
 
-    const parsed = updateInternalizationSchema.parse(body)
+    const parsed = updateI18nSchema.parse(body)
 
     if (!id) {
       return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
@@ -26,9 +26,9 @@ export default defineEventHandler(async (event) => {
     }
 
     const [res] = await db
-      .update(internalization)
+      .update(i18n)
       .set(parsed)
-      .where(eq(internalization.id, id))
+      .where(eq(i18n.id, id))
       .returning()
 
     return responseSuccess(res)

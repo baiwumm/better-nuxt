@@ -7,7 +7,7 @@
  */
 import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { role } from '@/db/schema'
+import { roles } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -16,24 +16,24 @@ export default defineEventHandler(async (event) => {
     const conditions = []
 
     if (name) {
-      conditions.push(ilike(role.name, `%${name}%`))
+      conditions.push(ilike(roles.name, `%${name}%`))
     }
 
     if (code) {
-      conditions.push(ilike(role.code, `%${code}%`))
+      conditions.push(ilike(roles.code, `%${code}%`))
     }
 
     // enabled 精确筛选
     if (enabled !== undefined) {
       conditions.push(
-        eq(role.enabled, enabled),
+        eq(roles.enabled, enabled),
       )
     }
 
     const where = conditions.length ? and(...conditions) : undefined
 
     const [list, totalResult] = await Promise.all([
-      db.query.role.findMany({
+      db.query.roles.findMany({
         where,
         with: {
           menus: {
@@ -48,8 +48,8 @@ export default defineEventHandler(async (event) => {
           },
         },
         orderBy: [
-          asc(role.createdAt),
-          desc(role.sort),
+          asc(roles.createdAt),
+          desc(roles.sort),
         ],
         limit: pageSize,
         offset: (page - 1) * pageSize,
@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
 
       db
         .select({ count: sql<number>`count(*)` })
-        .from(role)
+        .from(roles)
         .where(where),
     ])
 

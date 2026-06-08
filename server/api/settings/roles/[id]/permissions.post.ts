@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-25 11:17:31
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-25 13:48:03
+ * @LastEditTime: 2026-06-08 16:59:00
  * @Description: 保存角色权限
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { roleMenu } from '@/db/schema'
+import { roleMenus } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -24,12 +24,12 @@ export default defineEventHandler(async (event) => {
     const res = await db.transaction(async (tx) => {
     // 1️⃣ 删除旧权限
       await tx
-        .delete(roleMenu)
-        .where(eq(roleMenu.roleId, roleId))
+        .delete(roleMenus)
+        .where(eq(roleMenus.roleId, roleId))
 
       // 2️⃣ 插入新权限
       if (permissions.length > 0) {
-        const inserted = await tx.insert(roleMenu).values(
+        const inserted = await tx.insert(roleMenus).values(
           permissions.map(p => ({
             roleId,
             menuId: p.menuId,

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 13:51:31
+ * @LastEditTime: 2026-06-08 17:01:51
  * @Description: 记录操作日志
  */
 import { eq } from 'drizzle-orm'
@@ -10,7 +10,7 @@ import { UAParser } from 'ua-parser-js'
 import { auth } from '#server/utils/auth'
 import { getGeoByIP } from '#server/utils/ip-geo'
 import { db } from '@/db/drizzle'
-import { ipGeo, logs } from '@/db/schema'
+import { ipGeos, logs } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
   const method = event.method as Methods
@@ -94,14 +94,14 @@ export default defineEventHandler(async (event) => {
 
   // 异步做 geo（不阻塞）
   void (async () => {
-    const exists = await db.query.ipGeo.findFirst({
-      where: eq(ipGeo.ip, ip),
+    const exists = await db.query.ipGeos.findFirst({
+      where: eq(ipGeos.ip, ip),
     })
 
     if (!exists) {
       const geo = await getGeoByIP(ip)
       if (geo) {
-        await db.insert(ipGeo).values({ ip, ...geo })
+        await db.insert(ipGeos).values({ ip, ...geo })
       }
     }
   })()

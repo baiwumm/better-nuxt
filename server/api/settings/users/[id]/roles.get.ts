@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-26 10:40:13
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-26 14:25:16
+ * @LastEditTime: 2026-06-08 17:01:34
  * @Description: 获取用户角色
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { role, user, userRole } from '@/db/schema'
+import { roles, userRoles, users } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
     }
 
     // 可选：检查用户是否存在
-    const userInfo = await db.query.user.findFirst({
-      where: eq(user.id, userId),
+    const userInfo = await db.query.users.findFirst({
+      where: eq(users.id, userId),
       columns: {
         id: true,
       },
@@ -31,17 +31,17 @@ export default defineEventHandler(async (event) => {
     }
 
     // 查询用户角色
-    const userRoles = await db
+    const list = await db
       .select({
-        id: role.id,
-        name: role.name,
-        code: role.code,
+        id: roles.id,
+        name: roles.name,
+        code: roles.code,
       })
-      .from(userRole)
-      .innerJoin(role, eq(userRole.roleId, role.id))
-      .where(eq(userRole.userId, userId))
+      .from(userRoles)
+      .innerJoin(roles, eq(userRoles.roleId, roles.id))
+      .where(eq(userRoles.userId, userId))
 
-    return responseSuccess(userRoles)
+    return responseSuccess(list)
   }
   catch (err) {
     return responseError(err)

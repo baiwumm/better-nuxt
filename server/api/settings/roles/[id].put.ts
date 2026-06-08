@@ -1,23 +1,30 @@
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
- * @Date: 2026-05-22 17:28:59
+ * @Date: 2026-05-22 17:30:08
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-24 11:12:44
- * @Description: 新增角色
+ * @LastEditTime: 2026-06-08 16:59:20
+ * @Description: 编辑角色
  */
+import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { insertRoleSchema, role } from '@/db/schema'
+import { roles, updateRolesSchema } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
   try {
+    const id = event.context.params!.id
     const body = await readBody(event)
 
-    const parsed = insertRoleSchema.parse(body)
+    const parsed = updateRolesSchema.parse(body)
+
+    if (!id) {
+      return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
+    }
 
     const [res] = await db
-      .insert(role)
-      .values(parsed)
+      .update(roles)
+      .set(parsed)
+      .where(eq(roles.id, id))
       .returning()
 
     return responseSuccess(res)

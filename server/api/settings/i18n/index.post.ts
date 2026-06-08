@@ -2,20 +2,20 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 09:22:09
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-23 14:12:53
- * @Description: 新增菜单
+ * @LastEditTime: 2026-06-08 16:54:20
+ * @Description: 新增国际化
  */
 import { db } from '@/db/drizzle'
-import { insertMenuSchema, menu } from '@/db/schema'
+import { i18n, insertI18nSchema } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
 
-    const parsed = insertMenuSchema.parse(body)
+    const parsed = insertI18nSchema.parse(body)
 
     const [res] = await db
-      .insert(menu)
+      .insert(i18n)
       .values(parsed)
       .returning()
 

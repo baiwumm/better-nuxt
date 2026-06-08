@@ -39,7 +39,7 @@ export const RoleQuerySchema = z.object({
 /**
  * @description: 国际化 - 查询参数
  */
-export const InternalizationQuerySchema = z.object({
+export const I18nQuerySchema = z.object({
   name: z.string().optional(),
   zh: z.string().optional(),
   startTime: z.coerce.number().optional(),

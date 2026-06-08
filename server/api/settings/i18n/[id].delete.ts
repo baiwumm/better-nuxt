@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 10:08:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-06 09:54:41
+ * @LastEditTime: 2026-06-08 16:52:36
  * @Description: 删除
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { internalization } from '@/db/schema'
+import { i18n } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -21,14 +21,14 @@ export default defineEventHandler(async (event) => {
     // 检查是否有子节点
     const children = await db
       .select()
-      .from(internalization)
-      .where(eq(internalization.parentId, id))
+      .from(i18n)
+      .where(eq(i18n.parentId, id))
 
     if (children.length > 0) {
       return responseSuccess(null, '存在子级，不能删除', RESPONSE_CODE.CONFLICT)
     }
 
-    const [res] = await db.delete(internalization).where(eq(internalization.id, id)).returning()
+    const [res] = await db.delete(i18n).where(eq(i18n.id, id)).returning()
 
     return responseSuccess(res)
   }

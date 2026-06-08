@@ -3,7 +3,7 @@ import { compact, uniq } from 'es-toolkit/array'
 import { AutoFormDeleteButton, UBadge, UUser } from '#components'
 import { METHODS } from '@/enums'
 
-export function useLogColumns(options: {
+export function useLogsColumns(options: {
   deleteId: Ref<string | null>
   onDelete: (id: string) => void
 }) {
@@ -11,7 +11,7 @@ export function useLogColumns(options: {
 
   const { deleteId, onDelete } = options
 
-  const { i18nCommon, i18nLog } = useMessage()
+  const { i18nCommon, i18nLogs } = useMessage()
 
   const { getUserDisplayName } = useCurrentUser()
 
@@ -20,7 +20,7 @@ export function useLogColumns(options: {
     createCheckboxColumn(),
     {
       accessorKey: 'user',
-      header: i18nLog('user'),
+      header: i18nLogs('user'),
       cell: ({ row }) => {
         const u = row.original.user
         const userName = getUserDisplayName(u)
@@ -40,7 +40,7 @@ export function useLogColumns(options: {
     },
     {
       accessorKey: 'method',
-      header: i18nLog('method'),
+      header: i18nLogs('method'),
       cell: ({ row }) => {
         const val = row.original.method
         const colorMap: Record<Methods, BadgeProps['color']> = {
@@ -54,12 +54,12 @@ export function useLogColumns(options: {
     },
     ...['ip', 'os', 'browser', 'device'].map<TableColumn<Log>>(key => ({
       accessorKey: key,
-      header: i18nLog(key),
+      header: i18nLogs(key),
       cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue(key)),
     })),
     {
       accessorKey: 'geo',
-      header: i18nLog('geo'),
+      header: i18nLogs('geo'),
       cell: ({ row }) => {
         const geo = row.original.geo
         if (!geo) {

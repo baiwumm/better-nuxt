@@ -2,7 +2,7 @@ import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton } from '#components'
 import { PERMISSIONS } from '@/enums'
 
-export function useRoleColumns(options: {
+export function useRolesColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
   onAuthorization: (row: Role) => void
@@ -10,7 +10,7 @@ export function useRoleColumns(options: {
   onDelete: (id: string) => void
 }) {
   const { saveLoading, deleteId, onEdit, onDelete, onAuthorization } = options
-  const { i18nCommon, i18nRole, i18nPermissions } = useMessage()
+  const { i18nCommon, i18nRoles, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader, createSortColumn, createExpandColumn } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
 
@@ -18,17 +18,17 @@ export function useRoleColumns(options: {
     createExpandColumn(),
     {
       accessorKey: 'name',
-      header: i18nRole('name'),
+      header: i18nRoles('name'),
       cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'info', icon: 'lucide:shield-user' }, () => row.getValue('name')),
     },
     {
       accessorKey: 'code',
-      header: i18nRole('code'),
+      header: i18nRoles('code'),
       cell: ({ row }) => h(UBadge, { variant: 'soft', color: 'neutral' }, () => row.getValue('code')),
     },
     {
       accessorKey: 'users',
-      header: i18nRole('users'),
+      header: i18nRoles('users'),
       cell: ({ row }) => {
         const users = row.original.users
         if (!users?.length) {
@@ -42,7 +42,7 @@ export function useRoleColumns(options: {
     },
     {
       accessorKey: 'description',
-      header: i18nRole('description'),
+      header: i18nRoles('description'),
       cell: ({ row }) => row.getValue('description') ?? '-',
     },
     {

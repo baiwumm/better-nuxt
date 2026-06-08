@@ -3,7 +3,7 @@ import { upperFirst } from 'es-toolkit/string'
 import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
 import { PERMISSIONS } from '@/enums'
 
-export function userUserColumns(options: {
+export function userUsersColumns(options: {
   onAssignRoles: (id: string) => void
   onViewSessions: (id: string) => void
   onEdit: (row: User) => void
@@ -12,7 +12,7 @@ export function userUserColumns(options: {
   onResetPassword: (id: string) => void
 }) {
   const { onAssignRoles, onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
-  const { i18nUser, i18nCommon, i18nPermissions } = useMessage()
+  const { i18nUsers, i18nCommon, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
@@ -51,7 +51,7 @@ export function userUserColumns(options: {
   const columns = computed<TableColumn<User>[]>(() => [
     {
       accessorKey: 'name',
-      header: i18nUser('name'),
+      header: i18nUsers('name'),
       cell: ({ row }) => {
         const u = row.original
         const userName = getUserDisplayName(u)
@@ -71,7 +71,7 @@ export function userUserColumns(options: {
     },
     {
       accessorKey: 'systemRole',
-      header: i18nUser('systemRole'),
+      header: i18nUsers('systemRole'),
       cell: ({ row }) => {
         const val = row.original.role
         return val
@@ -80,14 +80,14 @@ export function userUserColumns(options: {
               {
                 class: 'flex justify-center items-center gap-2',
               },
-              val.split(',').map((v: string) => h(UBadge, { variant: 'soft', color: 'info' }, () => i18nUser(`systemRole${upperFirst(v)}`))),
+              val.split(',').map((v: string) => h(UBadge, { variant: 'soft', color: 'info' }, () => i18nUsers(`systemRole${upperFirst(v)}`))),
             )
           : '-'
       },
     },
     {
       accessorKey: 'permissionsRole',
-      header: i18nUser('permissionsRole'),
+      header: i18nUsers('permissionsRole'),
       cell: ({ row }) => {
         const roles = row.original.roles ?? []
         if (!roles?.length) {
@@ -108,15 +108,15 @@ export function userUserColumns(options: {
     },
     {
       accessorKey: 'emailVerified',
-      header: i18nUser('emailVerified'),
+      header: i18nUsers('emailVerified'),
       cell: ({ row }) => {
         const val = row.getValue('emailVerified')
-        return h(UBadge, { variant: 'soft', color: val ? 'success' : 'error' }, () => i18nUser(`emailVerified${val ? 'Yes' : 'No'}`))
+        return h(UBadge, { variant: 'soft', color: val ? 'success' : 'error' }, () => i18nUsers(`emailVerified${val ? 'Yes' : 'No'}`))
       },
     },
     {
       accessorKey: 'lastLoginMethod',
-      header: i18nUser('lastLoginMethod'),
+      header: i18nUsers('lastLoginMethod'),
       cell: ({ row }) => {
         const val = row.getValue('lastLoginMethod')
         return val ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => val) : '-'
@@ -124,7 +124,7 @@ export function userUserColumns(options: {
     },
     {
       accessorKey: 'banned',
-      header: i18nUser('banned'),
+      header: i18nUsers('banned'),
       cell: ({ row }) => {
         const val = row.getValue('banned')
         return h(UBadge, { variant: 'soft', color: val ? 'error' : 'success' }, () => i18nCommon(val ? 'yes' : 'no'))
@@ -132,12 +132,12 @@ export function userUserColumns(options: {
     },
     {
       accessorKey: 'banReason',
-      header: i18nUser('banReason'),
+      header: i18nUsers('banReason'),
       cell: ({ row }) => row.getValue('banReason') ?? '-',
     },
     {
       accessorKey: 'unbanTime',
-      header: i18nUser('unbanTime'),
+      header: i18nUsers('unbanTime'),
       cell: ({ row }) => {
         const val = row.original.banExpires
         const banned = row.original.banned
@@ -152,7 +152,7 @@ export function userUserColumns(options: {
           return h(
             UBadge,
             { variant: 'soft', color: 'error' },
-            () => i18nUser('permanentBan'),
+            () => i18nUsers('permanentBan'),
           )
         }
 
@@ -167,7 +167,7 @@ export function userUserColumns(options: {
           return h(
             UBadge,
             { variant: 'soft', color: 'success' },
-            () => i18nUser('unbanned'),
+            () => i18nUsers('unbanned'),
           )
         }
 

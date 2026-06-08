@@ -1,3 +1,3 @@
 export * from './useCommonApi'
 export * from './useMeApi'
-export * from './useSystemApi'
+export * from './useSettingsApi'

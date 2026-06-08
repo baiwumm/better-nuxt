@@ -12,7 +12,7 @@ interface ZInputOpts {
 
 export function useSchema() {
   const { t } = useI18n()
-  const { i18nCommon, i18nInternalization, i18nMenu, i18nAuth, i18nUser, i18nRole } = useMessage()
+  const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -114,7 +114,7 @@ export function useSchema() {
   // 用户管理 - 新增/编辑
   const userFormSchema = signUpFormSchema.extend({
     displayUsername: z.string().nullable().meta({
-      title: i18nUser('displayUsername', true),
+      title: i18nUsers('displayUsername', true),
       input: {
         props: {
           placeholder: i18nCommon('placeholder'),
@@ -122,14 +122,14 @@ export function useSchema() {
       },
     }),
     role: z.array(z.enum(USER_ROLE.values)).optional().meta({
-      title: i18nUser('systemRole', true),
+      title: i18nUsers('systemRole', true),
     }),
   })
 
   // 用户管理 - 封禁用户
   const banUserFormSchema = z.object({
     banReason: z.string().nonempty(t('common.required')).meta({
-      title: i18nUser('banReason', true),
+      title: i18nUsers('banReason', true),
       required: true,
       input: {
         component: AutoFormTextarea,
@@ -139,55 +139,55 @@ export function useSchema() {
       },
     }),
     banExpiresIn: z.enum(BAN_DURATIONS.values).optional().meta({
-      title: i18nUser('banExpiresIn', true),
-      help: i18nUser('banExpiresInHelp', true),
+      title: i18nUsers('banExpiresIn', true),
+      help: i18nUsers('banExpiresInHelp', true),
     }),
   })
 
   // 菜单管理 - 新增/编辑
   const menuFormSchema = z.object({
     parentId: z.string().nullable().meta({
-      title: i18nMenu('parentId', true),
+      title: i18nMenus('parentId', true),
       help: i18nCommon('parentHelp', true),
     }),
     label: zInput({
-      title: i18nMenu('label', true),
-      help: i18nMenu('labelHlep', true),
+      title: i18nMenus('label', true),
+      help: i18nMenus('labelHlep', true),
       required: true,
       maxlength: 200,
     }),
     permissions: z.array(z.enum(PERMISSIONS.values)).optional().meta({
-      title: i18nMenu('permissions', true),
+      title: i18nMenus('permissions', true),
     }),
     icon: zInput({ title: i18nCommon('icon', true), required: true, maxlength: 50 }),
-    to: zInput({ title: i18nMenu('to', true), maxlength: 200 }),
-    badge: zInput({ title: i18nMenu('badge', true), maxlength: 10 }),
-    keepAlive: zCheckbox(i18nMenu('keepAlive', true)),
+    to: zInput({ title: i18nMenus('to', true), maxlength: 200 }),
+    badge: zInput({ title: i18nMenus('badge', true), maxlength: 10 }),
+    keepAlive: zCheckbox(i18nMenus('keepAlive', true)),
     enabled: zCheckbox(i18nCommon('enabled', true)),
-    hideInMenu: zCheckbox(i18nMenu('hideInMenu', true)),
-    defaultOpen: zCheckbox(i18nMenu('defaultOpen', true)),
-    target: z.enum(MENU_TARGET.values).meta({ title: i18nMenu('target.title', true) }),
+    hideInMenu: zCheckbox(i18nMenus('hideInMenu', true)),
+    defaultOpen: zCheckbox(i18nMenus('defaultOpen', true)),
+    target: z.enum(MENU_TARGET.values).meta({ title: i18nMenus('target.title', true) }),
     sort: zSort,
   })
 
   // 角色管理 - 新增/编辑
   const roleFormSchema = z.object({
-    name: zInput({ title: i18nRole('name', true), maxlength: 20, required: true }),
-    code: zInput({ title: i18nRole('code', true), maxlength: 50, required: true }),
-    description: zInput({ title: i18nRole('description', true), maxlength: 200, isTextarea: true }),
+    name: zInput({ title: i18nRoles('name', true), maxlength: 20, required: true }),
+    code: zInput({ title: i18nRoles('code', true), maxlength: 50, required: true }),
+    description: zInput({ title: i18nRoles('description', true), maxlength: 200, isTextarea: true }),
     enabled: zCheckbox(i18nCommon('enabled', true)),
     sort: zSort,
   })
 
   // 国际化 - 新增/编辑
-  const internalizationFormSchema = z.object({
+  const i18nFormSchema = z.object({
     parentId: z.string().nullable().meta({
       title: i18nCommon('parent', true),
       help: i18nCommon('parentHelp', true),
     }),
-    name: zInput({ title: i18nInternalization('name', true), required: true, maxlength: 200 }),
-    zh: zInput({ title: i18nInternalization('zh', true), maxlength: 500, isTextarea: true }),
-    en: zInput({ title: i18nInternalization('en', true), maxlength: 500, isTextarea: true }),
+    name: zInput({ title: i18nLocales('name', true), required: true, maxlength: 200 }),
+    zh: zInput({ title: i18nLocales('zh', true), maxlength: 500, isTextarea: true }),
+    en: zInput({ title: i18nLocales('en', true), maxlength: 500, isTextarea: true }),
     sort: zSort,
   })
 
@@ -211,7 +211,7 @@ export function useSchema() {
   return {
     zSort,
     zInput,
-    internalizationFormSchema,
+    i18nFormSchema,
     menuFormSchema,
     signInFormSchema,
     signUpFormSchema,
@@ -232,6 +232,6 @@ export type ForgotPasswordFormSchema = z.infer<ReturnType<typeof useSchema>['for
 export type UserFormSchema = z.infer<ReturnType<typeof useSchema>['userFormSchema']>
 export type BanUserFormSchema = z.infer<ReturnType<typeof useSchema>['banUserFormSchema']>
 export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchema']>
-export type InternalizationFormSchema = z.infer<ReturnType<typeof useSchema>['internalizationFormSchema']>
+export type I18nFormSchema = z.infer<ReturnType<typeof useSchema>['i18nFormSchema']>
 export type RoleFormSchema = z.infer<ReturnType<typeof useSchema>['roleFormSchema']>
 export type ChangePasswordFormSchema = z.infer<ReturnType<typeof useSchema>['changePasswordFormSchema']>

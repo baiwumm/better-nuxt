@@ -1,24 +1,24 @@
 import type { TableColumn } from '@nuxt/ui'
 import { AutoFormAddChildButton, AutoFormDeleteButton, AutoFormEditButton, UBadge } from '#components'
 
-export function useInternalizationColumns(options: {
+export function useI18nColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
-  onAddChild: (row: InternalizationTree) => void
-  onEdit: (row: InternalizationTree) => void
+  onAddChild: (row: I18nTree) => void
+  onEdit: (row: I18nTree) => void
   onDelete: (id: string) => void
 }) {
   const { getHeader, createSortColumn, createCreatedAtColumn, createTreeColumn } = useTableColumns()
 
   const { saveLoading, deleteId, onAddChild, onEdit, onDelete } = options
 
-  const { i18nCommon, i18nInternalization } = useMessage()
+  const { i18nCommon, i18nLocales } = useMessage()
 
-  const columns = computed<TableColumn<InternalizationTree>[]>(() => [
-    createTreeColumn('name', i18nInternalization('name')),
-    ...['zh', 'en'].map<TableColumn<InternalizationTree>>(key => ({
+  const columns = computed<TableColumn<I18nTree>[]>(() => [
+    createTreeColumn('name', i18nLocales('name')),
+    ...['zh', 'en'].map<TableColumn<I18nTree>>(key => ({
       accessorKey: key,
-      header: i18nInternalization(key),
+      header: i18nLocales(key),
       cell: ({ row }) => {
         const val = row.getValue(key)
         return val ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => val) : '-'

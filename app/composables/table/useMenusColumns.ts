@@ -2,7 +2,7 @@ import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UIcon, USwitch } from '#components'
 import { PERMISSIONS } from '@/enums'
 
-export function useMenuColumns(options: {
+export function useMenusColumns(options: {
   saveLoading: Ref<boolean>
   deleteId: Ref<string | null>
   onEdit: (row: MenuTree) => void
@@ -12,14 +12,14 @@ export function useMenuColumns(options: {
 
   const { saveLoading, deleteId, onEdit, onDelete } = options
 
-  const { i18nCommon, i18nMenu, i18nPermissions } = useMessage()
+  const { i18nCommon, i18nMenus, i18nPermissions } = useMessage()
   const { getPermissionValues } = usePermissions()
 
   const columns = computed<TableColumn<MenuTree>[]>(() => [
-    createTreeColumn('label', i18nMenu('label'), true),
+    createTreeColumn('label', i18nMenus('label'), true),
     {
       accessorKey: 'to',
-      header: i18nMenu('to'),
+      header: i18nMenus('to'),
       cell: ({ row }) => {
         const val = row.getValue('to')
         return val ? h(UBadge, { variant: 'soft', color: 'secondary' }, () => val) : '-'
@@ -34,7 +34,7 @@ export function useMenuColumns(options: {
     },
     {
       accessorKey: 'badge',
-      header: i18nMenu('badge'),
+      header: i18nMenus('badge'),
       cell: ({ row }) => {
         const val = row.getValue('badge')
         return val ? h(UBadge, { variant: 'outline', color: 'neutral' }, () => val) : '-'
@@ -42,7 +42,7 @@ export function useMenuColumns(options: {
     },
     {
       accessorKey: 'permissions',
-      header: i18nMenu('permissions'),
+      header: i18nMenus('permissions'),
       cell: ({ row }) => {
         const val = row.original.permissions
 
@@ -76,7 +76,7 @@ export function useMenuColumns(options: {
     },
     ...['keepAlive', 'defaultOpen', 'enabled', 'hideInMenu'].map<TableColumn<MenuTree>>(v => ({
       accessorKey: v,
-      header: v === 'enabled' ? i18nCommon(v) : i18nMenu(v),
+      header: v === 'enabled' ? i18nCommon(v) : i18nMenus(v),
       cell: ({ row }) => h(USwitch, {
         disabled: true,
         uncheckedIcon: 'lucide:x',

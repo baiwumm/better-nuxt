@@ -1,6 +1,6 @@
 export async function useInitLocales() {
   const { setLocaleMessage } = useI18n()
-  const { getLocales } = useSystemApi()
+  const { getLocales } = useSettingsApi()
 
   const { data } = await useAsyncData(
     'locales',

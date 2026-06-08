@@ -8,32 +8,32 @@ export function useMessage() {
   const i18nCommon = (field: string, isForm = false) => isForm ? `$i18n:common.${field}` : t(`common.${field}`)
 
   // 用户管理
-  const i18nUser = (field: string, isForm = false) => {
-    const prefix = 'pages.systemSettings.userManage'
+  const i18nUsers = (field: string, isForm = false) => {
+    const prefix = 'pages.settings.users'
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
   // 菜单管理
-  const i18nMenu = (field: string, isForm = false) => {
-    const prefix = 'pages.systemSettings.menuManage'
+  const i18nMenus = (field: string, isForm = false) => {
+    const prefix = 'pages.settings.menus'
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
   // 角色管理
-  const i18nRole = (field: string, isForm = false) => {
-    const prefix = 'pages.systemSettings.roleManage'
+  const i18nRoles = (field: string, isForm = false) => {
+    const prefix = 'pages.settings.roles'
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
   // 国际化
-  const i18nInternalization = (field: string, isForm = false) => {
-    const prefix = 'pages.systemSettings.internalization'
+  const i18nLocales = (field: string, isForm = false) => {
+    const prefix = 'pages.settings.i18n'
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
   // 操作日志
-  const i18nLog = (field: string, isForm = false) => {
-    const prefix = 'pages.systemSettings.operationLog'
+  const i18nLogs = (field: string, isForm = false) => {
+    const prefix = 'pages.settings.logs'
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
@@ -44,13 +44,13 @@ export function useMessage() {
   const i18nAccount = (field: string) => t(`pages.account.${field}`)
 
   return {
-    i18nInternalization,
+    i18nLocales,
     i18nCommon,
-    i18nLog,
-    i18nMenu,
+    i18nLogs,
+    i18nMenus,
     i18nAuth,
-    i18nUser,
-    i18nRole,
+    i18nUsers,
+    i18nRoles,
     i18nPermissions,
     i18nAccount,
   }

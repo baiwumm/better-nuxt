@@ -27,6 +27,7 @@
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.13",
     "@better-auth/i18n": "^1.6.13",
+    "@better-auth/infra": "^0.2.13",
     "@faker-js/faker": "^10.4.0",
     "@neondatabase/serverless": "^1.1.0",
     "@norbiros/nuxt-auto-form": "^0.6.2",

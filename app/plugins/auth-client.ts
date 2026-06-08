@@ -1,3 +1,4 @@
+import { dashClient, sentinelClient } from '@better-auth/infra/client'
 import { adminClient, lastLoginMethodClient, magicLinkClient, multiSessionClient, usernameClient } from 'better-auth/client/plugins'
 import { createAuthClient } from 'better-auth/vue'
 
@@ -12,6 +13,10 @@ export default defineNuxtPlugin(() => {
       lastLoginMethodClient(),
       multiSessionClient(),
       adminClient(),
+      dashClient(),
+      sentinelClient({
+        autoSolveChallenge: true,
+      }),
     ],
   })
   return {

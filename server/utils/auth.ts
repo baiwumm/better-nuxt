@@ -1,8 +1,9 @@
+import { dash } from '@better-auth/infra'
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-05 14:19:36
+ * @LastEditTime: 2026-06-08 11:21:14
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -120,6 +121,9 @@ export const auth = betterAuth({
     }),
     admin({
       adminUserIds: process.env.BETTER_AUTH_ADMIN_USER_IDS ? process.env.BETTER_AUTH_ADMIN_USER_IDS.split(',') : [],
+    }),
+    dash({
+      apiKey: process.env.BETTER_AUTH_API_KEY,
     }),
   ],
   // 数据库钩子

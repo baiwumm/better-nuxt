@@ -2,12 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-26 10:42:50
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-26 10:48:15
+ * @LastEditTime: 2026-06-08 17:29:07
  * @Description: 更新用户角色
  */
 import { eq, inArray } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { role, user, userRole } from '@/db/schema'
+import { roles, userRoles, users } from '@/db/schema'
 import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
@@ -19,8 +19,8 @@ export default defineEventHandler(async (event) => {
     }
 
     // 可选：检查用户是否存在
-    const userInfo = await db.query.user.findFirst({
-      where: eq(user.id, userId),
+    const userInfo = await db.query.users.findFirst({
+      where: eq(users.id, userId),
       columns: {
         id: true,
       },
@@ -36,9 +36,9 @@ export default defineEventHandler(async (event) => {
     // 校验角色是否存在
     if (roleIds.length) {
       const existsRoles = await db
-        .select({ id: role.id })
-        .from(role)
-        .where(inArray(role.id, roleIds))
+        .select({ id: roles.id })
+        .from(roles)
+        .where(inArray(roles.id, roleIds))
 
       if (existsRoles.length !== roleIds.length) {
         return responseSuccess(null, '部分角色不存在!', RESPONSE_CODE.BAD_REQUEST)
@@ -48,12 +48,12 @@ export default defineEventHandler(async (event) => {
     const res = await db.transaction(async (tx) => {
     // 删除旧角色
       await tx
-        .delete(userRole)
-        .where(eq(userRole.userId, userId))
+        .delete(userRoles)
+        .where(eq(userRoles.userId, userId))
 
       // 插入新角色
       if (roleIds.length) {
-        const inserted = await tx.insert(userRole).values(
+        const inserted = await tx.insert(userRoles).values(
           roleIds.map(roleId => ({
             userId,
             roleId,

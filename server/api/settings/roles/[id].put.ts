@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:30:08
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 16:59:20
+ * @LastEditTime: 2026-06-08 17:46:09
  * @Description: 编辑角色
  */
 import { eq } from 'drizzle-orm'
@@ -37,10 +37,10 @@ export default defineEventHandler(async (event) => {
       const constraint = dbError?.constraint
 
       switch (constraint) {
-        case 'role_name_unique':
+        case 'roles_name_unique':
           return responseSuccess(null, '角色名称已存在', RESPONSE_CODE.BAD_REQUEST)
 
-        case 'role_code_unique':
+        case 'roles_code_unique':
           return responseSuccess(null, '角色编码已存在', RESPONSE_CODE.BAD_REQUEST)
 
         default:

@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.9.1](https://github.com/baiwumm/better-nuxt/compare/v1.9.0...v1.9.1) (2026-06-08)
+
+### ✨ Features | 新功能
+
+* **auth:** 配置 infra ([c2d2edf](https://github.com/baiwumm/better-nuxt/commit/c2d2edf96e61762b7b810580ceffe9f0484179a2))
+* **server:** 修改接口逻辑 ([b62e926](https://github.com/baiwumm/better-nuxt/commit/b62e9261386d002580fcc546cdf73a382b195b33))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节优化 ([2f5b19b](https://github.com/baiwumm/better-nuxt/commit/2f5b19bf3d3571ef18d9d6189f1944fb60c1261c))
+* **composables:** 优化函数命名 ([7697929](https://github.com/baiwumm/better-nuxt/commit/76979293c74dfc97dcb370f72b53a055c9406556))
+* **pages:** 优化目录结构 ([cd23ef3](https://github.com/baiwumm/better-nuxt/commit/cd23ef3e6a866df8f6ef6b5f330b6dfcc11775dc))
+* **schema:** 优化表结构和命名，使其更加规范 ([1a5f64f](https://github.com/baiwumm/better-nuxt/commit/1a5f64f82a690ececac3a18695fcd42a5d809763))
+
+### 👷‍ Build System | 构建
+
+* 删掉 nuxt@seo，保证 unhead 只有一个版本 ([7036bae](https://github.com/baiwumm/better-nuxt/commit/7036baedf1f12000ea29194e83cc860a6f17948f))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更新 better-auth 包版本 ([f3d9e18](https://github.com/baiwumm/better-nuxt/commit/f3d9e1833774764ffce216f88ed7f3e027eb64b9))
+* 新增 @better-auth/infra 包 ([f64fda7](https://github.com/baiwumm/better-nuxt/commit/f64fda7f06c89c3920acaf9a5ae815490ccd48f7))
+* 新增 unhead 包 ([533267a](https://github.com/baiwumm/better-nuxt/commit/533267afa6893a824096ef40ae237e545f0c9323))
+
 ## [1.9.0](https://github.com/baiwumm/better-nuxt/compare/v1.8.4...v1.9.0) (2026-06-05)
 
 ### ✨ Features | 新功能

@@ -55,7 +55,7 @@ importers:
         version: 0.21.1(magicast@0.5.3)
       '@nuxtjs/seo':
         specifier: ^5.1.3
-        version: 5.1.3(d292297df1dbee372c16382dc906737c)
+        version: 5.1.3(e47f5f39d71673dfac24d22bbcf4799a)
       '@pinia/nuxt':
         specifier: ^0.11.3
         version: 0.11.3(magicast@0.5.3)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.35(typescript@5.9.3)))
@@ -149,6 +149,9 @@ importers:
       ua-parser-js:
         specifier: ^2.0.10
         version: 2.0.10
+      unhead:
+        specifier: ^3.1.3
+        version: 3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       vue:
         specifier: ^3.5.35
         version: 3.5.35(typescript@5.9.3)
@@ -9289,6 +9292,14 @@ packages:
   unhead@2.1.15:
     resolution: {integrity: sha512-MCt5T90mCWyr3Z6pUCdM9lVRXoMoVBlL7z7U4CYVIiaDiuzad/UCfLuMqz5MeNmpZUgoBCQnrucJimU7EZR+XA==}
 
+  unhead@3.1.3:
+    resolution: {integrity: sha512-mAlNpNmafwHM/13qvoDbzKmNU+zJBC2CHtmCvUtFDep5kAsUhHomBWtEAEQEw+rNnQ6g6RVo71elWKD/QDAbQQ==}
+    peerDependencies:
+      vite: '>=6.4.2'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+
   unicode-emoji-modifier-base@1.0.0:
     resolution: {integrity: sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g==}
     engines: {node: '>=4'}
@@ -12260,7 +12271,7 @@ snapshots:
       - vite
       - vue
 
-  '@nuxtjs/seo@5.1.3(d292297df1dbee372c16382dc906737c)':
+  '@nuxtjs/seo@5.1.3(e47f5f39d71673dfac24d22bbcf4799a)':
     dependencies:
       '@nuxt/kit': 4.4.6(magicast@0.5.3)
       '@nuxtjs/robots': 6.0.9(d38e89f15e3457964a354bb4c5ebe11a)
@@ -12268,8 +12279,8 @@ snapshots:
       nuxt: 4.4.6(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@25.9.1)(@vercel/blob@2.4.0)(@vue/compiler-sfc@3.5.35)(cac@6.7.14)(db0@0.3.4(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260601.1)(@neondatabase/serverless@1.1.0)(kysely@0.29.2)))(drizzle-orm@0.45.2(@cloudflare/workers-types@4.20260601.1)(@neondatabase/serverless@1.1.0)(kysely@0.29.2))(eslint@10.4.1(jiti@2.7.0))(ioredis@5.11.0)(lightningcss@1.32.0)(magicast@0.5.3)(meow@13.2.0)(optionator@0.9.4)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.35(typescript@5.9.3)))(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(rollup-plugin-visualizer@7.0.1(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(rollup@4.60.4))(rollup@4.60.4)(srvx@0.11.16)(terser@5.48.0)(tsx@4.22.4)(typescript@5.9.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(yaml@2.9.0)
       nuxt-link-checker: 5.0.10(9e40e4b197e5d4c5fbf2179a94b73098)
       nuxt-og-image: 6.5.1(6e3826704d37012e4f4da4ab20b2ff7b)
-      nuxt-schema-org: 6.0.4(a22b641d1dcf8662c0c66fbfd46a03a8)
-      nuxt-seo-utils: 8.1.11(e9405bfbf443805934a6f392cdfa9a87)
+      nuxt-schema-org: 6.0.4(18ca49abc85599d715e5aa159c627385)
+      nuxt-seo-utils: 8.1.11(efc37d3284a3da00af2505e4e4c0a7af)
       nuxt-site-config: 4.0.8(d38e89f15e3457964a354bb4c5ebe11a)
       nuxtseo-shared: 5.1.3(f55285d91b732b688b5d40f7d83079a8)
     transitivePeerDependencies:
@@ -14096,13 +14107,14 @@ snapshots:
 
   '@ungap/structured-clone@1.3.1': {}
 
-  '@unhead/bundler@3.1.1(esbuild@0.28.0)(lightningcss@1.32.0)(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(typescript@5.9.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))':
+  '@unhead/bundler@3.1.1(esbuild@0.28.0)(lightningcss@1.32.0)(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(typescript@5.9.3)(unhead@3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
       '@vitejs/devtools-kit': 0.2.0(typescript@5.9.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       magic-string: 0.30.21
       oxc-parser: 0.132.0
       oxc-walker: 1.0.0(oxc-parser@0.132.0)(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))
       ufo: 1.6.4
+      unhead: 3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       unplugin: 3.0.0
     optionalDependencies:
       esbuild: 0.28.0
@@ -18108,7 +18120,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  nuxt-schema-org@6.0.4(a22b641d1dcf8662c0c66fbfd46a03a8):
+  nuxt-schema-org@6.0.4(18ca49abc85599d715e5aa159c627385):
     dependencies:
       '@nuxt/kit': 4.4.6(magicast@0.5.3)
       '@unhead/schema-org': 2.1.15(@unhead/vue@2.1.15(vue@3.5.35(typescript@5.9.3)))
@@ -18119,6 +18131,7 @@ snapshots:
       pkg-types: 2.3.1
     optionalDependencies:
       '@unhead/vue': 2.1.15(vue@3.5.35(typescript@5.9.3))
+      unhead: 3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       zod: 4.4.3
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -18178,10 +18191,10 @@ snapshots:
       - yjs
       - yup
 
-  nuxt-seo-utils@8.1.11(e9405bfbf443805934a6f392cdfa9a87):
+  nuxt-seo-utils@8.1.11(efc37d3284a3da00af2505e4e4c0a7af):
     dependencies:
       '@nuxt/kit': 4.4.6(magicast@0.5.3)
-      '@unhead/bundler': 3.1.1(esbuild@0.28.0)(lightningcss@1.32.0)(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(typescript@5.9.3)(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
+      '@unhead/bundler': 3.1.1(esbuild@0.28.0)(lightningcss@1.32.0)(rolldown@1.0.0-beta.57(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))(typescript@5.9.3)(unhead@3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       citty: 0.2.2
       defu: 6.1.7
       escape-string-regexp: 5.0.0
@@ -20289,6 +20302,13 @@ snapshots:
   unhead@2.1.15:
     dependencies:
       hookable: 6.1.1
+
+  unhead@3.1.3(vite@7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)):
+    dependencies:
+      hookable: 6.1.1
+      unplugin: 3.0.0
+    optionalDependencies:
+      vite: 7.3.3(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
 
   unicode-emoji-modifier-base@1.0.0: {}
 

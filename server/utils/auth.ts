@@ -3,7 +3,7 @@ import { dash, sentinel } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 14:09:57
+ * @LastEditTime: 2026-06-08 14:21:02
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -18,6 +18,7 @@ import * as schema from '@/db/schema'
 const resend = new Resend(process.env.NUXT_RESEND_API_KEY)
 
 export const auth = betterAuth({
+  appName: process.env.NUXT_SITE_NAME,
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema,
@@ -221,5 +222,8 @@ export const auth = betterAuth({
       // For AWS/Generic
       // ipAddressHeaders: ["x-forwarded-for"],
     },
+  },
+  experimental: {
+    joins: true,
   },
 })

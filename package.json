@@ -25,8 +25,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@better-auth/drizzle-adapter": "^1.6.13",
-    "@better-auth/i18n": "^1.6.13",
+    "@better-auth/drizzle-adapter": "^1.6.14",
+    "@better-auth/i18n": "^1.6.14",
     "@better-auth/infra": "^0.2.13",
     "@faker-js/faker": "^10.4.0",
     "@neondatabase/serverless": "^1.1.0",
@@ -47,7 +47,7 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue-email/components": "^0.0.21",
     "@vue-email/render": "^0.0.9",
-    "better-auth": "^1.6.13",
+    "better-auth": "^1.6.14",
     "better-auth-localization": "^3.0.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.21",

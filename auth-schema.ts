@@ -20,6 +20,7 @@ export const user = pgTable('user', {
   banned: boolean('banned').default(false),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),
+  lastActiveAt: timestamp('last_active_at'),
 })
 
 export const session = pgTable(
@@ -85,7 +86,6 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
-  // 说明：用户与角色的关系，在重新生成授权模式时不得进行覆盖。
   roles: many(userRole),
 }))
 

@@ -13,7 +13,11 @@ export default defineNuxtPlugin(() => {
       lastLoginMethodClient(),
       multiSessionClient(),
       adminClient(),
-      dashClient(),
+      dashClient({
+        resolveUserId: ({ userId, user, session }) => {
+          return (userId || user?.id || session?.user?.id) ?? undefined
+        },
+      }),
       sentinelClient({
         autoSolveChallenge: true,
       }),

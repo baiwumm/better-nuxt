@@ -1,9 +1,9 @@
-import { dash } from '@better-auth/infra'
+import { dash, sentinel } from '@better-auth/infra'
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 13:48:12
+ * @LastEditTime: 2026-06-08 14:09:57
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -125,6 +125,63 @@ export const auth = betterAuth({
     }),
     dash({
       apiKey: process.env.BETTER_AUTH_API_KEY,
+      activityTracking: {
+        enabled: true,
+      },
+    }),
+    sentinel({
+      apiKey: process.env.BETTER_AUTH_API_KEY,
+      security: {
+        // Core protections
+        credentialStuffing: {
+          enabled: true,
+          thresholds: { challenge: 3, block: 5 },
+        },
+        compromisedPassword: {
+          enabled: true,
+          action: 'block',
+        },
+        emailValidation: {
+          enabled: true,
+          strictness: 'medium',
+          action: 'block',
+        },
+
+        // Location-based
+        impossibleTravel: {
+          enabled: true,
+          action: 'challenge',
+        },
+        geoBlocking: {
+          denyList: ['XX'],
+          action: 'block',
+        },
+
+        // Abuse prevention
+        freeTrialAbuse: {
+          enabled: true,
+          maxAccountsPerVisitor: 3,
+          action: 'block',
+        },
+        velocity: {
+          enabled: true,
+          maxSignupsPerVisitor: 5,
+          action: 'challenge',
+        },
+
+        // Bot protection
+        botBlocking: { action: 'challenge' },
+        suspiciousIpBlocking: { action: 'block' },
+
+        // Account monitoring
+        staleUsers: {
+          enabled: true,
+          staleDays: 90,
+          notifyUser: true,
+          notifyAdmin: true,
+          adminEmail: 'security@yourapp.com',
+        },
+      },
     }),
   ],
   // 数据库钩子
@@ -137,6 +194,11 @@ export const auth = betterAuth({
           if (roleId) {
             await db.insert(schema.userRole).values({ userId: user.id, roleId })
           }
+        },
+      },
+      fields: {
+        lastActiveAt: {
+          type: 'date',
         },
       },
     },

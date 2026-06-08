@@ -121,7 +121,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         type="submit"
         icon="lucide:save"
         :label="i18nCommon('saveChanges')"
-        :loading="isPending"
+        :loading="isPending || loading"
         :disabled="!hasChanged"
         class="w-fit lg:ms-auto"
       />

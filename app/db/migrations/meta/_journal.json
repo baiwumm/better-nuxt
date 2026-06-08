@@ -57,6 +57,13 @@
       "when": 1780279511892,
       "tag": "0007_nebulous_mach_iv",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1780899092452,
+      "tag": "0008_sour_human_cannonball",
+      "breakpoints": true
     }
   ]
 }

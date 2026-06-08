@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     'nuxt-easy-lightbox',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxtjs/seo',
     'nuxt-skew-protection',
     '@nuxt/hints',
     '@nuxt/a11y',

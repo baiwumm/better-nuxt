@@ -1,16 +1,19 @@
 import type { z } from 'zod'
-import type { i18n, insertMenusSchema, insertRolesSchema, ipGeos, logs, menus, roleMenus, roles, userRoles, users } from '@/db/schema'
+import type { accounts, i18n, insertMenusSchema, insertRolesSchema, ipGeos, logs, menus, roleMenus, roles, userRoles, users } from '@/db/schema'
 
 /** @description: 用户管理列表 */
+export type Account = typeof accounts.$inferSelect
 export type User = typeof users.$inferSelect & {
-  roles: (UserRole & {
-    role: Role
-  })[]
+  accounts: Account[]
+  roles: UserRole[]
+  departments: Department[]
 }
 /** @description: 用户管理 - 查询参数 */
 export type UserQueryParams = z.infer<typeof UserQuerySchema>
 export type UpdateUserRoles = z.infer<typeof UpdateUserRolesSchema>
-export type UserRole = typeof userRoles.$inferSelect
+export type UserRole = typeof userRoles.$inferSelect & {
+  role: Role
+}
 
 /** @description: 菜单树 */
 export type Menu = typeof menus.$inferSelect

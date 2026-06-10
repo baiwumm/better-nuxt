@@ -1,7 +1,7 @@
 import type { DropdownMenuItem, DropdownMenuProps, TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
-import { NuxtTime, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
-import { PERMISSIONS } from '@/enums'
+import { NuxtTime, UAvatar, UAvatarGroup, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
+import { OAUTH_PROVIDES, PERMISSIONS } from '@/enums'
 
 export function userUsersColumns(options: {
   onAssignRoles: (id: string) => void
@@ -107,6 +107,27 @@ export function userUsersColumns(options: {
       },
     },
     {
+      accessorKey: 'departments',
+      header: i18nUsers('departments'),
+      cell: ({ row }) => {
+        const departments = row.original.departments ?? []
+        if (!departments?.length) {
+          return '-'
+        }
+        const extra = departments.length - 1
+        return h(
+          'div',
+          {
+            class: 'flex justify-center items-center gap-1',
+          },
+          [
+            h(UBadge, { variant: 'soft', color: 'info' }, () => departments?.[0]?.name),
+            extra > 0 ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => `+${extra}`) : null,
+          ],
+        )
+      },
+    },
+    {
       accessorKey: 'emailVerified',
       header: i18nUsers('emailVerified'),
       cell: ({ row }) => {
@@ -115,11 +136,27 @@ export function userUsersColumns(options: {
       },
     },
     {
+      accessorKey: 'accounts',
+      header: i18nUsers('accounts'),
+      cell: ({ row }) => {
+        const accounts = row.original.accounts
+        if (!accounts?.length) {
+          return '-'
+        }
+        return h(UAvatarGroup, { max: 3, color: 'primary' }, () => accounts.map((v) => {
+          const raw = OAUTH_PROVIDES.raw(v.providerId)
+          const alt = (v.providerId === 'credential' ? 'Email' : v.providerId).slice(0, 2).toUpperCase()
+          return h(UAvatar, { icon: raw?.icon ?? 'lucide:mail', alt, loading: 'lazy' })
+        }))
+      },
+    },
+    {
       accessorKey: 'lastLoginMethod',
       header: i18nUsers('lastLoginMethod'),
       cell: ({ row }) => {
-        const val = row.getValue('lastLoginMethod')
-        return val ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => val) : '-'
+        const val = row.original.lastLoginMethod
+        const raw = OAUTH_PROVIDES.raw(val ?? undefined)
+        return val ? h(UBadge, { variant: 'soft', color: 'neutral', icon: raw?.icon ?? 'lucide:mail' }, () => val) : '-'
       },
     },
     {

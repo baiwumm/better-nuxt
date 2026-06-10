@@ -37,9 +37,25 @@ export function useDepartmentsColumns(options: {
             loading: 'lazy',
           },
           ui: {
+            root: 'flex justify-center items-center',
             wrapper: 'text-left',
           },
         })
+      },
+    },
+    {
+      accessorKey: 'posts',
+      header: i18nDepartments('posts'),
+      cell: ({ row }) => {
+        const posts = row.original.posts
+        if (!posts?.length) {
+          return '-'
+        }
+        const extra = posts.length - 1
+        return h('div', { class: 'flex justify-center items-center gap-1' }, [
+          h(UBadge, { variant: 'soft', color: 'info' }, () => posts?.[0]?.name ?? '-'),
+          extra > 0 ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => `+${extra}`) : null,
+        ])
       },
     },
     {

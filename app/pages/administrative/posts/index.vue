@@ -42,6 +42,9 @@ const { data, pending: loading, refresh } = await useAsyncData(
     const res = await getPostList({ page: pagination.value.pageIndex + 1, pageSize: pagination.value.pageSize, ...query })
     return res?.data
   },
+  {
+    dedupe: 'defer',
+  },
 )
 
 const list = computed(() => data.value?.list ?? [])
@@ -103,6 +106,14 @@ watch(open, (val) => {
     editData.value = null
   }
 })
+
+watch(
+  () => pagination.value,
+  () => {
+    refresh()
+  },
+  { deep: true },
+)
 </script>
 
 <template>

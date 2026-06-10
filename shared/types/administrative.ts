@@ -4,6 +4,7 @@ import type { departments, insertDepartmentsSchema, insertPostsSchema, posts } f
 /** @description: 部门管理 */
 export type Department = typeof departments.$inferSelect & {
   leader: User | null
+  posts: Post[]
 }
 export type DepartmentTree = Department & {
   children: DepartmentTree[]

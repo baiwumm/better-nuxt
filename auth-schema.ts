@@ -99,7 +99,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   noticeReads: many(noticeReads),
 
   // org structure
-  leadingDepartments: many(departments),
+  departments: many(departments),
 }))
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({

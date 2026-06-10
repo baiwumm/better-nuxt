@@ -52,25 +52,30 @@ export function useMenusColumns(options: {
 
         const permissions = getPermissionValues(val)
 
+        const extra = permissions.length - 3
+
         return h(
           'div',
           {
             class: 'flex flex-wrap items-center justify-center jus gap-1',
           },
-          permissions.map((item) => {
-            const raw = PERMISSIONS.raw(item)
-            return h(
-              UBadge,
-              {
-                key: item,
-                variant: 'soft',
-                color: 'neutral',
-                icon: raw.icon,
-              },
-              () => i18nPermissions(PERMISSIONS.label(item)),
-            )
-          },
-          ),
+          [
+            ...permissions.slice(0, 3).map((item) => {
+              const raw = PERMISSIONS.raw(item)
+              return h(
+                UBadge,
+                {
+                  key: item,
+                  variant: 'soft',
+                  color: 'neutral',
+                  icon: raw.icon,
+                },
+                () => i18nPermissions(PERMISSIONS.label(item)),
+              )
+            },
+            ),
+            extra > 0 ? h(UBadge, { variant: 'soft', color: 'neutral' }, () => `+${extra}`) : null,
+          ],
         )
       },
     },

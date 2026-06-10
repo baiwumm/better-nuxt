@@ -24,7 +24,7 @@ function generateRandomImages(count = 50): Item[] {
     const height = faker.number.int({ min: 200, max: 500 })
 
     return {
-      src: faker.image.urlPicsumPhotos({ width, height }),
+      src: faker.image.urlPicsumPhotos({ width, height, blur: 0 }),
       title: faker.lorem.sentence({ min: 3, max: 8 }),
       width,
       height,

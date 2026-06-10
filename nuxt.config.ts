@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/a11y',
     '@nuxthub/core',
+    '@nuxtjs/robots',
   ],
   css: ['~/assets/css/main.css', 'vue-advanced-cropper/dist/style.css'],
   ui: {

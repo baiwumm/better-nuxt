@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.9.2](https://github.com/baiwumm/better-nuxt/compare/v1.9.1...v1.9.2) (2026-06-10)
+
+### ✨ Features | 新功能
+
+* 修改 git 只忽略根目录的 logs ([c6451ed](https://github.com/baiwumm/better-nuxt/commit/c6451ed3c52653de7163b4fbdbde4fc4ce8c30f2))
+* **departments:** 完成《部门管理》模块的 CURD 开发和页面排版 ([d6a8759](https://github.com/baiwumm/better-nuxt/commit/d6a8759e4c45ea7f0e834e03c9bea7b255386266))
+
+### ⚡ Performance Improvements | 性能优化
+
+* logs 改成 actionLogs ([0496c4c](https://github.com/baiwumm/better-nuxt/commit/0496c4c8916cfa649fd31c367c1d38459364afe7))
+
 ## [1.9.1](https://github.com/baiwumm/better-nuxt/compare/v1.9.0...v1.9.1) (2026-06-08)
 
 ### ✨ Features | 新功能

@@ -49,6 +49,12 @@ export function useMessage() {
     return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
   }
 
+  // 岗位管理
+  const i18nPosts = (field: string, isForm = false) => {
+    const prefix = 'pages.administrative.posts'
+    return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
+  }
+
   return {
     i18nLocales,
     i18nCommon,
@@ -60,5 +66,6 @@ export function useMessage() {
     i18nPermissions,
     i18nAccount,
     i18nDepartments,
+    i18nPosts,
   }
 }

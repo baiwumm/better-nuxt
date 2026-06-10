@@ -85,3 +85,13 @@ export const DepartmentQuerySchema = z.object({
   name: z.string().optional(),
   code: z.string().optional(),
 })
+
+/**
+ * @description: 岗位管理 - 查询参数
+ */
+export const PostQuerySchema = z.object({
+  name: z.string().optional(),
+  code: z.string().optional(),
+  page: z.coerce.number().default(1),
+  pageSize: z.coerce.number().default(10),
+})

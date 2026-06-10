@@ -1,0 +1,28 @@
+/*
+ * @Author: 白雾茫茫丶<baiwumm.com>
+ * @Date: 2026-05-22 17:31:28
+ * @LastEditors: 白雾茫茫丶<baiwumm.com>
+ * @LastEditTime: 2026-06-10 10:37:30
+ * @Description: 删除岗位
+ */
+import { eq } from 'drizzle-orm'
+import { db } from '@/db/drizzle'
+import { posts } from '@/db/schema'
+import { RESPONSE_CODE } from '@/enums'
+
+export default defineEventHandler(async (event) => {
+  try {
+    const id = event.context.params!.id
+
+    if (!id) {
+      return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
+    }
+
+    const [res] = await db.delete(posts).where(eq(posts.id, id)).returning()
+
+    return responseSuccess(res)
+  }
+  catch (err) {
+    return responseError(err)
+  }
+})

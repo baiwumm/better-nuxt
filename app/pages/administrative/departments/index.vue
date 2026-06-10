@@ -17,7 +17,7 @@ const formKey = ref(0)
 const userPage = ref(1)
 
 // 查询参数
-const query = reactive<Pick<DepartmentQueryParams, 'name' | 'code'>>({
+const query = reactive<DepartmentQueryParams>({
   name: undefined,
   code: undefined,
 })

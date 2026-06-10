@@ -77,3 +77,11 @@ export const RolePermissionSchema = z.object({
 export const UpdateUserRolesSchema = z.object({
   roleIds: z.array(z.string()).default([]),
 })
+
+/**
+ * @description: 部门管理 - 查询参数
+ */
+export const DepartmentQuerySchema = z.object({
+  name: z.string().optional(),
+  code: z.string().optional(),
+})

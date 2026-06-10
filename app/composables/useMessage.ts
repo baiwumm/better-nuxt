@@ -43,6 +43,12 @@ export function useMessage() {
   // 我的账户
   const i18nAccount = (field: string) => t(`pages.account.${field}`)
 
+  // 部门管理
+  const i18nDepartments = (field: string, isForm = false) => {
+    const prefix = 'pages.administrative.departments'
+    return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
+  }
+
   return {
     i18nLocales,
     i18nCommon,
@@ -53,5 +59,6 @@ export function useMessage() {
     i18nRoles,
     i18nPermissions,
     i18nAccount,
+    i18nDepartments,
   }
 }

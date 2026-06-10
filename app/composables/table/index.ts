@@ -1,3 +1,4 @@
+export * from './useDepartmentsColumns'
 export * from './useI18nColumns'
 export * from './useLogsColumns'
 export * from './useMenusColumns'

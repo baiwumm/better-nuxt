@@ -12,7 +12,7 @@ interface ZInputOpts {
 
 export function useSchema() {
   const { t } = useI18n()
-  const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles } = useMessage()
+  const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles, i18nDepartments } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -208,6 +208,22 @@ export function useSchema() {
     confirmPassword: zChangePasswordInput('confirmPassword'),
   })
 
+  // 部门管理 - 新增/编辑
+  const departmentFormSchema = z.object({
+    parentId: z.string().nullable().meta({
+      title: i18nCommon('parent', true),
+      help: i18nCommon('parentHelp', true),
+    }),
+    name: zInput({ title: i18nDepartments('name', true), maxlength: 20, required: true }),
+    code: zInput({ title: i18nDepartments('code', true), maxlength: 50, required: true }),
+    leaderId: z.string().nullable().meta({
+      title: i18nDepartments('leader', true),
+    }),
+    description: zInput({ title: i18nDepartments('description', true), maxlength: 200, isTextarea: true }),
+    enabled: zCheckbox(i18nCommon('enabled', true)),
+    sort: zSort,
+  })
+
   return {
     zSort,
     zInput,
@@ -221,6 +237,7 @@ export function useSchema() {
     banUserFormSchema,
     roleFormSchema,
     changePasswordFormSchema,
+    departmentFormSchema,
   }
 }
 
@@ -235,3 +252,4 @@ export type MenuFormSchema = z.infer<ReturnType<typeof useSchema>['menuFormSchem
 export type I18nFormSchema = z.infer<ReturnType<typeof useSchema>['i18nFormSchema']>
 export type RoleFormSchema = z.infer<ReturnType<typeof useSchema>['roleFormSchema']>
 export type ChangePasswordFormSchema = z.infer<ReturnType<typeof useSchema>['changePasswordFormSchema']>
+export type DepartmentFormSchema = z.infer<ReturnType<typeof useSchema>['departmentFormSchema']>

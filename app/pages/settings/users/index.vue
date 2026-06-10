@@ -15,8 +15,6 @@ const { $authClient } = useNuxtApp()
 const { i18nCommon } = useMessage()
 const confirm = useConfirmDialog()
 const { successToast, errorToast } = useAppToast()
-const { mutate: updateUser } = useAdminUpdateUser()
-const { mutate: createUser } = useAdminCreateUser()
 
 const table = useTemplateRef('table')
 const pagination = computed<PaginationState>(() => table.value?.tableApi?.getState().pagination ?? initialPagination)
@@ -136,6 +134,21 @@ const { columns } = userUsersColumns({
   },
 })
 
+const { mutate: updateUser } = useAdminUpdateUser({
+  onSuccess: () => {
+    successToast()
+    open.value = false
+    refresh()
+  },
+})
+const { mutate: createUser } = useAdminCreateUser({
+  onSuccess: () => {
+    successToast()
+    open.value = false
+    refresh()
+  },
+})
+
 // 表单提交
 async function handleSubmit(values: SubmitForm) {
   try {
@@ -152,9 +165,6 @@ async function handleSubmit(values: SubmitForm) {
         },
       })
     }
-    successToast()
-    open.value = false
-    refresh()
   }
   catch (error) {
     errorToast({ title: catchError(error) })

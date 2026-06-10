@@ -45,7 +45,7 @@ export type I18nTree = I18n & {
 }
 
 /** @description: 国际化 - 查询参数 */
-export type I18nQueryParams = z.infer<typeof InternalizationQuerySchema>
+export type I18nQueryParams = z.infer<typeof I18nQuerySchema>
 
 /** @description: 操作日志 */
 export type IpGeo = typeof ipGeos.$inferSelect

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.9.3](https://github.com/baiwumm/better-nuxt/compare/v1.9.2...v1.9.3) (2026-06-10)
+
+### ✨ Features | 新功能
+
+* **posts:** 完成《岗位管理》模块的 CURD 开发和页面排版 ([41f7545](https://github.com/baiwumm/better-nuxt/commit/41f7545841f584ef6ead3c5c9cb1e64e61d708d3))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 细节优化调整 ([a3a9745](https://github.com/baiwumm/better-nuxt/commit/a3a974541995b7769b5022972f1837c4dd555713))
+
 ## [1.9.2](https://github.com/baiwumm/better-nuxt/compare/v1.9.1...v1.9.2) (2026-06-10)
 
 ### ✨ Features | 新功能

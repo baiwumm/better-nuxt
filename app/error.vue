@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import Error403 from '~/components/error/Error403.vue'
-import Error404 from '~/components/error/Error404.vue'
-import Error500 from '~/components/error/Error500.vue'
+import Error403 from '~/pages/exception/403/index.vue'
+import Error404 from '~/pages/exception/404/index.vue'
+import Error500 from '~/pages/exception/500/index.vue'
 
 defineProps<{
   error: NuxtError

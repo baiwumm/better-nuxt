@@ -10,7 +10,7 @@ function goHome() {
   router.push('/')
 }
 
-const title = computed(() => t('components.error.404.title'))
+const title = computed(() => t('pages.exception.404.title'))
 
 useHead({
   titleTemplate: computed(() => `${title.value} - ${siteConfig.name}`),
@@ -18,10 +18,10 @@ useHead({
 </script>
 
 <template>
-  <div class="w-full h-screen flex items-center justify-center font-30">
+  <div class="w-full h-screen flex items-center justify-center">
     <UEmpty
       :title
-      :description="$t('components.error.404.description')"
+      :description="$t('pages.exception.404.description')"
       size="lg"
       variant="naked"
       :actions="[

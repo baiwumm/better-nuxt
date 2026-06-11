@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.9.4](https://github.com/baiwumm/better-nuxt/compare/v1.9.3...v1.9.4) (2026-06-11)
+
+### ✨ Features | 新功能
+
+* **compnents:** 新增 ParticleImage 粒子图片组件 ([4f7dfdd](https://github.com/baiwumm/better-nuxt/commit/4f7dfdd3bca43e0ead0fdef7c709c0420b95d253))
+* **exception:** 新增异常页面模块 ([c433d58](https://github.com/baiwumm/better-nuxt/commit/c433d58a098af97fa3ee2f10567429fa4d1b0be0))
+
+### ⚡ Performance Improvements | 性能优化
+
+* **api:** 修改查询接口排序逻辑，先排序倒序，再创建时间倒序 ([30da357](https://github.com/baiwumm/better-nuxt/commit/30da3574cac1c0bcb9289cb52d0d1db5570fb1ef))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 安装 @nuxtjs/robots 包 ([3e56336](https://github.com/baiwumm/better-nuxt/commit/3e563362bc81c0e68c2e118c8dffee0966a8dc51))
+
 ## [1.9.3](https://github.com/baiwumm/better-nuxt/compare/v1.9.2...v1.9.3) (2026-06-10)
 
 ### ✨ Features | 新功能

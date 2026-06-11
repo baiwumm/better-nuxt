@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-08 18:04:54
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-10 10:56:39
+ * @LastEditTime: 2026-06-11 14:49:45
  * @Description: 部门管理
  */
 import { and, desc, ilike } from 'drizzle-orm'
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
         posts: true,
       },
 
-      orderBy: [desc(departments.createdAt), desc(departments.createdAt)],
+      orderBy: [desc(departments.sort), desc(departments.createdAt)],
 
     })
 

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 09:05:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 16:57:48
+ * @LastEditTime: 2026-06-11 14:46:23
  * @Description: 查询菜单树
  */
 import { and, asc, desc, eq, ilike, or } from 'drizzle-orm'
@@ -37,8 +37,8 @@ export default defineEventHandler(async (event) => {
       .from(menus)
       .where(conditions.length ? and(...conditions) : undefined)
       .orderBy(
-        asc(menus.createdAt),
         desc(menus.sort),
+        asc(menus.createdAt),
       )
 
     return responseSuccess(convertFlatDataToTree(data))

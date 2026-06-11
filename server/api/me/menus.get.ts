@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-27 09:21:07
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 17:06:08
+ * @LastEditTime: 2026-06-11 14:55:26
  * @Description: 获取用户角色菜单
  */
 import { and, eq } from 'drizzle-orm'
@@ -102,7 +102,7 @@ export default defineEventHandler(async (event) => {
      */
     const finalMenuMap = new Map<
       string,
-      any
+      Menu
     >()
 
     /**
@@ -156,15 +156,13 @@ export default defineEventHandler(async (event) => {
 
     const result = Array.from(finalMenuMap.values())
       .sort((a, b) => {
-        const createdAtCompare
-          = new Date(a.createdAt).getTime()
-            - new Date(b.createdAt).getTime()
-
-        if (createdAtCompare !== 0) {
-          return createdAtCompare
+        // 先按 sort 倒序
+        if (a.sort !== b.sort) {
+          return b.sort - a.sort // 倒序
         }
 
-        return b.sort - a.sort
+        // sort 相同时，按 createdAt 正序
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       })
 
     /**

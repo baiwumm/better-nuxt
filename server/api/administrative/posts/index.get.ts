@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-08 18:04:54
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-10 11:12:39
+ * @LastEditTime: 2026-06-11 14:50:42
  * @Description: 岗位管理
  */
 import { and, desc, ilike, sql } from 'drizzle-orm'
@@ -36,8 +36,8 @@ export default defineEventHandler(async (event) => {
           },
         },
         orderBy: [
-          desc(posts.createdAt),
           desc(posts.sort),
+          desc(posts.createdAt),
         ],
         limit: pageSize,
         offset: (page - 1) * pageSize,

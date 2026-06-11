@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:21:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-26 14:34:34
+ * @LastEditTime: 2026-06-11 14:57:40
  * @Description: 查询角色列表
  */
 import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
@@ -48,8 +48,8 @@ export default defineEventHandler(async (event) => {
           },
         },
         orderBy: [
-          asc(roles.createdAt),
           desc(roles.sort),
+          asc(roles.createdAt),
         ],
         limit: pageSize,
         offset: (page - 1) * pageSize,

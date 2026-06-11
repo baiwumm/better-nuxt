@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-23 09:05:48
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 16:54:02
+ * @LastEditTime: 2026-06-11 14:48:11
  * @Description: 查询国际化树
  */
 import { and, asc, desc, gte, ilike, lte } from 'drizzle-orm'
@@ -35,8 +35,8 @@ export default defineEventHandler(async (event) => {
       .from(i18n)
       .where(conditions.length ? and(...conditions) : undefined)
       .orderBy(
-        asc(i18n.createdAt),
         desc(i18n.sort),
+        asc(i18n.createdAt),
       )
 
     return responseSuccess(convertFlatDataToTree(data))

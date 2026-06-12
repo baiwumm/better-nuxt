@@ -25,7 +25,9 @@ const { open: selectFile, reset, onChange } = useFileDialog({
 })
 
 const open = ref(false)
-const source = ref('')
+const source = shallowRef<File | null>(null)
+const objectUrl = useObjectUrl(source) // 自动生成和管理 URL
+const isCropping = ref(false)
 
 function validateImage(file: File): boolean {
   if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
@@ -51,57 +53,53 @@ onChange(async (files) => {
   if (!validateImage(selectedFile))
     return
 
-  if (source.value) {
-    URL.revokeObjectURL(source.value)
-  }
-
-  source.value = URL.createObjectURL(selectedFile)
-
-  // 强制重新打开弹窗
-  open.value = false
-  await nextTick()
+  // 直接存储原始文件，不用手动管理 URL
+  source.value = selectedFile
   open.value = true
 
   reset()
 })
 
 async function confirmCrop() {
+  if (isCropping.value)
+    return
   const cropper = cropperRef.value
 
   if (!cropper) {
     return
   }
 
-  const result = cropper.getResult()
+  isCropping.value = true
 
-  if (!result?.canvas) {
-    return
+  try {
+    const result = cropper.getResult()
+    if (!result?.canvas)
+      return
+
+    const blob = await new Promise<Blob | null>((resolve) => {
+      result.canvas?.toBlob(resolve, 'image/webp', 0.9)
+    })
+
+    if (!blob)
+      return
+
+    file.value = new File(
+      [blob],
+      `${user.value?.id}.webp`,
+      { type: 'image/webp' },
+    )
+
+    open.value = false
+    source.value = null
   }
-
-  const blob = await new Promise<Blob | null>((resolve) => {
-    result.canvas?.toBlob(resolve, 'image/webp', 0.9)
-  })
-
-  if (!blob) {
-    return
+  finally {
+    isCropping.value = false
   }
-
-  file.value = new File(
-    [blob],
-    `${user.value?.id}.webp`,
-    {
-      type: 'image/webp',
-    },
-  )
-
-  open.value = false
-
-  reset()
 }
 
-onUnmounted(() => {
-  if (source.value) {
-    URL.revokeObjectURL(source.value)
+watch(open, (isOpen) => {
+  if (!isOpen) {
+    source.value = null
   }
 })
 </script>
@@ -123,7 +121,7 @@ onUnmounted(() => {
       <template #body>
         <Cropper
           ref="cropperRef"
-          :src="source"
+          :src="objectUrl"
           class="h-100"
           image-restriction="stencil"
           :stencil-props="{

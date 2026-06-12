@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     '@nuxtjs/robots',
   ],
-  css: ['~/assets/css/main.css', 'vue-advanced-cropper/dist/style.css'],
+  css: ['~/assets/css/main.css', 'vue-advanced-cropper/dist/style.css', '@tombcato/smart-ticker/style.css'],
   ui: {
     fonts: false,
   },

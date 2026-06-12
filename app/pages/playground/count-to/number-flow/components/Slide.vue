@@ -14,11 +14,11 @@ const { locale } = defineProps<{
       :default-value="[50]"
       class="relative flex h-5 w-full touch-none select-none items-center mt-3"
     >
-      <SliderTrack class="relative h-1 grow rounded-full bg-zinc-100 dark:bg-zinc-800">
-        <SliderRange class="absolute h-full rounded-full bg-black dark:bg-white" />
+      <SliderTrack class="relative h-2 grow rounded-full bg-zinc-100 dark:bg-zinc-800">
+        <SliderRange class="absolute h-full rounded-full bg-primary" />
       </SliderTrack>
       <SliderThumb
-        class="relative block h-5 w-5 rounded-[1rem] bg-white shadow-md ring ring-black/10"
+        class="relative block h-5 w-5 rounded-[1rem] bg-white shadow-md ring ring-primary/10"
         aria-label="Volume"
       >
         <NumberFlow

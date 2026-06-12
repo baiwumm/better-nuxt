@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.5](https://github.com/baiwumm/better-nuxt/compare/v1.9.4...v1.9.5) (2026-06-12)
+
+### ✨ Features | 新功能
+
+* **count-to:** 新增 NumberFlow 模块 ([e6e82e0](https://github.com/baiwumm/better-nuxt/commit/e6e82e0adfd2d61f1d33f48a7e1abc6e2070cd5a))
+* **count-to:** 新增 SmartTicker 模块 ([57380ac](https://github.com/baiwumm/better-nuxt/commit/57380ac8d57eea2a6887bc32b2a86dbc21f1a7ae))
+
 ## [1.9.4](https://github.com/baiwumm/better-nuxt/compare/v1.9.3...v1.9.4) (2026-06-11)
 
 ### ✨ Features | 新功能

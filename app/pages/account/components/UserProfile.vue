@@ -154,7 +154,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           <AvatarCropper v-model:file="avatarFile">
             <template #trigger="{ selectFile }">
               <div class="relative w-fit">
-                <div class="group relative cursor-pointer" @click="selectFile">
+                <div class="group relative cursor-pointer" @click="() => selectFile()">
                   <UAvatar :src="avatarPreview" :alt="userName" size="3xl" />
                   <div class=" absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 transition group-hover:opacity-100">
                     <UIcon name="lucide:camera" class="size-5 text-white" />

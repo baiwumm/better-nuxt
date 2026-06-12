@@ -18,37 +18,38 @@ const { errorToast } = useAppToast()
 const { user } = useCurrentUser()
 
 const cropperRef = useTemplateRef('cropperRef')
-const inputRef = useTemplateRef('inputRef')
+
+const { open: selectFile, reset, onChange } = useFileDialog({
+  accept: 'image/*',
+  multiple: false,
+})
 
 const open = ref(false)
 const source = ref('')
 
-function selectFile() {
-  inputRef.value?.click()
+function validateImage(file: File): boolean {
+  if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+    errorToast({ title: i18nAccount('accountSettings.userProfile.validAvatarType') })
+    return false
+  }
+
+  if (file.size > props.maxSize * 1024 * 1024) {
+    errorToast({ title: $t('pages.account.accountSettings.userProfile.validAvatarType', { size: props.maxSize }) })
+    return false
+  }
+
+  return true
 }
 
-function onChange(event: Event) {
-  const input = event.target as HTMLInputElement
-  const selectedFile = input.files?.[0]
+onChange(async (files) => {
+  const selectedFile = files?.[0]
 
   if (!selectedFile) {
     return
   }
 
-  const validTypes = [
-    'image/jpeg',
-    'image/png',
-    'image/webp',
-    'image/gif',
-  ]
-
-  if (!validTypes.includes(selectedFile.type)) {
-    return errorToast({ title: i18nAccount('accountSettings.userProfile.validAvatarType') })
-  }
-
-  if (selectedFile.size > props.maxSize * 1024 * 1024) {
-    return errorToast({ title: $t('pages.account.accountSettings.userProfile.validAvatarType', { size: props.maxSize }) })
-  }
+  if (!validateImage(selectedFile))
+    return
 
   if (source.value) {
     URL.revokeObjectURL(source.value)
@@ -56,10 +57,13 @@ function onChange(event: Event) {
 
   source.value = URL.createObjectURL(selectedFile)
 
+  // 强制重新打开弹窗
+  open.value = false
+  await nextTick()
   open.value = true
 
-  input.value = ''
-}
+  reset()
+})
 
 async function confirmCrop() {
   const cropper = cropperRef.value
@@ -92,9 +96,7 @@ async function confirmCrop() {
 
   open.value = false
 
-  if (inputRef.value) {
-    inputRef.value.value = ''
-  }
+  reset()
 }
 
 onUnmounted(() => {
@@ -106,9 +108,8 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <input ref="inputRef" type="file" class="hidden" accept=".jpg,.jpeg,.png,.gif,.webp" @change="onChange">
     <slot name="trigger" :select-file="selectFile">
-      <UButton icon="lucide:upload" :label="i18nAccount('accountSettings.userProfile.uploadAvatar')" @click="selectFile" />
+      <UButton icon="lucide:upload" :label="i18nAccount('accountSettings.userProfile.uploadAvatar')" @click="() => selectFile()" />
     </slot>
     <UModal
       v-model:open="open"

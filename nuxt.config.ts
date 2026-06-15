@@ -41,7 +41,14 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     '@nuxtjs/robots',
   ],
-  css: ['~/assets/css/main.css', 'vue-advanced-cropper/dist/style.css', '@tombcato/smart-ticker/style.css'],
+  css: [
+    '~/assets/css/main.css',
+    'vue-advanced-cropper/dist/style.css',
+    '@tombcato/smart-ticker/style.css',
+    '@vue-flow/core/dist/style.css',
+    '@vue-flow/minimap/dist/style.css',
+    '@vue-flow/controls/dist/style.css',
+  ],
   ui: {
     fonts: false,
   },

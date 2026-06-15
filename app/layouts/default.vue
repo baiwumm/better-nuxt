@@ -129,6 +129,9 @@ onMounted(() => {
     ],
   })
 })
+
+// 不需要内边距的页面
+const noPaddingPages = ['/administrative/framework']
 </script>
 
 <template>
@@ -180,7 +183,7 @@ onMounted(() => {
     </UDashboardSidebar>
 
     <UDashboardSearch :groups="groups" />
-    <UDashboardPanel id="app-container" :ui="{ body: 'app-scroll-container' }">
+    <UDashboardPanel id="app-container" :ui="{ body: cn('app-scroll-container', noPaddingPages.includes(route.path) ? 'p-0!' : '') }">
       <template #header>
         <UDashboardNavbar>
           <template #title>

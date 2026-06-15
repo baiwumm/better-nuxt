@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     '@nuxt/a11y',
     '@nuxthub/core',
     '@nuxtjs/robots',
+    'nuxt-security',
   ],
   css: [
     '~/assets/css/main.css',
@@ -97,5 +98,17 @@ export default defineNuxtConfig({
   },
   hub: {
     blob: true,
+  },
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        'img-src': [
+          '\'self\'',
+          'data:',
+          'blob:',
+          'https:',
+        ],
+      },
+    },
   },
 })

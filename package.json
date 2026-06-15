@@ -70,6 +70,7 @@
     "nuxt-easy-lightbox": "^1.1.0",
     "nuxt-qrcode": "^0.4.10",
     "nuxt-resend": "0.0.2",
+    "nuxt-security": "^2.6.0",
     "nuxt-skew-protection": "^1.1.1",
     "ogl": "^1.0.11",
     "pinia": "^3.0.4",

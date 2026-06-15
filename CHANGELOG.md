@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.9.6](https://github.com/baiwumm/better-nuxt/compare/v1.9.5...v1.9.6) (2026-06-15)
+
+### ✨ Features | 新功能
+
+* **framework:** 完成《组织架构》页面展示 ([cbc92e6](https://github.com/baiwumm/better-nuxt/commit/cbc92e6f9eef3ac81309ca2ab38915a5e0ffed38))
+
+### ⚡ Performance Improvements | 性能优化
+
+* **AvatarCropper:** 使用 useFileDialog 优化用户头像上传裁剪逻辑 ([35deb02](https://github.com/baiwumm/better-nuxt/commit/35deb022588ee42d336cf6e6922d1dace8700634))
+* **AvatarCropper:** 使用 useObjectUrl  减少手动管理内存的心智负担 ([ca410ef](https://github.com/baiwumm/better-nuxt/commit/ca410efcdb686edf80b769f758f64979b47bef0a))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 新增 vue-flow 相关包 ([dc8b336](https://github.com/baiwumm/better-nuxt/commit/dc8b33615c49fc76127f962b09b30970dbbcdf3c))
+
 ## [1.9.5](https://github.com/baiwumm/better-nuxt/compare/v1.9.4...v1.9.5) (2026-06-12)
 
 ### ✨ Features | 新功能

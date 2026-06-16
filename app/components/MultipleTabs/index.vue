@@ -3,6 +3,7 @@ import type { ContextMenuItem } from '@nuxt/ui'
 import { motion } from 'motion-v'
 
 const HOME_PATH = '/'
+const PATH_REG = /^\/administrative\/notices\/[^/]+$/
 
 const menuStore = useMenuStore()
 const tabStore = useTabStore()
@@ -65,6 +66,10 @@ function getItems(tag: MenuTree | null): ContextMenuItem[][] {
     ],
   ]
 }
+
+function isNoticeDetail(to: MenuTree['to']) {
+  return !!to && PATH_REG.test(to)
+}
 </script>
 
 <template>
@@ -95,10 +100,11 @@ function getItems(tag: MenuTree | null): ContextMenuItem[][] {
           <UContextMenu :items="getItems(tag)">
             <UButton
               :icon="tag.icon"
-              :label="$t(tag.label)"
+              :label="isNoticeDetail(tag.to) ? tag.label : $t(tag.label)"
               :variant="tabStore.activePath === tag.to ? 'solid' : 'soft'"
               size="sm"
               class="transition-colors"
+              :ui="{ base: 'max-w-50' }"
               @click="tag?.to && router.push({ path: tag.to })"
             >
               <template #trailing>

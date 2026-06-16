@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-15 15:31:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-15 16:09:30
+ * @LastEditTime: 2026-06-16 10:27:42
  * @Description: 消息公告
  */
 import { and, desc, eq, ilike, sql } from 'drizzle-orm'
@@ -33,7 +33,11 @@ export default defineEventHandler(async (event) => {
       db.query.notices.findMany({
         where,
         with: {
-          reads: true,
+          reads: {
+            with: {
+              user: true,
+            },
+          },
           author: true,
         },
 

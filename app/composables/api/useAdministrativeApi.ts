@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-09 09:53:33
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-15 16:19:57
+ * @LastEditTime: 2026-06-16 10:19:49
  * @Description: 智能行政模块
  */
 export function useAdministrativeApi() {
@@ -86,6 +86,12 @@ export function useAdministrativeApi() {
   const getNoticesUserList = () =>
     get<User[]>('/administrative/notices/users')
 
+  /**
+   * @description: 获取公告详情
+   */
+  const getNoticeDetail = (id: string) =>
+    get<Notice>(`/administrative/notices/${id}`)
+
   return {
     getDepartmentList,
     insertDepartment,
@@ -100,5 +106,6 @@ export function useAdministrativeApi() {
     updateNotice,
     delNotice,
     getNoticesUserList,
+    getNoticeDetail,
   }
 }

@@ -30,3 +30,12 @@ export function catchError(err: unknown): string {
  * @description: 判断请求是否成功
  */
 export const isSuccess = (code: ResponseCode) => code === RESPONSE_CODE.SUCCESS
+
+/**
+ * @description: 处理动态路径
+ */
+const PARAM_REGEXP = /\/:\w+(?:\([^)]*\))?[?+*]?/g
+
+export function normalizePath(path: string) {
+  return path.replace(PARAM_REGEXP, '')
+}

@@ -5,7 +5,7 @@ import FormModal from './components/FormModal.vue'
 import HeaderContent from './components/HeaderContent.vue'
 
 const { getNoticeList, insertNotice, updateNotice, delNotice } = useAdministrativeApi()
-const { i18nCommon } = useMessage()
+const { i18nCommon, i18nNotices } = useMessage()
 const { successToast } = useAppToast()
 const { initialPagination, pageSizeOptions } = usePagination()
 
@@ -53,7 +53,7 @@ const columnVisibility = ref({})
 
 // 列固定
 const columnPinning = ref({
-  left: ['author'],
+  left: [],
   right: ['action'],
 })
 
@@ -136,7 +136,13 @@ watch(
         tr: 'group',
         td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-default text-center',
       }"
-    />
+    >
+      <template #expanded="{ row }">
+        <div class="max-w-full whitespace-normal wrap-break-word text-left">
+          {{ i18nNotices('summary') }}: {{ row.original.summary ?? '-' }}
+        </div>
+      </template>
+    </UTable>
     <ClientOnly>
       <TablePagination v-if="table?.tableApi" :table="table?.tableApi" :total="total" :page-size-options="pageSizeOptions" />
     </ClientOnly>

@@ -10,11 +10,13 @@ export function useNoticesColumns(options: {
 }) {
   const { saveLoading, deleteId, onEdit, onDelete } = options
   const { i18nCommon, i18nNotices } = useMessage()
-  const { createCreatedAtColumn, getHeader } = useTableColumns()
+  const { createCreatedAtColumn, getHeader, createExpandColumn } = useTableColumns()
   const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
+  const router = useRouter()
 
   const columns = computed<TableColumn<Notice>[]>(() => [
+    createExpandColumn(),
     {
       accessorKey: 'author',
       header: i18nNotices('author'),
@@ -45,7 +47,12 @@ export function useNoticesColumns(options: {
       cell: ({ row }) => h(UButton, {
         variant: 'link',
         label: row.original.title,
-        to: `/administrative/notices/${row.original.id}`,
+        ui: {
+          base: 'max-w-80',
+        },
+        onClick: () => {
+          router.push(`/administrative/notices/${row.original.id}`)
+        },
       }),
     },
     {
@@ -71,7 +78,7 @@ export function useNoticesColumns(options: {
           return '-'
         }
         const raw = NOTICE_TYPE.raw(val)
-        return h(UBadge, { variant: 'soft', color: raw?.color ?? undefined }, () => i18nNotices(`typeOpts.${raw.label}`))
+        return h(UBadge, { variant: 'soft', color: raw?.color }, () => i18nNotices(`typeOpts.${raw.label}`))
       },
     },
     {

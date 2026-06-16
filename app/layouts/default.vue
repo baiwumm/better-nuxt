@@ -26,7 +26,10 @@ const title = computed(() => {
   if (!menuStore.menuPathMap) {
     return ''
   }
-  const menu = menuStore.menuPathMap.get(route.path)
+  const path = normalizePath(
+    route.matched.at(-1)?.path ?? route.path,
+  )
+  const menu = menuStore.menuPathMap.get(path)
   return menu?.label ? $t(menu.label) : ''
 })
 
@@ -53,13 +56,19 @@ const groups = computed(() => [{
   ],
 }] as CommandPaletteGroup<CommandPaletteItem>[])
 
+const isNoticeDetail = computed(
+  () => route.name === 'administrative-notices-id',
+)
+
 watch(
   () => [route.path, menuStore.menuTree],
   () => {
-    if (!menuStore.menuTree?.length)
+    if (!menuStore.menuTree?.length || isNoticeDetail.value)
       return
 
-    const path = route.path
+    const path = normalizePath(
+      route.matched.at(-1)?.path ?? route.path,
+    )
 
     tabStore.setActive(path)
 
@@ -77,7 +86,10 @@ watch(
       return
     }
 
-    tabStore.addTag(menu)
+    tabStore.addTag({
+      ...menu,
+      to: route.fullPath,
+    })
   },
   { immediate: true },
 )

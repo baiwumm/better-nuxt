@@ -5,7 +5,6 @@
  * @LastEditTime: 2026-06-08 13:52:02
  * @Description: 接口鉴权
  */
-import { auth } from '#server/utils/auth'
 import { RESPONSE_CODE } from '@/enums'
 
 // 白名单

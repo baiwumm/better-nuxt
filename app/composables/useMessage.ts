@@ -43,6 +43,12 @@ export function useMessage() {
   // 我的账户
   const i18nAccount = (field: string) => t(`pages.account.${field}`)
 
+  // 消息公告
+  const i18nNotices = (field: string, isForm = false) => {
+    const prefix = 'pages.administrative.notices'
+    return isForm ? `$i18n:${prefix}.${field}` : t(`${prefix}.${field}`)
+  }
+
   // 部门管理
   const i18nDepartments = (field: string, isForm = false) => {
     const prefix = 'pages.administrative.departments'
@@ -67,5 +73,6 @@ export function useMessage() {
     i18nAccount,
     i18nDepartments,
     i18nPosts,
+    i18nNotices,
   }
 }

@@ -95,3 +95,17 @@ export const PostQuerySchema = z.object({
   page: z.coerce.number().default(1),
   pageSize: z.coerce.number().default(10),
 })
+
+/**
+ * @description: 消息公告 - 查询参数
+ */
+export const NoticesQuerySchema = z.object({
+  userId: z.string().optional(),
+  title: z.string().optional(),
+  type: z.preprocess(
+    v => v === '' ? undefined : v,
+    z.enum(['notice', 'message']).optional(),
+  ),
+  page: z.coerce.number().default(1),
+  pageSize: z.coerce.number().default(10),
+})

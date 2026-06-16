@@ -77,7 +77,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
       <USelectMenu
         v-model="query.method"
         value-key="value"
-        :items="METHODS.items.map(({ value, label, raw }) => ({ value, label, icon: raw.icon }))"
+        :items="METHODS.items.map(({ raw }) => raw)"
         clear
         class="w-48"
         :placeholder="i18nLogs('method')"

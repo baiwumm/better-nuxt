@@ -1,6 +1,6 @@
 import z from 'zod'
 import { AInputPasswordToggle, AutoFormInput, AutoFormTextarea } from '#components'
-import { BAN_DURATIONS, MENU_TARGET, PERMISSIONS, USER_ROLE } from '@/enums'
+import { BAN_DURATIONS, MENU_TARGET, NOTICE_TYPE, PERMISSIONS, USER_ROLE } from '@/enums'
 
 interface ZInputOpts {
   title: string
@@ -12,7 +12,7 @@ interface ZInputOpts {
 
 export function useSchema() {
   const { t } = useI18n()
-  const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles, i18nDepartments, i18nPosts } = useMessage()
+  const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles, i18nDepartments, i18nPosts, i18nNotices } = useMessage()
 
   // 排序
   const zSort = z.number().default(0).meta({
@@ -208,6 +208,22 @@ export function useSchema() {
     confirmPassword: zChangePasswordInput('confirmPassword'),
   })
 
+  // 消息公告 - 新增/编辑
+  const noticeFormSchema = z.object({
+    title: zInput({ title: i18nNotices('caption', true), maxlength: 50, required: true }),
+    summary: zInput({ title: i18nNotices('summary', true), maxlength: 200, isTextarea: true }),
+    type: z.enum(NOTICE_TYPE.values).meta({
+      title: i18nNotices('type', true),
+      required: true,
+    }),
+    pinned: zCheckbox(i18nNotices('pinned', true)),
+    published: zCheckbox(i18nNotices('publishedField', true)),
+    content: z.string().nonempty(t('common.required')).meta({
+      title: i18nNotices('content', true),
+      required: true,
+    }),
+  })
+
   // 部门管理 - 新增/编辑
   const departmentFormSchema = z.object({
     parentId: z.string().nullable().meta({
@@ -251,6 +267,7 @@ export function useSchema() {
     changePasswordFormSchema,
     departmentFormSchema,
     postFormSchema,
+    noticeFormSchema,
   }
 }
 
@@ -267,3 +284,4 @@ export type RoleFormSchema = z.infer<ReturnType<typeof useSchema>['roleFormSchem
 export type ChangePasswordFormSchema = z.infer<ReturnType<typeof useSchema>['changePasswordFormSchema']>
 export type DepartmentFormSchema = z.infer<ReturnType<typeof useSchema>['departmentFormSchema']>
 export type PostFormSchema = z.infer<ReturnType<typeof useSchema>['postFormSchema']>
+export type NoticeFormSchema = z.infer<ReturnType<typeof useSchema>['noticeFormSchema']>

@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-09 09:53:33
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-10 11:08:38
+ * @LastEditTime: 2026-06-15 16:19:57
  * @Description: 智能行政模块
  */
 export function useAdministrativeApi() {
@@ -45,16 +45,46 @@ export function useAdministrativeApi() {
     post<Post>('/administrative/posts', body)
 
   /**
-   * @description: 更新部门
+   * @description: 更新岗位
    */
   const updatePost = ({ id, ...body }: Partial<InsertPost> & { id: string }) =>
     put<Post>(`/administrative/posts/${id}`, body)
 
   /**
-   * @description: 删除部门
+   * @description: 删除岗位
    */
   const delPost = (id: string) =>
     del<Post>(`/administrative/posts/${id}`)
+
+  /**
+   * @description: 查询消息公告
+   */
+  const getNoticeList = (params?: PostQueryParams) =>
+    get<PaginatingQueryList<Notice>>('/administrative/notices', params)
+
+  /**
+   * @description: 新增消息公告
+   */
+  const insertNotice = (body: InsertNotice) =>
+    post<Post>('/administrative/notices', body)
+
+  /**
+   * @description: 更新消息公告
+   */
+  const updateNotice = ({ id, ...body }: Partial<InsertNotice> & { id: string }) =>
+    put<Notice>(`/administrative/notices/${id}`, body)
+
+  /**
+   * @description: 删除消息公告
+   */
+  const delNotice = (id: string) =>
+    del<Notice>(`/administrative/notices/${id}`)
+
+  /**
+   * @description: 消息公告 - 作者列表（去重）
+   */
+  const getNoticesUserList = () =>
+    get<User[]>('/administrative/notices/users')
 
   return {
     getDepartmentList,
@@ -65,5 +95,10 @@ export function useAdministrativeApi() {
     insertPost,
     updatePost,
     delPost,
+    getNoticeList,
+    insertNotice,
+    updateNotice,
+    delNotice,
+    getNoticesUserList,
   }
 }

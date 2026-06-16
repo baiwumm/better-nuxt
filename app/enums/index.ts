@@ -174,3 +174,13 @@ export const PERMISSIONS = Enum({
   ROLE_AUTH: { value: 'ROLE_AUTH', label: 'roleAuth', bits: 1 << 11, icon: 'lucide:shield-check' }, // 角色授权
   ASSIGN_ROLES: { value: 'ASSIGN_ROLES', label: 'assignRoles', bits: 1 << 12, icon: 'lucide:shield-user' }, // 分配角色
 })
+
+/**
+ * @description: 消息公告类型
+ */
+export const NOTICE_TYPE = Enum({
+  NOTICE: { value: 'notice', label: 'notice', icon: 'i-lucide-megaphone', color: 'info' },
+  MESSAGE: { value: 'message', label: 'message', icon: 'i-lucide-message-square', color: 'warning' },
+}, {
+  labelPrefix: 'typeOpts.',
+})

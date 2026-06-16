@@ -1,5 +1,19 @@
 import type { z } from 'zod'
-import type { departments, insertDepartmentsSchema, insertPostsSchema, posts } from '@/db/schema'
+import type { departments, insertDepartmentsSchema, insertNoticesSchema, insertPostsSchema, noticeReads, notices, posts } from '@/db/schema'
+
+/** @description: 已读 */
+export type NoticeReads = typeof noticeReads.$inferSelect & {
+  user: User | null
+  notice: Notice | null
+}
+
+/** @description: 消息公告 */
+export type Notice = typeof notices.$inferSelect & {
+  author: User | null
+  reads: NoticeReads[]
+}
+export type NoticeQueryParams = z.infer<typeof NoticesQuerySchema>
+export type InsertNotice = z.infer<typeof insertNoticesSchema>
 
 /** @description: 部门管理 */
 export type Department = typeof departments.$inferSelect & {
@@ -12,7 +26,7 @@ export type DepartmentTree = Department & {
 export type InsertDepartment = z.infer<typeof insertDepartmentsSchema>
 export type DepartmentQueryParams = z.infer<typeof DepartmentQuerySchema>
 
-/** @description: 岗位管理 - 查询参数 */
+/** @description: 岗位管理 */
 export type Post = typeof posts.$inferSelect & {
   department: Department | null
 }

@@ -39,7 +39,7 @@ const initialState = computed<PostFormSchema>(() => ({
 }))
 
 /** 提交 */
-function onSubmit(data: RoleFormSchema) {
+function onSubmit(data: PostFormSchema) {
   emit('submit', data)
 }
 

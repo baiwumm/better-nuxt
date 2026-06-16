@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.7](https://github.com/baiwumm/better-nuxt/compare/v1.9.6...v1.9.7) (2026-06-16)
+
+### ✨ Features | 新功能
+
+* **config:** 新增 nuxt-security ([3f88719](https://github.com/baiwumm/better-nuxt/commit/3f887198d9c8e1114fc8fabdfe6a8ac5ec75d85f))
+* **drizzle:** 默认打开日志 ([10eb00e](https://github.com/baiwumm/better-nuxt/commit/10eb00e29a87556dfc0f8386bbfad0d08c2a4e8d))
+* **Notices:** 完成“公告详情”页面的开发 ([5002ff8](https://github.com/baiwumm/better-nuxt/commit/5002ff8911f4a6788d9e37e34901a4c2f260a3cf))
+* **Notices:** 完成“消息公告”模块的开发 ([34eb7d2](https://github.com/baiwumm/better-nuxt/commit/34eb7d27d78f0ade27a402ea7b6e7ed5b591cca2))
+
 ## [1.9.6](https://github.com/baiwumm/better-nuxt/compare/v1.9.5...v1.9.6) (2026-06-15)
 
 ### ✨ Features | 新功能

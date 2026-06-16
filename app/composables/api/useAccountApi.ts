@@ -2,16 +2,16 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-27 09:23:25
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-05-27 09:25:24
- * @Description: 我的相关接口
+ * @LastEditTime: 2026-06-16 15:12:35
+ * @Description: 我的账户
  */
-export function useMeApi() {
+export function useAccountApi() {
   const { get } = useRequest()
 
   /**
-   * @description: 获取角色菜单
+   * @description: 获取账户菜单
    */
-  const getMenus = () => get<MenuTree[]>('/me/menus')
+  const getMenus = () => get<MenuTree[]>('/account/menus')
 
   return {
     getMenus,

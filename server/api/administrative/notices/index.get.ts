@@ -2,10 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-15 15:31:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-17 12:14:50
+ * @LastEditTime: 2026-06-17 17:05:58
  * @Description: 消息公告
  */
-import { and, desc, eq, ilike, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { notices } from '@/db/schema'
 
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
           author: true,
         },
 
-        orderBy: [desc(notices.pinned), desc(notices.createdAt)],
+        orderBy: [desc(notices.pinned), asc(notices.createdAt)],
 
         limit: pageSize,
 

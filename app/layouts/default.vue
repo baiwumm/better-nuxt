@@ -143,7 +143,8 @@ onMounted(() => {
 })
 
 // 不需要内边距的页面
-const noPaddingPages = ['/administrative/framework']
+const noPaddingPages = ['/administrative/framework', '/notices-center']
+const noticesMenu = computed(() => menuStore.menuPathMap.get('/notices-center'))
 </script>
 
 <template>
@@ -219,6 +220,7 @@ const noPaddingPages = ['/administrative/framework']
           <template #right>
             <div class="flex items-center gap-2">
               <FullScreen />
+              <NoticeButton v-if="noticesMenu" />
               <ThemePicker />
             </div>
           </template>

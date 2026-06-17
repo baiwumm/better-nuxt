@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-16 09:14:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-16 09:24:11
+ * @LastEditTime: 2026-06-16 16:29:06
  * @Description: 公告详情
  */
 import { eq } from 'drizzle-orm'
@@ -21,6 +21,17 @@ export default defineEventHandler(async (event) => {
 
     if (!id) {
       return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
+    }
+
+    // 已登录用户记录已读
+    if (session?.user?.id) {
+      await db
+        .insert(noticeReads)
+        .values({
+          noticeId: id,
+          userId: session.user.id,
+        })
+        .onConflictDoNothing() // 防止重复插入
     }
 
     const notice = await db.query.notices.findFirst({
@@ -43,18 +54,10 @@ export default defineEventHandler(async (event) => {
       )
     }
 
-    // 已登录用户记录已读
-    if (session?.user?.id) {
-      await db
-        .insert(noticeReads)
-        .values({
-          noticeId: id,
-          userId: session.user.id,
-        })
-        .onConflictDoNothing() // 防止重复插入
-    }
-
-    return responseSuccess(notice)
+    return responseSuccess({
+      ...notice,
+      isRead: true,
+    })
   }
   catch (err) {
     return responseError(err)

@@ -9,8 +9,9 @@ export type NoticeReads = typeof noticeReads.$inferSelect & {
 
 /** @description: 消息公告 */
 export type Notice = typeof notices.$inferSelect & {
-  author: User | null
+  author: User
   reads: NoticeReads[]
+  isRead: boolean
 }
 export type NoticeQueryParams = z.infer<typeof NoticesQuerySchema>
 export type InsertNotice = z.infer<typeof insertNoticesSchema>

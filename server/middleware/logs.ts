@@ -2,13 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:14:56
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-09 09:02:31
+ * @LastEditTime: 2026-06-17 15:36:37
  * @Description: 记录操作日志
  */
 import { eq } from 'drizzle-orm'
 import { UAParser } from 'ua-parser-js'
-import { auth } from '#server/utils/auth'
-import { getGeoByIP } from '#server/utils/ip-geo'
 import { db } from '@/db/drizzle'
 import { ipGeos, logs } from '@/db/schema'
 

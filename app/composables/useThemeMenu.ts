@@ -2,11 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-07 15:47:10
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-17 15:30:58
+ * @LastEditTime: 2026-06-17 15:37:03
  * @Description: theme / UI 设置
  */
 import type { DropdownMenuItem } from '@nuxt/ui'
-import { getPrimaryColors } from '@/utils/constants'
 
 export function useThemeMenu() {
   const colorMode = useColorMode()

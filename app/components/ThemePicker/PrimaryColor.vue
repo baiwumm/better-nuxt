@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getColor, getPrimaryColors } from '@/utils/constants'
-
 const appStore = useAppStore()
 
 const { primaryColor, blackAsPrimary } = storeToRefs(appStore)

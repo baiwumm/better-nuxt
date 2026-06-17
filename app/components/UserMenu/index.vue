@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 import pkg from '~~/package.json'
-import { getColor } from '@/utils/constants'
 
 defineProps<{
   collapsed?: boolean

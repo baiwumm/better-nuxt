@@ -2,7 +2,6 @@
 const route = useRoute()
 const { getNoticeDetail } = useAdministrativeApi()
 const { i18nNotices } = useMessage()
-const { getUserDisplayName } = useCurrentUser()
 const { locale } = useI18n()
 const siteConfig = useSiteConfig()
 const tabStore = useTabStore()
@@ -16,8 +15,6 @@ const { data } = await useAsyncData(`notice-detail-${id.value}`, () => getNotice
 })
 
 const typeRaw = computed(() => NOTICE_TYPE.raw(data.value?.type))
-const userName = computed(() => getUserDisplayName(data.value?.author))
-const email = computed(() => data.value?.author?.email)
 
 watch(
   [
@@ -69,16 +66,7 @@ useHead({
       <div class="space-y-4 mt-4">
         <USeparator />
         <div class="flex justify-between items-center">
-          <UUser
-            :name="userName"
-            :description="userName === email ? undefined : email"
-            :avatar="{
-              src: data?.author?.image ?? undefined,
-              alt: userName,
-              loading: 'lazy',
-            }"
-            :ui="{ wrapper: 'text-left' }"
-          />
+          <UserView :user="data.author" />
           <NuxtTime v-if="data.publishedAt" :datetime="data.publishedAt" relative :locale class="text-xs text-muted" />
         </div>
         <USeparator />

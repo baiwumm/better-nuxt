@@ -5,11 +5,7 @@ defineProps<{
 
 const { locale } = useI18n()
 const noticeId = defineModel<string | null>({ default: null })
-const { getUserDisplayName } = useCurrentUser()
 const { i18nNotices } = useMessage()
-
-const userName = (author: User) => getUserDisplayName(author)
-const email = (author: User) => author.email
 const typeRaw = (type: typeof NOTICE_TYPE.valueType) => NOTICE_TYPE.raw(type)
 </script>
 
@@ -28,16 +24,7 @@ const typeRaw = (type: typeof NOTICE_TYPE.valueType) => NOTICE_TYPE.raw(type)
       >
         <div :class="cn('flex flex-col gap-3', notice.isRead ? '' : 'font-semibold')">
           <div class="flex justify-between items-center gap-2">
-            <UUser
-              :name="userName(notice.author)"
-              :description="userName(notice.author) === email(notice.author) ? undefined : email(notice.author)"
-              :avatar="{
-                src: notice.author.image ?? undefined,
-                alt: userName(notice.author),
-                loading: 'lazy',
-              }"
-              :ui="{ wrapper: 'text-left' }"
-            />
+            <UserView :user="notice.author" />
             <div class="flex items-center gap-2">
               <UChip v-if="!notice.isRead" />
               <UBadge variant="soft" :color="typeRaw(notice.type).color" :label="i18nNotices(`typeOpts.${typeRaw(notice.type).label}`)" size="sm" />

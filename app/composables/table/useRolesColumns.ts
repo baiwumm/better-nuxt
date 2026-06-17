@@ -1,5 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
-import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UAvatarGroup, UBadge, UButton, UserAvatar } from '#components'
 
 export function useRolesColumns(options: {
   saveLoading: Ref<boolean>
@@ -11,7 +11,6 @@ export function useRolesColumns(options: {
   const { saveLoading, deleteId, onEdit, onDelete, onAuthorization } = options
   const { i18nCommon, i18nRoles, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader, createSortColumn, createExpandColumn } = useTableColumns()
-  const { getUserDisplayName } = useCurrentUser()
 
   const columns = computed<TableColumn<Role>[]>(() => [
     createExpandColumn(),
@@ -33,10 +32,7 @@ export function useRolesColumns(options: {
         if (!users?.length) {
           return '-'
         }
-        return h(UAvatarGroup, { max: 3 }, () => users.map((v) => {
-          const user = v.user
-          return h(UAvatar, { src: user.image ?? undefined, alt: getUserDisplayName(user), loading: 'lazy' })
-        }))
+        return h(UAvatarGroup, { max: 3 }, () => users.map(v => h(UserAvatar, { user: v.user })))
       },
     },
     {

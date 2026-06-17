@@ -1,6 +1,6 @@
 import type { DropdownMenuItem, DropdownMenuProps, TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
-import { NuxtTime, UAvatar, UAvatarGroup, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
+import { NuxtTime, UAvatar, UAvatarGroup, UBadge, UButton, UDropdownMenu, UserView, UTooltip } from '#components'
 
 export function userUsersColumns(options: {
   onAssignRoles: (id: string) => void
@@ -13,7 +13,6 @@ export function userUsersColumns(options: {
   const { onAssignRoles, onViewSessions, onEdit, onDelete, onBan, onResetPassword } = options
   const { i18nUsers, i18nCommon, i18nPermissions } = useMessage()
   const { createCreatedAtColumn, getHeader } = useTableColumns()
-  const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
   const { locale } = useI18n()
   const route = useRoute()
@@ -51,22 +50,12 @@ export function userUsersColumns(options: {
     {
       accessorKey: 'name',
       header: i18nUsers('name'),
-      cell: ({ row }) => {
-        const u = row.original
-        const userName = getUserDisplayName(u)
-        return h(UUser, {
-          name: userName,
-          description: userName === u.email ? undefined : u.email,
-          avatar: {
-            src: u.image || undefined,
-            alt: userName?.slice(0, 2).toUpperCase(),
-            loading: 'lazy',
-          },
-          ui: {
-            wrapper: 'text-left',
-          },
-        })
-      },
+      cell: ({ row }) => h(UserView, {
+        user: row.original,
+        ui: {
+          wrapper: 'text-left',
+        },
+      }),
     },
     {
       accessorKey: 'systemRole',

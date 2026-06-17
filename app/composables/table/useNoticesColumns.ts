@@ -1,5 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
-import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton, UUser } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UAvatarGroup, UBadge, UButton, UserAvatar, UserView } from '#components'
 
 export function useNoticesColumns(options: {
   saveLoading: Ref<boolean>
@@ -10,7 +10,6 @@ export function useNoticesColumns(options: {
   const { saveLoading, deleteId, onEdit, onDelete } = options
   const { i18nCommon, i18nNotices } = useMessage()
   const { createCreatedAtColumn, getHeader, createExpandColumn } = useTableColumns()
-  const { getUserDisplayName } = useCurrentUser()
   const dayjs = useDayjs()
   const router = useRouter()
 
@@ -24,17 +23,9 @@ export function useNoticesColumns(options: {
         if (!u) {
           return '-'
         }
-        const userName = getUserDisplayName(u)
-        return h(UUser, {
-          name: userName,
-          description: userName === u.email ? undefined : u.email,
-          avatar: {
-            src: u.image || undefined,
-            alt: userName?.slice(0, 2).toUpperCase(),
-            loading: 'lazy',
-          },
+        return h(UserView, {
+          user: u,
           ui: {
-            root: 'flex justify-center items-center',
             wrapper: 'text-left',
           },
         })
@@ -62,10 +53,7 @@ export function useNoticesColumns(options: {
         if (!reads?.length) {
           return '-'
         }
-        return h(UAvatarGroup, { max: 3 }, () => reads.map((v) => {
-          const user = v.user
-          return h(UAvatar, { src: user?.image ?? undefined, alt: getUserDisplayName(user), loading: 'lazy' })
-        }))
+        return h(UAvatarGroup, { max: 3 }, () => reads.map(v => h(UserAvatar, { user: v.user })))
       },
     },
     {

@@ -1,5 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
-import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UUser } from '#components'
+import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UserView } from '#components'
 
 export function useDepartmentsColumns(options: {
   saveLoading: Ref<boolean>
@@ -10,7 +10,6 @@ export function useDepartmentsColumns(options: {
   const { saveLoading, deleteId, onEdit, onDelete } = options
   const { i18nCommon, i18nDepartments } = useMessage()
   const { createCreatedAtColumn, getHeader, createSortColumn, createTreeColumn } = useTableColumns()
-  const { getUserDisplayName } = useCurrentUser()
 
   const columns = computed<TableColumn<DepartmentTree>[]>(() => [
     createTreeColumn('name', i18nDepartments('name')),
@@ -27,17 +26,9 @@ export function useDepartmentsColumns(options: {
         if (!u) {
           return '-'
         }
-        const userName = getUserDisplayName(u)
-        return h(UUser, {
-          name: userName,
-          description: userName === u.email ? undefined : u.email,
-          avatar: {
-            src: u.image || undefined,
-            alt: userName?.slice(0, 2).toUpperCase(),
-            loading: 'lazy',
-          },
+        return h(UserView, {
+          user: u,
           ui: {
-            root: 'flex justify-center items-center',
             wrapper: 'text-left',
           },
         })

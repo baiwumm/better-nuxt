@@ -1,6 +1,6 @@
 import type { BadgeProps, TableColumn } from '@nuxt/ui'
 import { compact, uniq } from 'es-toolkit/array'
-import { AutoFormDeleteButton, UBadge, UUser } from '#components'
+import { AutoFormDeleteButton, UBadge, UserView } from '#components'
 
 export function useLogsColumns(options: {
   deleteId: Ref<string | null>
@@ -12,8 +12,6 @@ export function useLogsColumns(options: {
 
   const { i18nCommon, i18nLogs } = useMessage()
 
-  const { getUserDisplayName } = useCurrentUser()
-
   const columns = computed<TableColumn<Log>[]>(() => [
     createExpandColumn(),
     createCheckboxColumn(),
@@ -22,15 +20,8 @@ export function useLogsColumns(options: {
       header: i18nLogs('user'),
       cell: ({ row }) => {
         const u = row.original.user
-        const userName = getUserDisplayName(u)
-        return h(UUser, {
-          name: userName,
-          description: userName === u.email ? undefined : u.email,
-          avatar: {
-            src: u.image || undefined,
-            alt: userName?.slice(0, 2).toUpperCase(),
-            loading: 'lazy',
-          },
+        return h(UserView, {
+          user: u,
           ui: {
             wrapper: 'text-left',
           },

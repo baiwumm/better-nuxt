@@ -3,8 +3,8 @@ import type { departments, insertDepartmentsSchema, insertNoticesSchema, insertP
 
 /** @description: 已读 */
 export type NoticeReads = typeof noticeReads.$inferSelect & {
-  user: User | null
-  notice: Notice | null
+  user: User
+  notice: Notice
 }
 
 /** @description: 消息公告 */
@@ -18,7 +18,7 @@ export type InsertNotice = z.infer<typeof insertNoticesSchema>
 
 /** @description: 部门管理 */
 export type Department = typeof departments.$inferSelect & {
-  leader: User | null
+  leader: User
   posts: Post[]
 }
 export type DepartmentTree = Department & {

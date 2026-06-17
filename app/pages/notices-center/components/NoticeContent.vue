@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   data: Notice
   hasPrev: boolean
   hasNext: boolean
@@ -7,11 +7,7 @@ const props = defineProps<{
 
 const emits = defineEmits(['close', 'prev', 'next'])
 
-const { getUserDisplayName } = useCurrentUser()
 const { locale } = useI18n()
-
-const userName = computed(() => getUserDisplayName(props.data.author))
-const email = computed(() => props.data.author?.email)
 </script>
 
 <template>
@@ -49,17 +45,7 @@ const email = computed(() => props.data.author?.email)
     </UDashboardNavbar>
 
     <div class="flex justify-between items-center gap-4 p-4 sm:px-6 border-b border-default shrink-0">
-      <UUser
-        :name="userName"
-        :description="userName === email ? undefined : email"
-        :avatar="{
-          src: data?.author?.image ?? undefined,
-          alt: userName,
-          loading: 'lazy',
-        }"
-        :ui="{ wrapper: 'text-left' }"
-      />
-
+      <UserView :user="data.author" />
       <NuxtTime v-if="data.publishedAt" :datetime="data.publishedAt" relative :locale class="text-xs text-muted" />
     </div>
 

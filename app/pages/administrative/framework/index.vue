@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { UserProps } from '@nuxt/ui'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
 import { VueFlow } from '@vue-flow/core'
@@ -8,7 +7,6 @@ import { buildFlowData, layoutGraph } from './utils'
 
 const siteConfig = useSiteConfig()
 const { getDepartmentList } = useAdministrativeApi()
-const { getUserDisplayName } = useCurrentUser()
 
 // 获取部门列表
 const { data } = await useAsyncData(
@@ -45,22 +43,6 @@ const flowData = computed(() => {
     edges,
   }
 })
-
-function getUserProps(u: User): UserProps {
-  if (!u) {
-    return {}
-  }
-  const userName = getUserDisplayName(u)
-  return {
-    name: userName,
-    description: userName === u.email ? undefined : u.email,
-    avatar: {
-      src: u.image || undefined,
-      alt: userName?.slice(0, 2).toUpperCase(),
-      loading: 'lazy' as const,
-    },
-  }
-}
 </script>
 
 <template>
@@ -92,7 +74,7 @@ function getUserProps(u: User): UserProps {
               </UBadge>
             </template>
             <template v-if="props.data.leader" #footer>
-              <UUser v-bind="getUserProps(props.data.leader)" />
+              <UserView :user="props.data.leader" />
             </template>
           </UPageCard>
         </template>

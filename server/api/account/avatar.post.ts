@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-01 15:52:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-17 15:32:49
+ * @LastEditTime: 2026-06-17 17:33:51
  * @Description: 上传头像
  */
 import { blob } from 'hub:blob'
@@ -39,7 +39,7 @@ export default eventHandler(async (event) => {
       multiple: false,
       ensure: {
         maxSize: '1MB',
-        types: ['image/jpeg', 'image/png', 'image/gif'],
+        types: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
       },
       put: {
         addRandomSuffix: true,

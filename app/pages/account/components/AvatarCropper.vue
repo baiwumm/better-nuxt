@@ -30,7 +30,7 @@ const objectUrl = useObjectUrl(source) // 自动生成和管理 URL
 const isCropping = ref(false)
 
 function validateImage(file: File): boolean {
-  if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+  if (!['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(file.type)) {
     errorToast({ title: i18nAccount('accountSettings.userProfile.validAvatarType') })
     return false
   }

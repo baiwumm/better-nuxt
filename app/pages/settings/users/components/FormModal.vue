@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type z from 'zod'
 import { pick } from 'es-toolkit'
-import { USER_ROLE } from '@/enums'
 
 const props = defineProps<{
   data: User | null

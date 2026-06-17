@@ -1,5 +1,3 @@
-import type { I18N_LOCALES, METHODS, RESPONSE_CODE } from '@/enums'
-
 /** @description: 业务状态码 */
 export type ResponseCode = typeof RESPONSE_CODE.valueType
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ROUTE_TRANSITION } from '@/enums'
-
 const appStore = useAppStore()
 </script>
 

@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { NOTICE_TYPE } from '@/enums'
-
 const route = useRoute()
 const { getNoticeDetail } = useAdministrativeApi()
 const { i18nNotices } = useMessage()

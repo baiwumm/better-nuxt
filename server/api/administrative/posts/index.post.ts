@@ -2,12 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:28:59
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-10 10:36:16
+ * @LastEditTime: 2026-06-17 15:33:44
  * @Description: 新增岗位
  */
 import { db } from '@/db/drizzle'
 import { insertPostsSchema, posts } from '@/db/schema'
-import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
   try {

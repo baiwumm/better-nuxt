@@ -1,5 +1,3 @@
-import { RESPONSE_CODE } from '@/enums'
-
 /**
  * @description: 请求成功
  */
@@ -73,13 +71,13 @@ export function convertFlatDataToTree<T extends { id: any, parentId?: any }>(fla
 /**
  * @description: 将树形树形转成层级对象
  */
-export function transformToLangTree(nodes: InternalizationTree[]) {
+export function transformToLangTree(nodes: I18nTree[]) {
   const result: Record<Locale, any> = {
     'en': {},
     'zh-CN': {},
   }
 
-  function traverse(nodeList: InternalizationTree[], enTarget: any, zhTarget: any) {
+  function traverse(nodeList: I18nTree[], enTarget: any, zhTarget: any) {
     for (const node of nodeList) {
       if (node.children && node.children.length) {
         // 当前节点作为对象容器

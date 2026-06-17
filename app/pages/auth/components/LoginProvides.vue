@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { OAUTH_PROVIDES } from '@/enums'
-
 type Provider = typeof OAUTH_PROVIDES.valueType
 
 const { $authClient } = useNuxtApp()

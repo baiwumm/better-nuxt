@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { EditorToolbarItem } from '@nuxt/ui'
 import { pick } from 'es-toolkit'
-import { NOTICE_TYPE } from '@/enums'
 
 const props = defineProps<{
   data: Notice | null

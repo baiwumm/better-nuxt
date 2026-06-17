@@ -1,7 +1,6 @@
 import type { DropdownMenuItem, DropdownMenuProps, TableColumn } from '@nuxt/ui'
 import { upperFirst } from 'es-toolkit/string'
 import { NuxtTime, UAvatar, UAvatarGroup, UBadge, UButton, UDropdownMenu, UTooltip, UUser } from '#components'
-import { OAUTH_PROVIDES, PERMISSIONS } from '@/enums'
 
 export function userUsersColumns(options: {
   onAssignRoles: (id: string) => void

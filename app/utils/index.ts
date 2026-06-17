@@ -1,7 +1,6 @@
 import type { ClassValue } from 'clsx'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { RESPONSE_CODE } from '@/enums'
 
 /**
  * @description: 合并类名

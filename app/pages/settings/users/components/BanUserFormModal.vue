@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { BAN_DURATIONS } from '@/enums'
-
 const props = defineProps<{
   formKey: number
   refresh: VoidFunction

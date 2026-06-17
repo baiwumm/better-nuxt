@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { I18N_LOCALES } from '@/enums'
-
 const { locale, setLocale } = useI18n()
 </script>
 

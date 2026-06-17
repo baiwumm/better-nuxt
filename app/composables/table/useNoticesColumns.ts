@@ -1,6 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton, UUser } from '#components'
-import { NOTICE_TYPE } from '@/enums'
 
 export function useNoticesColumns(options: {
   saveLoading: Ref<boolean>

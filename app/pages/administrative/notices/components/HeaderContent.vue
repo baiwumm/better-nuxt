@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
-import { NOTICE_TYPE } from '@/enums'
 
 defineProps<{
   table?: Table<Notice>

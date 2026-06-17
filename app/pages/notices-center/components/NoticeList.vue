@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { NOTICE_TYPE } from '@/enums'
-
 defineProps<{
   notices: Notice[]
 }>()

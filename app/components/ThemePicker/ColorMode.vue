@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { COLOR_MODES } from '@/enums'
-
 const colorMode = useColorMode()
 </script>
 

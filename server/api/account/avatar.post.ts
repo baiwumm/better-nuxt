@@ -2,11 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-01 15:52:32
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-12 17:49:58
+ * @LastEditTime: 2026-06-17 15:32:49
  * @Description: 上传头像
  */
 import { blob } from 'hub:blob'
-import { RESPONSE_CODE } from '@/enums'
 
 export default eventHandler(async (event) => {
   try {

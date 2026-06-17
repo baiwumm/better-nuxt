@@ -1,6 +1,5 @@
 import type { TreeItem } from '@nuxt/ui'
 import { map } from 'es-toolkit/compat'
-import { PERMISSIONS } from '@/enums'
 
 export function usePermissions() {
   const { i18nPermissions } = useMessage()

@@ -1,6 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UBadge, UIcon, USwitch } from '#components'
-import { PERMISSIONS } from '@/enums'
 
 export function useMenusColumns(options: {
   saveLoading: Ref<boolean>

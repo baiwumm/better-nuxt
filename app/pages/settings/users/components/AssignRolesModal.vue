@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { CheckboxGroupItem } from '@nuxt/ui'
 import { map } from 'es-toolkit/compat'
-import { PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   roleList: Role[]

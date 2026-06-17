@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { upperFirst } from 'es-toolkit/string'
-import { OAUTH_PROVIDES } from '@/enums'
 
 const props = defineProps<{
   provider: string

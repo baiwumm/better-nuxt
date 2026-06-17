@@ -1,7 +1,6 @@
 import type { BadgeProps, TableColumn } from '@nuxt/ui'
 import { compact, uniq } from 'es-toolkit/array'
 import { AutoFormDeleteButton, UBadge, UUser } from '#components'
-import { METHODS } from '@/enums'
 
 export function useLogsColumns(options: {
   deleteId: Ref<string | null>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { pick } from 'es-toolkit'
-import { MENU_TARGET, PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   data: Menu | null

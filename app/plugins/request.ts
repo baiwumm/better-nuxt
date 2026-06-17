@@ -2,11 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-19 11:10:04
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-04 13:40:29
+ * @LastEditTime: 2026-06-17 15:32:34
  * @Description: $fetch 请求封装
  */
 import { defineNuxtPlugin, navigateTo, useCookie } from '#app'
-import { RESPONSE_CODE } from '@/enums'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { start, finish } = useLoadingIndicator()

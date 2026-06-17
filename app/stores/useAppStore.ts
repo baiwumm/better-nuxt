@@ -2,11 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-20 09:23:39
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-04-28 09:31:52
+ * @LastEditTime: 2026-06-17 15:32:38
  * @Description: 全局状态
  */
 import { defineStore } from 'pinia'
-import { COLOR_MODES, ROUTE_TRANSITION } from '@/enums'
 
 type Transition = typeof ROUTE_TRANSITION.valueType
 

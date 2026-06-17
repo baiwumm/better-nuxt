@@ -2,13 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-22 17:21:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 16:58:51
+ * @LastEditTime: 2026-06-17 15:34:10
  * @Description: 查询角色关联的权限
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { menus, roleMenus, roles } from '@/db/schema'
-import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
   try {

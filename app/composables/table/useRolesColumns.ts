@@ -1,6 +1,5 @@
 import type { TableColumn } from '@nuxt/ui'
 import { AutoFormDeleteButton, AutoFormEditButton, UAvatar, UAvatarGroup, UBadge, UButton } from '#components'
-import { PERMISSIONS } from '@/enums'
 
 export function useRolesColumns(options: {
   saveLoading: Ref<boolean>

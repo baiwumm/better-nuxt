@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { OAUTH_PROVIDES } from '@/enums'
 import LinkAccount from './LinkAccount.vue'
 
 const { i18nAccount } = useMessage()

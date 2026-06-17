@@ -2,7 +2,6 @@
 import type { TreeItem } from '@nuxt/ui'
 import type { TreeItemSelectEvent } from 'reka-ui'
 import { map } from 'es-toolkit/compat'
-import { PERMISSIONS } from '@/enums'
 
 interface CheckedKey { id: string }
 

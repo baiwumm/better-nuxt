@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import { map } from 'es-toolkit/compat'
-import { METHODS, PERMISSIONS } from '@/enums'
 
 const props = defineProps<{
   table: Table<Log>

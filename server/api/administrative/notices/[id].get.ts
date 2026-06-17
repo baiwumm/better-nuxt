@@ -2,13 +2,12 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-16 09:14:29
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-16 16:29:06
+ * @LastEditTime: 2026-06-17 15:33:22
  * @Description: 公告详情
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { noticeReads, notices } from '@/db/schema'
-import { RESPONSE_CODE } from '@/enums'
 
 export default defineEventHandler(async (event) => {
   try {

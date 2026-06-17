@@ -2,10 +2,9 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-29 09:58:47
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 13:52:02
+ * @LastEditTime: 2026-06-17 15:34:24
  * @Description: 接口鉴权
  */
-import { RESPONSE_CODE } from '@/enums'
 
 // 白名单
 const whiteList = [

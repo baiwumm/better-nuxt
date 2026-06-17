@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PERMISSIONS } from '@/enums'
-
 defineProps<{
   disabled: boolean
   loading: boolean

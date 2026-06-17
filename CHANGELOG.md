@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.10.0](https://github.com/baiwumm/better-nuxt/compare/v1.9.7...v1.10.0) (2026-06-17)
+
+### ✨ Features | 新功能
+
+* **NoticeList:** 新增空状态显示 ([4d7ad62](https://github.com/baiwumm/better-nuxt/commit/4d7ad62b24bd420382d6b14bb0cf243a86a39141))
+* **notices-center:** 完成“公告中心”模块的排版和交互逻辑 ([aa0f86d](https://github.com/baiwumm/better-nuxt/commit/aa0f86dd71bb560037d99172b6a0915a34aa70df))
+* **notices:** 按时间倒序 ([4cec385](https://github.com/baiwumm/better-nuxt/commit/4cec38529b888eaa8c4c33716f656a0ed451a40e))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 调整文件结构 ([00849ad](https://github.com/baiwumm/better-nuxt/commit/00849ad114bedb9a1b669a697f7270906440f527))
+* 优化自动导入路径 ([5f4597f](https://github.com/baiwumm/better-nuxt/commit/5f4597fa142b18280f20db9732fadb92b3dd509d))
+* **enums:** 调整 枚举 位置，优化文件结构 ([6d3714f](https://github.com/baiwumm/better-nuxt/commit/6d3714f0d6573ac004bf6812d1e331f340b44d86))
+* **theme:** 优化主题组件结构 ([aa330cc](https://github.com/baiwumm/better-nuxt/commit/aa330ccecff251bbb4d4593e6e2f9182eab8a2ed))
+* **user:** 新增“UserView”和“UserAvatar”组件，优化用户信息显示 ([886713f](https://github.com/baiwumm/better-nuxt/commit/886713f49bd1bebee2feecb45bdf3213643f228b))
+
 ## [1.9.7](https://github.com/baiwumm/better-nuxt/compare/v1.9.6...v1.9.7) (2026-06-16)
 
 ### ✨ Features | 新功能

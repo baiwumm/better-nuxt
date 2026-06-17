@@ -11,6 +11,17 @@ const typeRaw = (type: typeof NOTICE_TYPE.valueType) => NOTICE_TYPE.raw(type)
 
 <template>
   <div class="overflow-y-auto divide-y divide-default h-full">
+    <div v-if="!notices.length" class="size-full flex justify-center items-center">
+      <EmptyContainer
+        :actions="[
+          {
+            icon: 'i-lucide-plus',
+            label: i18nNotices('add'),
+            to: '/administrative/notices',
+          },
+        ]"
+      />
+    </div>
     <div v-for="notice in notices" :key="notice.id">
       <div
         class="p-4 sm:px-6 text-sm cursor-pointer border-l-2 transition-colors"

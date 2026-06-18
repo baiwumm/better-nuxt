@@ -106,6 +106,11 @@ export const NoticesQuerySchema = z.object({
     v => v === '' ? undefined : v,
     z.enum(['notice', 'message']).optional(),
   ),
+  published: z
+    .enum(['true', 'false'])
+    .transform(val => val === 'true')
+    .optional()
+    .catch(undefined),
   page: z.coerce.number().default(1),
   pageSize: z.coerce.number().default(10),
 })

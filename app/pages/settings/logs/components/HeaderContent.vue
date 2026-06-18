@@ -51,8 +51,8 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <div class="flex items-center gap-2">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
       <USelectMenu
         v-model="query.userId"
         value-key="value"
@@ -70,7 +70,7 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
         })"
         clear
         :loading="userloading"
-        class="w-48"
+        class="w-full sm:w-48"
         :placeholder="i18nLogs('user')"
       />
       <USelectMenu
@@ -78,26 +78,29 @@ const raw = computed(() => PERMISSIONS.raw(PERMISSIONS.BATCH_DELETE))
         value-key="value"
         :items="METHODS.items.map(({ raw }) => raw)"
         clear
-        class="w-48"
+        class="w-full sm:w-48"
         :placeholder="i18nLogs('method')"
       />
-      <AutoFormSearchButton :loading @refresh="refresh" />
-      <UButton
-        v-if="selectedRows.length && hasPermission(route.path, raw.bits)"
-        :label="i18nPermissions(raw.label)"
-        color="error"
-        variant="soft"
-        :icon="raw.icon"
-        :loading="delLoading"
-        @click="handleBatchDelete"
-      >
-        <template #trailing>
-          <UKbd>
-            {{ selectedRows.length }}
-          </UKbd>
-        </template>
-      </UButton>
+      <div class="flex gap-2">
+        <AutoFormSearchButton :loading @refresh="refresh" />
+        <UButton
+          v-if="selectedRows.length && hasPermission(route.path, raw.bits)"
+          :label="i18nPermissions(raw.label)"
+          color="error"
+          variant="soft"
+          :icon="raw.icon"
+          :loading="delLoading"
+          @click="handleBatchDelete"
+        >
+          <template #trailing>
+            <UKbd>
+              {{ selectedRows.length }}
+            </UKbd>
+          </template>
+        </UButton>
+        <TableColumnVisibility v-if="table" :table="table" class="sm:hidden" />
+      </div>
     </div>
-    <TableColumnVisibility v-if="table" :table="table" />
+    <TableColumnVisibility v-if="table" :table="table" class="hidden sm:flex sm:ml-auto" />
   </div>
 </template>

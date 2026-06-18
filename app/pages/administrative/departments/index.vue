@@ -118,7 +118,7 @@ watch(open, (val) => {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4 h-full">
     <ClientOnly>
       <HeaderContent
         v-model="query"
@@ -132,6 +132,7 @@ watch(open, (val) => {
       ref="table"
       v-model:column-visibility="columnVisibility"
       v-model:column-pinning="columnPinning"
+      sticky
       :loading
       :data
       :columns="columns"

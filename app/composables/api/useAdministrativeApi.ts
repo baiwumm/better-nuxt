@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-09 09:53:33
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-16 10:19:49
+ * @LastEditTime: 2026-06-18 10:09:17
  * @Description: 智能行政模块
  */
 export function useAdministrativeApi() {
@@ -59,7 +59,7 @@ export function useAdministrativeApi() {
   /**
    * @description: 查询消息公告
    */
-  const getNoticeList = (params?: PostQueryParams) =>
+  const getNoticeList = (params?: NoticeQueryParams) =>
     get<PaginatingQueryList<Notice>>('/administrative/notices', params)
 
   /**

@@ -69,7 +69,7 @@ watch(
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4 h-full">
     <ClientOnly>
       <HeaderContent v-if="table?.tableApi" v-model="query" :refresh :loading :table="table?.tableApi" />
     </ClientOnly>
@@ -77,6 +77,7 @@ watch(
       ref="table"
       v-model:column-visibility="columnVisibility"
       v-model:column-pinning="columnPinning"
+      sticky
       :loading
       :data="list"
       :columns="columns"

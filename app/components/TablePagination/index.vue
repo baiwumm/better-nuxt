@@ -47,12 +47,12 @@ const pageSizeItems = computed(() =>
 </script>
 
 <template>
-  <div class="flex justify-between items-center flex-col sm:flex-row gap-4">
+  <div class="flex justify-between items-center flex-col sm:flex-row gap-4 shrink-0">
     <div class="text-sm text-muted">
       {{ t('common.total', { from, to, total }) }}
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center justify-center flex-wrap gap-3">
       <UPagination
         :page="pagination.pageIndex + 1"
         :items-per-page="pagination.pageSize"

@@ -12,7 +12,7 @@ const { mutate: revokeSession, isPending } = useRevokeSession({
   onSuccess: props.refresh,
 })
 const { os, browser, isMobile } = useDeviceInfo(props.session.userAgent ?? '')
-const { i18nUser } = useMessage()
+const { i18nUsers } = useMessage()
 const { locale } = useI18n()
 
 const isCurrentSession = activeSession.value?.token === props.session.token
@@ -31,7 +31,7 @@ const isCurrentSession = activeSession.value?.token === props.session.token
         </span>
         <div v-if="isCurrentSession">
           <UBadge color="info" variant="soft" size="sm">
-            {{ i18nUser('currentSession') }}
+            {{ i18nUsers('currentSession') }}
           </UBadge>
         </div>
         <NuxtTime v-else :datetime="session.createdAt" :locale relative class="text-xs" />
@@ -49,7 +49,7 @@ const isCurrentSession = activeSession.value?.token === props.session.token
     />
     <UButton
       v-else
-      :label="i18nUser('revokeSession')"
+      :label="i18nUsers('revokeSession')"
       icon="lucide:x"
       variant="outline"
       :loading="isPending"

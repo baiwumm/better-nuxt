@@ -14,12 +14,15 @@ const query = defineModel<Pick<UserQueryParams, 'keyword'>>({ required: true })
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <div class="flex items-center gap-2">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
       <UInput v-model="query.keyword" icon="lucide:search" variant="outline" :placeholder="i18nCommon('searchKeyword')" />
-      <AutoFormSearchButton :loading @refresh="refresh" />
-      <AutoFormAddButton @add="handleAdd" />
+      <div class="flex gap-2">
+        <AutoFormSearchButton :loading @refresh="refresh" />
+        <AutoFormAddButton @add="handleAdd" />
+        <TableColumnVisibility v-if="table" :table="table" class="sm:hidden" />
+      </div>
     </div>
-    <TableColumnVisibility v-if="table" :table="table" />
+    <TableColumnVisibility v-if="table" :table="table" class="hidden sm:flex sm:ml-auto" />
   </div>
 </template>

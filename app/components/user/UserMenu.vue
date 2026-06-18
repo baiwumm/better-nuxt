@@ -13,6 +13,7 @@ const { sessionItems } = await useSessionMenu()
 const menuStore = useMenuStore()
 const profileMenu = computed(() => menuStore.menuPathMap.get('/account'))
 const signOut = useSignOut()
+const { i18nCommon } = useMessage()
 
 const { $authClient } = useNuxtApp()
 const lastMethod = $authClient.getLastUsedLoginMethod()
@@ -54,7 +55,16 @@ const items = computed(() => {
       {
         label: $t('layout.switchAccount'),
         icon: 'lucide:users',
-        children: sessionItems.value,
+        children: [
+          sessionItems.value,
+          [
+            {
+              label: i18nCommon('addAccount'),
+              icon: 'i-lucide-plus',
+              onClick: () => navigateTo('/auth/sign-in'),
+            },
+          ],
+        ],
       },
       {
         label: $t('auth.logout.title'),

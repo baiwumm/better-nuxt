@@ -26,7 +26,7 @@ const isPanelOpen = computed({
 const { data, pending: loading } = await useAsyncData(
   'notices-center-list',
   async () => {
-    const res = await getNoticeList({ page: 1, pageSize: 999 })
+    const res = await getNoticeList({ page: 1, pageSize: 999, published: true })
     return res?.data
   },
   {
@@ -116,7 +116,7 @@ const hasNext = computed(() => isNumber(currentIndex.value) ? currentIndex.value
         <NoticeList v-model="noticeId" :notices="list" />
       </ClientOnly>
     </UDashboardPanel>
-    <div class="hidden lg:flex flex-1 size-full min-h-full">
+    <div class="hidden lg:flex flex-1 size-full min-h-full min-w-0">
       <div v-if="!noticeId" class="flex justify-center items-center size-full">
         <EmptyContainer
           :title="$t('pages.noticesCenter.emptyTitle')"

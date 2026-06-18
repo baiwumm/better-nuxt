@@ -172,6 +172,22 @@ const noticesMenu = computed(() => menuStore.menuPathMap.get('/notices-center'))
           />
         </div>
 
+        <UAlert
+          v-else-if="!menuItems?.length"
+          color="error"
+          variant="outline"
+          :title="$t('layout.menuFailed')"
+          icon="i-lucide-triangle-alert"
+          :actions="[
+            {
+              label: $t('layout.reloadMenu'),
+              icon: 'i-lucide-refresh-cw',
+              color: 'error',
+              onClick: () => menuStore.fetchMenuTree(),
+            },
+          ]"
+        />
+
         <UNavigationMenu
           v-else
           :collapsed

@@ -27,8 +27,8 @@ const typeItems = computed(() => NOTICE_TYPE.items.map(({ value, label, raw }) =
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <div class="flex items-center gap-2 ">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
       <USelectMenu
         v-model="query.userId"
         value-key="value"
@@ -46,7 +46,7 @@ const typeItems = computed(() => NOTICE_TYPE.items.map(({ value, label, raw }) =
         })"
         clear
         :loading="userloading"
-        class="w-48"
+        class="w-full sm:w-48"
         :placeholder="i18nNotices('author')"
       />
       <USelectMenu
@@ -54,13 +54,16 @@ const typeItems = computed(() => NOTICE_TYPE.items.map(({ value, label, raw }) =
         value-key="value"
         :items="typeItems"
         clear
-        class="w-48"
+        class="w-full sm:w-48"
         :placeholder="i18nNotices('type')"
       />
       <UInput v-model="query.title" variant="outline" :placeholder="i18nNotices('title')" />
-      <AutoFormSearchButton :loading @refresh="refresh" />
-      <AutoFormAddButton @add="handleAdd" />
+      <div class="flex gap-2">
+        <AutoFormSearchButton :loading @refresh="refresh" />
+        <AutoFormAddButton @add="handleAdd" />
+        <TableColumnVisibility v-if="table" :table="table" class="sm:hidden" />
+      </div>
     </div>
-    <TableColumnVisibility v-if="table" :table="table" />
+    <TableColumnVisibility v-if="table" :table="table" class="hidden sm:flex sm:ml-auto" />
   </div>
 </template>

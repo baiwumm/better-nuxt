@@ -15,14 +15,17 @@ const query = defineModel<I18nQueryParams>({ required: true })
 </script>
 
 <template>
-  <div class="flex items-start sm:items-center justify-between flex-wrap gap-2">
-    <div class="flex items-start sm:items-center gap-2 flex-wrap">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
       <UInput v-model="query.name" variant="outline" :placeholder="i18nLocales('name')" />
       <UInput v-model="query.zh" variant="outline" :placeholder="i18nLocales('zh')" />
-      <AutoFormSearchButton :loading @refresh="refresh" />
-      <AutoFormResetButton :loading @reset="handleReset" />
-      <AutoFormAddButton @add="handleAdd" />
+      <div class="flex gap-2">
+        <AutoFormSearchButton :loading @refresh="refresh" />
+        <AutoFormResetButton :loading @reset="handleReset" />
+        <AutoFormAddButton @add="handleAdd" />
+        <TableColumnVisibility v-if="table" :table="table" class="sm:hidden" />
+      </div>
     </div>
-    <TableColumnVisibility v-if="table" :table="table" />
+    <TableColumnVisibility v-if="table" :table="table" class="hidden sm:flex sm:ml-auto" />
   </div>
 </template>

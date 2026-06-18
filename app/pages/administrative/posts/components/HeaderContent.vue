@@ -14,13 +14,16 @@ const query = defineModel<Pick<PostQueryParams, 'name' | 'code'>>({ required: tr
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <div class="flex items-center gap-2 ">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
       <UInput v-model="query.name" variant="outline" :placeholder="i18nPosts('name')" />
       <UInput v-model="query.code" variant="outline" :placeholder="i18nPosts('code')" />
-      <AutoFormSearchButton :loading @refresh="refresh" />
-      <AutoFormAddButton @add="handleAdd" />
+      <div class="flex gap-2">
+        <AutoFormSearchButton :loading @refresh="refresh" />
+        <AutoFormAddButton @add="handleAdd" />
+        <TableColumnVisibility v-if="table" :table="table" class="sm:hidden" />
+      </div>
     </div>
-    <TableColumnVisibility v-if="table" :table="table" />
+    <TableColumnVisibility v-if="table" :table="table" class="hidden sm:flex sm:ml-auto" />
   </div>
 </template>

@@ -2,10 +2,10 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-15 15:31:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-17 17:05:58
+ * @LastEditTime: 2026-06-18 10:07:05
  * @Description: 消息公告
  */
-import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
+import { and, desc, eq, ilike, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { notices } from '@/db/schema'
 
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
     const currentUserId = session?.user?.id
 
-    const { userId, title, type, page, pageSize } = NoticesQuerySchema.parse(getQuery(event))
+    const { userId, title, type, published, page, pageSize } = NoticesQuerySchema.parse(getQuery(event))
 
     const conditions = []
 
@@ -32,6 +32,12 @@ export default defineEventHandler(async (event) => {
 
     if (type) {
       conditions.push(eq(notices.type, type))
+    }
+
+    if (published !== undefined) {
+      conditions.push(
+        eq(notices.published, published),
+      )
     }
 
     const where = conditions.length ? and(...conditions) : undefined
@@ -48,7 +54,7 @@ export default defineEventHandler(async (event) => {
           author: true,
         },
 
-        orderBy: [desc(notices.pinned), asc(notices.createdAt)],
+        orderBy: [desc(notices.pinned), desc(notices.publishedAt), desc(notices.createdAt)],
 
         limit: pageSize,
 

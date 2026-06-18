@@ -12,7 +12,7 @@ const { locale } = useI18n()
 
 <template>
   <UDashboardPanel id="notice-content" :ui="{ root: 'min-h-full' }">
-    <UDashboardNavbar :title="data.title" :toggle="false">
+    <UDashboardNavbar :title="data.title" :toggle="false" :ui="{ title: 'block', left: 'flex-1' }">
       <template #leading>
         <UButton
           icon="i-lucide-x"

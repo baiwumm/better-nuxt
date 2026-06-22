@@ -18,31 +18,6 @@ const qr = useQrcode(value, {
   toBase64: true,
   variant,
 })
-
-const md = computed(() => `
-\`\`\`vue
-<template>
-  <Qrcode 
-    value="${value.value}" 
-    variant="${variant.value}"
-  />
-<\/template>
-\`\`\`
-`)
-
-const md1 = computed(() => `
-\`\`\`vue
-<script setup lang="ts">
-const qr = useQrcode("${value.value}", {
-  toBase64: true,
-  variant="${variant.value}"
-/>
-<\/script>
-<template>
-<img class="w-full h-full" :src="qr" alt="QR Code">
-<\/template>
-\`\`\`
-`)
 </script>
 
 <template>
@@ -72,17 +47,11 @@ const qr = useQrcode("${value.value}", {
       <div class="w-80">
         <Qrcode :value :variant="variant" />
       </div>
-      <template #footer>
-        <MDC :value="md" />
-      </template>
     </UCard>
     <UCard title="useQrcode Composable" class="w-full" :ui="{ body: 'flex justify-center' }">
       <div class="w-80">
         <img class="w-full h-full" :src="qr" alt="QR Code">
       </div>
-      <template #footer>
-        <MDC :value="md1" />
-      </template>
     </UCard>
   </div>
 </template>

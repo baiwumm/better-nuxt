@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-04-27 11:06:21
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-16 15:11:33
+ * @LastEditTime: 2026-06-22 10:10:13
  * @Description: 路由菜单
  */
 import { defineStore } from 'pinia'
@@ -14,6 +14,7 @@ export const useMenuStore = defineStore('menu-store', () => {
   const menuTree = ref<MenuTree[]>([])
   const loading = ref(false)
   const inited = ref(false)
+  const { user } = useCurrentUser()
 
   const { getMenus } = useAccountApi()
 
@@ -122,6 +123,21 @@ export const useMenuStore = defineStore('menu-store', () => {
   const keepAliveList = computed(() => {
     return Array.from(keepAliveNames.value)
   })
+
+  watch(
+    () => user.value?.id,
+    async (id) => {
+      if (!id) {
+        menuTree.value = []
+        return
+      }
+
+      await fetchMenuTree()
+    },
+    {
+      immediate: true,
+    },
+  )
   return {
     menuTree,
     loading,

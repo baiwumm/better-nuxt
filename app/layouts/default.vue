@@ -183,7 +183,7 @@ const noticesMenu = computed(() => menuStore.menuPathMap.get('/notices-center'))
               label: $t('layout.reloadMenu'),
               icon: 'i-lucide-refresh-cw',
               color: 'error',
-              onClick: () => menuStore.fetchMenuTree(),
+              onClick: async () => await menuStore.fetchMenuTree(),
             },
           ]"
         />

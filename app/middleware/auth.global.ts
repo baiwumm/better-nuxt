@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:28:20
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-16 13:58:46
+ * @LastEditTime: 2026-06-22 10:16:44
  * @Description: 认证鉴权
  */
 export default defineNuxtRouteMiddleware(async (to) => {
@@ -38,9 +38,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
     to.matched.at(-1)?.path ?? to.path,
   )
 
+  // 菜单还没准备好，不判断权限
+  if (!menuStore.inited || menuStore.loading)
+    return
+
   const menu = menuStore.menuPathMap.get(routePath)
 
-  if (!menu && menuStore.inited) {
+  if (!menu) {
     return showError({
       statusCode: 403,
       statusMessage: '您没有访问权限!',

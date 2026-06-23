@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.11.0](https://github.com/baiwumm/better-nuxt/compare/v1.10.0...v1.11.0) (2026-06-23)
+
+### ✨ Features | 新功能
+
+* **blob:** 头像上传支持 webp 格式 ([3d1764b](https://github.com/baiwumm/better-nuxt/commit/3d1764bcb6a2c759a74be352dd0cb0cac5af628f))
+* **home:** 完成“控制台”模块的开发 ([12404e7](https://github.com/baiwumm/better-nuxt/commit/12404e7d6684bbf8bcddc1b7b104fb6d3b6fc38c))
+* **home:** 完成首页“统计卡片”布局 ([8d3fb77](https://github.com/baiwumm/better-nuxt/commit/8d3fb77e71c191880b147955942422f0f0634653))
+* **SalesPerformance:** 新增“销售业绩”分析卡片 ([c1867be](https://github.com/baiwumm/better-nuxt/commit/c1867bee66f6ffd94e078eb9c9a1008bc831cf25))
+* **TrafficSource:** 新增“流量来源”分析卡片 ([810e622](https://github.com/baiwumm/better-nuxt/commit/810e622be5aab0bd4c484cd686cb71893ccc674a))
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 去除 md 渲染导致的报错问题 ([7b35834](https://github.com/baiwumm/better-nuxt/commit/7b35834529019dd5be5dc4d9b7ad746ffe233b73))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 切换账号重新加载菜单权限，导航到 / 页面 ([37e83e3](https://github.com/baiwumm/better-nuxt/commit/37e83e39e5ac9a122c147a3d53dfb313f12fa298))
+* 页面布局调整，细节优化 ([9b1ff99](https://github.com/baiwumm/better-nuxt/commit/9b1ff99e03d904f7b6eac7a23888310afef0e22d))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更新 better-auth 版本 ([a926cbf](https://github.com/baiwumm/better-nuxt/commit/a926cbf609467b97c244a3b207601f990bf0bd2f))
+* 更新包版本 ([4da87f7](https://github.com/baiwumm/better-nuxt/commit/4da87f743a34d5624e7c3a436b714043f99832a5))
+
 ## [1.10.0](https://github.com/baiwumm/better-nuxt/compare/v1.9.7...v1.10.0) (2026-06-17)
 
 ### ✨ Features | 新功能

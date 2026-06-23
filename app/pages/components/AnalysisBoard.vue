@@ -4,11 +4,11 @@ import TrafficSource from './TrafficSource.vue'
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-    <div class="md:col-span-3">
+  <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
+    <div class="md:col-span-4">
       <SalesPerformance />
     </div>
-    <div class="md:col-span-2">
+    <div class="md:col-span-3">
       <TrafficSource />
     </div>
   </div>

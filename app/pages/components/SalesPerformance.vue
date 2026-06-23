@@ -232,10 +232,10 @@ onMounted(() => {
           </div>
           <UButton icon="lucide:rotate-ccw" variant="ghost" :disabled="loading" color="neutral" size="sm" :class="{ 'animate-spin': loading }" @click="generateData" />
         </div>
-        <USelect v-model="value" :items="items" class="w-48" @update:model-value="generateData" />
+        <USelect v-model="value" :items="items" class="w-48" size="sm" @update:model-value="generateData" />
       </div>
     </template>
-    <div class="grid grid-cols-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3">
       <StatisticItem v-for="(v, key) in statistics" v-bind="v" :key />
     </div>
     <BarChart

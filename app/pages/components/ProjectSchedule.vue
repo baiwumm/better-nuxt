@@ -5,38 +5,30 @@ import KpiCard from './KpiCard.vue'
 
 // 数据加载状态
 const loading = ref(false)
-// 组件 key
-const componentKey = ref(0)
 
 const value = ref(0)
 
 const completionRate = ref(0)
 
 // 重新挂载组件
-function reloadComponent() {
+function generateData() {
   loading.value = true
   setTimeout(() => {
     loading.value = false
     value.value = round(random(1, 100), 2)
     completionRate.value = round(random(1, 100), 2)
-    componentKey.value += 1
   }, 1200)
 }
 
 onMounted(() => {
-  reloadComponent()
+  generateData()
 })
 </script>
 
 <template>
-  <KpiCard title="项目进度" :refresh="reloadComponent" :loading>
+  <KpiCard title="项目进度" :refresh="generateData" :loading>
     <template #body>
-      <NumberFlow
-        :value
-        :trend="0"
-        suffix="%"
-        class="text-2xl font-semibold"
-      />
+      <NumberFlow :value suffix="%" class="text-2xl font-semibold" />
       <div class="h-15 flex items-center">
         <UProgress v-model="value" size="xl" />
       </div>

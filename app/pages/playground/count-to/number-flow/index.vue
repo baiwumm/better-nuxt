@@ -55,7 +55,7 @@ onDeactivated(() => {
       :ui="{ container: '!py-0' }"
     >
       <template #title>
-        <NumberFlow :value :trend="0" :format :locales="locale" class="text-5xl font-bold" />
+        <NumberFlow :value :format :locales="locale" class="text-5xl font-bold" />
       </template>
     </UPageHero>
     <UPageSection :ui="{ container: '!py-6' }">

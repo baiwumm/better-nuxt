@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import NumberFlow from '@number-flow/vue'
-import { randomInt, round, sumBy } from 'es-toolkit/math'
+import { randomInt, sumBy } from 'es-toolkit/math'
 import KpiCard from './KpiCard.vue'
+import TrendBadge from './TrendBadge.vue'
 
 const colorMode = useColorMode()
 
 // 数据加载状态
 const loading = ref(false)
-// 组件 key
-const componentKey = ref(0)
 
 // 模拟数据长度
 const dataLength = 10
@@ -23,12 +22,11 @@ const categories = computed<Record<string, BulletLegendItemInterface>>(() => ({
 }))
 
 // 重新挂载组件
-function reloadComponent() {
+function generateData() {
   loading.value = true
   setTimeout(() => {
     loading.value = false
     dataSource.value = Array.from({ length: dataLength }, _ => ({ payments: randomInt(1000, 10000) }))
-    componentKey.value += 1
   }, 1200)
 }
 
@@ -53,18 +51,14 @@ const conversionRate = computed(() => {
 })
 
 onMounted(() => {
-  reloadComponent()
+  generateData()
 })
 </script>
 
 <template>
-  <KpiCard title="支付笔数" :refresh="reloadComponent" :loading>
+  <KpiCard title="支付笔数" :refresh="generateData" :loading>
     <template #body>
-      <NumberFlow
-        :value="total"
-        :trend="0"
-        class="text-2xl font-semibold"
-      />
+      <NumberFlow :value="total" class="text-2xl font-semibold" />
       <BarChart
         :key="colorMode.value"
         :data="dataSource"
@@ -91,11 +85,7 @@ onMounted(() => {
     <template #footer>
       <div class="flex items-center gap-1 text-xs">
         <span>转化率：</span>
-        <UBadge size="sm" :color="conversionRate >= 0 ? 'success' : 'error'" :icon="conversionRate >= 0 ? 'lucide:arrow-up' : 'lucide:arrow-down'" variant="soft">
-          <template #default>
-            <NumberFlow :value="Math.abs(round(conversionRate * 100, 2))" suffix="%" />
-          </template>
-        </UBadge>
+        <TrendBadge :value="conversionRate" is-percent />
       </div>
     </template>
   </KpiCard>

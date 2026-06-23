@@ -7,13 +7,13 @@ defineProps<{
 </script>
 
 <template>
-  <UCard :ui="{ root: 'relative divide-none', header: 'w-full', body: 'w-full py-0!' }">
+  <UCard :ui="{ root: 'relative divide-none', header: 'w-full pb-0', body: 'w-full py-0!' }">
     <template #header>
       <div class="flex justify-between items-center">
         <div class="text-muted text-sm">
           {{ title }}
         </div>
-        <UButton icon="lucide:rotate-ccw" variant="ghost" color="neutral" size="sm" :class="{ 'animate-spin': loading }" @click="refresh" />
+        <UButton icon="lucide:rotate-ccw" variant="ghost" color="neutral" :disabled="loading" size="sm" :class="{ 'animate-spin': loading }" @click="refresh" />
       </div>
     </template>
 

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import NumberFlow from '@number-flow/vue'
-import { randomInt } from 'es-toolkit/math'
+import { random, randomInt } from 'es-toolkit/math'
 import KpiCard from './KpiCard.vue'
+import TrendBadge from './TrendBadge.vue'
 
 const loading = ref(false)
 
@@ -15,13 +16,13 @@ const state = reactive({
 function updateState() {
   Object.assign(state, {
     total: randomInt(100000, 100000000),
-    daily: randomInt(-100, 100),
-    week: randomInt(-100, 100),
+    daily: random(-1, 1),
+    week: random(-1, 1),
     completionRate: randomInt(1, 100),
   })
 }
 
-function reloadComponent() {
+function generateData() {
   loading.value = true
   setTimeout(() => {
     loading.value = false
@@ -30,16 +31,15 @@ function reloadComponent() {
 }
 
 onMounted(() => {
-  reloadComponent()
+  generateData()
 })
 </script>
 
 <template>
-  <KpiCard title="总销售额" :refresh="reloadComponent" :loading>
+  <KpiCard title="总销售额" :refresh="generateData" :loading>
     <template #body>
       <NumberFlow
         :value="state.total"
-        :trend="0"
         locale="zh-CN"
         :format="{
           style: 'currency',
@@ -50,17 +50,9 @@ onMounted(() => {
       />
       <div class="flex items-center gap-1 text-xs h-15">
         <span>日同比：</span>
-        <UBadge size="sm" :color="state.daily >= 0 ? 'success' : 'error'" :icon="state.daily >= 0 ? 'lucide:arrow-up' : 'lucide:arrow-down'" variant="soft">
-          <template #default>
-            <NumberFlow :value="state.daily" suffix="%" />
-          </template>
-        </UBadge>
+        <TrendBadge :value="state.daily" is-percent :precision="0" />
         <span>周同比：</span>
-        <UBadge size="sm" :color="state.week >= 0 ? 'success' : 'error'" :icon="state.week >= 0 ? 'lucide:arrow-up' : 'lucide:arrow-down'" variant="soft">
-          <template #default>
-            <NumberFlow :value="state.week" suffix="%" />
-          </template>
-        </UBadge>
+        <TrendBadge :value="state.week" is-percent :precision="0" />
       </div>
       <USeparator />
     </template>

@@ -13,10 +13,6 @@ interface Item {
 const visibleRef = ref(false)
 const indexRef = ref(0)
 const isRegenerating = ref(false)
-const menuStore = useMenuStore()
-const route = useRoute()
-
-const menu = computed(() => menuStore.menuPathMap.get(route.path))
 
 function generateRandomImages(count = 50): Item[] {
   return Array.from({ length: count }).map(() => {
@@ -60,16 +56,12 @@ function reshuffleImages() {
 
 <template>
   <div class="space-y-4">
-    <UAlert
-      :title="menu?.label ? $t(menu.label) : ''"
-      :icon="menu?.icon"
-      orientation="horizontal"
-      color="neutral"
-      variant="outline"
-      :actions="[
+    <UPageHero
+      title="Nuxt Easy Lightbox"
+      :description="$t('pages.playground.lightbox.description')"
+      :links="[
         {
           label: $t('pages.playground.lightbox.generate'),
-          size: 'sm',
           color: 'neutral',
           variant: 'outline',
           loading: isRegenerating,
@@ -78,20 +70,25 @@ function reshuffleImages() {
         },
         {
           label: $t('pages.playground.lightbox.reshuffle'),
-          size: 'sm',
           color: 'neutral',
           variant: 'outline',
           icon: 'lucide:shuffle',
           onClick: reshuffleImages,
         },
         {
-          label: 'nuxt-easy-lightbox',
+          label: 'Github',
+          icon: 'simple-icons:github',
           to: 'https://github.com/modbender/nuxt-easy-lightbox',
           target: '_blank',
-          size: 'sm',
+          trailingIcon: 'i-lucide-arrow-right',
         },
       ]"
-    />
+      :ui="{ container: 'py-4!' }"
+    >
+      <template #headline>
+        <UIcon name="lucide:image-plus" class="size-12" />
+      </template>
+    </UPageHero>
     <UPageColumns :ui="{ base: 'xl:columns-4 break-inside-avoid gap-4 space-y-4' }">
       <ClientOnly>
         <motion.div

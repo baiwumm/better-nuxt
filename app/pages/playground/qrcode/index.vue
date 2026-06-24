@@ -21,11 +21,35 @@ const qr = useQrcode(value, {
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-4">
+  <div class="space-y-4">
+    <UPageHero
+      title="Nuxt QRCode"
+      :description="$t('pages.playground.qrcode.description')"
+      :links="[
+        {
+          label: $t('common.docs'),
+          color: 'neutral',
+          variant: 'outline',
+          icon: 'lucide:file-text',
+          trailingIcon: 'lucide:external-link',
+          to: 'https://qrcode.s94.dev',
+          target: '_blank',
+        },
+        {
+          label: 'Github',
+          icon: 'simple-icons:github',
+          to: 'https://github.com/sandros94/nuxt-qrcode',
+          target: '_blank',
+          trailingIcon: 'i-lucide-arrow-right',
+        },
+      ]"
+      :ui="{ container: 'py-4!' }"
+    >
+      <template #headline>
+        <UIcon name="lucide:qr-code" class="size-12" />
+      </template>
+    </UPageHero>
     <div class="flex sm:items-center gap-2 flex-col sm:flex-row">
-      <UButton to="https://qrcode.s94.dev/" target="_blank" icon="i-lucide-qr-code">
-        Nuxt QRCode
-      </UButton>
       <UFieldGroup>
         <UButton
           color="neutral"

@@ -70,7 +70,7 @@ const chartCards = computed(() => [
       :description="$t('pages.playground.charts.subTitle')"
       :links="[
         {
-          label: 'Document',
+          label: $t('common.docs'),
           color: 'neutral',
           variant: 'outline',
           icon: 'lucide:file-text',

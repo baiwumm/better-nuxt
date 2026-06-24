@@ -41,6 +41,7 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     '@nuxtjs/robots',
     'nuxt-security',
+    '@nuxtjs/turnstile',
   ],
   css: [
     '~/assets/css/main.css',
@@ -110,5 +111,8 @@ export default defineNuxtConfig({
         ],
       },
     },
+  },
+  turnstile: {
+    siteKey: process.env.NUXT_TURNSTILE_SITE_KEY,
   },
 })

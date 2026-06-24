@@ -3,14 +3,14 @@ import { dash, sentinel } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-08 16:29:28
+ * @LastEditTime: 2026-06-24 11:11:20
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
 import { betterAuth } from 'better-auth'
 import { localization } from 'better-auth-localization'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { admin, lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
+import { admin, captcha, lastLoginMethod, magicLink, multiSession, username } from 'better-auth/plugins'
 import { Resend } from 'resend'
 import { db } from '@/db/drizzle'
 import * as schema from '@/db/schema'
@@ -184,6 +184,10 @@ export const auth = betterAuth({
           adminEmail: 'security@yourapp.com',
         },
       },
+    }),
+    captcha({
+      provider: 'cloudflare-turnstile',
+      secretKey: process.env.TURNSTILE_SECRET_KEY!,
     }),
   ],
   // 数据库钩子

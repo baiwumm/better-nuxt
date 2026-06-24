@@ -2,6 +2,7 @@
 const appStore = useAppStore()
 const route = useRoute()
 const siteConfig = useSiteConfig()
+const turnstileToken = useTurnstileToken()
 
 const START_SLASH = /^\/+/
 const KEBAB_TO_CAMEL = /-([a-z])/g
@@ -36,5 +37,6 @@ useHead({
       <ThemePicker />
     </div>
     <slot />
+    <NuxtTurnstile v-model="turnstileToken" class="hidden" />
   </div>
 </template>

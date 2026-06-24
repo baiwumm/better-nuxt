@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-06-04 14:58:30
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-04 15:03:18
+ * @LastEditTime: 2026-06-24 11:02:09
  * @Description: 邮箱密码登录
  */
 export function useSignInEmail(options?: {
@@ -13,6 +13,7 @@ export function useSignInEmail(options?: {
   const { $authClient } = useNuxtApp()
   const { errorToast } = useAppToast()
   const { i18nAuth } = useMessage()
+  const turnstileToken = useTurnstileToken()
 
   async function mutate(params: Parameters<typeof $authClient.signIn.email>[0]) {
     if (isPending.value) {
@@ -21,7 +22,14 @@ export function useSignInEmail(options?: {
 
     try {
       isPending.value = true
-      const { error } = await $authClient.signIn.email(params)
+      const { error } = await $authClient.signIn.email({
+        ...params,
+        fetchOptions: {
+          headers: {
+            'x-captcha-response': turnstileToken.value,
+          },
+        },
+      })
 
       if (error) {
         throw new Error(error.message)

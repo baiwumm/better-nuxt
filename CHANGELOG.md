@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.11.1](https://github.com/baiwumm/better-nuxt/compare/v1.11.0...v1.11.1) (2026-06-24)
+
+### ✨ Features | 新功能
+
+* **auth:** 添加 cloudflare-turnstile 防护 ([96547e4](https://github.com/baiwumm/better-nuxt/commit/96547e4fbc82b2f71c936d2f2f9c89030b2d1483))
+
+### 💄 Styles | 风格
+
+* 样式细节调整 ([4862dd3](https://github.com/baiwumm/better-nuxt/commit/4862dd3d927aad76e9399cc8ee9a0e87beadef20))
+
 ## [1.11.0](https://github.com/baiwumm/better-nuxt/compare/v1.10.0...v1.11.0) (2026-06-23)
 
 ### ✨ Features | 新功能

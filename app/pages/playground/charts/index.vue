@@ -7,11 +7,6 @@ import DountChartCard from './components/DountChartCard.vue'
 import GanttChartCard from './components/GanttChartCard.vue'
 import LineChartCard from './components/LineChartCard.vue'
 
-const menuStore = useMenuStore()
-const route = useRoute()
-
-const menu = computed(() => menuStore.menuPathMap.get(route.path))
-
 const categories = computed<Record<string, BulletLegendItemInterface>>(() => ({
   uv: {
     name: $t('pages.playground.charts.uv'),
@@ -70,23 +65,33 @@ const chartCards = computed(() => [
 
 <template>
   <div class="space-y-4">
-    <UAlert
-      :title="menu?.label ? $t(menu.label) : ''"
-      :icon="menu?.icon"
-      orientation="horizontal"
-      color="neutral"
-      variant="outline"
-      :actions="[
+    <UPageHero
+      title="Nuxt Charts"
+      :description="$t('pages.playground.charts.subTitle')"
+      :links="[
         {
-          label: 'Nuxt Charts',
-          icon: 'lucide:chart-spline',
-          to: 'https://nuxtcharts.com/',
+          label: 'Document',
+          color: 'neutral',
+          variant: 'outline',
+          icon: 'lucide:file-text',
+          trailingIcon: 'lucide:external-link',
+          to: 'https://nuxtcharts.com',
           target: '_blank',
-          size: 'sm',
+        },
+        {
+          label: 'Github',
+          icon: 'simple-icons:github',
+          to: 'https://github.com/dennisadriaans/vue-chrts',
+          target: '_blank',
+          trailingIcon: 'i-lucide-arrow-right',
         },
       ]"
-    />
-
+      :ui="{ container: 'py-4!' }"
+    >
+      <template #headline>
+        <UIcon name="lucide:chart-column-big" class="size-12" />
+      </template>
+    </UPageHero>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       <motion.div
         v-for="(card, index) in chartCards"

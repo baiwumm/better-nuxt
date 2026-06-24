@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     adminEmail: process.env.NUXT_ADMIN_EMAIL,
     githubToken: process.env.GITHUB_TOKEN,
     haloToken: process.env.HALO_TOKEN,
+    turnstile: {
+      secretKey: process.env.TURNSTILE_SECRET_KEY,
+    },
   },
   app: {
     head: {

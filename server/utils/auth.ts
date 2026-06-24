@@ -3,7 +3,7 @@ import { dash, sentinel } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-24 14:00:54
+ * @LastEditTime: 2026-06-24 14:44:55
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -187,7 +187,7 @@ export const auth = betterAuth({
     }),
     captcha({
       provider: 'cloudflare-turnstile',
-      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY!,
+      secretKey: process.env.TURNSTILE_SECRET_KEY!,
     }),
   ],
   // 数据库钩子

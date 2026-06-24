@@ -66,7 +66,7 @@ const total = computed(() => sumBy(chartData.value, v => v.desktop + v.mobile))
         <div class="text-highlighted font-semibold">
           流量来源
         </div>
-        <UButton icon="lucide:rotate-ccw" size="sm" color="neutral" variant="ghost" :disabled="loading" :loading @click="() => refresh()" />
+        <UButton icon="lucide:rotate-ccw" size="sm" color="neutral" variant="ghost" :loading @click="() => refresh()" />
       </div>
     </template>
     <div class="space-y-4">

@@ -230,7 +230,7 @@ onMounted(() => {
           <div class="text-lg font-semibold">
             销售业绩
           </div>
-          <UButton icon="lucide:rotate-ccw" variant="ghost" :disabled="loading" color="neutral" size="sm" :class="{ 'animate-spin': loading }" @click="generateData" />
+          <UButton icon="lucide:rotate-ccw" variant="ghost" :loading color="neutral" size="sm" @click="generateData" />
         </div>
         <USelect v-model="value" :items="items" class="w-48" size="sm" @update:model-value="generateData" />
       </div>

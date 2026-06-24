@@ -13,7 +13,7 @@ defineProps<{
         <div class="text-muted text-sm">
           {{ title }}
         </div>
-        <UButton icon="lucide:rotate-ccw" variant="ghost" color="neutral" :disabled="loading" size="sm" :class="{ 'animate-spin': loading }" @click="refresh" />
+        <UButton icon="lucide:rotate-ccw" variant="ghost" color="neutral" :loading size="sm" @click="refresh" />
       </div>
     </template>
 

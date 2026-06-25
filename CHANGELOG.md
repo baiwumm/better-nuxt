@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.11.3](https://github.com/baiwumm/better-nuxt/compare/v1.11.2...v1.11.3) (2026-06-25)
+
+### ✨ Features | 新功能
+
+* **FileViewer:** 新增“文件预览”模块 ([4893bcf](https://github.com/baiwumm/better-nuxt/commit/4893bcf691b2f45128c7251d2eddc746a759f393))
+* **sentinelClient:** 添加 identifyUrl 配置 ([af47891](https://github.com/baiwumm/better-nuxt/commit/af478918193303827e5e282bb69b922b5ca2e04b))
+
+### ⚡ Performance Improvements | 性能优化
+
+* **auth:** 更新 sentinel 哨兵策略 ([337bbd9](https://github.com/baiwumm/better-nuxt/commit/337bbd94a72d97e6322066f35de4aa43d1620ae3))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 安装 file-viewer 相关包 ([e1e9a68](https://github.com/baiwumm/better-nuxt/commit/e1e9a683ca75420ba92017e94b90f2ee8919ef20))
+
 ## [1.11.2](https://github.com/baiwumm/better-nuxt/compare/v1.11.1...v1.11.2) (2026-06-25)
 
 ### ✨ Features | 新功能

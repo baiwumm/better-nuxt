@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     'nuxt-security',
     '@nuxtjs/turnstile',
+    'nuxt-swiper',
   ],
   css: [
     '~/assets/css/main.css',

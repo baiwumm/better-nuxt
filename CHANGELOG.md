@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.11.2](https://github.com/baiwumm/better-nuxt/compare/v1.11.1...v1.11.2) (2026-06-25)
+
+### ✨ Features | 新功能
+
+* **swiper:** 添加 Swiper 模块 ([06888e9](https://github.com/baiwumm/better-nuxt/commit/06888e9aa9cddddba986ef0ca77cb46f7b307c26))
+
+### 💄 Styles | 风格
+
+* **charts:** 样式调整 ([a068b0a](https://github.com/baiwumm/better-nuxt/commit/a068b0acd6c5b1b4d0356a7ff1a8510d4c521d2d))
+* **lightbox:** 样式调整 ([a15cb8c](https://github.com/baiwumm/better-nuxt/commit/a15cb8c3fbfadb16920622c9b1adae0f31407595))
+* **qrcode:** 样式调整 ([63b52d7](https://github.com/baiwumm/better-nuxt/commit/63b52d7464c9c44cfd9faeab510c40203063de8d))
+* **spinner:** 样式调整 ([61a5efd](https://github.com/baiwumm/better-nuxt/commit/61a5efd974aa455ed3e02fe4ccb28d113a15a6a8))
+
+### ⚡ Performance Improvements | 性能优化
+
+* 注释 captcha 功能 ([bf3701e](https://github.com/baiwumm/better-nuxt/commit/bf3701e0199971b9af9c6c02f184bb0a812e0cb4))
+
+### 🔧 Continuous Integration | CI 配置
+
+* 更改 captcha 环境变量 ([04d84d1](https://github.com/baiwumm/better-nuxt/commit/04d84d1646f6ca1cb5dde2178429ccc3b8808b83))
+* 更改 turnstile 环境变量 ([35490a4](https://github.com/baiwumm/better-nuxt/commit/35490a4cc64aa69a37b776dad5bc32b4f34de624))
+* 更改 turnstile 环境变量 ([7b96a12](https://github.com/baiwumm/better-nuxt/commit/7b96a123633b51b3a537c51b59d01e3a12d31b5a))
+* 新增 nuxt-swiper 包 ([790271a](https://github.com/baiwumm/better-nuxt/commit/790271a10c377e75299d39a0f1b3b295f576f58a))
+
 ## [1.11.1](https://github.com/baiwumm/better-nuxt/compare/v1.11.0...v1.11.1) (2026-06-24)
 
 ### ✨ Features | 新功能

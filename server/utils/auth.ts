@@ -3,7 +3,7 @@ import { dash, sentinel } from '@better-auth/infra'
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-25 09:55:13
+ * @LastEditTime: 2026-06-25 10:24:40
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -133,55 +133,97 @@ export const auth = betterAuth({
     }),
     sentinel({
       apiKey: process.env.BETTER_AUTH_API_KEY,
+
       security: {
-        // Core protections
+        /**
+         * 撞库攻击防护
+         *
+         * 同一访客短时间内大量登录失败时触发
+         *
+         * challenge: 要求额外验证
+         * block: 直接封禁
+         */
         credentialStuffing: {
           enabled: true,
-          thresholds: { challenge: 3, block: 5 },
+          thresholds: {
+            challenge: 10,
+            block: 20,
+          },
         },
+
+        /**
+         * 泄露密码检测
+         *
+         * 阻止用户使用已出现在公开泄露数据库中的密码
+         */
         compromisedPassword: {
           enabled: true,
           action: 'block',
         },
+
+        /**
+         * 邮箱质量检测
+         *
+         * 检测：
+         * - 临时邮箱
+         * - 一次性邮箱
+         * - 异常邮箱
+         */
         emailValidation: {
           enabled: true,
           strictness: 'medium',
           action: 'block',
         },
 
-        // Location-based
+        /**
+         * 不可能旅行检测
+         *
+         * 例如：
+         * 5分钟前在香港登录
+         * 现在又在美国登录
+         *
+         * 这种情况通常是账号共享、
+         * Cookie 泄露或代理切换导致
+         */
         impossibleTravel: {
           enabled: true,
           action: 'challenge',
         },
-        geoBlocking: {
-          denyList: ['XX'],
-          action: 'block',
-        },
 
-        // Abuse prevention
-        freeTrialAbuse: {
-          enabled: true,
-          maxAccountsPerVisitor: 3,
-          action: 'block',
-        },
+        /**
+         * 注册频率限制
+         *
+         * 防止机器人批量注册账号
+         */
         velocity: {
           enabled: true,
           maxSignupsPerVisitor: 5,
           action: 'challenge',
         },
 
-        // Bot protection
-        botBlocking: { action: 'challenge' },
-        suspiciousIpBlocking: { action: 'block' },
+        /**
+         * 机器人检测
+         *
+         * 已经有 Turnstile 的情况下
+         * 可以继续保留
+         */
+        // botBlocking: {
+        //   action: 'challenge',
+        // },
 
-        // Account monitoring
-        staleUsers: {
-          enabled: true,
-          staleDays: 90,
-          notifyUser: true,
-          notifyAdmin: true,
-          adminEmail: 'security@yourapp.com',
+        /**
+         * 可疑 IP 检测
+         *
+         * 数据中心 IP
+         * 已知恶意 IP
+         * VPN 等
+         *
+         * 建议 challenge
+         * 不要直接 block
+         * 否则容易误伤正常用户
+         */
+        suspiciousIpBlocking: {
+          action: 'challenge',
         },
       },
     }),

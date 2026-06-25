@@ -19,6 +19,7 @@ export default defineNuxtPlugin(() => {
         },
       }),
       sentinelClient({
+        identifyUrl: process.env.BETTER_AUTH_IDENTIFY_URL,
         autoSolveChallenge: true,
       }),
     ],

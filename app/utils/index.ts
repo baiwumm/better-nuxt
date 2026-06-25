@@ -1,4 +1,5 @@
 import type { ClassValue } from 'clsx'
+import { faker } from '@faker-js/faker'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -37,4 +38,13 @@ const PARAM_REGEXP = /\/:\w+(?:\([^)]*\))?[?+*]?/g
 
 export function normalizePath(path: string) {
   return path.replace(PARAM_REGEXP, '')
+}
+
+/**
+ * @description: 随机图片
+ */
+export function generateRandomImages(count = 6, width = 640, height = 640): string[] {
+  return Array.from({ length: count }).map(() => {
+    return faker.image.urlPicsumPhotos({ width, height, blur: 0 })
+  })
 }

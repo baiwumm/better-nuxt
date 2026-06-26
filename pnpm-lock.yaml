@@ -38,6 +38,9 @@ importers:
       '@file-viewer/vue3':
         specifier: ^2.1.2
         version: 2.1.2(typescript@5.9.3)
+      '@formkit/auto-animate':
+        specifier: ^0.9.0
+        version: 0.9.0
       '@neondatabase/serverless':
         specifier: ^1.1.0
         version: 1.1.0
@@ -1481,6 +1484,9 @@ packages:
 
   '@floating-ui/vue@1.1.11':
     resolution: {integrity: sha512-HzHKCNVxnGS35r9fCHBc3+uCnjw9IWIlCPL683cGgM9Kgj2BiAl8x1mS7vtvP6F9S/e/q4O6MApwSHj8hNLGfw==}
+
+  '@formkit/auto-animate@0.9.0':
+    resolution: {integrity: sha512-VhP4zEAacXS3dfTpJpJ88QdLqMTcabMg0jwpOSxZ/VzfQVfl3GkZSCZThhGC5uhq/TxPHPzW0dzr4H9Bb1OgKA==}
 
   '@html-validate/stylish@5.2.0':
     resolution: {integrity: sha512-7lF57/RTs2tZi0FtgY7Y5CP73Y2GEPPMaJ9PeZKRRUOs7Bt7/Qlqt8kdsAbVMO7GrpuWtUfGvR11riSOryioow==}
@@ -11017,6 +11023,8 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+
+  '@formkit/auto-animate@0.9.0': {}
 
   '@html-validate/stylish@5.2.0': {}
 

@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     'nuxt-security',
     '@nuxtjs/turnstile',
     'nuxt-swiper',
+    '@formkit/auto-animate/nuxt',
   ],
   css: [
     '~/assets/css/main.css',

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.4](https://github.com/baiwumm/better-nuxt/compare/v1.11.3...v1.11.4) (2026-06-26)
+
+### ✨ Features | 新功能
+
+* **AutoAnimate:** 新增“auto-animate”包和演示页面 ([a11cdd7](https://github.com/baiwumm/better-nuxt/commit/a11cdd78466f53a2184f0202afd76f2025f23a19))
+
 ## [1.11.3](https://github.com/baiwumm/better-nuxt/compare/v1.11.2...v1.11.3) (2026-06-25)
 
 ### ✨ Features | 新功能

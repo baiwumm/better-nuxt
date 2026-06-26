@@ -2,10 +2,11 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-07 15:47:10
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-17 15:37:03
+ * @LastEditTime: 2026-06-26 17:16:38
  * @Description: theme / UI 设置
  */
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { sample, without } from 'es-toolkit/array'
 
 export function useThemeMenu() {
   const colorMode = useColorMode()
@@ -17,34 +18,49 @@ export function useThemeMenu() {
   const { primaryColor, blackAsPrimary, radius, transition } = storeToRefs(appStore)
   const { setPrimaryColor, setBlackAsPrimary, setRadius, setTransition } = appStore
 
+  const colors = computed(getPrimaryColors)
+
   const themeItems = computed(() => [{
     label: t('components.themePicker.primaryColor'),
     icon: 'lucide:palette',
     chip: appConfig.ui.colors.primary,
     children: [
-      {
-        label: 'Black',
-        chip: 'black',
-        slot: 'primary' as const,
-        checked: blackAsPrimary.value,
-        type: 'checkbox',
-        onSelect: (e: Event) => {
-          e.preventDefault()
-          setBlackAsPrimary(true)
+      [
+        {
+          label: 'Shuffle',
+          icon: 'lucide:shuffle',
+          onSelect: (e: Event) => {
+            e.preventDefault()
+            setPrimaryColor(sample(without(colors.value, primaryColor.value)))
+            setBlackAsPrimary(false)
+          },
         },
-      },
-      ...getPrimaryColors().map(color => ({
-        label: color,
-        chip: color,
-        slot: 'primary' as const,
-        checked: !blackAsPrimary.value && primaryColor.value === color,
-        type: 'checkbox',
-        onSelect: (e: Event) => {
-          e.preventDefault()
-          setPrimaryColor(color)
-          setBlackAsPrimary(false)
+      ],
+      [
+        {
+          label: 'Black',
+          chip: 'black',
+          slot: 'primary' as const,
+          checked: blackAsPrimary.value,
+          type: 'checkbox',
+          onSelect: (e: Event) => {
+            e.preventDefault()
+            setBlackAsPrimary(true)
+          },
         },
-      })) as DropdownMenuItem[],
+        ...colors.value.map(color => ({
+          label: color,
+          chip: color,
+          slot: 'primary' as const,
+          checked: !blackAsPrimary.value && primaryColor.value === color,
+          type: 'checkbox',
+          onSelect: (e: Event) => {
+            e.preventDefault()
+            setPrimaryColor(color)
+            setBlackAsPrimary(false)
+          },
+        })) as DropdownMenuItem[],
+      ],
     ],
   }, {
     label: t('components.themePicker.colorMode'),

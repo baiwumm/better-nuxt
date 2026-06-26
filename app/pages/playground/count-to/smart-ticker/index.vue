@@ -68,7 +68,7 @@ onDeactivated(() => {
       :links="[
         {
           label: 'Shuffle',
-          icon: 'lucide:refresh-ccw',
+          icon: 'lucide:shuffle',
           color: 'neutral',
           variant: 'outline',
           onClick: randomize,

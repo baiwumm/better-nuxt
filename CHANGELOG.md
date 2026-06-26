@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.5](https://github.com/baiwumm/better-nuxt/compare/v1.11.4...v1.11.5) (2026-06-26)
+
+### ✨ Features | 新功能
+
+* 新增项目页面截图 ([7add595](https://github.com/baiwumm/better-nuxt/commit/7add59556af4e13e12e79d8afc249d23f16ecebf))
+* 主题色新增随机按钮 ([f10f64c](https://github.com/baiwumm/better-nuxt/commit/f10f64c6cfd89bc26f77494ab60132fc6e6bc4d7))
+
 ## [1.11.4](https://github.com/baiwumm/better-nuxt/compare/v1.11.3...v1.11.4) (2026-06-26)
 
 ### ✨ Features | 新功能

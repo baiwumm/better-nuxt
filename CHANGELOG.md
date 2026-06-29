@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.6](https://github.com/baiwumm/better-nuxt/compare/v1.11.5...v1.11.6) (2026-06-29)
+
+### ✨ Features | 新功能
+
+* **draggable:** 新增“拖拽”模块 ([1b95338](https://github.com/baiwumm/better-nuxt/commit/1b9533821d8ce8029afd9896ea4dfe68981e7ddd))
+
 ## [1.11.5](https://github.com/baiwumm/better-nuxt/compare/v1.11.4...v1.11.5) (2026-06-26)
 
 ### ✨ Features | 新功能

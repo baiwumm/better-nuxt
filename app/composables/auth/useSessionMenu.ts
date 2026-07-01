@@ -2,7 +2,7 @@
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-05-07 15:45:12
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-22 10:33:58
+ * @LastEditTime: 2026-07-01 10:44:20
  * @Description: 多会话
  */
 import type { DropdownMenuItem } from '@nuxt/ui'
@@ -36,9 +36,8 @@ export async function useSessionMenu() {
               if (error) {
                 throw new Error(error.message)
               }
-              reloadNuxtApp({
-                path: '/',
-              })
+              await refreshNuxtData()
+              navigateTo('/')
             }
             catch (error) {
               errorToast({ title: catchError(error) })

@@ -47,6 +47,7 @@ export default defineNuxtConfig({
     '@nuxtjs/turnstile',
     'nuxt-swiper',
     '@formkit/auto-animate/nuxt',
+    'nuxt-og-image',
   ],
   css: [
     '~/assets/css/main.css',

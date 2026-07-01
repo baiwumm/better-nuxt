@@ -3,6 +3,7 @@ import * as locales from '@nuxt/ui/locale'
 
 const menuStore = useMenuStore()
 const appStore = useAppStore()
+const siteConfig = useSiteConfig()
 
 const { locale } = useI18n()
 
@@ -26,6 +27,10 @@ useHead({
 })
 
 useFaviconFromTheme()
+
+defineOgImage('NuxtSeo.takumi', {
+  title: siteConfig.name,
+})
 </script>
 
 <template>

@@ -75,6 +75,7 @@
     "nuxt": "^4.4.8",
     "nuxt-charts": "^2.1.4",
     "nuxt-easy-lightbox": "^1.1.0",
+    "nuxt-og-image": "^6.7.0",
     "nuxt-qrcode": "^0.4.10",
     "nuxt-resend": "0.0.2",
     "nuxt-security": "^2.6.0",

@@ -8,7 +8,7 @@ const { isFullscreen, toggle } = useFullscreen()
     color="neutral"
     variant="ghost"
     square
-    aria-label="Theme Picker"
+    aria-label="Fullscreen"
     @click="toggle"
   />
 </template>

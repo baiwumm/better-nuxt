@@ -116,6 +116,9 @@ export default defineNuxtConfig({
           'https:',
         ],
       },
+      permissionsPolicy: {
+        fullscreen: ['self'],
+      },
     },
   },
   turnstile: {

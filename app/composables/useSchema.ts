@@ -10,7 +10,6 @@ interface ZInputOpts {
 }
 
 export function useSchema() {
-  const { t } = useI18n()
   const { i18nCommon, i18nLocales, i18nMenus, i18nAuth, i18nUsers, i18nRoles, i18nDepartments, i18nPosts, i18nNotices } = useMessage()
 
   // 排序
@@ -47,7 +46,7 @@ export function useSchema() {
   const zCheckbox = (title: string) => z.boolean().meta({ title, theme: { floatRight: true } })
 
   // 电子邮箱
-  const zEmail = z.email(t('auth.email.error')).nonempty({ error: i18nCommon('required') }).meta({
+  const zEmail = z.email(i18nAuth('email.error')).nonempty({ error: i18nCommon('required') }).meta({
     title: i18nAuth('email.label', true),
     required: true,
     input: {
@@ -58,7 +57,7 @@ export function useSchema() {
   })
 
   // 用户密码
-  const zPassword = z.string(t('auth.password.placeholder')).min(8, t('auth.password.error')).meta({
+  const zPassword = z.string(i18nAuth('password.placeholder')).min(8, i18nAuth('password.error')).meta({
     title: i18nAuth('password.label', true),
     required: true,
     input: {
@@ -78,7 +77,7 @@ export function useSchema() {
 
   // 用户注册
   const signUpFormSchema = z.object({
-    name: z.string().nonempty({ error: t('auth.name.placeholder') }).meta({
+    name: z.string().nonempty({ error: i18nAuth('name.placeholder') }).meta({
       title: i18nAuth('name.label', true),
       required: true,
       input: {
@@ -98,7 +97,7 @@ export function useSchema() {
 
   // 重置密码
   const forgotPasswordFormSchema = z.object({
-    newPassword: z.string(t('auth.newPassword.placeholder')).min(8, t('auth.password.error')).meta({
+    newPassword: z.string(i18nAuth('newPassword.placeholder')).min(8, i18nAuth('password.error')).meta({
       title: i18nAuth('newPassword.label', true),
       required: true,
       input: {
@@ -127,7 +126,7 @@ export function useSchema() {
 
   // 用户管理 - 封禁用户
   const banUserFormSchema = z.object({
-    banReason: z.string().nonempty(t('common.required')).meta({
+    banReason: z.string().nonempty(i18nCommon('required')).meta({
       title: i18nUsers('banReason', true),
       required: true,
       input: {
@@ -191,7 +190,7 @@ export function useSchema() {
   })
 
   // 我的账户 - 更改密码
-  const zChangePasswordInput = (field: string) => z.string(t(`auth.${field}.placeholder`)).min(8, t('auth.password.error')).meta({
+  const zChangePasswordInput = (field: string) => z.string(i18nAuth(`${field}.placeholder`)).min(8, i18nAuth('password.error')).meta({
     title: i18nAuth(`${field}.label`, true),
     required: true,
     input: {
@@ -217,7 +216,7 @@ export function useSchema() {
     }),
     pinned: zCheckbox(i18nNotices('pinned', true)),
     published: zCheckbox(i18nNotices('publishedField', true)),
-    content: z.string().nonempty(t('common.required')).meta({
+    content: z.string().nonempty(i18nCommon('required')).meta({
       title: i18nNotices('content', true),
       required: true,
     }),

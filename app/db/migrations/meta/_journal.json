@@ -92,6 +92,34 @@
       "when": 1780907765538,
       "tag": "0012_open_power_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1786672641375,
+      "tag": "0013_tired_the_stranger",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1786674369436,
+      "tag": "0014_peaceful_wilson_fisk",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1786676439568,
+      "tag": "0015_bumpy_terror",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1786687052828,
+      "tag": "0016_cuddly_archangel",
+      "breakpoints": true
     }
   ]
 }

@@ -36,12 +36,12 @@ export const sort = integer('sort').default(0).notNull()
 /**
  * @description: 创建时间
  */
-export const createdAt = timestamp('created_at').defaultNow().notNull()
+export const createdAt = timestamp('created_at', { withTimezone: true }).defaultNow().notNull()
 
 /**
  * @description: 更新时间
  */
-export const updatedAt = timestamp('updated_at')
+export const updatedAt = timestamp('updated_at', { withTimezone: true })
   .defaultNow()
   .$onUpdate(() => /* @__PURE__ */ new Date())
   .notNull()
@@ -83,7 +83,6 @@ export const menus = pgTable('menus', {
   createdAt,
   updatedAt,
 }, t => ([
-  index('menus_parent_idx').on(t.parentId),
   index('menus_sort_idx').on(t.parentId, t.sort),
 ]))
 export const insertMenusSchema = createInsertSchema(menus).omit({
@@ -111,7 +110,10 @@ export const roles = pgTable('roles', {
   sort,
   createdAt,
   updatedAt,
-})
+}, t => [
+  // 列表排序：sort 降序 + createdAt 升序
+  index('roles_sort_idx').on(t.sort, t.createdAt),
+])
 export const insertRolesSchema = createInsertSchema(roles).omit({
   id: true,
   createdAt: true,
@@ -135,7 +137,7 @@ export const roleMenus = pgTable('role_menus', {
   primaryKey({
     columns: [t.roleId, t.menuId],
   }),
-  index('role_menus_role_idx').on(t.roleId),
+  // roleId 为复合主键前缀，单独索引冗余
   index('role_menus_menu_idx').on(t.menuId),
 ])
 export const insertRoleMenusSchema = createInsertSchema(roleMenus).omit({
@@ -153,7 +155,7 @@ export const userRoles = pgTable('user_roles', {
   primaryKey({
     columns: [t.userId, t.roleId],
   }),
-  index('user_roles_user_idx').on(t.userId),
+  // userId 为复合主键前缀，单独索引冗余
   index('user_roles_role_idx').on(t.roleId),
 ])
 
@@ -183,7 +185,6 @@ export const i18n = pgTable('i18n', {
   createdAt,
   updatedAt,
 }, t => ([
-  index('i18n_parent_idx').on(t.parentId),
   index('i18n_sort_idx').on(t.parentId, t.sort),
 ]))
 export const insertI18nSchema = createInsertSchema(i18n).omit({
@@ -219,6 +220,8 @@ export const logs = pgTable('logs', {
 }, t => [
   index('logs_user_idx').on(t.userId),
   index('logs_ip_idx').on(t.ip),
+  // 列表按创建时间倒序
+  index('logs_created_idx').on(t.createdAt),
 ])
 
 /**
@@ -233,7 +236,7 @@ export const ipGeos = pgTable('ip_geos', {
 
   isp: text('isp'),
 
-  createdAt: timestamp('created_at')
+  createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
 })
@@ -254,7 +257,7 @@ export const notices = pgTable('notices', {
   // 是否置顶
   pinned: boolean('pinned').default(false).notNull(),
   // 发布时间
-  publishedAt: timestamp('published_at'),
+  publishedAt: timestamp('published_at', { withTimezone: true }),
   // 是否发布
   published: boolean('published').default(true).notNull(),
   // 作者 id
@@ -265,6 +268,8 @@ export const notices = pgTable('notices', {
   updatedAt,
 }, t => [
   index('notices_user_idx').on(t.userId),
+  // 列表排序：置顶 > 发布时间 > 创建时间
+  index('notices_list_idx').on(t.pinned, t.publishedAt, t.createdAt),
 ])
 export const insertNoticesSchema = createInsertSchema(notices).omit({
   id: true,
@@ -296,7 +301,7 @@ export const noticeReads = pgTable('notice_reads', {
     }),
 
   // 阅读时间
-  readAt: timestamp('read_at')
+  readAt: timestamp('read_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
 }, t => [
@@ -304,7 +309,7 @@ export const noticeReads = pgTable('notice_reads', {
     columns: [t.noticeId, t.userId],
   }),
 
-  index('notice_reads_notice_idx').on(t.noticeId),
+  // noticeId 为复合主键前缀，单独索引冗余
 
   index('notice_reads_user_idx').on(t.userId),
 ])
@@ -341,7 +346,6 @@ export const departments = pgTable('departments', {
   createdAt,
   updatedAt,
 }, t => [
-  index('departments_parent_idx').on(t.parentId),
   index('departments_leader_idx').on(t.leaderId),
   index('departments_sort_idx').on(t.parentId, t.sort),
 ])
@@ -385,6 +389,8 @@ export const posts = pgTable('posts', {
   updatedAt,
 }, t => [
   index('posts_department_idx').on(t.departmentId),
+  // 列表排序：sort 降序 + createdAt 降序
+  index('posts_sort_idx').on(t.sort, t.createdAt),
 ])
 export const insertPostsSchema = createInsertSchema(posts).omit({
   id: true,

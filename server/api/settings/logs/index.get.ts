@@ -5,9 +5,42 @@
  * @LastEditTime: 2026-05-28 16:24:31
  * @Description:操作日志列表
  */
+import type { SQL } from 'drizzle-orm'
 import { and, desc, eq, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { logs } from '@/db/schema'
+
+// 无筛选时的全表 count 加 TTL 缓存（大表 count 是每页开销大头，翻页期间数据量短期不变）
+const totalCountCache = new Map<string, { total: number, expiresAt: number }>()
+const TOTAL_COUNT_TTL = 5_000
+
+/**
+ * 获取日志总数
+ * 无筛选条件时走 5 秒 TTL 缓存；带筛选（userId/method）时实时查询
+ */
+async function getLogsCount(where: SQL | undefined): Promise<number> {
+  const key = 'logs:total-count'
+
+  if (!where) {
+    const hit = totalCountCache.get(key)
+
+    if (hit && hit.expiresAt > Date.now())
+      return hit.total
+  }
+
+  const [row] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(logs)
+    .where(where)
+
+  const total = Number(row?.count || 0)
+
+  if (!where) {
+    totalCountCache.set(key, { total, expiresAt: Date.now() + TOTAL_COUNT_TTL })
+  }
+
+  return total
+}
 
 export default defineEventHandler(async (event) => {
   try {
@@ -25,7 +58,7 @@ export default defineEventHandler(async (event) => {
 
     const where = conditions.length ? and(...conditions) : undefined
 
-    const [list, totalResult] = await Promise.all([
+    const [list, total] = await Promise.all([
       db.query.logs.findMany({
         where,
 
@@ -42,13 +75,8 @@ export default defineEventHandler(async (event) => {
         offset: (page - 1) * pageSize,
       }),
 
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(logs)
-        .where(where),
+      getLogsCount(where),
     ])
-
-    const total = Number(totalResult[0]?.count || 0)
 
     return responseSuccess({
       list,

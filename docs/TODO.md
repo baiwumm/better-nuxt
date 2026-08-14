@@ -1,21 +1,19 @@
 # 待修复清单
 
 > **维护规则**：完成一项即从本清单删除该行；详细修复记录见 `docs/optimizations/` 对应迭代文档。
-> **最后更新**：2026-08-14
+> **最后更新**：2026-08-14（完成 B4、C4）
 
 ## B 类 · 前端质量
 
 - [ ] **B1 硬编码中文未走 i18n**（TodoList / WeekHeatmap / TrafficSource / hub overview 等 5+ 组件）
 - [ ] **B2 appStore 持久化 FOUC**（主题/圆角 SSR 与客户端不一致，首屏闪烁）
 - [ ] **B3 useSchema 混合翻译**（静态 `t()` 与 `$i18n:` key 混用，切换语言不更新）
-- [ ] **B4 usePagination 空壳**（并入常量，清理）
 
 ## C 类 · 安全/配置
 
 - [ ] **C1 dev 环境写接口全放开**（生产仅邮箱白名单，RBAC 未落服务端——架构级，需决策）
 - [ ] **C2 rateLimit 未显式配置**（BetterAuth 默认宽松，多实例共享需 Redis——需基础设施）
 - [ ] **C3 `.env` 密钥单引号**（dotenv 解析隐患——需本地手动修改）
-- [ ] **C4 邮件发件人硬编码**（`no-reply@baiwumm.com` → 环境变量）
 - [ ] **C5 CSP `img-src` 过宽**（收紧白名单）
 
 ## D 类 · 架构债

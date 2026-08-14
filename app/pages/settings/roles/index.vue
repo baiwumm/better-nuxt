@@ -8,7 +8,7 @@ import PermissionsModal from './components/PermissionsModal.vue'
 const { getRoleList, insertRole, updateRole, delRole, getMenuList } = useSettingsApi()
 const { i18nCommon, i18nPermissions } = useMessage()
 const { successToast } = useAppToast()
-const { initialPagination, pageSizeOptions } = usePagination()
+const { initialPagination, pageSizeOptions } = { initialPagination: INITIAL_PAGINATION, pageSizeOptions: PAGE_SIZE_OPTIONS }
 const { getPermissionRaw } = usePermissions()
 
 const table = useTemplateRef('table')

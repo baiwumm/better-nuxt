@@ -1,7 +1,17 @@
+import type { PaginationState } from '@tanstack/vue-table'
 import type { ClassValue } from 'clsx'
 import { faker } from '@faker-js/faker'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+
+/** 默认分页状态（表格分页组件消费，只读） */
+export const INITIAL_PAGINATION: PaginationState = {
+  pageIndex: 0,
+  pageSize: 10,
+}
+
+/** 分页大小选项 */
+export const PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
 
 /**
  * @description: 合并类名

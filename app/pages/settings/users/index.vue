@@ -9,7 +9,7 @@ import HeaderContent from './components/HeaderContent.vue'
 import ResetPasswordModal from './components/ResetPasswordModal.vue'
 import SessionsModal from './components/SessionsModal.vue'
 
-const { initialPagination, pageSizeOptions } = usePagination()
+const { initialPagination, pageSizeOptions } = { initialPagination: INITIAL_PAGINATION, pageSizeOptions: PAGE_SIZE_OPTIONS }
 const { getUserList, getRoleList } = useSettingsApi()
 const { $authClient } = useNuxtApp()
 const { i18nCommon } = useMessage()

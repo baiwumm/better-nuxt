@@ -7,7 +7,7 @@ import HeaderContent from './components/HeaderContent.vue'
 const { getDepartmentList, getPostList, insertPost, updatePost, delPost } = useAdministrativeApi()
 const { i18nCommon } = useMessage()
 const { successToast } = useAppToast()
-const { initialPagination, pageSizeOptions } = usePagination()
+const { initialPagination, pageSizeOptions } = { initialPagination: INITIAL_PAGINATION, pageSizeOptions: PAGE_SIZE_OPTIONS }
 
 const table = useTemplateRef('table')
 const open = ref(false)

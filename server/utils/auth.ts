@@ -17,6 +17,13 @@ import * as schema from '@/db/schema'
 
 const resend = new Resend(process.env.NUXT_RESEND_API_KEY)
 
+/**
+ * 邮件发件人（可用 NUXT_MAIL_FROM 环境变量覆盖，默认 no-reply@baiwumm.com）
+ */
+function getMailFrom(appName?: string) {
+  return `${appName} <${process.env.NUXT_MAIL_FROM || 'no-reply@baiwumm.com'}>`
+}
+
 export const auth = betterAuth({
   appName: process.env.NUXT_SITE_NAME,
   database: drizzleAdapter(db, {
@@ -34,7 +41,7 @@ export const auth = betterAuth({
         ).default
         const html = await render(EmailChangedEmail, { url, oldEmail: user.email, newEmail, appName })
         await resend.emails.send({
-          from: `${appName} <no-reply@baiwumm.com>`,
+          from: getMailFrom(appName),
           to: newEmail,
           subject: '更改您的电子邮件地址',
           html,
@@ -53,7 +60,7 @@ export const auth = betterAuth({
       ).default
       const html = await render(ResetPasswordEmail, { url, email: user.email, appName })
       await resend.emails.send({
-        from: `${appName} <no-reply@baiwumm.com>`,
+        from: getMailFrom(appName),
         to: user.email,
         subject: '重置您的密码',
         html,
@@ -71,7 +78,7 @@ export const auth = betterAuth({
       ).default
       const html = await render(EmailVerificationEmail, { url, email: user.email, appName })
       await resend.emails.send({
-        from: `${appName} <no-reply@baiwumm.com>`,
+        from: getMailFrom(appName),
         to: user.email,
         subject: '验证您的电子邮件地址',
         html,
@@ -107,7 +114,7 @@ export const auth = betterAuth({
         ).default
         const html = await render(MagicLinkEmail, { url, email, appName })
         await resend.emails.send({
-          from: `${appName} <no-reply@baiwumm.com>`,
+          from: getMailFrom(appName),
           to: email,
           subject: '邮箱一键登录',
           html,

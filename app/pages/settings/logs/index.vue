@@ -5,7 +5,7 @@ import HeaderContent from './components/HeaderContent.vue'
 
 const { getLogsList, delLogs } = useSettingsApi()
 const { i18nCommon, i18nLogs } = useMessage()
-const { initialPagination, pageSizeOptions } = usePagination()
+const { initialPagination, pageSizeOptions } = { initialPagination: INITIAL_PAGINATION, pageSizeOptions: PAGE_SIZE_OPTIONS }
 const { successToast } = useAppToast()
 
 const table = useTemplateRef('table')

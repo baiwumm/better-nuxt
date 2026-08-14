@@ -100,14 +100,10 @@ export default defineNuxtConfig({
   $production: {
     scripts: {
       registry: {
+        // 精简：仅保留 Vercel Analytics（免费内置），移除 GA/Clarity/Cloudflare 冗余统计
         vercelAnalytics: {
           trigger: 'onNuxtReady',
         },
-        clarity: {
-          trigger: 'onNuxtReady',
-        },
-        googleAnalytics: { trigger: 'onNuxtReady' },
-        cloudflareWebAnalytics: { trigger: 'onNuxtReady' },
       },
     },
   },

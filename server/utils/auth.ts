@@ -239,6 +239,18 @@ export const auth = betterAuth({
       secretKey: process.env.TURNSTILE_SECRET_KEY!,
     }),
   ],
+  // 限流（暴力破解防护）：显式配置 + 敏感端点收紧
+  // 总量保持宽松避免误伤；登录/注册/重置密码端点 10 秒窗口严格限制
+  rateLimit: {
+    enabled: true,
+    window: 60,
+    max: 100,
+    customRules: {
+      '/sign-in/email': { window: 10, max: 5 },
+      '/sign-up/email': { window: 10, max: 3 },
+      '/request-password-reset': { window: 60, max: 5 },
+    },
+  },
   // 数据库钩子
   databaseHooks: {
     user: {

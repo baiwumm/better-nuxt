@@ -14,20 +14,31 @@ export const useMenuStore = defineStore('menu-store', () => {
   const menuTree = ref<MenuTree[]>([])
   const loading = ref(false)
   const inited = ref(false)
+  // 进行中的菜单请求（防并发重复拉取）
+  let pendingPromise: Promise<void> | null = null
   const { user } = useCurrentUser()
 
   const { getMenus } = useAccountApi()
 
   const fetchMenuTree = async () => {
+    // in-flight 防重：并发调用共享同一请求（middleware 与 watch 可能同时触发）
+    if (pendingPromise)
+      return pendingPromise
+
     loading.value = true
-    try {
-      const res = await getMenus()
-      menuTree.value = res.data ?? []
-    }
-    finally {
-      loading.value = false
-      inited.value = true
-    }
+    pendingPromise = (async () => {
+      try {
+        const res = await getMenus()
+        menuTree.value = res.data ?? []
+      }
+      finally {
+        loading.value = false
+        inited.value = true
+        pendingPromise = null
+      }
+    })()
+
+    return pendingPromise
   }
 
   const init = async () => {

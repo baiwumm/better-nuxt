@@ -38,9 +38,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
     to.matched.at(-1)?.path ?? to.path,
   )
 
-  // 菜单还没准备好，不判断权限
-  if (!menuStore.inited || menuStore.loading)
-    return
+  // 菜单未就绪时等待加载完成后再校验权限（首次导航/直接输入 URL 也能生效）
+  if (!menuStore.inited || menuStore.loading) {
+    await menuStore.init()
+  }
 
   const menu = menuStore.menuPathMap.get(routePath)
 

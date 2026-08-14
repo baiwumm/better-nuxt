@@ -33,32 +33,27 @@ const query = reactive<Pick<UserQueryParams, 'keyword'>>({
   keyword: undefined,
 })
 
-// 获取角色列表
-const { data: roleList } = await useAsyncData(
-  'user-roleList',
-  async () => {
-    const res = await getRoleList({ page: 1, pageSize: 9999 })
-    return res?.data?.list
-  },
-  {
-    default: () => [],
-  },
-)
-
-// 获取用户列表
+// 角色列表与用户列表并行获取（避免串行瀑布）
 const { data, pending: loading, refresh } = await useAsyncData(
   'user-manage',
   async () => {
-    const res = await getUserList({ page: pagination.value.pageIndex + 1, pageSize: pagination.value.pageSize, ...query })
-    return res?.data
+    const [roleRes, userRes] = await Promise.all([
+      getRoleList({ page: 1, pageSize: 9999 }),
+      getUserList({ page: pagination.value.pageIndex + 1, pageSize: pagination.value.pageSize, ...query }),
+    ])
+    return {
+      roles: roleRes?.data?.list ?? [],
+      users: userRes?.data,
+    }
   },
   {
     // 如果存在待处理的请求，则完全不发出新的请求
     dedupe: 'defer',
   },
 )
-const list = computed(() => data.value?.list ?? [])
-const total = computed(() => data.value?.total ?? 0)
+const roleList = computed(() => data.value?.roles ?? [])
+const list = computed(() => data.value?.users?.list ?? [])
+const total = computed(() => data.value?.users?.total ?? 0)
 
 const { mutate: unbanUser } = useUnbanUser({
   onSuccess: refresh,

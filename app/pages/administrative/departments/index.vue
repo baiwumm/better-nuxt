@@ -22,42 +22,39 @@ const query = reactive<DepartmentQueryParams>({
   code: undefined,
 })
 
-// 获取用户列表
-const { data: userList } = await useAsyncData(
-  'departments-users',
-  async () => {
-    const res = await getUserList({ page: userPage.value, pageSize: 10 })
-    return res?.data ?? []
-  },
-  {
-    watch: [userPage],
-    default: () => [],
-    transform: (data) => {
-      return data.list.map((item) => {
-        const label = getUserDisplayName(item)
-        return {
-          ...item,
-          label,
-          value: item.id,
-          avatar: {
-            src: item.image ?? undefined,
-            alt: label,
-            loading: 'lazy' as const,
-          },
-        }
-      }) ?? []
-    },
-  },
-)
-
-// 获取部门列表
+// 用户列表与部门列表并行获取（避免串行瀑布）
 const { data, pending: loading, refresh } = await useAsyncData(
   'department-list',
   async () => {
-    const res = await getDepartmentList({ ...query })
-    return res?.data ?? []
+    const [userRes, depRes] = await Promise.all([
+      getUserList({ page: userPage.value, pageSize: 10 }),
+      getDepartmentList({ ...query }),
+    ])
+    // 用户选择器数据转换
+    const userOptions = (userRes?.data?.list ?? []).map((item) => {
+      const label = getUserDisplayName(item)
+      return {
+        ...item,
+        label,
+        value: item.id,
+        avatar: {
+          src: item.image ?? undefined,
+          alt: label,
+          loading: 'lazy' as const,
+        },
+      }
+    })
+    return {
+      users: userOptions,
+      departments: depRes?.data ?? [],
+    }
+  },
+  {
+    watch: [userPage],
+    default: () => ({ users: [], departments: [] }),
   },
 )
+const userList = computed(() => data.value?.users ?? [])
 
 const { columns } = useDepartmentsColumns({
   saveLoading,
@@ -134,7 +131,7 @@ watch(open, (val) => {
       v-model:column-pinning="columnPinning"
       sticky
       :loading
-      :data
+      :data="data?.departments || []"
       :columns="columns"
       :get-sub-rows="(row) => row.children"
       :get-row-id="row => row.id"
@@ -151,7 +148,7 @@ watch(open, (val) => {
       v-model="open"
       v-model:user-page="userPage"
       :data="editData"
-      :department-tree="data || []"
+      :department-tree="data?.departments || []"
       :loading="saveLoading"
       :form-key
       :user-list

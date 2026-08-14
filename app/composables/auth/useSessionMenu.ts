@@ -12,11 +12,19 @@ export async function useSessionMenu() {
   const { user: currentUser, getUserDisplayName } = useCurrentUser()
   const { errorToast } = useAppToast()
 
-  const { data: sessions } = await $authClient.multiSession.listDeviceSessions()
+  // 多会话数据：纯客户端获取（SSR 无 cookie 转发无意义），避免 setup 顶层裸 await 双重执行
+  // key 含用户 id，切换账户后自动重新获取
+  const { data: sessions } = await useAsyncData(
+    () => `device-sessions-${currentUser.value?.id ?? 'anon'}`,
+    () => $authClient.multiSession.listDeviceSessions().then(res => res.data ?? []),
+    {
+      server: false,
+    },
+  )
 
   const sessionItems = computed<DropdownMenuItem[]>(() => {
     return (
-      sessions?.map(({ session, user }) => {
+      sessions.value?.map(({ session, user }) => {
         const userName = getUserDisplayName(user as User)
         const isCurrent = user?.id === currentUser.value?.id
         return {

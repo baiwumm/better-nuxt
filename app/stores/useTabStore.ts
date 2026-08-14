@@ -163,5 +163,29 @@ export const useTabStore = defineStore('tab-store', () => {
   }
 }, {
   // 开启持久化
-  persist: true,
+  persist: {
+    /**
+     * Map 无法被 JSON 默认序列化（会被存成 {}，刷新后 set/has 崩溃）
+     * 自定义 serializer：Map ↔ 数组互转
+     */
+    serializer: {
+      serialize: (state) => {
+        return JSON.stringify({
+          ...state,
+          tagMap: Array.from(state.tagMap),
+        })
+      },
+      deserialize: (raw) => {
+        const parsed = JSON.parse(raw)
+
+        return {
+          ...parsed,
+          // 兼容旧数据：非数组（如默认序列化产生的 {}）时重置为空 Map
+          tagMap: Array.isArray(parsed.tagMap)
+            ? new Map(parsed.tagMap)
+            : new Map(),
+        }
+      },
+    },
+  },
 })

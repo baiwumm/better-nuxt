@@ -30,6 +30,8 @@ export function useAccountInfo(accountId: MaybeRefOrGetter<string | undefined>) 
     },
     {
       watch: [() => toValue(accountId)],
+      // 纯客户端数据（SSR 调用 $authClient 无 cookie 无收益）
+      server: false,
     },
   )
 }

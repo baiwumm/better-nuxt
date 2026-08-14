@@ -44,15 +44,14 @@ function generateData(days = 12): TrafficData[] {
   return data
 }
 
-// 获取数据
+// 获取数据（模拟随机数据无 SSR 价值，改纯客户端生成，避免阻塞 SSR 首屏 2 秒）
+// 注意不可用 lazy：lazy 的 useAsyncData 需 watch/execute 才触发，否则图表恒为空
 const { data: chartData, pending, refresh } = await useAsyncData(
   'traffic-source-data',
-  async () => {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    return generateData()
-  },
+  () => generateData(),
   {
     default: () => [],
+    server: false,
   },
 )
 

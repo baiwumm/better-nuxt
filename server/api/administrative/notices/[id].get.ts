@@ -7,40 +7,21 @@
  */
 import { eq } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { noticeReads, notices } from '@/db/schema'
+import { notices } from '@/db/schema'
 
 export default defineEventHandler(async (event) => {
   try {
     const id = event.context.params!.id
 
-    // 获取用户会话信息
-    const session = await auth.api.getSession({
-      headers: event.headers,
-    })
-
     if (!id) {
       return responseSuccess(null, '缺少参数 id', RESPONSE_CODE.BAD_REQUEST)
     }
 
-    // 已登录用户记录已读
-    if (session?.user?.id) {
-      await db
-        .insert(noticeReads)
-        .values({
-          noticeId: id,
-          userId: session.user.id,
-        })
-        .onConflictDoNothing() // 防止重复插入
-    }
-
+    // 详情页无需已读列表（打开即标记已读，isRead 恒为 true），避免加载全部已读记录与用户信息
+    // 已读标记已拆分为独立 POST 接口（/administrative/notices/:id/read），GET 不再写库
     const notice = await db.query.notices.findFirst({
       where: eq(notices.id, id),
       with: {
-        reads: {
-          with: {
-            user: true,
-          },
-        },
         author: true,
       },
     })

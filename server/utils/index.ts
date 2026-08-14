@@ -13,7 +13,10 @@ export function responseSuccess(
  * @description: 请求失败
  */
 export function responseError(data: unknown, msg = RESPONSE_CODE.label(RESPONSE_CODE.SERVER_ERROR)): IResponse {
-  return { data, msg, code: RESPONSE_CODE.SERVER_ERROR, timestamp: Date.now() }
+  // Error 对象无法被 JSON 序列化（Error→{}、ZodError→issues 数组会泄露字段结构），统一置空
+  const safeData = data instanceof Error ? null : data
+
+  return { data: safeData, msg, code: RESPONSE_CODE.SERVER_ERROR, timestamp: Date.now() }
 }
 
 /**

@@ -1,4 +1,4 @@
-import { dashClient, sentinelClient } from '@better-auth/infra/client'
+import { dashClient } from '@better-auth/infra/client'
 import { adminClient, lastLoginMethodClient, magicLinkClient, multiSessionClient, usernameClient } from 'better-auth/client/plugins'
 import { createAuthClient } from 'better-auth/vue'
 
@@ -17,10 +17,6 @@ export default defineNuxtPlugin(() => {
         resolveUserId: ({ userId, user, session }) => {
           return (userId || user?.id || session?.user?.id) ?? undefined
         },
-      }),
-      sentinelClient({
-        identifyUrl: process.env.BETTER_AUTH_IDENTIFY_URL,
-        autoSolveChallenge: true,
       }),
     ],
   })

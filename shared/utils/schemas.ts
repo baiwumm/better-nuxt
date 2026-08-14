@@ -5,8 +5,9 @@ import { z } from 'zod'
  */
 export const UserQuerySchema = z.object({
   keyword: z.string().optional(),
-  page: z.coerce.number().default(1),
-  pageSize: z.coerce.number().default(10),
+  page: z.coerce.number().min(1).default(1),
+  // 用户表会增长，限制单页拉取量
+  pageSize: z.coerce.number().min(1).max(100).default(10),
 })
 
 /**
@@ -32,8 +33,9 @@ export const RoleQuerySchema = z.object({
     .transform(val => val === 'true')
     .optional()
     .catch(undefined),
-  page: z.coerce.number().default(1),
-  pageSize: z.coerce.number().default(10),
+  page: z.coerce.number().min(1).default(1),
+  // 角色为小表，允许一次拉全量（用户管理页分配角色用）
+  pageSize: z.coerce.number().min(1).max(10000).default(10),
 })
 
 /**
@@ -55,8 +57,9 @@ export const LogQuerySchema = z.object({
     v => v === '' ? undefined : v,
     z.enum(['GET', 'POST', 'PUT', 'DELETE']).optional(),
   ),
-  page: z.coerce.number().default(1),
-  pageSize: z.coerce.number().default(10),
+  page: z.coerce.number().min(1).default(1),
+  // 日志表持续增长，限制单页拉取量
+  pageSize: z.coerce.number().min(1).max(100).default(10),
 })
 
 /**
@@ -92,8 +95,9 @@ export const DepartmentQuerySchema = z.object({
 export const PostQuerySchema = z.object({
   name: z.string().optional(),
   code: z.string().optional(),
-  page: z.coerce.number().default(1),
-  pageSize: z.coerce.number().default(10),
+  page: z.coerce.number().min(1).default(1),
+  // 岗位为小表，允许一次拉全量
+  pageSize: z.coerce.number().min(1).max(10000).default(10),
 })
 
 /**
@@ -111,6 +115,7 @@ export const NoticesQuerySchema = z.object({
     .transform(val => val === 'true')
     .optional()
     .catch(undefined),
-  page: z.coerce.number().default(1),
-  pageSize: z.coerce.number().default(10),
+  page: z.coerce.number().min(1).default(1),
+  // 通知中心一次拉取 999 条，放宽上限
+  pageSize: z.coerce.number().min(1).max(1000).default(10),
 })

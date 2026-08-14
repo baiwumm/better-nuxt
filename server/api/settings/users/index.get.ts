@@ -34,13 +34,23 @@ export default defineEventHandler(async (event) => {
         limit: pageSize,
         offset: (page - 1) * pageSize,
         with: {
-          accounts: true,
+          // 仅返回 providerId，避免 OAuth token / 密码哈希等敏感字段泄露
+          accounts: {
+            columns: {
+              providerId: true,
+            },
+          },
           roles: {
             with: {
               role: true,
             },
           },
-          departments: true,
+          // 仅返回部门名称（前端列表只展示名称）
+          departments: {
+            columns: {
+              name: true,
+            },
+          },
         },
       }),
 

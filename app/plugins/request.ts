@@ -5,7 +5,7 @@
  * @LastEditTime: 2026-06-17 15:32:34
  * @Description: $fetch 请求封装
  */
-import { defineNuxtPlugin, navigateTo, useCookie } from '#app'
+import { defineNuxtPlugin, navigateTo, useCookie, useRequestHeaders } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { start, finish } = useLoadingIndicator()
@@ -19,9 +19,22 @@ export default defineNuxtPlugin((nuxtApp) => {
       start({ force: true })
 
       /**
-       * 🔐 注入 token（BetterAuth）
+       * 🔐 认证注入：
+       * - SSR：服务端内部请求不自动携带 Cookie，须手动转发。
+       *   BetterAuth 会话校验只认 Cookie（cookie 名 better-auth.session_token），不解析 Authorization
+       * - 客户端：浏览器同源请求自动携带 Cookie；补充注入 Authorization（备用）
        */
-      const token = useCookie('better-auth.session-token').value
+      if (import.meta.server) {
+        const cookie = useRequestHeaders(['cookie']).cookie
+
+        if (cookie) {
+          options.headers.set('cookie', cookie)
+        }
+
+        return
+      }
+
+      const token = useCookie('better-auth.session_token').value
 
       if (token) {
         options.headers.set('Authorization', `Bearer ${token}`)
@@ -56,8 +69,11 @@ export default defineNuxtPlugin((nuxtApp) => {
           color: 'error',
         })
 
-        // 重定向到登录页
-        await nuxtApp.runWithContext(() => navigateTo('/login'))
+        // 重定向到登录页（真实路由为 /auth/sign-in）
+        await nuxtApp.runWithContext(() => navigateTo('/auth/sign-in'))
+
+        // 401 已单独提示，避免重复 toast
+        return
       }
 
       toast.add({

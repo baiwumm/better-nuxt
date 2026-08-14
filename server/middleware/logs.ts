@@ -10,6 +10,44 @@ import { UAParser } from 'ua-parser-js'
 import { db } from '@/db/drizzle'
 import { ipGeos, logs } from '@/db/schema'
 
+// 敏感字段黑名单：命中即掩码，防止密码/token 等明文落库
+const SENSITIVE_KEYS = [
+  'password',
+  'oldPassword',
+  'newPassword',
+  'confirmPassword',
+  'token',
+  'secret',
+  'accessToken',
+  'refreshToken',
+  'idToken',
+  'x-captcha-response',
+  'authorization',
+]
+
+/**
+ * 递归脱敏请求体中的敏感字段
+ * @param data 请求体
+ * @param depth 递归深度上限，防止循环引用
+ */
+function maskSensitiveFields(data: unknown, depth = 0): unknown {
+  if (depth > 5 || data == null || typeof data !== 'object')
+    return data
+
+  if (Array.isArray(data))
+    return data.map(item => maskSensitiveFields(item, depth + 1))
+
+  const result: Record<string, unknown> = {}
+
+  for (const [key, value] of Object.entries(data)) {
+    result[key] = SENSITIVE_KEYS.includes(key)
+      ? '***'
+      : maskSensitiveFields(value, depth + 1)
+  }
+
+  return result
+}
+
 export default defineEventHandler(async (event) => {
   const method = event.method as Methods
   const url = getRequestURL(event)
@@ -77,7 +115,7 @@ export default defineEventHandler(async (event) => {
 
     method,
 
-    params: body ?? undefined,
+    params: maskSensitiveFields(body) ?? undefined,
 
     device: device.type ?? 'desktop',
 

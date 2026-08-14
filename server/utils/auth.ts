@@ -1,9 +1,9 @@
-import { dash, sentinel } from '@better-auth/infra'
+import { dash } from '@better-auth/infra'
 /*
  * @Author: 白雾茫茫丶<baiwumm.com>
  * @Date: 2026-03-18 17:01:16
  * @LastEditors: 白雾茫茫丶<baiwumm.com>
- * @LastEditTime: 2026-06-25 10:24:40
+ * @LastEditTime: 2026-06-30 16:48:49
  * @Description: BetterAuth 实例
  */
 import { render } from '@vue-email/render'
@@ -131,106 +131,106 @@ export const auth = betterAuth({
         enabled: true,
       },
     }),
-    sentinel({
-      apiKey: process.env.BETTER_AUTH_API_KEY,
+    // sentinel({
+    //   apiKey: process.env.BETTER_AUTH_API_KEY,
 
-      security: {
-        /**
-         * 撞库攻击防护
-         *
-         * 同一访客短时间内大量登录失败时触发
-         *
-         * challenge: 要求额外验证
-         * block: 直接封禁
-         */
-        credentialStuffing: {
-          enabled: true,
-          thresholds: {
-            challenge: 10,
-            block: 20,
-          },
-        },
+    //   security: {
+    //     /**
+    //      * 撞库攻击防护
+    //      *
+    //      * 同一访客短时间内大量登录失败时触发
+    //      *
+    //      * challenge: 要求额外验证
+    //      * block: 直接封禁
+    //      */
+    //     credentialStuffing: {
+    //       enabled: true,
+    //       thresholds: {
+    //         challenge: 10,
+    //         block: 20,
+    //       },
+    //     },
 
-        /**
-         * 泄露密码检测
-         *
-         * 阻止用户使用已出现在公开泄露数据库中的密码
-         */
-        compromisedPassword: {
-          enabled: true,
-          action: 'block',
-        },
+    //     /**
+    //      * 泄露密码检测
+    //      *
+    //      * 阻止用户使用已出现在公开泄露数据库中的密码
+    //      */
+    //     compromisedPassword: {
+    //       enabled: true,
+    //       action: 'block',
+    //     },
 
-        /**
-         * 邮箱质量检测
-         *
-         * 检测：
-         * - 临时邮箱
-         * - 一次性邮箱
-         * - 异常邮箱
-         */
-        emailValidation: {
-          enabled: true,
-          strictness: 'medium',
-          action: 'block',
-        },
+    //     /**
+    //      * 邮箱质量检测
+    //      *
+    //      * 检测：
+    //      * - 临时邮箱
+    //      * - 一次性邮箱
+    //      * - 异常邮箱
+    //      */
+    //     emailValidation: {
+    //       enabled: true,
+    //       strictness: 'medium',
+    //       action: 'block',
+    //     },
 
-        /**
-         * 不可能旅行检测
-         *
-         * 例如：
-         * 5分钟前在香港登录
-         * 现在又在美国登录
-         *
-         * 这种情况通常是账号共享、
-         * Cookie 泄露或代理切换导致
-         */
-        impossibleTravel: {
-          enabled: true,
-          action: 'challenge',
-        },
+    //     /**
+    //      * 不可能旅行检测
+    //      *
+    //      * 例如：
+    //      * 5分钟前在香港登录
+    //      * 现在又在美国登录
+    //      *
+    //      * 这种情况通常是账号共享、
+    //      * Cookie 泄露或代理切换导致
+    //      */
+    //     impossibleTravel: {
+    //       enabled: true,
+    //       action: 'challenge',
+    //     },
 
-        /**
-         * 注册频率限制
-         *
-         * 防止机器人批量注册账号
-         */
-        velocity: {
-          enabled: true,
-          maxSignupsPerVisitor: 5,
-          action: 'challenge',
-        },
+    //     /**
+    //      * 注册频率限制
+    //      *
+    //      * 防止机器人批量注册账号
+    //      */
+    //     velocity: {
+    //       enabled: true,
+    //       maxSignupsPerVisitor: 5,
+    //       action: 'challenge',
+    //     },
 
-        /**
-         * 机器人检测
-         *
-         * 已经有 Turnstile 的情况下
-         * 可以继续保留
-         */
-        // botBlocking: {
-        //   action: 'challenge',
-        // },
+    //     /**
+    //      * 机器人检测
+    //      *
+    //      * 已经有 Turnstile 的情况下
+    //      * 可以继续保留
+    //      */
+    //     // botBlocking: {
+    //     //   action: 'challenge',
+    //     // },
 
-        /**
-         * 可疑 IP 检测
-         *
-         * 数据中心 IP
-         * 已知恶意 IP
-         * VPN 等
-         *
-         * 建议 challenge
-         * 不要直接 block
-         * 否则容易误伤正常用户
-         */
-        suspiciousIpBlocking: {
-          action: 'challenge',
-        },
-      },
-    }),
-    // captcha({
-    //   provider: 'cloudflare-turnstile',
-    //   secretKey: process.env.TURNSTILE_SECRET_KEY!,
+    //     /**
+    //      * 可疑 IP 检测
+    //      *
+    //      * 数据中心 IP
+    //      * 已知恶意 IP
+    //      * VPN 等
+    //      *
+    //      * 建议 challenge
+    //      * 不要直接 block
+    //      * 否则容易误伤正常用户
+    //      */
+    //     suspiciousIpBlocking: {
+    //       action: 'challenge',
+    //     },
+    //   },
     // }),
+    captcha({
+      provider: 'cloudflare-turnstile',
+      secretKey: process.env.TURNSTILE_SECRET_KEY!,
+    }),
   ],
   // 数据库钩子
   databaseHooks: {

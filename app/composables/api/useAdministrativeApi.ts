@@ -92,6 +92,12 @@ export function useAdministrativeApi() {
   const getNoticeDetail = (id: string) =>
     get<Notice>(`/administrative/notices/${id}`)
 
+  /**
+   * @description: 标记公告已读（独立 POST，避免 GET 详情写库）
+   */
+  const markNoticeRead = (id: string) =>
+    post<Notice>(`/administrative/notices/${id}/read`)
+
   return {
     getDepartmentList,
     insertDepartment,
@@ -107,5 +113,6 @@ export function useAdministrativeApi() {
     delNotice,
     getNoticesUserList,
     getNoticeDetail,
+    markNoticeRead,
   }
 }

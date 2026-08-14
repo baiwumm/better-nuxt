@@ -5,7 +5,7 @@ import NoticeContent from './components/NoticeContent.vue'
 import NoticeList from './components/NoticeList.vue'
 import NoticeSkeleton from './components/NoticeSkeleton.vue'
 
-const { getNoticeList, getNoticeDetail } = useAdministrativeApi()
+const { getNoticeList, getNoticeDetail, markNoticeRead } = useAdministrativeApi()
 const noticeId = ref<string | null>(null)
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isMobile = breakpoints.smaller('lg')
@@ -57,7 +57,7 @@ const {
   },
 )
 
-watch(noticeId, (id) => {
+watch(noticeId, async (id) => {
   if (!id) {
     return
   }
@@ -72,6 +72,12 @@ watch(noticeId, (id) => {
       0,
       unreadCount.value - 1,
     )
+
+    // 服务端持久化已读（独立 POST，失败静默不影响 UI）
+    try {
+      await markNoticeRead(id)
+    }
+    catch {}
   }
 })
 

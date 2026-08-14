@@ -48,7 +48,15 @@ export default defineEventHandler(async (event) => {
         with: {
           reads: {
             with: {
-              user: true,
+              // 已读头像列只需要显示名/头像，裁剪掉邮箱等敏感字段
+              user: {
+                columns: {
+                  displayUsername: true,
+                  username: true,
+                  name: true,
+                  image: true,
+                },
+              },
             },
           },
           author: true,

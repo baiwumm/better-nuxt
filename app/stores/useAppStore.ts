@@ -12,9 +12,16 @@ type Transition = typeof ROUTE_TRANSITION.valueType
 export const useAppStore = defineStore('app-store', () => {
   const appConfig = useAppConfig()
   const colorMode = useColorMode()
+  // 主题偏好（cookie 持久化：SSR 可读请求 Cookie，避免水合闪烁 FOUC；30 天有效期）
   // 主题色
-  const primaryColor = ref(appConfig.ui.colors.primary)
-  const blackAsPrimary = ref(true)
+  const primaryColor = useCookie<string>('app-primary-color', {
+    default: () => appConfig.ui.colors.primary,
+    maxAge: 60 * 60 * 24 * 30,
+  })
+  const blackAsPrimary = useCookie<boolean>('app-black-as-primary', {
+    default: () => true,
+    maxAge: 60 * 60 * 24 * 30,
+  })
   const setPrimaryColor = (color: string) => {
     primaryColor.value = color
   }
@@ -23,13 +30,19 @@ export const useAppStore = defineStore('app-store', () => {
   }
 
   // 圆角
-  const radius = ref(0.25)
+  const radius = useCookie<number>('app-radius', {
+    default: () => 0.25,
+    maxAge: 60 * 60 * 24 * 30,
+  })
   const setRadius = (val: number) => {
     radius.value = val
   }
 
   // 路由动画
-  const transition = ref<Transition>(ROUTE_TRANSITION.DEFAULT)
+  const transition = useCookie<Transition>('app-transition', {
+    default: () => ROUTE_TRANSITION.DEFAULT,
+    maxAge: 60 * 60 * 24 * 30,
+  })
   const setTransition = (val: Transition) => {
     transition.value = val
   }
@@ -47,7 +60,4 @@ export const useAppStore = defineStore('app-store', () => {
     transition,
     setTransition,
   }
-}, {
-  // 开启持久化
-  persist: true,
 })

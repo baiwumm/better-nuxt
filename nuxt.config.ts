@@ -121,7 +121,10 @@ export default defineNuxtConfig({
           '\'self\'',
           'data:',
           'blob:',
-          'https:',
+          // 收紧：仅允许实际使用的图片域（头像/演示头像），移除 https: 通配
+          'https://i.pravatar.cc',
+          'https://avatars.githubusercontent.com',
+          'https://lh3.googleusercontent.com',
         ],
       },
       permissionsPolicy: {

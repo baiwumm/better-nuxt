@@ -1,11 +1,10 @@
 # 待修复清单
 
 > **维护规则**：完成一项即从本清单删除该行；详细修复记录见 `docs/optimizations/` 对应迭代文档。
-> **最后更新**：2026-08-14（完成 B4、C4）
+> **最后更新**：2026-08-14（完成 B4、C4；移除 B1——演示系统不强制完整 i18n）
 
 ## B 类 · 前端质量
 
-- [ ] **B1 硬编码中文未走 i18n**（TodoList / WeekHeatmap / TrafficSource / hub overview 等 5+ 组件）
 - [ ] **B2 appStore 持久化 FOUC**（主题/圆角 SSR 与客户端不一致，首屏闪烁）
 - [ ] **B3 useSchema 混合翻译**（静态 `t()` 与 `$i18n:` key 混用，切换语言不更新）
 

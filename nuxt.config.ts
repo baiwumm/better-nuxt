@@ -83,6 +83,14 @@ export default defineNuxtConfig({
     rollupConfig: {
       plugins: [vue()],
     },
+    experimental: {
+      // 启用 Nitro Tasks（server/tasks/ 目录自动注册）
+      tasks: true,
+    },
+    // 定时任务：每周一凌晨 3 点清理过期日志（Vercel 生产部署走平台级 cron，见 vercel.json）
+    scheduledTasks: {
+      '0 3 * * 1': ['clean-logs'],
+    },
   },
   scripts: {
     assets: {
